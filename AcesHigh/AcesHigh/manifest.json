@@ -1,0 +1,39 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/eui/eui.js",
+		"libs/modules/assetsmanager/assetsmanager.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/game/game.js",
+		"libs/modules/socket/socket.js",
+		"libs/modules/experimental/experimental.js",
+		"libs/modules/promise/promise.js",
+		"libs/modules/physics/physics.js"
+	],
+	"game": [
+		"bin-debug/feichuan/mokuai/MoKuaiBase.js",
+		"bin-debug/zidan/ZiDanBase.js",
+		"bin-debug/feichuan/FaiChuanBase.js",
+		"bin-debug/feichuan/zhuangjia/ZhuangJiaBase.js",
+		"bin-debug/scene/SceneBase.js",
+		"bin-debug/wuqi/WuQiBase.js",
+		"bin-debug/constant/GameConstant.js",
+		"bin-debug/AssetAdapter.js",
+		"bin-debug/Main.js",
+		"bin-debug/feichuan/zhuangjia/PuTongZhuangJia.js",
+		"bin-debug/Platform.js",
+		"bin-debug/LoadingUI.js",
+		"bin-debug/physics/Physics.js",
+		"bin-debug/ThemeAdapter.js",
+		"bin-debug/shuke/ShuKe.js",
+		"bin-debug/test/TestFeiChuan.js",
+		"bin-debug/test/TestGrid.js",
+		"bin-debug/test/TestScene.js",
+		"bin-debug/tools/Tools.js",
+		"bin-debug/wuqi/PuTonWuQi.js",
+		"bin-debug/canhai/CanHai.js",
+		"bin-debug/zidan/PuTongZiDan.js",
+		"bin-debug/hexin/DongLIHexin.js"
+	]
+}
