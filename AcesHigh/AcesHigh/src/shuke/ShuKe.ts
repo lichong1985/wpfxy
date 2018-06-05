@@ -3,7 +3,7 @@ module shuke {
 
         public yun_tu: number[][];
         constructor(battle_scene: scene.SceneBase) {
-            super(battle_scene, egret.Point.create(1500, 1550), GameConstant.ZHEN_YING.WO_JUN)
+            super(battle_scene, egret.Point.create(scene.scene_anch_x + 640 * 0.5, 2100), GameConstant.ZHEN_YING.WO_JUN)
             this.fc_type = feichuan.FC_TYPE.SUKE;
             this.initSuKe();
         }

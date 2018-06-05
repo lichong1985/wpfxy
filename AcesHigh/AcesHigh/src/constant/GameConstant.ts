@@ -16,41 +16,44 @@ module GameConstant {
 
 
     export function diaoluo(fc: feichuan.FeiChuanBase) {
-        //如果船体已经全部被打完则清除
-        if (fc.mokuai_size <= 0) {
-            let inx = fc.battle_scene.dijis.indexOf(fc);
-            fc.battle_scene.dijis.splice(inx);
-            fc.battle_scene.world.removeBody(fc);
-            fc = null;
-            return;
-        }
+
+        //将飞船分解列表 清空
         fc.updataFenJie();
         let map = fc.moKuaiList;
         mark = 0;
         let hx: mokuai.MoKuaiBase;
         //普通飞船
         if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
+
             hx = fc.hx;
             //标记核心
-            hx.mark_number = mark;
+            if (hx) {
+                hx.mark_number = mark;
+            }
 
         }
         //残骸
         if (fc.fc_type == feichuan.FC_TYPE.CANHAI) {
-            for (let i = 0; i < fc.moKuaiList.length; i++) {
-                for (let j = 0; j < fc.moKuaiList[i].length; j++) {
-                    if (fc.moKuaiList[i][j]) {
-                        hx = fc.moKuaiList[i][j];
-                        fc.moKuaiList[i][j].mark_number = mark;
-                    }
-                }
-            }
+            hx = markCanHai(fc);
         }
 
         //拓扑
         tuopu(map, hx, fc);
         // 染色 删除
         dell(map, fc)
+    }
+
+    //标记残骸 虚拟核心
+    function markCanHai(fc: feichuan.FeiChuanBase): mokuai.MoKuaiBase {
+        for (let i = 0; i < fc.moKuaiList.length; i++) {
+            for (let j = 0; j < fc.moKuaiList[i].length; j++) {
+                if (fc.moKuaiList[i][j]) {
+
+                    fc.moKuaiList[i][j].mark_number = mark;
+                    return fc.moKuaiList[i][j];
+                }
+            }
+        }
     }
 
     //删除掉落
@@ -62,6 +65,17 @@ module GameConstant {
 
     //飞船矩阵拓扑
     function tuopu(map: Array<Array<mokuai.MoKuaiBase>>, hx: mokuai.MoKuaiBase, fc: feichuan.FeiChuanBase) {
+        if (!hx) {
+            //将所有节点标记为 1
+            for (let h = 0; h < map.length; h++) {
+                for (let w = 0; w < map[h].length; w++) {
+                    if (map[h][w]) {
+                        map[h][w].mark_number = 1;
+                    }
+                }
+            }
+            return;
+        }
         hearList = new Array<mokuai.MoKuaiBase>();
         hearList.push(hx);
         //主题 抽离出来
@@ -162,14 +176,28 @@ module GameConstant {
                 map[hh][ww].mark_number = mark;
                 //将拓扑加入herd列表
                 hearList.push(map[hh][ww]);
-                // if (mark > 0) {
-                //     fc.fen_jie[mark].push(egret.Point.create(map[hh][ww].moKuaiPost.x, map[hh][ww].moKuaiPost.y));
-                //     fc.removeMoKuai.push(map[hh][ww]);
-
-                // }
-
             }
         }
+    }
+
+    //检测飞船模块数量 并删除
+    export function chackMoKuaiNumber(fc: feichuan.FeiChuanBase): boolean {
+        let is_save: boolean = false;
+        for (let h = 0; h < fc.moKuaiList.length; h++) {
+            for (let w = 0; w < fc.moKuaiList[h].length; w++) {
+                if (fc.moKuaiList[h][w]) {
+                    is_save = true;
+                }
+            }
+        }
+        if (!is_save) {
+            let inx = fc.battle_scene.dijis.indexOf(fc);
+            fc.battle_scene.dijis.splice(inx);
+            fc.battle_scene.world.removeBody(fc);
+            fc = null;
+            return false;
+        }
+        return true;
     }
 
 

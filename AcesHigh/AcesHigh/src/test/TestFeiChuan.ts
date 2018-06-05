@@ -12,39 +12,25 @@ module test {
         public box1: p2.Box;
         public box2: p2.Box;
         constructor(battle_scene: scene.SceneBase) {
-            super(battle_scene, egret.Point.create(1300, 1300), GameConstant.ZHEN_YING.DI_JUN)
-            this.initTestFchuan();
+            super(battle_scene, egret.Point.create(1200, 1300), GameConstant.ZHEN_YING.DI_JUN)
+
             this.fc_type = feichuan.FC_TYPE.DIJI;
+            this.initJson("6_1_json");
+            this.initTestFchuan();
         }
 
         //做一个 飞船
         public initTestFchuan() {
-            this.initYunTU();
-            this.initPro(this.yun_tu);
-            this.angle = Math.PI / 180 * 30;
             this.angularDamping = 0;
-            // this.angularForce = 2;
             this.mass = 100;
-        }
-
-
-
-        //初始化云图
-        public initYunTU() {
-            this.yun_tu =
-                [
-                    [2, 2, 2, 2, 2, 2, 2],
-                    [2, 0, 0, 2, 0, 0, 2],
-                    [0, 0, 0, 2, 0, 0, 0],
-                    [0, 2, 2, 2, 2, 2, 0],
-                    [0, 2, 0, 2, 0, 2, 0],
-                    [0, 2, 0, 1, 0, 2, 0],
-                    [0, 2, 0, 2, 0, 2, 0],
-                    [0, 2, 2, 2, 2, 2, 0],
-                    [0, 0, 0, 2, 0, 0, 0],
-                    [2, 0, 0, 2, 0, 0, 2],
-                    [2, 2, 2, 2, 2, 2, 2],
-                ]
+            // this.addAI(new ai.KeepDistanceAI(this, 5));
+            // this.addAI(new ai.ShiShiMiaoZhunAi(this));
+            // let ps: Array<egret.Point> = new Array<egret.Point>();
+            // ps.push(Tools.egretTOp2(egret.Point.create(1300, 1300)));
+            // ps.push(Tools.egretTOp2(egret.Point.create(1700, 1700)));
+            // this.addAI(new ai.MoveToAi(this, ps, true));
+            // this.addAI(new ai.ZhuanXiang(this));
+            this.addAI(new ai.RandomPointAi(this, ai.RANDOM_POINT.all, 2));
         }
 
     }

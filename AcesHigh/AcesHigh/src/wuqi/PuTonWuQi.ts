@@ -5,18 +5,19 @@ module wuqi {
         }
 
         public fashe(angel: number) {
-            super.fashe(angel)
-            let zd: zidan.PuTongZiDan = new zidan.PuTongZiDan(GameConstant.ZHEN_YING.WO_JUN, 0.0001);
-            let p: egret.Point = Tools.egretTOp2(egret.Point.create(this.x, this.y))
-            zd.position[0] = p.x;
-            zd.position[1] = p.y;
+            // super.fashe(angel)
+            // let zd: zidan.PuTongZiDan = new zidan.PuTongZiDan(GameConstant.ZHEN_YING.WO_JUN, 0.0001);
+            // let p: egret.Point = Tools.egretTOp2(egret.Point.create(this.x, this.y))
+            // zd.position[0] = p.x;
+            // zd.position[1] = p.y;
 
-            let rx = Math.cos(this.fc.angle) * 0 + Math.sin(this.fc.angle) * this.sudu;
-            let ry = -Math.sin(this.fc.angle) * 0 + Math.cos(this.fc.angle) * this.sudu;
+            // //画 重点
+            // let rx = Math.cos(this.fc.angle) * 0 + Math.sin(this.fc.angle) * this.sudu;
+            // let ry = -Math.sin(this.fc.angle) * 0 + Math.cos(this.fc.angle) * this.sudu;
 
-            this.fc.battle_scene.world.addBody(zd);
-            this.fc.battle_scene.addChild(zd.bitmap);
-            zd.velocity = [rx, ry];
+            // this.fc.battle_scene.world.addBody(zd);
+            // this.fc.battle_scene.addChild(zd.bitmap);
+            // zd.velocity = [rx, ry];
         }
     }
 }

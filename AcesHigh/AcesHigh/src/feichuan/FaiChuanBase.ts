@@ -70,22 +70,72 @@ module feichuan {
         //当前模块数量
         public mokuai_size: number = 0;
 
+        //ai 列表
+        public ais: Array<ai.AiBase>;
 
-
-
+        //飞船当前前往的 目的地坐标 null则没有
+        public p2_target: egret.Point;
 
         //TODO: 通过配置文件来加载
         constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING) {
             super({ mass: 1 })
+            //核心列表
             this.heXinList = new Array<mokuai.DongLiHeXin>();
+            //装甲列表
             this.zhuangJaList = new Array<zhuangjia.PuTongZhuangJia>();
-
+            //ai 列表 
+            this.ais = new Array<ai.AiBase>();
             this.egretWorldPoint = egretWorldPoint;
             this.battle_scene = battle_scene;
             this.zhenying = zhenying;
-
             this.initPhPost();
             this.initColl();
+        }
+
+
+
+        //初始化飞船
+        public initJson(res: string) {
+            let js = RES.getRes(res);
+            //读取飞船的宽高
+            this.W = js.layers[0].width;
+            this.H = js.layers[0].height;
+            this.initList(this.H, this.W);
+            let data = js.layers[0].data;
+            //初始化模块
+            this.moKuaiList = new Array(this.H);
+            let i: number = 0;
+            for (let h = 0; h < this.H; h++) {
+                this.moKuaiList[h] = new Array(this.W);
+                for (let w = 0; w < this.W; w++) {
+                    //读取节点信息
+                    if (data[i] == 0) {
+                        i++;
+                        continue;
+                    }
+
+                    let bitName: string = js.tiles[data[i] - 1].image.replace(".", "_");
+                    let hx: mokuai.MoKuaiBase;
+                    if (bitName == "ship6-81_png") {
+                        hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        this.hx = hx;
+                    } else {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+                    let hpp: egret.Point = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+                    let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+                    box.collisionGroup = this.collGroup;
+                    box.collisionMask = this.collMask;
+                    this.addShape(box, [hpp.x, hpp.y])
+                    this.moKuaiList[h][w] = hx;
+
+                    hx.boxShape = box;
+                    this.battle_scene.addChild(hx);
+                    this.mokuai_size++;
+                    i++;
+                }
+            }
+            this.battle_scene.world.addBody(this);
 
         }
 
@@ -95,20 +145,18 @@ module feichuan {
                 this.collGroup = GameConstant.WO_JUN;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI;
             }
-
             if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN) {
                 this.collGroup = GameConstant.DI_JUN;
                 this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
             }
-
             if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                 this.collGroup = GameConstant.ZHONG_LI;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN;
             }
         }
 
+        //设置物理世界坐标 
         public initPhPost() {
-
             let pos = Tools.egretTOp2(this.egretWorldPoint);
             this.position[0] = pos.x;
             this.position[1] = pos.y;
@@ -119,11 +167,8 @@ module feichuan {
 
         public initList(h: number, w: number) {
             this.moKuaiList = new Array<Array<mokuai.MoKuaiBase>>();
-            // this.boxList = new Array<Array<p2.Box>>();
             for (let i = 0; i < h; i++) {
                 this.moKuaiList.push(new Array<mokuai.MoKuaiBase>(w));
-                // this.boxList.push(new Array<p2.Box>(w));
-
             }
 
             this.wuqiList = new Array<wuqi.WuQiBase>();
@@ -139,6 +184,7 @@ module feichuan {
         }
         //更新坐标以及角度
         public updataPos() {
+
             let h = this.moKuaiList.length;
             let w = this.moKuaiList[0].length;
             if (this instanceof shuke.ShuKe) {
@@ -166,6 +212,7 @@ module feichuan {
                     let ry = -Math.sin(an) * boxBody.position[0] + Math.cos(an) * boxBody.position[1];
 
                     let p: egret.Point = Tools.p2TOegretPoitn(egret.Point.create(rx + this.position[0], ry + this.position[1]))
+                    // egret.log("RRRRRRRRRRRR:" + p.x, +"_" + p.y)
                     dis.x = p.x;
                     dis.y = p.y;
                     dis.markPoint = p;
@@ -173,6 +220,18 @@ module feichuan {
 
 
                 }
+            }
+        }
+
+        public updataSomeThing() {
+            this.updataPos();
+            this.updataAI();
+        }
+
+        //更新ai
+        public updataAI() {
+            for (let a of this.ais) {
+                a.doUpData(egret.getTimer());
             }
         }
 
@@ -226,14 +285,13 @@ module feichuan {
             box.collisionMask = this.collMask;
             this.addShape(box, [hpp.x, hpp.y])
             this.moKuaiList[h][w] = hx;
-            // this.boxList[h][w] = box;
 
             hx.boxShape = box;
             this.battle_scene.addChild(hx);
             this.mokuai_size++;
         }
 
-        //检测飞船碰撞点
+        //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
         public checkCollision(x: number, y: number) {
             let xw: number = 1000;
             let yh: number = 1000;
@@ -259,6 +317,11 @@ module feichuan {
             this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
             this.battle_scene.removeFeiChuan.push(this);
             this.removeMoKuai.push(zm);
+
+            //如果该模块是 核心 则整体删除
+            if (zm instanceof mokuai.DongLiHeXin) {
+                this.hx = null;
+            }
 
 
         }
@@ -293,6 +356,13 @@ module feichuan {
 
             }
         }
+
+        //添加ai
+        public addAI(ai: ai.AiBase) {
+            this.ais.push(ai);
+        }
+
+
 
 
     }

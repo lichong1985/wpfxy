@@ -15,12 +15,14 @@ class TestScene extends scene.SceneBase {
         bg.y = 0;
         this.addChild(bg);
 
-        let fc: test.TestFeiChuan = new test.TestFeiChuan(this);
-        this.dijis.push(fc)
+
         let sk: shuke.ShuKe = new shuke.ShuKe(this);
         this.sk = sk;
 
-        
+        let fc: test.TestFeiChuan = new test.TestFeiChuan(this);
+        this.dijis.push(fc)
+
+
 
 
 

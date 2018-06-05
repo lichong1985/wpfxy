@@ -1,0 +1,41 @@
+var __reflect = (this && this.__reflect) || function (p, c, t) {
+    p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
+};
+var ai;
+(function (ai) {
+    var AI_TYPE;
+    (function (AI_TYPE) {
+        AI_TYPE[AI_TYPE["xuan_zhuan"] = 0] = "xuan_zhuan";
+        AI_TYPE[AI_TYPE["miao_zhun"] = 1] = "miao_zhun";
+    })(AI_TYPE = ai.AI_TYPE || (ai.AI_TYPE = {}));
+    //位置
+    var WEI_ZHI;
+    (function (WEI_ZHI) {
+        WEI_ZHI[WEI_ZHI["ZS"] = 0] = "ZS";
+        WEI_ZHI[WEI_ZHI["ZX"] = 1] = "ZX";
+        WEI_ZHI[WEI_ZHI["YS"] = 2] = "YS";
+        WEI_ZHI[WEI_ZHI["YX"] = 3] = "YX";
+    })(WEI_ZHI = ai.WEI_ZHI || (ai.WEI_ZHI = {}));
+    //转向
+    var ZHUAN_XIANG;
+    (function (ZHUAN_XIANG) {
+        ZHUAN_XIANG[ZHUAN_XIANG["Clockwise"] = 0] = "Clockwise";
+        ZHUAN_XIANG[ZHUAN_XIANG["Anti_clockwise"] = 1] = "Anti_clockwise";
+    })(ZHUAN_XIANG = ai.ZHUAN_XIANG || (ai.ZHUAN_XIANG = {}));
+    var AiBase = (function () {
+        function AiBase(fc) {
+            //是否停止ai
+            this.hang_up = false;
+            this.fc = fc;
+            this.sceneConsole = fc.battle_scene;
+            this.suke = this.sceneConsole.sk;
+        }
+        //场景刷新器
+        AiBase.prototype.doUpData = function (time) {
+        };
+        return AiBase;
+    }());
+    ai.AiBase = AiBase;
+    __reflect(AiBase.prototype, "ai.AiBase");
+})(ai || (ai = {}));
+//# sourceMappingURL=AiBase.js.map

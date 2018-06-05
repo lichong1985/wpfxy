@@ -77,23 +77,10 @@ var Main = (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this._distance = new egret.Point();
         return _this;
-        // private mouseUp(evt: egret.TouchEvent) {
-        //     this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-        // }
-        // private mouseDown(evt: egret.TouchEvent) {
-        //     this._distance.x = evt.stageX - this.testSen.x;
-        //     this._distance.y = evt.stageY - this.testSen.y;
-        //     this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-        // }
-        // private mouseMove(evt: egret.TouchEvent) {
-        //     this.testSen.x = evt.stageX - this._distance.x;
-        //     this.testSen.y = evt.stageY - this._distance.y;
-        // }
     }
     Main.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
         egret.lifecycle.addLifecycleListener(function (context) {
-            // custom lifecycle plugin
         });
         egret.lifecycle.onPause = function () {
             egret.ticker.pause();
@@ -143,8 +130,6 @@ var Main = (function (_super) {
         this.stage.addChild(this.testSen);
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
-        // this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.mouseDown, this);
-        // this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.mouseUp, this);
     };
     return Main;
 }(eui.UILayer));

@@ -22,10 +22,10 @@ var TestScene = (function (_super) {
         bg.x = 0;
         bg.y = 0;
         this.addChild(bg);
-        var fc = new test.TestFeiChuan(this);
-        this.dijis.push(fc);
         var sk = new shuke.ShuKe(this);
         this.sk = sk;
+        var fc = new test.TestFeiChuan(this);
+        this.dijis.push(fc);
     };
     return TestScene;
 }(scene.SceneBase));

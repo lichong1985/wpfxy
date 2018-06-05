@@ -67,32 +67,6 @@ var mokuai;
             // 更新模块位置
             // this.UpdataPosition(wroldPointAch);
         }
-        //初始化相对距离
-        // public initRelativeDis() {
-        //     let rx, ry: number
-        //     //偶数
-        //     //x
-        //     rx = this.moKuaiPost.x - (this.bodySize.x / 2) * mokuai.M_SIZE[this.shapeType];
-        //     if (rx < 0) {
-        //         rx += mokuai.M_SIZE[this.shapeType] * 0.5
-        //     }
-        //     if (rx > 0) {
-        //         rx -= mokuai.M_SIZE[this.shapeType] * 0.5
-        //     }
-        //     this.relativeDistance.x = rx;
-        //     //----------------------------------
-        //     //y
-        //     ry = this.moKuaiPost.y - (this.bodySize.y / 2) * mokuai.M_SIZE[this.shapeType];
-        //     if (ry < 0) {
-        //         ry += mokuai.M_SIZE[this.shapeType] * 0.5
-        //     }
-        //     if (ry > 0) {
-        //         ry -= mokuai.M_SIZE[this.shapeType] * 0.5
-        //     }
-        //     this.relativeDistance.y = ry;
-        //     //奇数--------------------------------
-        //     //x
-        // }
         //初始化锚点
         MoKuaiBase.prototype.initAnch = function () {
             this.anchorOffsetX = this.width * 0.5;

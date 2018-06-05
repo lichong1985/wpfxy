@@ -34,7 +34,6 @@ class Main extends eui.UILayer {
         super.createChildren();
 
         egret.lifecycle.addLifecycleListener((context) => {
-            // custom lifecycle plugin
         })
 
         egret.lifecycle.onPause = () => {
@@ -68,13 +67,6 @@ class Main extends eui.UILayer {
             console.error(e);
         }
     }
-    /**
-         * 手机屏幕的四大接触事件
-         * egret.TouchEvent.TOUCH_TAP   点击事件
-         * egret.TouchEvent.TOUCH_BEGIN 手指开始点击时
-         * egret.TouchEvent.TOUCH_MOVE  手指在屏幕移动时
-         * egret.TouchEvent.TOUCH_END   手指离开时
-         */
 
 
     private testSen: TestScene;
@@ -85,28 +77,9 @@ class Main extends eui.UILayer {
         this.stage.addChild(this.testSen);
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
-
-        // this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.mouseDown, this);
-        // this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.mouseUp, this);
-
     }
 
-    // private mouseUp(evt: egret.TouchEvent) {
-    //     this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-    // }
 
-    // private mouseDown(evt: egret.TouchEvent) {
-
-    //     this._distance.x = evt.stageX - this.testSen.x;
-    //     this._distance.y = evt.stageY - this.testSen.y;
-    //     this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-    // }
-
-    // private mouseMove(evt: egret.TouchEvent) {
-    //     this.testSen.x = evt.stageX - this._distance.x;
-    //     this.testSen.y = evt.stageY - this._distance.y;
-
-    // }
 
 
 

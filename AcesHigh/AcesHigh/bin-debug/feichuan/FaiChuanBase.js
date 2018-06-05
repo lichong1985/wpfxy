@@ -26,8 +26,12 @@ var feichuan;
             var _this = _super.call(this, { mass: 1 }) || this;
             //当前模块数量
             _this.mokuai_size = 0;
+            //核心列表
             _this.heXinList = new Array();
+            //装甲列表
             _this.zhuangJaList = new Array();
+            //ai 列表 
+            _this.ais = new Array();
             _this.egretWorldPoint = egretWorldPoint;
             _this.battle_scene = battle_scene;
             _this.zhenying = zhenying;
@@ -35,6 +39,48 @@ var feichuan;
             _this.initColl();
             return _this;
         }
+        //初始化飞船
+        FeiChuanBase.prototype.initJson = function (res) {
+            var js = RES.getRes(res);
+            //读取飞船的宽高
+            this.W = js.layers[0].width;
+            this.H = js.layers[0].height;
+            this.initList(this.H, this.W);
+            var data = js.layers[0].data;
+            //初始化模块
+            this.moKuaiList = new Array(this.H);
+            var i = 0;
+            for (var h = 0; h < this.H; h++) {
+                this.moKuaiList[h] = new Array(this.W);
+                for (var w = 0; w < this.W; w++) {
+                    //读取节点信息
+                    if (data[i] == 0) {
+                        i++;
+                        continue;
+                    }
+                    var bitName = js.tiles[data[i] - 1].image.replace(".", "_");
+                    var hx = void 0;
+                    if (bitName == "ship6-81_png") {
+                        hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        this.hx = hx;
+                    }
+                    else {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+                    var hpp = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+                    var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+                    box.collisionGroup = this.collGroup;
+                    box.collisionMask = this.collMask;
+                    this.addShape(box, [hpp.x, hpp.y]);
+                    this.moKuaiList[h][w] = hx;
+                    hx.boxShape = box;
+                    this.battle_scene.addChild(hx);
+                    this.mokuai_size++;
+                    i++;
+                }
+            }
+            this.battle_scene.world.addBody(this);
+        };
         //初始化碰撞参数
         FeiChuanBase.prototype.initColl = function () {
             if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
@@ -50,6 +96,7 @@ var feichuan;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN;
             }
         };
+        //设置物理世界坐标 
         FeiChuanBase.prototype.initPhPost = function () {
             var pos = Tools.egretTOp2(this.egretWorldPoint);
             this.position[0] = pos.x;
@@ -57,10 +104,8 @@ var feichuan;
         };
         FeiChuanBase.prototype.initList = function (h, w) {
             this.moKuaiList = new Array();
-            // this.boxList = new Array<Array<p2.Box>>();
             for (var i = 0; i < h; i++) {
                 this.moKuaiList.push(new Array(w));
-                // this.boxList.push(new Array<p2.Box>(w));
             }
             this.wuqiList = new Array();
             this.removeMoKuai = new Array();
@@ -96,11 +141,23 @@ var feichuan;
                     var rx = Math.cos(an) * boxBody.position[0] + Math.sin(an) * boxBody.position[1];
                     var ry = -Math.sin(an) * boxBody.position[0] + Math.cos(an) * boxBody.position[1];
                     var p = Tools.p2TOegretPoitn(egret.Point.create(rx + this.position[0], ry + this.position[1]));
+                    // egret.log("RRRRRRRRRRRR:" + p.x, +"_" + p.y)
                     dis.x = p.x;
                     dis.y = p.y;
                     dis.markPoint = p;
                     dis.rotation = 360 - this.angle * 180 / Math.PI;
                 }
+            }
+        };
+        FeiChuanBase.prototype.updataSomeThing = function () {
+            this.updataPos();
+            this.updataAI();
+        };
+        //更新ai
+        FeiChuanBase.prototype.updataAI = function () {
+            for (var _i = 0, _a = this.ais; _i < _a.length; _i++) {
+                var a = _a[_i];
+                a.doUpData(egret.getTimer());
             }
         };
         FeiChuanBase.prototype.getMokWorldpos = function (p) {
@@ -146,12 +203,11 @@ var feichuan;
             box.collisionMask = this.collMask;
             this.addShape(box, [hpp.x, hpp.y]);
             this.moKuaiList[h][w] = hx;
-            // this.boxList[h][w] = box;
             hx.boxShape = box;
             this.battle_scene.addChild(hx);
             this.mokuai_size++;
         };
-        //检测飞船碰撞点
+        //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
         FeiChuanBase.prototype.checkCollision = function (x, y) {
             var xw = 1000;
             var yh = 1000;
@@ -175,6 +231,10 @@ var feichuan;
             this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
             this.battle_scene.removeFeiChuan.push(this);
             this.removeMoKuai.push(zm);
+            //如果该模块是 核心 则整体删除
+            if (zm instanceof mokuai.DongLiHeXin) {
+                this.hx = null;
+            }
         };
         //删除模块
         FeiChuanBase.prototype.dellMokuai = function () {
@@ -203,6 +263,10 @@ var feichuan;
                     var chhƒ = new canhai.CanHai(this, ch);
                 }
             }
+        };
+        //添加ai
+        FeiChuanBase.prototype.addAI = function (ai) {
+            this.ais.push(ai);
         };
         return FeiChuanBase;
     }(p2.Body));
