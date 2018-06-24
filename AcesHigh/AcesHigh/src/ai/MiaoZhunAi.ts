@@ -16,6 +16,8 @@ module ai {
                 let angle: number = Math.atan2((this.suke.position[1] - this.fc.position[1]), (this.suke.position[0] - this.fc.position[0])) + Math.PI * 0.5
                 let zx = (Math.PI + 1.57);
 
+                // 
+
 
                 //画重点
                 if (this.fc.angle > zx) {
@@ -25,7 +27,11 @@ module ai {
                 if (this.fc.angle < -Math.PI * 0.5) {
                     this.fc.angle = zx;
                 }
+                if (Math.abs(this.fc.angle - angle) < 0.3) {
+                    return;
+                }
 
+                egret.log("YYYYYYYYYYYYYYY:" + (this.fc.angle) + "_____" + angle + " || " + Math.abs(this.fc.angle - angle));
 
                 if (angle >= 0 && this.fc.angle >= 0) {
                     if (Math.abs(angle - this.fc.angle) < Math.PI) {
@@ -83,8 +89,6 @@ module ai {
                         this.fc.angularVelocity = this.xs;
                     }
                 }
-
-                // egret.log("AAAAAAAAAAAAAAA:" + this.fc.angle + "___" + angle + "___" + this.xuan_zhuan_fang_xiang);
             }
         }
     }

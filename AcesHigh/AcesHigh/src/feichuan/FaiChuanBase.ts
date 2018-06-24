@@ -70,11 +70,29 @@ module feichuan {
         //当前模块数量
         public mokuai_size: number = 0;
 
-        //ai 列表
+        //ai 列表-----------------------------------
         public ais: Array<ai.AiBase>;
+
+        //移动ai
+        public moveAI: ai.AiBase;
+
+        //旋转ai
+        public xzAI: ai.AiBase;
+
+        //瞄准ai 
+        public mzAI: ai.AiBase;
+
+        //需要移动到的坐标点 (物理世界坐标)
+        public toPoint: egret.Point;
+        //----------------------------------------------
 
         //飞船当前前往的 目的地坐标 null则没有
         public p2_target: egret.Point;
+
+        //-----------------------状态机-------------------------
+        //状态机
+        public ztj: fjztj.FjZTJ;
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         //TODO: 通过配置文件来加载
         constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING) {
@@ -90,6 +108,7 @@ module feichuan {
             this.zhenying = zhenying;
             this.initPhPost();
             this.initColl();
+            this.ztj = new fjztj.XBZhuangtaiji(this);
         }
 
 
@@ -116,11 +135,38 @@ module feichuan {
 
                     let bitName: string = js.tiles[data[i] - 1].image.replace(".", "_");
                     let hx: mokuai.MoKuaiBase;
-                    if (bitName == "ship6-81_png") {
+                    if (bitName == "1-7_png") {
                         hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.hx = hx;
-                    } else {
+                    }
+
+                    if (bitName == "1-1_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+
+                    if (bitName == "1-2_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+
+                    if (bitName == "1-3_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+
+                    if (bitName == "1-4_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+
+                    if (bitName == "1-5_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    }
+
+                    //敌军直射武器
+                    if (bitName == "1-6_png") {
+                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new djwq.KaiHuaWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
                     }
                     let hpp: egret.Point = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
                     let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
@@ -143,15 +189,15 @@ module feichuan {
         public initColl() {
             if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
                 this.collGroup = GameConstant.WO_JUN;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI;
+                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.DI_JUN_ZIDAN;
             }
             if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN) {
                 this.collGroup = GameConstant.DI_JUN;
-                this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
+                this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN_ZIDAN;
             }
             if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                 this.collGroup = GameConstant.ZHONG_LI;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN;
+                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN_ZIDAN;
             }
         }
 
@@ -212,7 +258,6 @@ module feichuan {
                     let ry = -Math.sin(an) * boxBody.position[0] + Math.cos(an) * boxBody.position[1];
 
                     let p: egret.Point = Tools.p2TOegretPoitn(egret.Point.create(rx + this.position[0], ry + this.position[1]))
-                    // egret.log("RRRRRRRRRRRR:" + p.x, +"_" + p.y)
                     dis.x = p.x;
                     dis.y = p.y;
                     dis.markPoint = p;
@@ -226,13 +271,36 @@ module feichuan {
         public updataSomeThing() {
             this.updataPos();
             this.updataAI();
+            this.updataZTJ();
+        }
+
+        public updataZTJ() {
+            if (this.ztj) {
+                this.ztj.upStep(egret.getTimer());
+            }
         }
 
         //更新ai
         public updataAI() {
-            for (let a of this.ais) {
-                a.doUpData(egret.getTimer());
+            // for (let a of this.ais) {
+            //     a.updata_ai(egret.getTimer());
+            // }
+
+            //移动
+            if (this.moveAI) {
+                this.moveAI.updata_ai(egret.getTimer())
             }
+
+            //旋转
+            if (this.xzAI) {
+                this.xzAI.updata_ai(egret.getTimer());
+            }
+
+            //瞄准
+            if (this.mzAI) {
+                this.mzAI.updata_ai(egret.getTimer());
+            }
+
         }
 
         public getMokWorldpos(p: egret.Point): egret.Point {
@@ -313,14 +381,28 @@ module feichuan {
                 }
             }
 
+            //如果没有找到碰撞点
+            if (!zm) {
+                return;
+            }
+
             //将节点标记  之后在碰撞循环外清空
             this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
-            this.battle_scene.removeFeiChuan.push(this);
+            //将飞船添加到受伤飞船列表
+            this.battle_scene.shouShangFeiChuanList.push(this);
+            //将需要移除的模块添加到列表
             this.removeMoKuai.push(zm);
 
             //如果该模块是 核心 则整体删除
             if (zm instanceof mokuai.DongLiHeXin) {
                 this.hx = null;
+                //减少每回合总飞机的 标记数量
+                this.battle_scene.lastFeiJi--;
+            }
+
+            //如果是武器类型
+            if (zm.moKuaiType == mokuai.MO_KUAI_TYPE.WU_QI) {
+                this.removeWuQi(<wuqi.WuQiBase>zm);
             }
 
 
@@ -333,7 +415,6 @@ module feichuan {
                 this.moKuaiList[n.moKuaiPost.y][n.moKuaiPost.x] = null;
                 this.removeShape(n.boxShape);
                 this.battle_scene.removeChild(n);
-
             }
         }
 
@@ -351,9 +432,9 @@ module feichuan {
                     }
                 }
                 if (b) {
-                    let chhƒ = new canhai.CanHai(this, ch)
+                    let chhf = new canhai.CanHai(this, ch)
+                    this.battle_scene.canHais.push(chhf);
                 }
-
             }
         }
 
@@ -361,6 +442,13 @@ module feichuan {
         public addAI(ai: ai.AiBase) {
             this.ais.push(ai);
         }
+
+        //移除武器
+        public removeWuQi(wq: wuqi.WuQiBase) {
+            let inx = this.wuqiList.indexOf(wq);
+            this.wuqiList.splice(inx, 1);
+        }
+
 
 
 

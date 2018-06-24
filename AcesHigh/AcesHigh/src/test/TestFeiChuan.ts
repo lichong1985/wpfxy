@@ -21,7 +21,7 @@ module test {
 
         //做一个 飞船
         public initTestFchuan() {
-            this.angularDamping = 0;
+           
             this.mass = 100;
             // this.addAI(new ai.KeepDistanceAI(this, 5));
             // this.addAI(new ai.ShiShiMiaoZhunAi(this));

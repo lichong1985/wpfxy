@@ -12,15 +12,27 @@ module scene {
     export const scene_wy_limit: number = 200;
     //位移生效百分比
     export const scene_wy_bfb: number = 0.2;
+    //物理世界 屏幕范围
+    export const p2_zuo: number = 20;
+    export const p2_shang: number = 60;
+    export const p2_you: number = 32;
+    export const p2_xia: number = 37;
+
+
 
 
 
     export abstract class SceneBase extends egret.DisplayObjectContainer {
         public world: p2.World;
         public sk: shuke.ShuKe;
+        //所有敌机列表
         public dijis: Array<feichuan.FeiChuanBase>;
-        public removeBodyList: Array<p2.Body>;
-        public removeFeiChuan: Array<feichuan.FeiChuanBase>;
+        //需要被移除的刚体列表（目前只作用与子弹 ）
+        public removeZiDanBodyList: Array<p2.Body>;
+        //受伤的飞船列表
+        public shouShangFeiChuanList: Array<feichuan.FeiChuanBase>;
+        //残骸列表
+        public canHais: Array<feichuan.FeiChuanBase>;
 
         // 物理世界坐标位移 
         public p2_wy_x: number = 0;
@@ -30,6 +42,22 @@ module scene {
         public sk_p2_befor: egret.Point;
         //苏克当前贞偏移量
         public sk_p2_now: egret.Point;
+
+        //-----------guanka-------------------------
+        //当前进行到第几波
+        public nowBo: number = 0;
+        //当前第几回合
+        public nowHeiHe: number = 0;
+        //当前波总回合数量
+        public allHeiHe: number = 0;
+        //当前回合 剩余的 飞机数量
+        public lastFeiJi: number = 0;
+        //是否可以添加回合内的飞机
+        public add_hh_fc: boolean = true;
+        //+++++++++++++++++++++++++++++++++++++++++
+
+        //up子弹
+        public zidanList: Array<zidan.ZiDanBase>;
 
         constructor() {
             super()
@@ -46,10 +74,13 @@ module scene {
             this.addShuKeListener();
             this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
             this.dijis = new Array<feichuan.FeiChuanBase>();
-            this.removeBodyList = new Array<p2.Body>();
-            this.removeFeiChuan = new Array<feichuan.FeiChuanBase>();
+            this.removeZiDanBodyList = new Array<p2.Body>();
+            this.shouShangFeiChuanList = new Array<feichuan.FeiChuanBase>();
+            this.canHais = new Array<canhai.CanHai>();
+            this.zidanList = new Array<zidan.ZiDanBase>();
         }
 
+        //创建碰撞检测函数
         public initcoll() {
             let s: scene.SceneBase = this;
             this.world.on('beginContact', function (evt) {
@@ -57,7 +88,7 @@ module scene {
                     let m = evt.bodyB instanceof zidan.PuTongZiDan ? evt.bodyB : evt.bodyA
                     let zd = <zidan.PuTongZiDan>m;
                     if (zd.is_kick) {
-                        s.removeBodyList.push(zd)
+                        s.removeZiDanBodyList.push(zd)
                     }
                 }
 
@@ -70,6 +101,7 @@ module scene {
                             let ogzd = <zidan.ZiDanBase>oh;
                             //碰撞只会出发一次
                             if (ogzd.is_coll) {
+                                //检测碰撞点 并且标记好在循环外删除
                                 fc.checkCollision(oh.displays[0].x, oh.displays[0].y);
                                 ogzd.is_coll = false;
                             }
@@ -79,20 +111,62 @@ module scene {
             });
         }
 
-
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         public onEnterFrame() {
             this.chackColl();
             this.chackFeiChuan();
             this.p2Updata();
+            this.upSomeThing();
+            this.updataIsInWorld();
+            this.updataWuQi();
+        }
+        //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+        //刷新子弹
+        public updataZidan() {
+            for (let zd of this.zidanList) {
+                if (zd.is_updata) {
+                    zd.updata();
+                }
+            }
+        }
+
+        //更新飞船武器
+        public updataWuQi() {
+            let now = egret.getTimer();
+            for (let fc of this.dijis) {
+                let i = 0;
+                for (let wq of fc.wuqiList) {
+                    if (wq) {
+                        i++;
+                        wq.updata_wq(fc.angle, this.sk, now);
+                    }
+                }
+            }
+        }
+
+        //检测场景内的残骸列表 是否在有效区域内
+        public updataIsInWorld() {
+            for (let fc of this.canHais) {
+                //如果是残骸的话检测 坐标 并且删除
+                if (fc.position[1] < 30) {
+                    this.removeTheFcInTheGame(fc)
+                }
+
+            }
+        }
+
+        public upSomeThing() {
+
         }
 
         /**
-         * 碰撞检测并移除刚体
+         * 物理世界循环外 删除子弹
          */
         public chackColl() {
-            let size = this.removeBodyList.length;
+            let size = this.removeZiDanBodyList.length;
             for (let i = 0; i < size; i++) {
-                let zd = <zidan.PuTongZiDan>this.removeBodyList.pop();
+                let zd = <zidan.PuTongZiDan>this.removeZiDanBodyList.pop();
                 if (zd.is_kick) {
                     zd.is_kick = false;
                     let d = zd.displays[0];
@@ -106,11 +180,13 @@ module scene {
 
         //检测飞船
         public chackFeiChuan() {
-            for (let i = 0; i < this.removeFeiChuan.length; i++) {
-                let f: feichuan.FeiChuanBase = this.removeFeiChuan.pop();
-
+            //遍历受伤飞船列表
+            for (let i = 0; i < this.shouShangFeiChuanList.length; i++) {
+                let f: feichuan.FeiChuanBase = this.shouShangFeiChuanList.pop();
+                //遍历受伤模块
                 for (let j = 0; j < f.removeMoKuai.length; j++) {
                     let m = f.removeMoKuai.pop();
+                    //移除小方块 颜色以及 形状
                     f.removeShape(m.boxShape);
                     this.removeChild(m);
                     f.mokuai_size--;
@@ -147,7 +223,31 @@ module scene {
                 if (boxBody instanceof shuke.ShuKe) {
                     let i = <shuke.ShuKe>boxBody;
                     for (let wq of i.wuqiList) {
-                        wq.updata_wq(boxBody.angle);
+                        wq.updata_wq(boxBody.angle, this.sk, egret.getTimer());
+                    }
+                }
+
+                if (boxBody instanceof zidan.ZiDanBase) {
+                    let zd = <zidan.ZiDanBase>boxBody;
+                    if (zd.is_updata) {
+                        zd.updata();
+                    }
+
+                    //c超出边界移除子弹
+                    if (zd.position[1] > scene.p2_shang) {
+                        this.removeZiDanBodyList.push(zd)
+                    }
+
+                    if (zd.position[1] < scene.p2_xia) {
+                        this.removeZiDanBodyList.push(zd);
+                    }
+
+
+                    if (zd.position[0] > scene.p2_you) {
+                        this.removeZiDanBodyList.push(zd);
+                    }
+                    if (zd.position[0] < scene.p2_zuo) {
+                        this.removeZiDanBodyList.push(zd);
                     }
                 }
 
@@ -261,6 +361,36 @@ module scene {
             if (pp.x > scene.scene_anch_x + pw) {
 
             }
+        }
+
+
+        //适用于已经被测底打光的 飞船
+        public removeTheFcInTheGame(fc: feichuan.FeiChuanBase) {
+            //从敌机列表中
+            if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
+                let inx = this.dijis.indexOf(fc);
+                this.dijis.splice(inx);
+            }
+
+            //从残骸列表中
+            if (fc.fc_type == feichuan.FC_TYPE.CANHAI) {
+                let inx = this.canHais.indexOf(fc);
+                this.canHais.splice(inx);
+            }
+            let size = fc.moKuaiList.length;
+            this.world.removeBody(fc);
+            for (let j = 0; j < size; j++) {
+                let m = fc.moKuaiList[j].length;
+                for (let i = 0; i < m; i++) {
+                    if (fc.moKuaiList[j][i]) {
+                        this.removeChild(fc.moKuaiList[j][i]);
+                    }
+                    fc.moKuaiList[j][i] = null;
+                }
+            }
+
+
+            fc = null;
         }
 
     }

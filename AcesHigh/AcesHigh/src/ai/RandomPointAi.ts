@@ -25,7 +25,6 @@ module ai {
             //计算 sk 与 宿主 之间的距离
             let jl = egret.Point.distance(egret.Point.create(this.r_point.x, this.r_point.y),
                 egret.Point.create(this.fc.position[0], this.fc.position[1]));
-            egret.log("KKKKKKKKKKKKKK:" + jl);
             if (jl < 0.3) {
                 this.r_point = this.random_p();
                 this.is_u = true;

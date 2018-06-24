@@ -30,6 +30,10 @@ module ai {
         //是否停止ai
         public hang_up: boolean = false;
 
+        //间隔
+        public jian_ge: number = 500;
+        public mark_time: number = 0;
+
         //时间标记
         public time_mark: number;
         constructor(fc: feichuan.FeiChuanBase) {
@@ -37,6 +41,14 @@ module ai {
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
 
+        }
+
+        public updata_ai(now: number) {
+
+            if ((now - this.mark_time) > this.jian_ge) {
+                this.mark_time = now;
+                this.doUpData(now);
+            }
         }
         //场景刷新器
         public doUpData(time: number) {

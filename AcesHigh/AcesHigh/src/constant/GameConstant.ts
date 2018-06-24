@@ -3,13 +3,17 @@ module GameConstant {
     export enum ZHEN_YING {
         WO_JUN = 0,//敌军
         DI_JUN = 1,//我军
-        ZHONG_LI = 2// 陨石 废甲等
+        ZHONG_LI = 2,// 陨石 废甲等
+        WO_JUN_ZIDAN = 3,//我军子弹
+        DI_JUN_ZIDAN = 4,//敌军子弹
     }
 
     //碰撞组
     export let WO_JUN: number = Math.pow(2, 1);
     export let DI_JUN: number = Math.pow(2, 2);
     export let ZHONG_LI: number = Math.pow(2, 3);
+    export let WO_JUN_ZIDAN: number = Math.pow(2, 4);
+    export let DI_JUN_ZIDAN: number = Math.pow(2, 5);
 
     export let hearList: Array<mokuai.MoKuaiBase>;
     export let mark: number = 0;
@@ -24,13 +28,11 @@ module GameConstant {
         let hx: mokuai.MoKuaiBase;
         //普通飞船
         if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
-
             hx = fc.hx;
             //标记核心
             if (hx) {
                 hx.mark_number = mark;
             }
-
         }
         //残骸
         if (fc.fc_type == feichuan.FC_TYPE.CANHAI) {
@@ -41,6 +43,13 @@ module GameConstant {
         tuopu(map, hx, fc);
         // 染色 删除
         dell(map, fc)
+
+        //如果敌机被击毁移除敌机
+        if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
+            if (fc.hx == null) {
+                fc.battle_scene.removeTheFcInTheGame(fc);
+            }
+        }
     }
 
     //标记残骸 虚拟核心
@@ -190,11 +199,10 @@ module GameConstant {
                 }
             }
         }
+
+
         if (!is_save) {
-            let inx = fc.battle_scene.dijis.indexOf(fc);
-            fc.battle_scene.dijis.splice(inx);
-            fc.battle_scene.world.removeBody(fc);
-            fc = null;
+            fc.battle_scene.removeTheFcInTheGame(fc)
             return false;
         }
         return true;

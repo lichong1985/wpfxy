@@ -16,6 +16,11 @@ module zidan {
         public is_kick: boolean = true;
         public is_coll: boolean = true;
 
+        public is_updata: boolean = false;
+
+        //发射标记时间
+        public mark_time: number = egret.getTimer();
+
 
         constructor(zhenying: GameConstant.ZHEN_YING, mass: number, wqt: wuqi.WUQI_TYPE) {
             super({ mass: mass })
@@ -35,19 +40,17 @@ module zidan {
 
         //初始化碰撞参数
         public initColl() {
-            if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
-                this.collGroup = GameConstant.WO_JUN;
+            if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN_ZIDAN) {
+                this.collGroup = GameConstant.WO_JUN_ZIDAN;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI;
             }
-
-            if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN) {
-                this.collGroup = GameConstant.DI_JUN;
+            if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN_ZIDAN) {
+                this.collGroup = GameConstant.DI_JUN_ZIDAN;
                 this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
             }
-
             if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                 this.collGroup = GameConstant.ZHONG_LI;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN;
+                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN_ZIDAN;
             }
         }
 
