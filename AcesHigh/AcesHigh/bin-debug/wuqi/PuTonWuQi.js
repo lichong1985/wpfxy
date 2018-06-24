@@ -15,18 +15,18 @@ var wuqi;
         function PuTongDan(mokaiPos, shType, name, wuqii_type, fc) {
             return _super.call(this, mokaiPos, shType, name, wuqii_type, fc) || this;
         }
-        PuTongDan.prototype.fashe = function (angel) {
-            // super.fashe(angel)
-            // let zd: zidan.PuTongZiDan = new zidan.PuTongZiDan(GameConstant.ZHEN_YING.WO_JUN, 0.0001);
-            // let p: egret.Point = Tools.egretTOp2(egret.Point.create(this.x, this.y))
-            // zd.position[0] = p.x;
-            // zd.position[1] = p.y;
-            // //画 重点
-            // let rx = Math.cos(this.fc.angle) * 0 + Math.sin(this.fc.angle) * this.sudu;
-            // let ry = -Math.sin(this.fc.angle) * 0 + Math.cos(this.fc.angle) * this.sudu;
-            // this.fc.battle_scene.world.addBody(zd);
-            // this.fc.battle_scene.addChild(zd.bitmap);
-            // zd.velocity = [rx, ry];
+        PuTongDan.prototype.fashe = function (angel, suke, now) {
+            _super.prototype.fashe.call(this, angel, suke, now);
+            var zd = new zidan.PuTongZiDan(GameConstant.ZHEN_YING.WO_JUN_ZIDAN, 0.0001);
+            var p = Tools.egretTOp2(egret.Point.create(this.x, this.y));
+            zd.position[0] = p.x;
+            zd.position[1] = p.y;
+            //画 重点
+            var rx = Math.cos(this.fc.angle) * 0 + Math.sin(this.fc.angle) * this.sudu;
+            var ry = -Math.sin(this.fc.angle) * 0 + Math.cos(this.fc.angle) * this.sudu;
+            this.fc.battle_scene.world.addBody(zd);
+            this.fc.battle_scene.addChild(zd.bitmap);
+            zd.velocity = [rx, ry];
         };
         return PuTongDan;
     }(wuqi.WuQiBase));
