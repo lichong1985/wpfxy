@@ -5,12 +5,16 @@ var GameConstant;
     (function (ZHEN_YING) {
         ZHEN_YING[ZHEN_YING["WO_JUN"] = 0] = "WO_JUN";
         ZHEN_YING[ZHEN_YING["DI_JUN"] = 1] = "DI_JUN";
-        ZHEN_YING[ZHEN_YING["ZHONG_LI"] = 2] = "ZHONG_LI"; // 陨石 废甲等
+        ZHEN_YING[ZHEN_YING["ZHONG_LI"] = 2] = "ZHONG_LI";
+        ZHEN_YING[ZHEN_YING["WO_JUN_ZIDAN"] = 3] = "WO_JUN_ZIDAN";
+        ZHEN_YING[ZHEN_YING["DI_JUN_ZIDAN"] = 4] = "DI_JUN_ZIDAN";
     })(ZHEN_YING = GameConstant.ZHEN_YING || (GameConstant.ZHEN_YING = {}));
     //碰撞组
     GameConstant.WO_JUN = Math.pow(2, 1);
     GameConstant.DI_JUN = Math.pow(2, 2);
     GameConstant.ZHONG_LI = Math.pow(2, 3);
+    GameConstant.WO_JUN_ZIDAN = Math.pow(2, 4);
+    GameConstant.DI_JUN_ZIDAN = Math.pow(2, 5);
     GameConstant.mark = 0;
     function diaoluo(fc) {
         //将飞船分解列表 清空
@@ -34,6 +38,12 @@ var GameConstant;
         tuopu(map, hx, fc);
         // 染色 删除
         dell(map, fc);
+        //如果敌机被击毁移除敌机
+        if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
+            if (fc.hx == null) {
+                fc.battle_scene.removeTheFcInTheGame(fc);
+            }
+        }
     }
     GameConstant.diaoluo = diaoluo;
     //标记残骸 虚拟核心
@@ -164,10 +174,7 @@ var GameConstant;
             }
         }
         if (!is_save) {
-            var inx = fc.battle_scene.dijis.indexOf(fc);
-            fc.battle_scene.dijis.splice(inx);
-            fc.battle_scene.world.removeBody(fc);
-            fc = null;
+            fc.battle_scene.removeTheFcInTheGame(fc);
             return false;
         }
         return true;
