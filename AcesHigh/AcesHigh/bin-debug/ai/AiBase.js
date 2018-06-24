@@ -26,10 +26,19 @@ var ai;
         function AiBase(fc) {
             //是否停止ai
             this.hang_up = false;
+            //间隔
+            this.jian_ge = 500;
+            this.mark_time = 0;
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
         }
+        AiBase.prototype.updata_ai = function (now) {
+            if ((now - this.mark_time) > this.jian_ge) {
+                this.mark_time = now;
+                this.doUpData(now);
+            }
+        };
         //场景刷新器
         AiBase.prototype.doUpData = function (time) {
         };
