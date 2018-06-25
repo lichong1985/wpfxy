@@ -84,28 +84,36 @@ module scene {
         public initcoll() {
             let s: scene.SceneBase = this;
             this.world.on('beginContact', function (evt) {
-                if (evt.bodyB instanceof zidan.PuTongZiDan || evt.bodyA instanceof zidan.PuTongZiDan) {
-                    let m = evt.bodyB instanceof zidan.PuTongZiDan ? evt.bodyB : evt.bodyA
-                    let zd = <zidan.PuTongZiDan>m;
-                    if (zd.is_kick) {
-                        s.removeZiDanBodyList.push(zd)
-                    }
+
+                //如果碰撞没有子弹 则退出
+                if (!(evt.bodyB instanceof zidan.ZiDanBase) && !(evt.bodyA instanceof zidan.ZiDanBase)) {
+                    return;
                 }
 
+                //根据碰撞次数 减少耐久
+                if (evt.bodyB instanceof zidan.ZiDanBase || evt.bodyA instanceof zidan.ZiDanBase) {
+
+                    let m = evt.bodyB instanceof zidan.ZiDanBase ? evt.bodyB : evt.bodyA
+                    let zd = <zidan.ZiDanBase>m;
+                    zd.collNumber--;
+                }
                 if (evt.bodyB instanceof feichuan.FeiChuanBase || evt.bodyA instanceof feichuan.FeiChuanBase) {
                     let m = evt.bodyB instanceof feichuan.FeiChuanBase ? evt.bodyB : evt.bodyA
                     let oh: p2.Body = evt.bodyB instanceof feichuan.FeiChuanBase ? evt.bodyA : evt.bodyB
+                    let ogzd = <zidan.ZiDanBase>oh;
                     let fc = <feichuan.FeiChuanBase>m;
                     if (fc.zhenying == GameConstant.ZHEN_YING.DI_JUN || fc.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                         if (oh instanceof zidan.ZiDanBase) {
-                            let ogzd = <zidan.ZiDanBase>oh;
-                            //碰撞只会出发一次
-                            if (ogzd.is_coll) {
-                                //检测碰撞点 并且标记好在循环外删除
-                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y);
-                                ogzd.is_coll = false;
+                            //检测碰撞点 并且标记好在循环外删除
+                            if (ogzd.is_first) {
+                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd);
+                                ogzd.is_first = false;
                             }
                         }
+                    }
+                    //只有当 碰撞参数等于0的时候才添加到 删除列表
+                    if (ogzd.collNumber == 0) {
+                        s.removeZiDanBodyList.push(ogzd)
                     }
                 }
             });
@@ -166,14 +174,21 @@ module scene {
         public chackColl() {
             let size = this.removeZiDanBodyList.length;
             for (let i = 0; i < size; i++) {
-                let zd = <zidan.PuTongZiDan>this.removeZiDanBodyList.pop();
-                if (zd.is_kick) {
-                    zd.is_kick = false;
+                let m = this.removeZiDanBodyList.pop();
+                if (!m) {
+                    continue;
+                }
+                let zd = <zidan.ZiDanBase>m;
+                //没有碰撞次数后删除子弹
+                if (zd.collNumber <= 0) {
                     let d = zd.displays[0];
                     if (d) {
-                        this.removeChild(d);
+                        if (d.parent) {
+                            this.removeChild(d);
+                        }
                     }
                     this.world.removeBody(zd);
+                    zd = null;
                 }
             }
         }
@@ -247,6 +262,10 @@ module scene {
                         this.removeZiDanBodyList.push(zd);
                     }
                     if (zd.position[0] < scene.p2_zuo) {
+                        this.removeZiDanBodyList.push(zd);
+                    }
+                    //超过15秒删除
+                    if ((egret.getTimer() - zd.mark_time) > 15000) {
                         this.removeZiDanBodyList.push(zd);
                     }
                 }

@@ -30,7 +30,7 @@ module test {
             // ps.push(Tools.egretTOp2(egret.Point.create(1700, 1700)));
             // this.addAI(new ai.MoveToAi(this, ps, true));
             // this.addAI(new ai.ZhuanXiang(this));
-            this.addAI(new ai.RandomPointAi(this, ai.RANDOM_POINT.all, 2));
+            // this.addAI(new ai.RandomPointAi(this, ai.RANDOM_POINT.all, 2));
         }
 
     }

@@ -13,10 +13,16 @@ module zidan {
 
         public bitmap: egret.Bitmap;
 
-        public is_kick: boolean = true;
-        public is_coll: boolean = true;
+
 
         public is_updata: boolean = false;
+
+        //碰撞次数
+        public collNumber: number = 1;
+        //攻击力
+        public hitNumber: number = 1;
+        //是否是第一次碰撞
+        public is_first: boolean = true;
 
         //发射标记时间
         public mark_time: number = egret.getTimer();

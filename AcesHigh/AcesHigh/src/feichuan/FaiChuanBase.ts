@@ -135,36 +135,64 @@ module feichuan {
 
                     let bitName: string = js.tiles[data[i] - 1].image.replace(".", "_");
                     let hx: mokuai.MoKuaiBase;
-                    if (bitName == "1-7_png") {
+                    if (bitName == "1-7_png" || bitName == "new3-14_png" || bitName == "new3-16_png") {
                         hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.hx = hx;
+
                     }
 
                     if (bitName == "1-1_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
                     }
 
                     if (bitName == "1-2_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
                     }
 
                     if (bitName == "1-3_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
                     }
 
                     if (bitName == "1-4_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
                     }
 
                     if (bitName == "1-5_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
                     }
 
+                    if (bitName == "new3-13_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(4);
+                    }
+                    if (bitName == "new3-12_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(3);
+                    }
+                    if (bitName == "new3-11_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(2);
+                    }
+                    if (bitName == "new3-10_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(1);
+                    }
+
+
                     //敌军直射武器
-                    if (bitName == "1-6_png") {
-                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    if (bitName == "1-6_png" || bitName == "new3-15_png") {
+                        hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx = new djwq.KaiHuaWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        // hx = new djwq.KaiHuaWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        // hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        // hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+
+
 
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                     }
@@ -331,6 +359,7 @@ module feichuan {
             if (type == 3) {
                 hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "lan_dian_png", wuqi.WUQI_TYPE.PU_TONG, this);
                 let wq = <wuqi.PuTongDan>hx
+                hx.setMkLevel(5);
                 this.wuqiList.push(wq)
             }
 
@@ -360,7 +389,7 @@ module feichuan {
         }
 
         //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
-        public checkCollision(x: number, y: number) {
+        public checkCollision(x: number, y: number, zd: zidan.ZiDanBase) {
             let xw: number = 1000;
             let yh: number = 1000;
             let zm: mokuai.MoKuaiBase;
@@ -386,23 +415,27 @@ module feichuan {
                 return;
             }
 
-            //将节点标记  之后在碰撞循环外清空
-            this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
-            //将飞船添加到受伤飞船列表
-            this.battle_scene.shouShangFeiChuanList.push(this);
-            //将需要移除的模块添加到列表
-            this.removeMoKuai.push(zm);
+            // 模块碰撞 检测
+            if (zm.coll(zd.hitNumber)) {
 
-            //如果该模块是 核心 则整体删除
-            if (zm instanceof mokuai.DongLiHeXin) {
-                this.hx = null;
-                //减少每回合总飞机的 标记数量
-                this.battle_scene.lastFeiJi--;
-            }
+                //将节点标记  之后在碰撞循环外清空
+                this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
+                //将飞船添加到受伤飞船列表
+                this.battle_scene.shouShangFeiChuanList.push(this);
+                //将需要移除的模块添加到列表
+                this.removeMoKuai.push(zm);
 
-            //如果是武器类型
-            if (zm.moKuaiType == mokuai.MO_KUAI_TYPE.WU_QI) {
-                this.removeWuQi(<wuqi.WuQiBase>zm);
+                //如果该模块是 核心 则整体删除
+                if (zm instanceof mokuai.DongLiHeXin) {
+                    this.hx = null;
+                    //减少每回合总飞机的 标记数量
+                    this.battle_scene.lastFeiJi--;
+                }
+
+                //如果是武器类型
+                if (zm.moKuaiType == mokuai.MO_KUAI_TYPE.WU_QI) {
+                    this.removeWuQi(<wuqi.WuQiBase>zm);
+                }
             }
 
 
@@ -449,9 +482,7 @@ module feichuan {
             this.wuqiList.splice(inx, 1);
         }
 
-
-
-
-
+        public ji_guang_peng_zhuang(x: number, y: number) {
+        }
     }
 }

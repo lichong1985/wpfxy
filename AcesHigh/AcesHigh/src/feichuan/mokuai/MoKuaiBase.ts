@@ -70,6 +70,10 @@ module mokuai {
         //标记当前位置
         public markPoint: egret.Point;
 
+        //模块当前等级
+        public mk_level: number = 1;
+        //当前等级剩余耐打次数
+        public dk_now: number = 1;
 
 
         //相对距离
@@ -114,6 +118,45 @@ module mokuai {
 
         public updata() {
 
+        }
+
+        //模块碰撞检测
+        public coll(hit: number): boolean {
+            this.dk_now = this.dk_now - hit;
+            if (this.dk_now <= 0) {
+                this.mk_level--;
+                //换皮
+                if (this.mk_level > 0) {
+                    if (this.mk_level == 4) {
+                        this.texture = RES.getRes("new3-13_png");
+                    }
+                    if (this.mk_level == 3) {
+                        this.texture = RES.getRes("new3-12_png");
+                    }
+                    if (this.mk_level == 2) {
+                        this.texture = RES.getRes("new3-11_png");
+                    }
+                    if (this.mk_level == 1) {
+                        this.texture = RES.getRes("new3-10_png");
+                    }
+
+                }
+                this.dk_now = this.mk_level;
+            }
+
+
+            if (this.mk_level <= 0 && this.dk_now <= 0) {
+                //已经被销毁
+                return true;
+            }
+
+            return false;
+        }
+
+        //设置装甲等级
+        public setMkLevel(level: number) {
+            this.mk_level = level;
+            this.dk_now = level;
         }
 
     }

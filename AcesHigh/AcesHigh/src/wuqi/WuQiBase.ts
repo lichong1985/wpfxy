@@ -11,12 +11,14 @@ module wuqi {
         DING_WEI = 8,//定位子弹
         JIAN_SU = 9,//减速武器
         KAI_HUA = 10,//开花弹
+        GEN_ZHONG = 11,//跟踪
+        
     }
     export class WuQiBase extends mokuai.MoKuaiBase {
         //武器类型
         public wuqi_type: WUQI_TYPE;
         //武器攻击cd 单位毫秒
-        public cd: number = 1000;
+        public cd: number = 500;
 
         //时间标记 上一次攻击的时间
         public mark_time: number = 0;
@@ -51,10 +53,9 @@ module wuqi {
         //送出子弹
         public diu(w_t: WUQI_TYPE, v: egret.Point, zy: GameConstant.ZHEN_YING, angle: number) {
 
-            // egret.log("DDDDDDDDDDDDDDDDDDDDDDDDDDD:" + w_t + " || (" + v.x + "," + v.y + ")  || " + zy);
             let zd: zidan.ZiDanBase;
             if (w_t == WUQI_TYPE.ZHI_SHE) {
-                zd = new zidan.ZhiSheZhiDan(zy, 0.0001);
+                zd = new zidan.ZhiSheZhiDan(zy, 0.001);
             }
 
             if (w_t == WUQI_TYPE.DING_WEI) {
@@ -64,7 +65,10 @@ module wuqi {
                 zd = new zidan.JianSuZiDan(zy, 0.0001);
             }
             if (w_t == WUQI_TYPE.KAI_HUA) {
-                // zd = new zidan.KaiHuaZiDan(zy, 0.0001);
+                zd = new zidan.KaiHuaZiDan(zy, 0.0001);
+
+            }
+            if (w_t == WUQI_TYPE.GEN_ZHONG) {
                 zd = new zidan.GenZongZiDan(zy, 0.0001, this.fc.battle_scene.sk);
 
             }

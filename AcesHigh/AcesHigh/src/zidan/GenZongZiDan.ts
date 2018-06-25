@@ -3,7 +3,7 @@ module zidan {
         //跟踪弹生效时间
         public gz_time: number = 10000;
         public suke: shuke.ShuKe;
-        public sudu: number = 3;
+        public sudu: number = 2;
         constructor(zhenying: GameConstant.ZHEN_YING, mass: number, suke: shuke.ShuKe) {
             super(zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
@@ -28,13 +28,10 @@ module zidan {
             let angle: number = Math.atan2((this.suke.position[1] - this.position[1]), (this.suke.position[0] - this.position[0])) + Math.PI * 0.5
             let sx = Math.sin(angle) * this.sudu;
             let sy = Math.cos(angle) * this.sudu;
-            // if (suke.position[1] < this.fc.position[1]) {
             sy = sy * -1;
-            // }
-
             this.angle = angle;
             this.velocity = [sx, sy];
-            
+
 
         }
 

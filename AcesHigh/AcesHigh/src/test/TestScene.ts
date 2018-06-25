@@ -49,7 +49,7 @@ class TestScene extends scene.SceneBase {
                 //添加飞船到战场
                 let fc = new feichuan.XiaoBing(this, this.guanka.bos[this.nowBo][this.nowHeiHe][i].nowP, this.guanka.bos[this.nowBo][this.nowHeiHe][i].toP, this.guanka.bos[this.nowBo][this.nowHeiHe][i].sName)
                 // fc.addAI(new ai.MiaoZhun(fc, 0.5));
-                fc.addAI(new ai.ZuoYouLuanDongAI(fc));
+                // fc.addAI(new ai.ZuoYouLuanDongAI(fc));
                 // fc.damping = 0.5;
 
                 this.dijis.push(fc);
