@@ -14,8 +14,15 @@ var zidan;
         __extends(ZiDanBase, _super);
         function ZiDanBase(zhenying, mass, wqt) {
             var _this = _super.call(this, { mass: mass }) || this;
-            _this.is_kick = true;
-            _this.is_coll = true;
+            _this.is_updata = false;
+            //碰撞次数
+            _this.collNumber = 1;
+            //攻击力
+            _this.hitNumber = 1;
+            //是否是第一次碰撞
+            _this.is_first = true;
+            //发射标记时间
+            _this.mark_time = egret.getTimer();
             _this.zhenying = zhenying;
             _this.wqt = wqt;
             _this.initColl();
@@ -30,17 +37,17 @@ var zidan;
         };
         //初始化碰撞参数
         ZiDanBase.prototype.initColl = function () {
-            if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
-                this.collGroup = GameConstant.WO_JUN;
+            if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN_ZIDAN) {
+                this.collGroup = GameConstant.WO_JUN_ZIDAN;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI;
             }
-            if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN) {
-                this.collGroup = GameConstant.DI_JUN;
+            if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN_ZIDAN) {
+                this.collGroup = GameConstant.DI_JUN_ZIDAN;
                 this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
             }
             if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                 this.collGroup = GameConstant.ZHONG_LI;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN;
+                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN_ZIDAN;
             }
         };
         ZiDanBase.prototype.updata = function () {
@@ -50,4 +57,3 @@ var zidan;
     zidan.ZiDanBase = ZiDanBase;
     __reflect(ZiDanBase.prototype, "zidan.ZiDanBase");
 })(zidan || (zidan = {}));
-//# sourceMappingURL=ZiDanBase.js.map

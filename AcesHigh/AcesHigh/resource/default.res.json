@@ -1,11 +1,11 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,1_json,ship6-81_png,ship6-80_png,ship6-79_png,ship6-78_png,ship6-77_png,ship6-76_png,ship6-75_png,1-1_png,1-2_png,1-3_png,1-4_png,1-5_png,1-6_png,1-7_png,2_json,4_json,5_json,6_json,6_1_json",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,1_json,ship6-81_png,ship6-80_png,ship6-79_png,ship6-78_png,ship6-77_png,ship6-76_png,ship6-75_png,1-1_png,1-2_png,1-3_png,1-4_png,1-5_png,1-6_png,1-7_png,2_json,4_json,5_json,6_json,6_1_json,1_m_json,1_s_json,2_m_json,2_s_json,3_m_json,3_s_json,4_m_json,4_s_json,5_m_json,5_s_json,new3-10_png,new3-11_png,new3-12_png,new3-13_png,new3-14_png,new3-15_png,new3-16_png",
 			"name": "preload"
 		},
 		{
-			"keys": "hong_dian_png,huang_dian_png,lan_dian_png,lv_dian_png,1_json,ship6-75_png,ship6-76_png,ship6-77_png,ship6-78_png,ship6-79_png,ship6-80_png,ship6-81_png,1-7_png,1-6_png,1-5_png,1-4_png,1-3_png,1-2_png,1-1_png,2_json,4_json,5_json,6_json,6_1_json",
+			"keys": "hong_dian_png,huang_dian_png,lan_dian_png,lv_dian_png,1_json,ship6-75_png,ship6-76_png,ship6-77_png,ship6-78_png,ship6-79_png,ship6-80_png,ship6-81_png,1-7_png,1-6_png,1-5_png,1-4_png,1-3_png,1-2_png,1-1_png,2_json,4_json,5_json,6_json,6_1_json,new3-16_png,new3-15_png,new3-14_png,new3-13_png,new3-12_png,new3-11_png,new3-10_png,1_s_json,1_m_json,2_s_json,2_m_json,4_s_json,4_m_json,3_s_json,3_m_json,5_s_json,5_m_json",
 			"name": "testLoad"
 		}
 	],
@@ -259,6 +259,91 @@
 			"url": "fc/6_1.json",
 			"type": "json",
 			"name": "6_1_json"
+		},
+		{
+			"url": "fc/1_m.json",
+			"type": "json",
+			"name": "1_m_json"
+		},
+		{
+			"url": "fc/1_s.json",
+			"type": "json",
+			"name": "1_s_json"
+		},
+		{
+			"url": "fc/2_m.json",
+			"type": "json",
+			"name": "2_m_json"
+		},
+		{
+			"url": "fc/2_s.json",
+			"type": "json",
+			"name": "2_s_json"
+		},
+		{
+			"url": "fc/3_m.json",
+			"type": "json",
+			"name": "3_m_json"
+		},
+		{
+			"url": "fc/3_s.json",
+			"type": "json",
+			"name": "3_s_json"
+		},
+		{
+			"url": "fc/4_m.json",
+			"type": "json",
+			"name": "4_m_json"
+		},
+		{
+			"url": "fc/4_s.json",
+			"type": "json",
+			"name": "4_s_json"
+		},
+		{
+			"url": "fc/5_m.json",
+			"type": "json",
+			"name": "5_m_json"
+		},
+		{
+			"url": "fc/5_s.json",
+			"type": "json",
+			"name": "5_s_json"
+		},
+		{
+			"url": "fc/new3-10.png",
+			"type": "image",
+			"name": "new3-10_png"
+		},
+		{
+			"url": "fc/new3-11.png",
+			"type": "image",
+			"name": "new3-11_png"
+		},
+		{
+			"url": "fc/new3-12.png",
+			"type": "image",
+			"name": "new3-12_png"
+		},
+		{
+			"url": "fc/new3-13.png",
+			"type": "image",
+			"name": "new3-13_png"
+		},
+		{
+			"url": "fc/new3-14.png",
+			"type": "image",
+			"name": "new3-14_png"
+		},
+		{
+			"url": "fc/new3-15.png",
+			"type": "image",
+			"name": "new3-15_png"
+		},
+		{
+			"url": "fc/new3-16.png",
+			"type": "image",
+			"name": "new3-16_png"
 		}
 	]
 }
