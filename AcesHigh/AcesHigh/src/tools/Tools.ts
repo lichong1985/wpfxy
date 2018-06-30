@@ -55,4 +55,17 @@ module Tools {
 
 
     }
+
+    //格子坐标转 物理坐标
+    export function gridTop2(x: number, y: number): egret.Point {
+        let ex = x * 100 + 50;
+        let ey = y * 100 + 50;
+        return egret.Point.create(ex / Physics.factor, (scene.battle_sceneH - ey) / Physics.factor);
+    }
+
+    //格子坐标转 屏幕坐标
+    export function gridToEgret(x: number, y: number): egret.Point {
+
+        return egret.Point.create((x * 100 + 50), (y * 100 + 50));
+    }
 }

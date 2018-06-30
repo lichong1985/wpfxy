@@ -12,6 +12,12 @@ module zidan {
         public wqt: wuqi.WUQI_TYPE;
 
         public bitmap: egret.Bitmap;
+        public bit_name: string;
+        public scene: scene.SceneBase;
+        //尾翼cd
+        public wyCD: number = 50;
+        public wyMark: number = 0;
+        public wyName: string;
 
 
 
@@ -28,16 +34,18 @@ module zidan {
         public mark_time: number = egret.getTimer();
 
 
-        constructor(zhenying: GameConstant.ZHEN_YING, mass: number, wqt: wuqi.WUQI_TYPE) {
+        constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number, wqt: wuqi.WUQI_TYPE) {
             super({ mass: mass })
             this.zhenying = zhenying;
             this.wqt = wqt;
+            this.scene = scene;
             this.initColl();
             this.initZidan();
+            
         }
 
         public initZidan() {
-            let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+            let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.NANO], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.NANO] });
             this.addShape(box);
             box.collisionMask = this.collMask;
             box.collisionGroup = this.collGroup;
@@ -60,8 +68,34 @@ module zidan {
             }
         }
 
+        public texiao() {
+            this.dell(this.bitmap);
+        }
+
+
+        //移除缓动动画
+        public dell(DD: egret.DisplayObject) { this.scene.removeChild(DD); DD = null; }
+
 
         public updata() {
+
+        }
+
+        //添加尾翼
+        public weiyi(name: string) {
+            if (egret.getTimer() - this.wyMark < this.wyCD && this.bitmap != null) {
+                return;
+            }
+            this.wyMark = egret.getTimer();
+            let b: egret.Bitmap = new egret.Bitmap(RES.getRes(name));
+            b.rotation = 360 - this.angle * 180 / Math.PI;
+            b.x = this.bitmap.x;
+            b.y = this.bitmap.y;
+            b.scaleX = 0.5;
+            b.scaleY = 0.5;
+            this.scene.addChild(b);
+            b.alpha = 0.5;
+            egret.Tween.get(b).to({ "scaleX": 0.1, "scaleY": 0.1 }, 500).call(this.dell, this, [b]);
 
         }
     }

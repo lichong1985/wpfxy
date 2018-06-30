@@ -4,15 +4,17 @@ module zidan {
         public gz_time: number = 10000;
         public suke: shuke.ShuKe;
         public sudu: number = 2;
-        constructor(zhenying: GameConstant.ZHEN_YING, mass: number, suke: shuke.ShuKe) {
-            super(zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
+        constructor(scene: scene.SceneBase,zhenying: GameConstant.ZHEN_YING, mass: number, suke: shuke.ShuKe) {
+            super(scene,zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
             this.is_updata = true;
             this.damping = 0;
             this.suke = suke;
+            this.bit_name = "wq_3_png";
+
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("1-5_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("wq_4_png"))
             this.damping = 0;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;

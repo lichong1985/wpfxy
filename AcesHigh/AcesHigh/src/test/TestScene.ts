@@ -3,10 +3,18 @@ class TestScene extends scene.SceneBase {
     //飞船结构图
     public fc: Array<Array<mokuai.MoKuaiBase>>;
     public guanka: Guanka = new Guanka(this);
+    public static instance: TestScene = null;
     constructor() {
         super();
         this.initTest();
         this.initGuanka();
+    }
+
+    public static getInstance(): TestScene {
+        if (TestScene.instance == null) {
+            TestScene.instance = new TestScene();
+        }
+        return TestScene.instance;
     }
 
     public initGuanka() {
@@ -40,7 +48,7 @@ class TestScene extends scene.SceneBase {
     public upSomeThing() {
         super.upSomeThing();
 
-        //刚刚开场
+        // //刚刚开场
         if (this.add_hh_fc) {
             //重置
             this.add_hh_fc = false;

@@ -1,9 +1,14 @@
 module zidan {
     export class PuTongZiDan extends zidan.ZiDanBase {
-        constructor(zhenying: GameConstant.ZHEN_YING, mass: number) {
-            super(zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
+        constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number) {
+            super(scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
             this.collNumber = 1;
+            this.bit_name = "lv_dian_png";
+            this.bitmap.scaleX = 0.5;
+            this.bitmap.scaleY = 0.5;
+            this.is_updata = true;
+
         }
         public initPT() {
             this.bitmap = new egret.Bitmap(RES.getRes("lv_dian_png"))
@@ -13,6 +18,15 @@ module zidan {
 
         public updata() {
             super.updata();
+            super.weiyi(this.bit_name);
+        }
+
+        public texiao() {
+            this.bitmap.scaleX = 0.8;
+            this.bitmap.scaleY = 0.8;
+            this.bitmap.alpha = 0.8
+            egret.Tween.get(this.bitmap).to({ "alpha": 0.3 }, 300).call(super.dell, this, [this.bitmap]);
+
         }
 
     }

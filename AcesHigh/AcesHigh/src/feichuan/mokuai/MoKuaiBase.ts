@@ -9,9 +9,10 @@ module mokuai {
 
     //模块体积类型
     export enum BODY_SHAPE_TYPE {
-        SIMPLE = 0,// 单个
-        FF = 1,//2乘2
-        NN = 2 //3乘3
+        NANO,
+        SIMPLE,// 单个
+        FF,//2乘2
+        NN   //3乘3
     }
     //模块类型
     export enum MO_KUAI_TYPE {
@@ -27,12 +28,15 @@ module mokuai {
     export const FF_SIZE: number = 16 * 2;
     export const NN_SIZE: number = 16 * 3;
 
+    export const NANO_SIZE_PH: number = 8 / 50;
     export const SIMPLE_SIZE_PH: number = 16 / 50;
     export const FF_SIZE_PH: number = 16 * 2 / 50;
     export const NN_SIZE_PH: number = 16 * 3 / 50;
 
+
+
     export const M_SIZE: number[] = [SIMPLE_SIZE, FF_SIZE, NN_SIZE]
-    export const M_SIZE_PH: number[] = [SIMPLE_SIZE_PH, FF_SIZE_PH, NN_SIZE_PH]
+    export const M_SIZE_PH: number[] = [NANO_SIZE_PH, SIMPLE_SIZE_PH, FF_SIZE_PH, NN_SIZE_PH]
 
     //模块基类  
     export class MoKuaiBase extends egret.Bitmap {
@@ -81,12 +85,15 @@ module mokuai {
 
         public fc: feichuan.FeiChuanBase;
 
+        public bitName: string;
+
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
             super(RES.getRes(bitName))
             this.shapeType = shapeType;
             this.moKuaiPost = moKuaiPost;
             // this.bodySize = bodySize;
             this.fc = fc;
+            this.bitName = bitName;
 
 
             //初始化锚点
@@ -128,16 +135,23 @@ module mokuai {
                 //换皮
                 if (this.mk_level > 0) {
                     if (this.mk_level == 4) {
-                        this.texture = RES.getRes("new3-13_png");
+                        this.texture = RES.getRes("zj_level_4_png");
+                        this.bitName = "zj_level_4_png";
                     }
                     if (this.mk_level == 3) {
-                        this.texture = RES.getRes("new3-12_png");
+                        this.texture = RES.getRes("zj_level_3_png");
+                        this.bitName = "zj_level_3_png";
+
                     }
                     if (this.mk_level == 2) {
-                        this.texture = RES.getRes("new3-11_png");
+                        this.texture = RES.getRes("zj_level_2_png");
+                        this.bitName = "zj_level_2_png";
+
                     }
                     if (this.mk_level == 1) {
-                        this.texture = RES.getRes("new3-10_png");
+                        this.texture = RES.getRes("zj_level_1_png");
+                        this.bitName = "zj_level_1_png";
+
                     }
 
                 }
@@ -157,6 +171,35 @@ module mokuai {
         public setMkLevel(level: number) {
             this.mk_level = level;
             this.dk_now = level;
+        }
+
+        //移除缓动动画
+        public dell(DD: egret.DisplayObject) { this.fc.battle_scene.removeChild(DD); DD = null; }
+
+
+        public jihui_texiao() {
+            let b = new egret.Bitmap(RES.getRes(this.bitName))
+            b.x = this.x;
+            b.y = this.y;
+            this.fc.battle_scene.addChild(b);
+            b.rotation = this.rotation;
+            b.anchorOffsetX = b.width * 0.5;
+            b.anchorOffsetY = b.height * 0.5;
+            let r = b.rotation + 361;
+            egret.Tween.get(b).to({ "alpha": 0.9, "rotation": r }, 800).call(this.dell, this, [b]);
+
+        }
+        //击中特效
+        public jiZhong_texiao() {
+            this.texture = RES.getRes("hong_dian_png");
+            this.alpha = 0.5
+            egret.Tween.get(this).to({ "alpha": 1 }, 250).to({ "alpha": 0.3 }, 250).call(this.shan_shuo, this);
+        }
+        //闪烁
+        public shan_shuo() {
+            this.alpha = 1;
+            this.texture = RES.getRes(this.bitName);
+
         }
 
     }

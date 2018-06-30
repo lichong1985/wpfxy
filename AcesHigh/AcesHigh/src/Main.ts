@@ -73,7 +73,9 @@ class Main extends eui.UILayer {
     public _distance: egret.Point = new egret.Point();
     //添加测试场景
     public addTestScene() {
-        this.testSen = new TestScene();
+
+        // this.testSen = new TestScene();
+        this.testSen = TestScene.getInstance();
         this.stage.addChild(this.testSen);
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;

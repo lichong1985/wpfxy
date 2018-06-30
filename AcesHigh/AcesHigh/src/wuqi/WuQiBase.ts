@@ -12,7 +12,7 @@ module wuqi {
         JIAN_SU = 9,//减速武器
         KAI_HUA = 10,//开花弹
         GEN_ZHONG = 11,//跟踪
-        
+
     }
     export class WuQiBase extends mokuai.MoKuaiBase {
         //武器类型
@@ -55,21 +55,21 @@ module wuqi {
 
             let zd: zidan.ZiDanBase;
             if (w_t == WUQI_TYPE.ZHI_SHE) {
-                zd = new zidan.ZhiSheZhiDan(zy, 0.001);
+                zd = new zidan.ZhiSheZhiDan(this.fc.battle_scene, zy, 0.001);
             }
 
             if (w_t == WUQI_TYPE.DING_WEI) {
-                zd = new zidan.DingWeiZidan(zy, 0.0001);
+                zd = new zidan.DingWeiZidan(this.fc.battle_scene, zy, 0.0001);
             }
             if (w_t == WUQI_TYPE.JIAN_SU) {
-                zd = new zidan.JianSuZiDan(zy, 0.0001);
+                zd = new zidan.JianSuZiDan(this.fc.battle_scene, zy, 0.0001);
             }
             if (w_t == WUQI_TYPE.KAI_HUA) {
-                zd = new zidan.KaiHuaZiDan(zy, 0.0001);
+                zd = new zidan.KaiHuaZiDan(this.fc.battle_scene, zy, 0.0001);
 
             }
             if (w_t == WUQI_TYPE.GEN_ZHONG) {
-                zd = new zidan.GenZongZiDan(zy, 0.0001, this.fc.battle_scene.sk);
+                zd = new zidan.GenZongZiDan(this.fc.battle_scene, zy, 0.0001, this.fc.battle_scene.sk);
 
             }
 

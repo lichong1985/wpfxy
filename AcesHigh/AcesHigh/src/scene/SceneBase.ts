@@ -29,6 +29,8 @@ module scene {
         public dijis: Array<feichuan.FeiChuanBase>;
         //需要被移除的刚体列表（目前只作用与子弹 ）
         public removeZiDanBodyList: Array<p2.Body>;
+        //只要出现就移除列表
+        public ovzRemoveZiDanBodyList: Array<p2.Body>;
         //受伤的飞船列表
         public shouShangFeiChuanList: Array<feichuan.FeiChuanBase>;
         //残骸列表
@@ -61,6 +63,7 @@ module scene {
 
         constructor() {
             super()
+
             this.init();
             this.initcoll();
         }
@@ -75,6 +78,7 @@ module scene {
             this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
             this.dijis = new Array<feichuan.FeiChuanBase>();
             this.removeZiDanBodyList = new Array<p2.Body>();
+            this.ovzRemoveZiDanBodyList = new Array<p2.Body>();
             this.shouShangFeiChuanList = new Array<feichuan.FeiChuanBase>();
             this.canHais = new Array<canhai.CanHai>();
             this.zidanList = new Array<zidan.ZiDanBase>();
@@ -127,6 +131,7 @@ module scene {
             this.upSomeThing();
             this.updataIsInWorld();
             this.updataWuQi();
+
         }
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -179,18 +184,43 @@ module scene {
                     continue;
                 }
                 let zd = <zidan.ZiDanBase>m;
+
                 //没有碰撞次数后删除子弹
                 if (zd.collNumber <= 0) {
                     let d = zd.displays[0];
                     if (d) {
                         if (d.parent) {
-                            this.removeChild(d);
+                            zd.texiao();
+                            // this.removeChild(d);
                         }
                     }
                     this.world.removeBody(zd);
                     zd = null;
                 }
             }
+
+            size = this.ovzRemoveZiDanBodyList.length;
+            for (let i = 0; i < size; i++) {
+                let m = this.ovzRemoveZiDanBodyList.pop();
+                if (!m) {
+                    continue;
+                }
+                let zd = <zidan.ZiDanBase>m;
+
+                //没有碰撞次数后删除子弹
+
+                let d = zd.displays[0];
+                if (d) {
+                    if (d.parent) {
+                        this.removeChild(d);
+                    }
+                }
+                this.world.removeBody(zd);
+                zd = null;
+
+            }
+
+
         }
 
         //检测飞船
@@ -250,24 +280,30 @@ module scene {
 
                     //c超出边界移除子弹
                     if (zd.position[1] > scene.p2_shang) {
-                        this.removeZiDanBodyList.push(zd)
+                        this.ovzRemoveZiDanBodyList.push(zd)
                     }
 
                     if (zd.position[1] < scene.p2_xia) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
 
 
                     if (zd.position[0] > scene.p2_you) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     if (zd.position[0] < scene.p2_zuo) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     //超过15秒删除
-                    if ((egret.getTimer() - zd.mark_time) > 15000) {
-                        this.removeZiDanBodyList.push(zd);
+                    if ((egret.getTimer() - zd.mark_time) > 10000) {
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
+                    //速度==0
+                    if (zd.velocity[0] == 0 && zd.velocity[1] == 0) {
+                        this.ovzRemoveZiDanBodyList.push(zd);
+
+                    }
+
                 }
 
                 if (boxBody instanceof canhai.CanHai) {
