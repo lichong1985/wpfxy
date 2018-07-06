@@ -46,3 +46,4 @@ var djwq;
     djwq.GenZhongWuqi = GenZhongWuqi;
     __reflect(GenZhongWuqi.prototype, "djwq.GenZhongWuqi");
 })(djwq || (djwq = {}));
+//# sourceMappingURL=GenZhongWuqi.js.map

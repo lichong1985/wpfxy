@@ -60,37 +60,58 @@ var scene;
             this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
             this.dijis = new Array();
             this.removeZiDanBodyList = new Array();
+            this.ovzRemoveZiDanBodyList = new Array();
             this.shouShangFeiChuanList = new Array();
             this.canHais = new Array();
             this.zidanList = new Array();
+            this.removeDLList = new Array();
         };
         //创建碰撞检测函数
         SceneBase.prototype.initcoll = function () {
             var s = this;
             this.world.on('beginContact', function (evt) {
-                if (evt.bodyB instanceof zidan.PuTongZiDan || evt.bodyA instanceof zidan.PuTongZiDan) {
-                    var m = evt.bodyB instanceof zidan.PuTongZiDan ? evt.bodyB : evt.bodyA;
+                //如果碰撞没有子弹 则退出
+                // if (!(evt.bodyB instanceof zidan.ZiDanBase) && !(evt.bodyA instanceof zidan.ZiDanBase)) {
+                //     return;
+                // }
+                //--------------掉落道具------------------
+                if (evt.bodyA instanceof diaoluo.DiaoLuo) {
+                    var dl = evt.bodyA;
+                    var sk = evt.bodyB;
+                    s.removeDLList.push(dl);
+                }
+                if (evt.bodyB instanceof diaoluo.DiaoLuo) {
+                    var dl = evt.bodyB;
+                    var sk = evt.bodyA;
+                    s.removeDLList.push(dl);
+                }
+                //-----------------------子弹与 地方碰撞----------------
+                //根据碰撞次数 减少耐久
+                if (evt.bodyB instanceof zidan.ZiDanBase || evt.bodyA instanceof zidan.ZiDanBase) {
+                    var m = evt.bodyB instanceof zidan.ZiDanBase ? evt.bodyB : evt.bodyA;
                     var zd = m;
-                    if (zd.is_kick) {
-                        s.removeZiDanBodyList.push(zd);
-                    }
+                    zd.collNumber--;
                 }
                 if (evt.bodyB instanceof feichuan.FeiChuanBase || evt.bodyA instanceof feichuan.FeiChuanBase) {
                     var m = evt.bodyB instanceof feichuan.FeiChuanBase ? evt.bodyB : evt.bodyA;
                     var oh = evt.bodyB instanceof feichuan.FeiChuanBase ? evt.bodyA : evt.bodyB;
+                    var ogzd = oh;
                     var fc = m;
                     if (fc.zhenying == GameConstant.ZHEN_YING.DI_JUN || fc.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                         if (oh instanceof zidan.ZiDanBase) {
-                            var ogzd = oh;
-                            //碰撞只会出发一次
-                            if (ogzd.is_coll) {
-                                //检测碰撞点 并且标记好在循环外删除
-                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y);
-                                ogzd.is_coll = false;
+                            //检测碰撞点 并且标记好在循环外删除
+                            if (ogzd.is_first) {
+                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd);
+                                ogzd.is_first = false;
                             }
                         }
                     }
+                    //只有当 碰撞参数等于0的时候才添加到 删除列表
+                    if (ogzd.collNumber == 0) {
+                        s.removeZiDanBodyList.push(ogzd);
+                    }
                 }
+                //------------------------------------------------------
             });
         };
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -143,17 +164,62 @@ var scene;
          * 物理世界循环外 删除子弹
          */
         SceneBase.prototype.chackColl = function () {
+            //子弹
             var size = this.removeZiDanBodyList.length;
             for (var i = 0; i < size; i++) {
-                var zd = this.removeZiDanBodyList.pop();
-                if (zd.is_kick) {
-                    zd.is_kick = false;
+                var m = this.removeZiDanBodyList.pop();
+                if (!m) {
+                    continue;
+                }
+                var zd = m;
+                //没有碰撞次数后删除子弹
+                if (zd.collNumber <= 0) {
                     var d = zd.displays[0];
                     if (d) {
-                        this.removeChild(d);
+                        if (d.parent) {
+                            zd.texiao();
+                            // this.removeChild(d);
+                        }
                     }
                     this.world.removeBody(zd);
+                    zd = null;
                 }
+            }
+            //子弹
+            size = this.ovzRemoveZiDanBodyList.length;
+            for (var i = 0; i < size; i++) {
+                var m = this.ovzRemoveZiDanBodyList.pop();
+                if (!m) {
+                    continue;
+                }
+                var zd = m;
+                //没有碰撞次数后删除子弹
+                var d = zd.displays[0];
+                if (d) {
+                    if (d.parent) {
+                        this.removeChild(d);
+                    }
+                }
+                this.world.removeBody(zd);
+                zd = null;
+            }
+            //掉落道具
+            size = this.removeDLList.length;
+            for (var i = 0; i < size; i++) {
+                var dl = this.removeDLList.pop();
+                if (!dl) {
+                    continue;
+                }
+                //添加道具
+                this.sk.addMoKuai(dl);
+                var d = dl.displays[0];
+                if (d) {
+                    if (d.parent) {
+                        this.removeChild(d);
+                    }
+                }
+                this.world.removeBody(dl);
+                dl = null;
             }
         };
         //检测飞船
@@ -168,6 +234,10 @@ var scene;
                     f.removeShape(m.boxShape);
                     this.removeChild(m);
                     f.mokuai_size--;
+                    //查看该模块是否掉落道具
+                    if (m.is_diao_luo) {
+                        this.diao_luo_dao_ju(m);
+                    }
                 }
                 //掉落检测
                 if (!GameConstant.chackMoKuaiNumber(f)) {
@@ -201,6 +271,12 @@ var scene;
                         wq.updata_wq(boxBody.angle, this.sk, egret.getTimer());
                     }
                 }
+                //掉落控制
+                if (boxBody instanceof diaoluo.DiaoLuo) {
+                    var dl = boxBody;
+                    dl.updata();
+                    //todo删除
+                }
                 if (boxBody instanceof zidan.ZiDanBase) {
                     var zd = boxBody;
                     if (zd.is_updata) {
@@ -208,16 +284,24 @@ var scene;
                     }
                     //c超出边界移除子弹
                     if (zd.position[1] > scene.p2_shang) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     if (zd.position[1] < scene.p2_xia) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     if (zd.position[0] > scene.p2_you) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     if (zd.position[0] < scene.p2_zuo) {
-                        this.removeZiDanBodyList.push(zd);
+                        this.ovzRemoveZiDanBodyList.push(zd);
+                    }
+                    //超过15秒删除
+                    if ((egret.getTimer() - zd.mark_time) > 10000) {
+                        this.ovzRemoveZiDanBodyList.push(zd);
+                    }
+                    //速度==0
+                    if (zd.velocity[0] == 0 && zd.velocity[1] == 0) {
+                        this.ovzRemoveZiDanBodyList.push(zd);
                     }
                 }
                 if (boxBody instanceof canhai.CanHai) {
@@ -257,6 +341,13 @@ var scene;
             }
             this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.1;
             this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.1;
+        };
+        //掉落道具
+        SceneBase.prototype.diao_luo_dao_ju = function (mk) {
+            var dl = new diaoluo.DiaoLuo(this, mk.diao_luo_type, mk.dl_lv, Tools.egretTOp2(egret.Point.create(mk.x, mk.y)), mk.dl_wq_type);
+            this.world.addBody(dl);
+            this.addChild(dl.displays[0]);
+            dl.loop();
         };
         //添加测试场景
         SceneBase.prototype.addShuKeListener = function () {

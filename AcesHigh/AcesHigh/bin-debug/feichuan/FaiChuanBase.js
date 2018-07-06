@@ -62,32 +62,52 @@ var feichuan;
                     }
                     var bitName = js.tiles[data[i] - 1].image.replace(".", "_");
                     var hx = void 0;
-                    if (bitName == "1-7_png") {
-                        hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        this.hx = hx;
+                    if (bitName == "hx_1_png" || bitName == "hx_2_png") {
+                        this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = this.hx;
                     }
-                    if (bitName == "1-1_png") {
+                    if (bitName == "zj_level_5_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
                     }
-                    if (bitName == "1-2_png") {
+                    if (bitName == "zj_level_4_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(4);
                     }
-                    if (bitName == "1-3_png") {
+                    if (bitName == "zj_level_3_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(3);
                     }
-                    if (bitName == "1-4_png") {
+                    if (bitName == "zj_level_2_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(2);
                     }
-                    if (bitName == "1-5_png") {
+                    if (bitName == "zj_level_1_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(1);
                     }
                     //敌军直射武器
-                    if (bitName == "1-6_png") {
-                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx = new djwq.KaiHuaWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    if (bitName == "wq_2_png") {
+                        hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
+                    //敌军定位武器
+                    if (bitName == "wq_1_png") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        this.wuqiList.push(hx);
+                    }
+                    //敌军跟踪武器
+                    if (bitName == "wq_3_png") {
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        this.wuqiList.push(hx);
+                    }
+                    //敌军减速武器
+                    if (bitName == "wq_4_png") {
+                        hx = new djwq.JianSuWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        this.wuqiList.push(hx);
+                    }
+                    //掉落随机
+                    this.suiji_dl(hx);
                     var hpp = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
                     var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
                     box.collisionGroup = this.collGroup;
@@ -95,22 +115,42 @@ var feichuan;
                     this.addShape(box, [hpp.x, hpp.y]);
                     this.moKuaiList[h][w] = hx;
                     hx.boxShape = box;
-                    this.battle_scene.addChild(hx);
+                    if (hx instanceof mokuai.DongLiHeXin) {
+                        this.battle_scene.addChildAt(hx, 10);
+                    }
+                    else {
+                        this.battle_scene.addChildAt(hx, 5);
+                    }
                     this.mokuai_size++;
                     i++;
                 }
             }
             this.battle_scene.world.addBody(this);
         };
+        //随机掉落
+        FeiChuanBase.prototype.suiji_dl = function (hx) {
+            var is = suiji.isDiaoLuoMoKuai();
+            hx.is_diao_luo = is;
+            //不掉落退出
+            if (!is) {
+                return;
+            }
+            hx.diao_luo_type = suiji.suiji_yanse();
+            if (hx.diao_luo_type == suiji.SJ_YAN_SE.WU_QI) {
+                hx.dl_wq_type = suiji.suiji_wuqi();
+            }
+            hx.dl_lv = suiji.suiji_level(hx.diao_luo_type);
+            egret.log("SSSSSSSSSSSSSSSSS:" + hx.diao_luo_type);
+        };
         //初始化碰撞参数
         FeiChuanBase.prototype.initColl = function () {
             if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
                 this.collGroup = GameConstant.WO_JUN;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.DI_JUN_ZIDAN;
+                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.DI_JUN_ZIDAN | GameConstant.DIAO_LUO;
             }
             if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN) {
                 this.collGroup = GameConstant.DI_JUN;
-                this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN_ZIDAN;
+                this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN;
             }
             if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                 this.collGroup = GameConstant.ZHONG_LI;
@@ -222,14 +262,15 @@ var feichuan;
             if (type == 3) {
                 hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "lan_dian_png", wuqi.WUQI_TYPE.PU_TONG, this);
                 var wq = hx;
+                hx.setMkLevel(5);
                 this.wuqiList.push(wq);
             }
             if (type == 2) {
                 hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "hong_dian_png", this);
             }
             if (type == 1) {
-                hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "huang_dian_png", this);
-                this.hx = hx;
+                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "huang_dian_png", this);
+                hx = this.hx;
             }
             if (type == 0) {
                 return;
@@ -244,8 +285,8 @@ var feichuan;
             this.battle_scene.addChild(hx);
             this.mokuai_size++;
         };
-        //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
-        FeiChuanBase.prototype.checkCollision = function (x, y) {
+        //碰撞点检测
+        FeiChuanBase.prototype.jia_ce_peng_zhuang_dian = function (x, y) {
             var xw = 1000;
             var yh = 1000;
             var zm;
@@ -264,26 +305,36 @@ var feichuan;
                     }
                 }
             }
+            return zm;
+        };
+        //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
+        FeiChuanBase.prototype.checkCollision = function (x, y, zd) {
+            var zm = this.jia_ce_peng_zhuang_dian(x, y);
             //如果没有找到碰撞点
             if (!zm) {
                 return;
             }
-            //将节点标记  之后在碰撞循环外清空
-            this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
-            //将飞船添加到受伤飞船列表
-            this.battle_scene.shouShangFeiChuanList.push(this);
-            //将需要移除的模块添加到列表
-            this.removeMoKuai.push(zm);
-            //如果该模块是 核心 则整体删除
-            if (zm instanceof mokuai.DongLiHeXin) {
-                this.hx = null;
-                //减少每回合总飞机的 标记数量
-                this.battle_scene.lastFeiJi--;
+            // 模块碰撞 检测
+            if (zm.coll(zd.hitNumber)) {
+                //将节点标记  之后在碰撞循环外清空
+                this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
+                //将飞船添加到受伤飞船列表
+                this.battle_scene.shouShangFeiChuanList.push(this);
+                //将需要移除的模块添加到列表
+                this.removeMoKuai.push(zm);
+                //如果该模块是 核心 则整体删除
+                if (zm instanceof mokuai.DongLiHeXin) {
+                    this.hx = null;
+                    //减少每回合总飞机的 标记数量
+                    this.battle_scene.lastFeiJi--;
+                }
+                //如果是武器类型
+                if (zm.moKuaiType == mokuai.MO_KUAI_TYPE.WU_QI) {
+                    this.removeWuQi(zm);
+                }
+                zm.jihui_texiao();
             }
-            //如果是武器类型
-            if (zm.moKuaiType == mokuai.MO_KUAI_TYPE.WU_QI) {
-                this.removeWuQi(zm);
-            }
+            zm.jiZhong_texiao();
         };
         //删除模块
         FeiChuanBase.prototype.dellMokuai = function () {
@@ -322,6 +373,8 @@ var feichuan;
         FeiChuanBase.prototype.removeWuQi = function (wq) {
             var inx = this.wuqiList.indexOf(wq);
             this.wuqiList.splice(inx, 1);
+        };
+        FeiChuanBase.prototype.ji_guang_peng_zhuang = function (x, y) {
         };
         return FeiChuanBase;
     }(p2.Body));

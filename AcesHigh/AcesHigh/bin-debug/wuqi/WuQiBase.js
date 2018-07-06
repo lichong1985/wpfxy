@@ -23,13 +23,21 @@ var wuqi;
         WUQI_TYPE[WUQI_TYPE["DING_WEI"] = 8] = "DING_WEI";
         WUQI_TYPE[WUQI_TYPE["JIAN_SU"] = 9] = "JIAN_SU";
         WUQI_TYPE[WUQI_TYPE["KAI_HUA"] = 10] = "KAI_HUA";
+        WUQI_TYPE[WUQI_TYPE["GEN_ZHONG"] = 11] = "GEN_ZHONG";
+        WUQI_TYPE[WUQI_TYPE["SAN_DAN"] = 12] = "SAN_DAN";
+        WUQI_TYPE[WUQI_TYPE["SHE_XIAN"] = 13] = "SHE_XIAN";
+        WUQI_TYPE[WUQI_TYPE["DING_XIANG"] = 14] = "DING_XIANG";
+        WUQI_TYPE[WUQI_TYPE["YU_LEI"] = 15] = "YU_LEI";
+        WUQI_TYPE[WUQI_TYPE["LUO_XUAN"] = 16] = "LUO_XUAN";
+        WUQI_TYPE[WUQI_TYPE["CHANG_DING"] = 17] = "CHANG_DING";
+        WUQI_TYPE[WUQI_TYPE["ZHONG_CHUI"] = 18] = "ZHONG_CHUI";
     })(WUQI_TYPE = wuqi.WUQI_TYPE || (wuqi.WUQI_TYPE = {}));
     var WuQiBase = (function (_super) {
         __extends(WuQiBase, _super);
         function WuQiBase(mokaiPos, shType, name, wuqii_type, fc) {
             var _this = _super.call(this, mokaiPos, shType, name, fc) || this;
             //武器攻击cd 单位毫秒
-            _this.cd = 1000;
+            _this.cd = 500;
             //时间标记 上一次攻击的时间
             _this.mark_time = 0;
             //速度
@@ -50,20 +58,21 @@ var wuqi;
         };
         //送出子弹
         WuQiBase.prototype.diu = function (w_t, v, zy, angle) {
-            // egret.log("DDDDDDDDDDDDDDDDDDDDDDDDDDD:" + w_t + " || (" + v.x + "," + v.y + ")  || " + zy);
             var zd;
             if (w_t == WUQI_TYPE.ZHI_SHE) {
-                zd = new zidan.ZhiSheZhiDan(zy, 0.0001);
+                zd = new zidan.ZhiSheZhiDan(this.fc.battle_scene, zy, 0.001);
             }
             if (w_t == WUQI_TYPE.DING_WEI) {
-                zd = new zidan.DingWeiZidan(zy, 0.0001);
+                zd = new zidan.DingWeiZidan(this.fc.battle_scene, zy, 0.0001);
             }
             if (w_t == WUQI_TYPE.JIAN_SU) {
-                zd = new zidan.JianSuZiDan(zy, 0.0001);
+                zd = new zidan.JianSuZiDan(this.fc.battle_scene, zy, 0.0001);
             }
             if (w_t == WUQI_TYPE.KAI_HUA) {
-                // zd = new zidan.KaiHuaZiDan(zy, 0.0001);
-                zd = new zidan.GenZongZiDan(zy, 0.0001, this.fc.battle_scene.sk);
+                zd = new zidan.KaiHuaZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
+            if (w_t == WUQI_TYPE.GEN_ZHONG) {
+                zd = new zidan.GenZongZiDan(this.fc.battle_scene, zy, 0.0001, this.fc.battle_scene.sk);
             }
             zd.angle = angle;
             this.fc.battle_scene.world.addBody(zd);

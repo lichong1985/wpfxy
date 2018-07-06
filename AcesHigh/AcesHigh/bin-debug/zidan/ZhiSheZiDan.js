@@ -12,13 +12,14 @@ var zidan;
 (function (zidan) {
     var ZhiSheZhiDan = (function (_super) {
         __extends(ZhiSheZhiDan, _super);
-        function ZhiSheZhiDan(zhenying, mass) {
-            var _this = _super.call(this, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
+        function ZhiSheZhiDan(scene, zhenying, mass) {
+            var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
             _this.initPT();
+            _this.bit_name = "wq_2_png";
             return _this;
         }
         ZhiSheZhiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("lv_dian_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("wq_2_png"));
             this.damping = 0;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;
@@ -32,3 +33,4 @@ var zidan;
     zidan.ZhiSheZhiDan = ZhiSheZhiDan;
     __reflect(ZhiSheZhiDan.prototype, "zidan.ZhiSheZhiDan");
 })(zidan || (zidan = {}));
+//# sourceMappingURL=ZhiSheZiDan.js.map

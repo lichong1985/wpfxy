@@ -10,11 +10,15 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var fjztj;
 (function (fjztj) {
+    //飞机状态机
     var FjZTJ = (function (_super) {
         __extends(FjZTJ, _super);
         function FjZTJ() {
             return _super.call(this) || this;
         }
+        //进步器
+        FjZTJ.prototype.upStep = function (time) {
+        };
         return FjZTJ;
     }(zhuangtaiji.ZhuangTaiJiBase));
     fjztj.FjZTJ = FjZTJ;

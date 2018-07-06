@@ -13,11 +13,13 @@ var wuqi;
     var PuTongDan = (function (_super) {
         __extends(PuTongDan, _super);
         function PuTongDan(mokaiPos, shType, name, wuqii_type, fc) {
-            return _super.call(this, mokaiPos, shType, name, wuqii_type, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, name, wuqii_type, fc) || this;
+            _this.cd = 100;
+            return _this;
         }
         PuTongDan.prototype.fashe = function (angel, suke, now) {
             _super.prototype.fashe.call(this, angel, suke, now);
-            var zd = new zidan.PuTongZiDan(GameConstant.ZHEN_YING.WO_JUN_ZIDAN, 0.0001);
+            var zd = new zidan.PuTongZiDan(this.fc.battle_scene, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, 0.0001);
             var p = Tools.egretTOp2(egret.Point.create(this.x, this.y));
             zd.position[0] = p.x;
             zd.position[1] = p.y;

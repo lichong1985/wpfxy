@@ -1,19 +1,29 @@
 module wuqi {
     export enum WUQI_TYPE {
-        PU_TONG = 0,//普通武器
-        ZHI_SHE = 1,//直射
-        JI_GUANG = 2,//激光
-        DAO_DAN = 3,//导弹
-        DA_PAO = 4,//大炮
-        ZHI_DAO_JI_GUANG = 5,//制导激光
-        CHUAN_JIA_DAN = 6,//穿甲弹
-        YUN_BAO_DAN = 7,//云爆弹
-        DING_WEI = 8,//定位子弹
-        JIAN_SU = 9,//减速武器
-        KAI_HUA = 10,//开花弹
-        GEN_ZHONG = 11,//跟踪
+        PU_TONG,//普通武器
+        ZHI_SHE,//直射
+        JI_GUANG,//激光
+        DAO_DAN,//导弹
+        DA_PAO,//大炮
+        ZHI_DAO_JI_GUANG,//制导激光
+        CHUAN_JIA_DAN,//穿甲弹
+        YUN_BAO_DAN,//云爆弹
+        DING_WEI,//定位子弹
+        JIAN_SU,//减速武器
+        KAI_HUA,//开花弹
+        GEN_ZHONG,//跟踪
+        SAN_DAN,//散弹
+        SHE_XIAN,//射线
+        DING_XIANG,//定向
+        YU_LEI,//鱼雷
+        LUO_XUAN,//螺旋
+        CHANG_DING,//长钉
+        ZHONG_CHUI,//重锤
+
 
     }
+
+   
     export class WuQiBase extends mokuai.MoKuaiBase {
         //武器类型
         public wuqi_type: WUQI_TYPE;

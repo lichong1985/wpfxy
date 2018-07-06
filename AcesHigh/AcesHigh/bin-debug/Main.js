@@ -126,7 +126,8 @@ var Main = (function (_super) {
     };
     //添加测试场景
     Main.prototype.addTestScene = function () {
-        this.testSen = new TestScene();
+        // this.testSen = new TestScene();
+        this.testSen = TestScene.getInstance();
         this.stage.addChild(this.testSen);
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;

@@ -8,6 +8,7 @@ var GameConstant;
         ZHEN_YING[ZHEN_YING["ZHONG_LI"] = 2] = "ZHONG_LI";
         ZHEN_YING[ZHEN_YING["WO_JUN_ZIDAN"] = 3] = "WO_JUN_ZIDAN";
         ZHEN_YING[ZHEN_YING["DI_JUN_ZIDAN"] = 4] = "DI_JUN_ZIDAN";
+        ZHEN_YING[ZHEN_YING["DIAO_LUO"] = 5] = "DIAO_LUO";
     })(ZHEN_YING = GameConstant.ZHEN_YING || (GameConstant.ZHEN_YING = {}));
     //碰撞组
     GameConstant.WO_JUN = Math.pow(2, 1);
@@ -15,6 +16,7 @@ var GameConstant;
     GameConstant.ZHONG_LI = Math.pow(2, 3);
     GameConstant.WO_JUN_ZIDAN = Math.pow(2, 4);
     GameConstant.DI_JUN_ZIDAN = Math.pow(2, 5);
+    GameConstant.DIAO_LUO = Math.pow(2, 6);
     GameConstant.mark = 0;
     function diaoluo(fc) {
         //将飞船分解列表 清空
@@ -94,6 +96,14 @@ var GameConstant;
                 if (map[h][w]) {
                     //将船体模块添加到分解列表 并从船体上删除
                     if (map[h][w].mark_number > 0) {
+                        //如果是武器 则移除
+                        if (map[h][w] instanceof wuqi.WuQiBase) {
+                            fc.removeWuQi(map[h][w]);
+                        }
+                        //如果有道具需要掉落
+                        if (map[h][w].is_diao_luo) {
+                            fc.battle_scene.diao_luo_dao_ju(map[h][w]);
+                        }
                         fc.fen_jie[map[h][w].mark_number].push(map[h][w]);
                         fc.removeShape(map[h][w].boxShape);
                         fc.battle_scene.removeChild(map[h][w]);

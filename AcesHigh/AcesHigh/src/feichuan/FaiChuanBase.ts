@@ -226,7 +226,9 @@ module feichuan {
             }
 
             hx.diao_luo_type = suiji.suiji_yanse();
-            hx.dl_wq_type = wuqi.WUQI_TYPE.PU_TONG;
+            if (hx.diao_luo_type == suiji.SJ_YAN_SE.WU_QI) {
+                hx.dl_wq_type = suiji.suiji_wuqi();
+            }
             hx.dl_lv = suiji.suiji_level(hx.diao_luo_type);
             egret.log("SSSSSSSSSSSSSSSSS:" + hx.diao_luo_type)
         }

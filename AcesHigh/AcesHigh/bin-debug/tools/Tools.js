@@ -46,5 +46,17 @@ var Tools;
         }
     }
     Tools.bilv = bilv;
+    //格子坐标转 物理坐标
+    function gridTop2(x, y) {
+        var ex = x * 100 + 50;
+        var ey = y * 100 + 50;
+        return egret.Point.create(ex / Physics.factor, (scene.battle_sceneH - ey) / Physics.factor);
+    }
+    Tools.gridTop2 = gridTop2;
+    //格子坐标转 屏幕坐标
+    function gridToEgret(x, y) {
+        return egret.Point.create((x * 100 + 50), (y * 100 + 50));
+    }
+    Tools.gridToEgret = gridToEgret;
 })(Tools || (Tools = {}));
 //# sourceMappingURL=Tools.js.map

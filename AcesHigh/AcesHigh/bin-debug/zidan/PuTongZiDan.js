@@ -12,9 +12,14 @@ var zidan;
 (function (zidan) {
     var PuTongZiDan = (function (_super) {
         __extends(PuTongZiDan, _super);
-        function PuTongZiDan(zhenying, mass) {
-            var _this = _super.call(this, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
+        function PuTongZiDan(scene, zhenying, mass) {
+            var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
             _this.initPT();
+            _this.collNumber = 1;
+            _this.bit_name = "lv_dian_png";
+            _this.bitmap.scaleX = 0.5;
+            _this.bitmap.scaleY = 0.5;
+            _this.is_updata = true;
             return _this;
         }
         PuTongZiDan.prototype.initPT = function () {
@@ -24,6 +29,13 @@ var zidan;
         };
         PuTongZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
+            _super.prototype.weiyi.call(this, this.bit_name);
+        };
+        PuTongZiDan.prototype.texiao = function () {
+            this.bitmap.scaleX = 0.8;
+            this.bitmap.scaleY = 0.8;
+            this.bitmap.alpha = 0.8;
+            egret.Tween.get(this.bitmap).to({ "alpha": 0.3 }, 300).call(_super.prototype.dell, this, [this.bitmap]);
         };
         return PuTongZiDan;
     }(zidan.ZiDanBase));

@@ -17,6 +17,12 @@ var TestScene = (function (_super) {
         _this.initGuanka();
         return _this;
     }
+    TestScene.getInstance = function () {
+        if (TestScene.instance == null) {
+            TestScene.instance = new TestScene();
+        }
+        return TestScene.instance;
+    };
     TestScene.prototype.initGuanka = function () {
         this.nowBo = 0;
         this.nowHeiHe = 0;
@@ -37,7 +43,7 @@ var TestScene = (function (_super) {
     };
     TestScene.prototype.upSomeThing = function () {
         _super.prototype.upSomeThing.call(this);
-        //刚刚开场
+        // //刚刚开场
         if (this.add_hh_fc) {
             //重置
             this.add_hh_fc = false;
@@ -45,7 +51,7 @@ var TestScene = (function (_super) {
                 //添加飞船到战场
                 var fc = new feichuan.XiaoBing(this, this.guanka.bos[this.nowBo][this.nowHeiHe][i].nowP, this.guanka.bos[this.nowBo][this.nowHeiHe][i].toP, this.guanka.bos[this.nowBo][this.nowHeiHe][i].sName);
                 // fc.addAI(new ai.MiaoZhun(fc, 0.5));
-                fc.addAI(new ai.ZuoYouLuanDongAI(fc));
+                // fc.addAI(new ai.ZuoYouLuanDongAI(fc));
                 // fc.damping = 0.5;
                 this.dijis.push(fc);
             }
@@ -63,6 +69,7 @@ var TestScene = (function (_super) {
             this.add_hh_fc = true;
         }
     };
+    TestScene.instance = null;
     return TestScene;
 }(scene.SceneBase));
 __reflect(TestScene.prototype, "TestScene");

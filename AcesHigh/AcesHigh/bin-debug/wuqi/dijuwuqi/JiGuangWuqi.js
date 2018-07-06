@@ -79,3 +79,4 @@ var djwq;
     djwq.JiGuangWuqi = JiGuangWuqi;
     __reflect(JiGuangWuqi.prototype, "djwq.JiGuangWuqi");
 })(djwq || (djwq = {}));
+//# sourceMappingURL=JiGuangWuqi.js.map

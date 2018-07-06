@@ -21,8 +21,8 @@ module suiji {
     export let HX_QUN_ZHONG: number[] = [30, 30, 30];
     export let HX_QUN_ZHONG_ALL: number = 90
     //颜色权重
-    export let YS_QUN_ZHONG: number[] = [2, 80, 3];
-    export let YS_QUN_ZHONG_ALL: number = 85;
+    export let YS_QUN_ZHONG: number[] = [40, 80, 3];
+    export let YS_QUN_ZHONG_ALL: number = 123;
     //等级权重、
     export let LV_QUN_ZHONG: number[] = [50, 30, 10, 5, 100];
     export let LV_QUN_ZHONG_ALL: number = 195;
@@ -31,6 +31,11 @@ module suiji {
     export let RL_LV_QZ: number[] = [50, 30, 10];
     export let RL_LV_QZ_ALL: number = 90;
 
+    //武器信息
+    export let WQ_TYPE: wuqi.WUQI_TYPE[] = [wuqi.WUQI_TYPE.PU_TONG, wuqi.WUQI_TYPE.SAN_DAN, wuqi.WUQI_TYPE.DAO_DAN, wuqi.WUQI_TYPE.SHE_XIAN, wuqi.WUQI_TYPE.DING_XIANG, wuqi.WUQI_TYPE.YU_LEI, wuqi.WUQI_TYPE.LUO_XUAN, wuqi.WUQI_TYPE.CHANG_DING, wuqi.WUQI_TYPE.ZHONG_CHUI];
+    //武器权重
+    export let WQ_TYPE_QZ: number[] = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+    export let WQ_TYPE_QZ_ALL: number = 9;
 
 
 
@@ -63,6 +68,13 @@ module suiji {
 
         let qz = suiji.GetRandomNum(0, suiji.LV_QUN_ZHONG_ALL)
         return suiji.LVS[suiji.getQuanZhongKey(qz, suiji.LV_QUN_ZHONG)];
+    }
+
+
+    //随机武器
+    export function suiji_wuqi(): wuqi.WUQI_TYPE {
+        let key = suiji.GetRandomNum(0, WQ_TYPE_QZ_ALL);
+        return WQ_TYPE[getQuanZhongKey(key, suiji.WQ_TYPE_QZ)];
     }
 
     /**

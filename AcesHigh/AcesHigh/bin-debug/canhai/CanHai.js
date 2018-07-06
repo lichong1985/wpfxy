@@ -73,11 +73,9 @@ var canhai;
             this.position[0] = (this.zhuji.position[0] + rx);
             this.position[1] = (this.zhuji.position[1] + ry);
             this.angle = this.zhuji.angle;
-            this.velocity = [0, -5];
         };
         CanHai.prototype.updataSomeThing = function () {
             _super.prototype.updataSomeThing.call(this);
-            this.velocity = [0, -1];
         };
         return CanHai;
     }(feichuan.FeiChuanBase));
