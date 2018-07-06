@@ -1,0 +1,33 @@
+{
+    "layers": [
+        {
+            "data": [1, 1, 0, 1, 1, 1, 6, 1, 6, 1, 0, 1, 5, 1, 0, 1, 6, 1, 6, 1, 1, 1, 0, 1, 1],
+         "height": 5,
+            "width": 5
+        }
+    ],
+    "tiles": [
+        {
+            "image": "new3-10.png"
+        },
+        {
+            "image": "new3-11.png"
+        },
+        {
+            "image": "new3-12.png"
+        },
+        {
+            "image": "new3-13.png"
+        },
+        {
+            "image": "new3-14.png"
+        },
+        {
+            "image": "new3-15.png"
+        },
+        {
+            "image": "new3-16.png"
+        }
+
+    ]
+}

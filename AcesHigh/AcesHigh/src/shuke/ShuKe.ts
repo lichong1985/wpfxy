@@ -25,19 +25,12 @@ module shuke {
             }
 
             // 燃料相关操作
-            if (dl.dl_type == suiji.SJ_YAN_SE.RAN_LIAO || dl.dl_type == suiji.SJ_YAN_SE.WU_QI) {
+            if (dl.dl_type == suiji.SJ_YAN_SE.RAN_LIAO) {
                 return;
             }
 
 
 
-            //上
-            // if (dl.bitmap.y < mk.y) {
-            //     if (!this.moKuaiList[mk.moKuaiPost.y - 1][mk.moKuaiPost.x]) {
-            //         x = mk.moKuaiPost.x;
-            //         y = mk.moKuaiPost.y - 1;
-            //     }
-            // }
 
             x = mk.moKuaiPost.x;
             y = mk.moKuaiPost.y;
@@ -62,6 +55,11 @@ module shuke {
                 }
             }
 
+            //越界过滤
+            if (x < 0 || y < 0 || x >= this.W || y >= this.H) {
+                return;
+            }
+
 
             let hx: mokuai.MoKuaiBase;
             //装甲
@@ -83,9 +81,15 @@ module shuke {
                 }
             }
 
+            if (dl.dl_type == suiji.SJ_YAN_SE.WU_QI) {
+                hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "wq_1_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                let wq = <wuqi.PuTongDan>hx
+                hx.setMkLevel(5);
+                this.wuqiList.push(wq)
+            }
+
             egret.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK:" + x + "_" + y); 5
 
-            // hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "zj_us_level_1_png", this);
             hx.setMkLevel(1);
 
             let hpp: egret.Point = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(x, y), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
