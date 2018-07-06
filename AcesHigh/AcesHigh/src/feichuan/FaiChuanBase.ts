@@ -136,12 +136,14 @@ module feichuan {
                     let bitName: string = js.tiles[data[i] - 1].image.replace(".", "_");
                     let hx: mokuai.MoKuaiBase;
                     if (bitName == "hx_1_png" || bitName == "hx_2_png") {
-                        hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        this.hx = hx;
-
+                        this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = this.hx;
                     }
 
-
+                    if (bitName == "zj_level_5_png") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx.setMkLevel(5);
+                    }
 
                     if (bitName == "zj_level_4_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
@@ -186,6 +188,13 @@ module feichuan {
                     }
 
 
+                    //掉落随机
+                    this.suiji_dl(hx);
+
+
+
+
+
                     let hpp: egret.Point = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
                     let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
                     box.collisionGroup = this.collGroup;
@@ -194,7 +203,12 @@ module feichuan {
                     this.moKuaiList[h][w] = hx;
 
                     hx.boxShape = box;
-                    this.battle_scene.addChild(hx);
+                    if (hx instanceof mokuai.DongLiHeXin) {
+                        this.battle_scene.addChildAt(hx, 10);
+
+                    } else {
+                        this.battle_scene.addChildAt(hx, 5);
+                    }
                     this.mokuai_size++;
                     i++;
                 }
@@ -202,12 +216,26 @@ module feichuan {
             this.battle_scene.world.addBody(this);
 
         }
+        //随机掉落
+        public suiji_dl(hx: mokuai.MoKuaiBase) {
+            let is: boolean = suiji.isDiaoLuoMoKuai();
+            hx.is_diao_luo = is;
+            //不掉落退出
+            if (!is) {
+                return;
+            }
+
+            hx.diao_luo_type = suiji.suiji_yanse();
+            hx.dl_wq_type = wuqi.WUQI_TYPE.PU_TONG;
+            hx.dl_lv = suiji.suiji_level(hx.diao_luo_type);
+            egret.log("SSSSSSSSSSSSSSSSS:" + hx.diao_luo_type)
+        }
 
         //初始化碰撞参数
         public initColl() {
             if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
                 this.collGroup = GameConstant.WO_JUN;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.DI_JUN_ZIDAN;
+                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.DI_JUN_ZIDAN | GameConstant.DIAO_LUO;
             }
             if (this.zhenying == GameConstant.ZHEN_YING.DI_JUN) {
                 this.collGroup = GameConstant.DI_JUN;
@@ -359,8 +387,9 @@ module feichuan {
             }
 
             if (type == 1) {
-                hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "huang_dian_png", this);
-                this.hx = hx;
+
+                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "huang_dian_png", this);
+                hx = this.hx;
             }
 
             if (type == 0) {
@@ -378,8 +407,9 @@ module feichuan {
             this.mokuai_size++;
         }
 
-        //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
-        public checkCollision(x: number, y: number, zd: zidan.ZiDanBase) {
+
+        //碰撞点检测
+        public jia_ce_peng_zhuang_dian(x: number, y: number): mokuai.MoKuaiBase {
             let xw: number = 1000;
             let yh: number = 1000;
             let zm: mokuai.MoKuaiBase;
@@ -399,6 +429,14 @@ module feichuan {
                     }
                 }
             }
+            return zm;
+        }
+
+        //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
+        public checkCollision(x: number, y: number, zd: zidan.ZiDanBase) {
+
+            let zm: mokuai.MoKuaiBase = this.jia_ce_peng_zhuang_dian(x, y);
+
 
             //如果没有找到碰撞点
             if (!zm) {

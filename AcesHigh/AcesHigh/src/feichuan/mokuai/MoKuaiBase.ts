@@ -87,6 +87,17 @@ module mokuai {
 
         public bitName: string;
 
+        //---------------------掉落相关
+        //是否是掉落模块
+        public is_diao_luo: boolean = false;
+
+        //掉落类型（颜色）
+        public diao_luo_type: suiji.SJ_YAN_SE;
+        //掉落等级
+        public dl_lv: number;
+        //掉落武器类型
+        public dl_wq_type: wuqi.WUQI_TYPE;
+
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
             super(RES.getRes(bitName))
             this.shapeType = shapeType;
@@ -191,7 +202,21 @@ module mokuai {
         }
         //击中特效
         public jiZhong_texiao() {
-            this.texture = RES.getRes("hong_dian_png");
+            if (this.mk_level == 5) {
+                this.texture = RES.getRes("zj_level_5_jz_png");
+            }
+            if (this.mk_level == 4) {
+                this.texture = RES.getRes("zj_level_4_jz_png");
+            }
+            if (this.mk_level == 3) {
+                this.texture = RES.getRes("zj_level_3_jz_png");
+            }
+            if (this.mk_level == 2) {
+                this.texture = RES.getRes("zj_level_2_jz_png");
+            }
+            if (this.mk_level == 1) {
+                this.texture = RES.getRes("zj_level_1_jz_png");
+            }
             this.alpha = 0.5
             egret.Tween.get(this).to({ "alpha": 1 }, 250).to({ "alpha": 0.3 }, 250).call(this.shan_shuo, this);
         }

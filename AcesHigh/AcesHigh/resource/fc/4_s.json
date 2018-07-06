@@ -8,25 +8,25 @@
     ],
     "tiles": [
         {
-            "image": "new3-10.png"
+            "image": "zj_level_1.png"
         },
         {
-            "image": "new3-11.png"
+            "image": "zj_level_2.png"
         },
         {
-            "image": "new3-12.png"
+            "image": "zj_level_3.png"
         },
         {
-            "image": "new3-13.png"
+            "image": "zj_level_4.png"
         },
         {
-            "image": "new3-14.png"
+            "image": "hx_1.png"
         },
         {
-            "image": "new3-15.png"
+            "image": "wq_1.png"
         },
         {
-            "image": "new3-16.png"
+            "image": "hx_2.png"
         }
 
     ]

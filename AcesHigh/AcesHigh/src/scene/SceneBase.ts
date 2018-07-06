@@ -61,6 +61,10 @@ module scene {
         //up子弹
         public zidanList: Array<zidan.ZiDanBase>;
 
+        //++++++++++++++++++++道具掉落++++++++++++++++++
+        //
+        public removeDLList: Array<diaoluo.DiaoLuo>;
+
         constructor() {
             super()
 
@@ -82,6 +86,7 @@ module scene {
             this.shouShangFeiChuanList = new Array<feichuan.FeiChuanBase>();
             this.canHais = new Array<canhai.CanHai>();
             this.zidanList = new Array<zidan.ZiDanBase>();
+            this.removeDLList = new Array<diaoluo.DiaoLuo>();
         }
 
         //创建碰撞检测函数
@@ -90,9 +95,27 @@ module scene {
             this.world.on('beginContact', function (evt) {
 
                 //如果碰撞没有子弹 则退出
-                if (!(evt.bodyB instanceof zidan.ZiDanBase) && !(evt.bodyA instanceof zidan.ZiDanBase)) {
-                    return;
+                // if (!(evt.bodyB instanceof zidan.ZiDanBase) && !(evt.bodyA instanceof zidan.ZiDanBase)) {
+                //     return;
+                // }
+
+                //--------------掉落道具------------------
+                if (evt.bodyA instanceof diaoluo.DiaoLuo) {
+                    let dl = <diaoluo.DiaoLuo>evt.bodyA;
+                    let sk = <shuke.ShuKe>evt.bodyB;
+
+                    s.removeDLList.push(dl);
+
+
                 }
+
+                if (evt.bodyB instanceof diaoluo.DiaoLuo) {
+                    let dl = <diaoluo.DiaoLuo>evt.bodyB;
+                    let sk = <shuke.ShuKe>evt.bodyA;
+                    s.removeDLList.push(dl);
+                }
+
+                //-----------------------子弹与 地方碰撞----------------
 
                 //根据碰撞次数 减少耐久
                 if (evt.bodyB instanceof zidan.ZiDanBase || evt.bodyA instanceof zidan.ZiDanBase) {
@@ -120,6 +143,7 @@ module scene {
                         s.removeZiDanBodyList.push(ogzd)
                     }
                 }
+                //------------------------------------------------------
             });
         }
 
@@ -177,6 +201,7 @@ module scene {
          * 物理世界循环外 删除子弹
          */
         public chackColl() {
+            //子弹
             let size = this.removeZiDanBodyList.length;
             for (let i = 0; i < size; i++) {
                 let m = this.removeZiDanBodyList.pop();
@@ -199,6 +224,7 @@ module scene {
                 }
             }
 
+            //子弹
             size = this.ovzRemoveZiDanBodyList.length;
             for (let i = 0; i < size; i++) {
                 let m = this.ovzRemoveZiDanBodyList.pop();
@@ -220,6 +246,28 @@ module scene {
 
             }
 
+            //掉落道具
+            size = this.removeDLList.length;
+            for (let i = 0; i < size; i++) {
+                let dl = this.removeDLList.pop();
+                if (!dl) {
+                    continue;
+                }
+                //添加道具
+                this.sk.addMoKuai(dl);
+
+                let d = dl.displays[0];
+                if (d) {
+                    if (d.parent) {
+                        this.removeChild(d);
+                    }
+                }
+                this.world.removeBody(dl);
+                dl = null;
+
+            }
+
+
 
         }
 
@@ -235,6 +283,11 @@ module scene {
                     f.removeShape(m.boxShape);
                     this.removeChild(m);
                     f.mokuai_size--;
+
+                    //查看该模块是否掉落道具
+                    if (m.is_diao_luo) {
+                        this.diao_luo_dao_ju(m);
+                    }
                 }
                 //掉落检测
                 if (!GameConstant.chackMoKuaiNumber(f)) {
@@ -270,6 +323,13 @@ module scene {
                     for (let wq of i.wuqiList) {
                         wq.updata_wq(boxBody.angle, this.sk, egret.getTimer());
                     }
+                }
+
+                //掉落控制
+                if (boxBody instanceof diaoluo.DiaoLuo) {
+                    let dl = <diaoluo.DiaoLuo>boxBody;
+                    dl.updata();
+                    //todo删除
                 }
 
                 if (boxBody instanceof zidan.ZiDanBase) {
@@ -353,6 +413,15 @@ module scene {
             }
             this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.1
             this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.1
+        }
+
+
+        //掉落道具
+        public diao_luo_dao_ju(mk: mokuai.MoKuaiBase) {
+            let dl = new diaoluo.DiaoLuo(this, mk.diao_luo_type, mk.dl_lv, Tools.egretTOp2(egret.Point.create(mk.x, mk.y)), mk.dl_wq_type);
+            this.world.addBody(dl);
+            this.addChild(dl.displays[0]);
+            dl.loop();
         }
 
 

@@ -6,6 +6,7 @@ module GameConstant {
         ZHONG_LI = 2,// 陨石 废甲等
         WO_JUN_ZIDAN = 3,//我军子弹
         DI_JUN_ZIDAN = 4,//敌军子弹
+        DIAO_LUO = 5,//掉落
     }
 
     //碰撞组
@@ -14,6 +15,7 @@ module GameConstant {
     export let ZHONG_LI: number = Math.pow(2, 3);
     export let WO_JUN_ZIDAN: number = Math.pow(2, 4);
     export let DI_JUN_ZIDAN: number = Math.pow(2, 5);
+    export let DIAO_LUO: number = Math.pow(2, 6);
 
     export let hearList: Array<mokuai.MoKuaiBase>;
     export let mark: number = 0;
@@ -107,6 +109,15 @@ module GameConstant {
                 if (map[h][w]) {
                     //将船体模块添加到分解列表 并从船体上删除
                     if (map[h][w].mark_number > 0) {
+                        //如果是武器 则移除
+                        if (map[h][w] instanceof wuqi.WuQiBase) {
+                            fc.removeWuQi(<wuqi.WuQiBase>map[h][w]);
+                        }
+
+                        //如果有道具需要掉落
+                        if (map[h][w].is_diao_luo) {
+                            fc.battle_scene.diao_luo_dao_ju(map[h][w]);
+                        }
                         fc.fen_jie[map[h][w].mark_number].push(map[h][w]);
                         fc.removeShape(map[h][w].boxShape);
                         fc.battle_scene.removeChild(map[h][w]);
