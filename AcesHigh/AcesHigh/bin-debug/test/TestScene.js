@@ -48,6 +48,7 @@ var TestScene = (function (_super) {
             //重置
             this.add_hh_fc = false;
             for (var i = 0; i < this.guanka.bos[this.nowBo][this.nowHeiHe].length; i++) {
+                egret.log("***********飞船名称************:" + this.guanka.bos[this.nowBo][this.nowHeiHe][i].sName);
                 //添加飞船到战场
                 var fc = new feichuan.XiaoBing(this, this.guanka.bos[this.nowBo][this.nowHeiHe][i].nowP, this.guanka.bos[this.nowBo][this.nowHeiHe][i].toP, this.guanka.bos[this.nowBo][this.nowHeiHe][i].sName);
                 // fc.addAI(new ai.MiaoZhun(fc, 0.5));

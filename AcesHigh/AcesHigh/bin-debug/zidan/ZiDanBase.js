@@ -58,7 +58,14 @@ var zidan;
             this.dell(this.bitmap);
         };
         //移除缓动动画
-        ZiDanBase.prototype.dell = function (DD) { this.scene.removeChild(DD); DD = null; };
+        ZiDanBase.prototype.dell = function (DD) {
+            if (DD) {
+                if (DD.parent) {
+                    this.scene.removeChild(DD);
+                }
+            }
+            DD = null;
+        };
         ZiDanBase.prototype.updata = function () {
         };
         //添加尾翼

@@ -15,7 +15,7 @@ module shuke {
             if (!dl) {
                 return;
             }
-
+            let t: number = -1;
             let x: number;
             let y: number;
             //获取碰撞点
@@ -40,24 +40,39 @@ module shuke {
                 //右
                 if (dl.bitmap.x > mk.x) {
                     x = mk.moKuaiPost.x + 1;
+                    t = 4
                 } else {
                     //左
                     x = mk.moKuaiPost.x - 1;
+                    t = 3
                 }
 
             } else {
                 //上
                 if (dl.bitmap.y < mk.y) {
                     y = mk.moKuaiPost.y - 1;
+                    t = 1
                 } else {
                     //下
                     y = mk.moKuaiPost.y + 1;
+                    t = 2
                 }
             }
 
             //越界过滤
             if (x < 0 || y < 0 || x >= this.W || y >= this.H) {
                 return;
+            }
+
+            //如果该节点已经有模块
+            if (this.moKuaiList[y][x]) {
+                egret.log("KKKKKKKKKKKKK")
+                let p = this.kuosan(x, y);
+                if (p) {
+                    x = p.x;
+                    y = p.y;
+
+                }
             }
 
 
@@ -88,7 +103,6 @@ module shuke {
                 this.wuqiList.push(wq)
             }
 
-            egret.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK:" + x + "_" + y); 5
 
             hx.setMkLevel(1);
 
@@ -115,11 +129,26 @@ module shuke {
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
                 ]
 
             this.W = this.yun_tu[0].length;
@@ -139,6 +168,117 @@ module shuke {
 
         public updataPos() {
             super.updataPos();
+        }
+
+        //扩散
+        public kuosan(x: number, y: number): egret.Point {
+            if (this.chick((y - 1), (x - 1))) {
+                return egret.Point.create((x - 1), (y - 1));
+            }
+
+            if (this.chick((y - 1), x)) {
+                return egret.Point.create((x), (y - 1));
+            }
+
+            if (this.chick((y - 1), (x + 1))) {
+                return egret.Point.create((x + 1), (y - 1));
+            }
+            //----------------------------
+            if (this.chick(y, (x - 1))) {
+                return egret.Point.create((x - 1), (y));
+            }
+
+            if (this.chick(y, (x + 1))) {
+                return egret.Point.create((x + 1), (y));
+            }
+            //--------------------------
+            if (this.chick((y + 1), (x - 1))) {
+                return egret.Point.create((x - 1), (y + 1));
+            }
+            if (this.chick((y + 1), x)) {
+                return egret.Point.create((x), (y + 1));
+            }
+            if (this.chick((y + 1), (x + 1))) {
+                return egret.Point.create((x + 1), (y + 1));
+            }
+            //=============================================================
+            if (this.chick((y - 2), (x - 2))) {
+                return egret.Point.create((x - 2), (y - 2));
+            }
+
+            if (this.chick((y - 2), (x - 1))) {
+                return egret.Point.create((x - 1), (y - 2));
+            }
+            if (this.chick((y - 2), (x))) {
+                return egret.Point.create((x), (y - 2));
+            }
+
+            if (this.chick((y - 2), (x + 1))) {
+                return egret.Point.create((x + 1), (y - 2));
+            }
+
+            if (this.chick((y - 2), (x + 2))) {
+                return egret.Point.create((x + 2), (y - 2));
+
+            }
+            //----------------------------------
+            if (this.chick((y - 1), (x - 2))) {
+                return egret.Point.create((x - 2), (y - 1));
+
+            }
+
+            if (this.chick((y - 1), (x + 2))) {
+                return egret.Point.create((x + 2), (y - 1));
+
+            }
+            //--------------------------------
+            if (this.chick(y, (x - 2))) {
+                return egret.Point.create((x - 2), (y));
+            }
+
+
+            if (this.chick(y, (x + 2))) {
+                return egret.Point.create((x + 2), (y));
+            }
+
+            //-----------------------------
+            if (this.chick((y + 1), (x - 2))) {
+                return egret.Point.create((x - 2), (y + 1));
+
+            }
+
+            if (this.chick((y + 1), (x + 2))) {
+                return egret.Point.create((x + 2), (y + 1));
+            }
+            //--------------------------------------------
+            if (this.chick((y + 2), (x - 2))) {
+                return egret.Point.create((x - 2), (y + 2));
+            }
+
+            if (this.chick((y + 2), (x - 1))) {
+                return egret.Point.create((x - 1), (y + 2));
+            }
+            if (this.chick((y + 2), x)) {
+                return egret.Point.create((x), (y + 2));
+            }
+
+            if (this.chick((y + 2), (x + 1))) {
+                return egret.Point.create((x + 1), (y + 2));
+            }
+
+            if (this.chick((y + 2), (x + 2))) {
+                return egret.Point.create((x + 2), (y + 2));
+
+            }
+            return null;
+        }
+
+        public chick(x: number, y: number): boolean {
+            if (x < 0 || y < 0 || x >= this.W || y >= this.H) {
+                return false;
+            }
+
+            return true;
         }
 
 

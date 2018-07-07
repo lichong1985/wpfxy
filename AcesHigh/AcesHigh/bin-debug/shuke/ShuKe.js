@@ -23,6 +23,7 @@ var shuke;
             if (!dl) {
                 return;
             }
+            var t = -1;
             var x;
             var y;
             //获取碰撞点
@@ -41,25 +42,38 @@ var shuke;
                 //右
                 if (dl.bitmap.x > mk.x) {
                     x = mk.moKuaiPost.x + 1;
+                    t = 4;
                 }
                 else {
                     //左
                     x = mk.moKuaiPost.x - 1;
+                    t = 3;
                 }
             }
             else {
                 //上
                 if (dl.bitmap.y < mk.y) {
                     y = mk.moKuaiPost.y - 1;
+                    t = 1;
                 }
                 else {
                     //下
                     y = mk.moKuaiPost.y + 1;
+                    t = 2;
                 }
             }
             //越界过滤
             if (x < 0 || y < 0 || x >= this.W || y >= this.H) {
                 return;
+            }
+            //如果该节点已经有模块
+            if (this.moKuaiList[y][x]) {
+                egret.log("KKKKKKKKKKKKK");
+                var p = this.kuosan(x, y);
+                if (p) {
+                    x = p.x;
+                    y = p.y;
+                }
             }
             var hx;
             //装甲
@@ -86,8 +100,6 @@ var shuke;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);
             }
-            egret.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK:" + x + "_" + y);
-            5;
             hx.setMkLevel(1);
             var hpp = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(x, y), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
             var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
@@ -107,7 +119,21 @@ var shuke;
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -126,6 +152,95 @@ var shuke;
         };
         ShuKe.prototype.updataPos = function () {
             _super.prototype.updataPos.call(this);
+        };
+        //扩散
+        ShuKe.prototype.kuosan = function (x, y) {
+            if (this.chick((y - 1), (x - 1))) {
+                return egret.Point.create((x - 1), (y - 1));
+            }
+            if (this.chick((y - 1), x)) {
+                return egret.Point.create((x), (y - 1));
+            }
+            if (this.chick((y - 1), (x + 1))) {
+                return egret.Point.create((x + 1), (y - 1));
+            }
+            //----------------------------
+            if (this.chick(y, (x - 1))) {
+                return egret.Point.create((x - 1), (y));
+            }
+            if (this.chick(y, (x + 1))) {
+                return egret.Point.create((x + 1), (y));
+            }
+            //--------------------------
+            if (this.chick((y + 1), (x - 1))) {
+                return egret.Point.create((x - 1), (y + 1));
+            }
+            if (this.chick((y + 1), x)) {
+                return egret.Point.create((x), (y + 1));
+            }
+            if (this.chick((y + 1), (x + 1))) {
+                return egret.Point.create((x + 1), (y + 1));
+            }
+            //=============================================================
+            if (this.chick((y - 2), (x - 2))) {
+                return egret.Point.create((x - 2), (y - 2));
+            }
+            if (this.chick((y - 2), (x - 1))) {
+                return egret.Point.create((x - 1), (y - 2));
+            }
+            if (this.chick((y - 2), (x))) {
+                return egret.Point.create((x), (y - 2));
+            }
+            if (this.chick((y - 2), (x + 1))) {
+                return egret.Point.create((x + 1), (y - 2));
+            }
+            if (this.chick((y - 2), (x + 2))) {
+                return egret.Point.create((x + 2), (y - 2));
+            }
+            //----------------------------------
+            if (this.chick((y - 1), (x - 2))) {
+                return egret.Point.create((x - 2), (y - 1));
+            }
+            if (this.chick((y - 1), (x + 2))) {
+                return egret.Point.create((x + 2), (y - 1));
+            }
+            //--------------------------------
+            if (this.chick(y, (x - 2))) {
+                return egret.Point.create((x - 2), (y));
+            }
+            if (this.chick(y, (x + 2))) {
+                return egret.Point.create((x + 2), (y));
+            }
+            //-----------------------------
+            if (this.chick((y + 1), (x - 2))) {
+                return egret.Point.create((x - 2), (y + 1));
+            }
+            if (this.chick((y + 1), (x + 2))) {
+                return egret.Point.create((x + 2), (y + 1));
+            }
+            //--------------------------------------------
+            if (this.chick((y + 2), (x - 2))) {
+                return egret.Point.create((x - 2), (y + 2));
+            }
+            if (this.chick((y + 2), (x - 1))) {
+                return egret.Point.create((x - 1), (y + 2));
+            }
+            if (this.chick((y + 2), x)) {
+                return egret.Point.create((x), (y + 2));
+            }
+            if (this.chick((y + 2), (x + 1))) {
+                return egret.Point.create((x + 1), (y + 2));
+            }
+            if (this.chick((y + 2), (x + 2))) {
+                return egret.Point.create((x + 2), (y + 2));
+            }
+            return null;
+        };
+        ShuKe.prototype.chick = function (x, y) {
+            if (x < 0 || y < 0 || x >= this.W || y >= this.H) {
+                return false;
+            }
+            return true;
         };
         return ShuKe;
     }(feichuan.FeiChuanBase));

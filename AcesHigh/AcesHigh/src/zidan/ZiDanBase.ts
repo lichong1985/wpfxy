@@ -41,7 +41,7 @@ module zidan {
             this.scene = scene;
             this.initColl();
             this.initZidan();
-            
+
         }
 
         public initZidan() {
@@ -74,7 +74,14 @@ module zidan {
 
 
         //移除缓动动画
-        public dell(DD: egret.DisplayObject) { this.scene.removeChild(DD); DD = null; }
+        public dell(DD: egret.DisplayObject) {
+            if (DD) {
+                if (DD.parent) {
+                    this.scene.removeChild(DD);
+                }
+            }
+            DD = null;
+        }
 
 
         public updata() {

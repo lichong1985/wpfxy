@@ -140,7 +140,6 @@ var feichuan;
                 hx.dl_wq_type = suiji.suiji_wuqi();
             }
             hx.dl_lv = suiji.suiji_level(hx.diao_luo_type);
-            egret.log("SSSSSSSSSSSSSSSSS:" + hx.diao_luo_type);
         };
         //初始化碰撞参数
         FeiChuanBase.prototype.initColl = function () {

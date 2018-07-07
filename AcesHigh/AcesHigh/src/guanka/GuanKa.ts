@@ -11,6 +11,20 @@ class Guanka {
     }
     public init() {
         this.bos = [
+            [
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "1_m_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "1_m2_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "1_s_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "2_m_json" }],
+                // [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "2_s_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "3_m_json" }],
+                // [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "3_s_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "4_m_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "4_s_json" }],
+                // [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "5_m_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "5_s_json" }],
+
+            ],
             //第一波
             [
                 //第一回合
