@@ -78,12 +78,18 @@ var scene;
                 if (evt.bodyA instanceof diaoluo.DiaoLuo) {
                     var dl = evt.bodyA;
                     var sk = evt.bodyB;
-                    s.removeDLList.push(dl);
+                    dl.collNum--;
+                    if (dl.collNum == 0) {
+                        s.removeDLList.push(dl);
+                    }
                 }
                 if (evt.bodyB instanceof diaoluo.DiaoLuo) {
                     var dl = evt.bodyB;
                     var sk = evt.bodyA;
-                    s.removeDLList.push(dl);
+                    dl.collNum--;
+                    if (dl.collNum == 0) {
+                        s.removeDLList.push(dl);
+                    }
                 }
                 //-----------------------子弹与 地方碰撞----------------
                 //根据碰撞次数 减少耐久

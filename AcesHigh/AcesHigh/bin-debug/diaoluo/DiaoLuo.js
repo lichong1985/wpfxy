@@ -16,6 +16,8 @@ var diaoluo;
             var _this = _super.call(this, { mass: 1 }) || this;
             //阵营掉落
             _this.zhenying = GameConstant.ZHEN_YING.DIAO_LUO;
+            //碰撞数量
+            _this.collNum = 1;
             _this.scene = scene;
             _this.dl_type = dl_type;
             _this.lv = lv;

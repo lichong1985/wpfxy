@@ -103,16 +103,21 @@ module scene {
                 if (evt.bodyA instanceof diaoluo.DiaoLuo) {
                     let dl = <diaoluo.DiaoLuo>evt.bodyA;
                     let sk = <shuke.ShuKe>evt.bodyB;
-
-                    s.removeDLList.push(dl);
-
+                    dl.collNum--;
+                    if (dl.collNum == 0) {
+                        s.removeDLList.push(dl);
+                    }
 
                 }
 
                 if (evt.bodyB instanceof diaoluo.DiaoLuo) {
                     let dl = <diaoluo.DiaoLuo>evt.bodyB;
                     let sk = <shuke.ShuKe>evt.bodyA;
-                    s.removeDLList.push(dl);
+                    dl.collNum--;
+                    if (dl.collNum == 0) {
+                        s.removeDLList.push(dl);
+                    }
+
                 }
 
                 //-----------------------子弹与 地方碰撞----------------

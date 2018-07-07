@@ -18,11 +18,11 @@
 		"bin-debug/scene/SceneBase.js",
 		"bin-debug/feichuan/zhuangjia/ZhuangJiaBase.js",
 		"bin-debug/ai/AiBase.js",
+		"bin-debug/feichuan/FaiChuanBase.js",
+		"bin-debug/wuqi/dijuwuqi/DJWQBase.js",
 		"bin-debug/zidan/ZiDanBase.js",
 		"bin-debug/zhuangtaiji/fjztj/FjZTJ.js",
 		"bin-debug/texiao/TeXiaoBase.js",
-		"bin-debug/feichuan/FaiChuanBase.js",
-		"bin-debug/wuqi/dijuwuqi/DJWQBase.js",
 		"bin-debug/ai/SingoMoveToAi.js",
 		"bin-debug/ai/XuanZhuanAI.js",
 		"bin-debug/ai/ZhuanWanAi.js",
@@ -40,7 +40,7 @@
 		"bin-debug/physics/Physics.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/shuke/ShuKe.js",
-		"bin-debug/suiji/SuiJiBase.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/suiji/SuiJiBean.js",
 		"bin-debug/test/TestFeiChuan.js",
 		"bin-debug/test/TestGrid.js",
@@ -68,6 +68,6 @@
 		"bin-debug/zidan/KaiHuaZiDan.js",
 		"bin-debug/zidan/PuTongZiDan.js",
 		"bin-debug/zidan/ZhiSheZiDan.js",
-		"bin-debug/LoadingUI.js"
+		"bin-debug/suiji/SuiJiBase.js"
 	]
 }

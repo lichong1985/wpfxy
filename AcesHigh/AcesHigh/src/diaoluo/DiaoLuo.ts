@@ -27,6 +27,9 @@ module diaoluo {
         public name1: string;
         public name2: string;
 
+        //碰撞数量
+        public collNum: number = 1;
+
         constructor(scene: scene.SceneBase, dl_type: suiji.SJ_YAN_SE, lv: number, pot: egret.Point, wq_type?: wuqi.WUQI_TYPE) {
             super({ mass: 1 })
             this.scene = scene;
