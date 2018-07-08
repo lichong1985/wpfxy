@@ -62,47 +62,47 @@ var feichuan;
                     }
                     var bitName = js.tiles[data[i] - 1].image.replace(".", "_");
                     var hx = void 0;
-                    if (bitName == "hx_1_png" || bitName == "hx_2_png") {
+                    if (bitName == "op_hx_hx_png" || bitName == "op_hx_ss_png" || bitName == "op_hx_zj_png") {
                         this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = this.hx;
                     }
-                    if (bitName == "zj_level_5_png") {
+                    if (bitName == "op_zj_pt_level_5_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx.setMkLevel(5);
                     }
-                    if (bitName == "zj_level_4_png") {
+                    if (bitName == "op_zj_pt_level_4_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx.setMkLevel(4);
                     }
-                    if (bitName == "zj_level_3_png") {
+                    if (bitName == "op_zj_pt_level_3_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx.setMkLevel(3);
                     }
-                    if (bitName == "zj_level_2_png") {
+                    if (bitName == "op_zj_pt_level_2_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx.setMkLevel(2);
                     }
-                    if (bitName == "zj_level_1_png") {
+                    if (bitName == "op_zj_pt_level_1_png") {
                         hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx.setMkLevel(1);
                     }
                     //敌军直射武器
-                    if (bitName == "wq_2_png") {
+                    if (bitName == "op_wq_1_png") {
                         hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
                     //敌军定位武器
-                    if (bitName == "wq_1_png") {
+                    if (bitName == "op_wq_2_png") {
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
                     //敌军跟踪武器
-                    if (bitName == "wq_3_png") {
+                    if (bitName == "op_wq_3_png") {
                         hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
                     //敌军减速武器
-                    if (bitName == "wq_4_png") {
+                    if (bitName == "op_wq_4_png") {
                         hx = new djwq.JianSuWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
@@ -259,16 +259,16 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "lan_dian_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", wuqi.WUQI_TYPE.PU_TONG, this);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);
             }
             if (type == 2) {
-                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "hong_dian_png", this);
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5_png", this);
             }
             if (type == 1) {
-                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "huang_dian_png", this);
+                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_hx_hx_png", this);
                 hx = this.hx;
             }
             if (type == 0) {

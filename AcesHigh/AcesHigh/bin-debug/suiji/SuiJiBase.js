@@ -17,6 +17,7 @@ var suiji;
     suiji.HXS = [SJ_HE_XIN.HU_DUN, SJ_HE_XIN.ZI_YU, SJ_HE_XIN.JI_SU];
     suiji.YSS = [SJ_YAN_SE.WU_QI, SJ_YAN_SE.ZHUANG_JIA, SJ_YAN_SE.RAN_LIAO];
     suiji.LVS = [1, 2, 3, 4, 5];
+    //掉落概率
     suiji.DIAO_LUO_GAI_LV = 20;
     //核心掉落权重
     suiji.HX_QUN_ZHONG = [30, 30, 30];

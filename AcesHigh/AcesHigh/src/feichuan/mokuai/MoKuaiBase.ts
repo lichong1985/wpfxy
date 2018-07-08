@@ -146,22 +146,22 @@ module mokuai {
                 //换皮
                 if (this.mk_level > 0) {
                     if (this.mk_level == 4) {
-                        this.texture = RES.getRes("zj_level_4_png");
-                        this.bitName = "zj_level_4_png";
+                        this.texture = RES.getRes("op_zj_pt_level_4_png");
+                        this.bitName = "op_zj_pt_level_4_png";
                     }
                     if (this.mk_level == 3) {
-                        this.texture = RES.getRes("zj_level_3_png");
-                        this.bitName = "zj_level_3_png";
+                        this.texture = RES.getRes("op_zj_pt_level_3_png");
+                        this.bitName = "op_zj_pt_level_3_png";
 
                     }
                     if (this.mk_level == 2) {
-                        this.texture = RES.getRes("zj_level_2_png");
-                        this.bitName = "zj_level_2_png";
+                        this.texture = RES.getRes("op_zj_pt_level_2_png");
+                        this.bitName = "op_zj_pt_level_2_png";
 
                     }
                     if (this.mk_level == 1) {
-                        this.texture = RES.getRes("zj_level_1_png");
-                        this.bitName = "zj_level_1_png";
+                        this.texture = RES.getRes("op_zj_pt_level_1_png");
+                        this.bitName = "op_zj_pt_level_1_png";
 
                     }
 
@@ -203,19 +203,19 @@ module mokuai {
         //击中特效
         public jiZhong_texiao() {
             if (this.mk_level == 5) {
-                this.texture = RES.getRes("zj_level_5_jz_png");
+                this.texture = RES.getRes("op_zj_pt_jz_level_5_jz_png");
             }
             if (this.mk_level == 4) {
-                this.texture = RES.getRes("zj_level_4_jz_png");
+                this.texture = RES.getRes("op_zj_pt_jz_level_4_jz_png");
             }
             if (this.mk_level == 3) {
-                this.texture = RES.getRes("zj_level_3_jz_png");
+                this.texture = RES.getRes("op_zj_pt_jz_level_3_jz_png");
             }
             if (this.mk_level == 2) {
-                this.texture = RES.getRes("zj_level_2_jz_png");
+                this.texture = RES.getRes("op_zj_pt_jz_level_2_jz_png");
             }
             if (this.mk_level == 1) {
-                this.texture = RES.getRes("zj_level_1_jz_png");
+                this.texture = RES.getRes("op_zj_pt_jz_level_1_jz_png");
             }
             this.alpha = 0.5
             egret.Tween.get(this).to({ "alpha": 1 }, 250).to({ "alpha": 0.3 }, 250).call(this.shan_shuo, this);

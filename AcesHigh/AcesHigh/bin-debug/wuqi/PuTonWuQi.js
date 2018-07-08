@@ -14,7 +14,7 @@ var wuqi;
         __extends(PuTongDan, _super);
         function PuTongDan(mokaiPos, shType, name, wuqii_type, fc) {
             var _this = _super.call(this, mokaiPos, shType, name, wuqii_type, fc) || this;
-            _this.cd = 100;
+            _this.cd = 500;
             return _this;
         }
         PuTongDan.prototype.fashe = function (angel, suke, now) {

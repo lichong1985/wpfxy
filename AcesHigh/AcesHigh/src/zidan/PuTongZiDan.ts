@@ -4,14 +4,14 @@ module zidan {
             super(scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
             this.collNumber = 1;
-            this.bit_name = "lv_dian_png";
+            this.bit_name = "op_wq_4_png";
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;
             this.is_updata = true;
 
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("lv_dian_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_4_png"))
             this.damping = 0;
             this.displays = [this.bitmap];
         }

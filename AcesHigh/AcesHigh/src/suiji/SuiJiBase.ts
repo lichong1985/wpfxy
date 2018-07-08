@@ -15,6 +15,7 @@ module suiji {
     export let HXS: SJ_HE_XIN[] = [SJ_HE_XIN.HU_DUN, SJ_HE_XIN.ZI_YU, SJ_HE_XIN.JI_SU];
     export let YSS: SJ_YAN_SE[] = [SJ_YAN_SE.WU_QI, SJ_YAN_SE.ZHUANG_JIA, SJ_YAN_SE.RAN_LIAO];
     export let LVS: number[] = [1, 2, 3, 4, 5];
+    //掉落概率
     export let DIAO_LUO_GAI_LV: number = 20;
 
     //核心掉落权重

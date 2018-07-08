@@ -35,6 +35,7 @@ var shuke;
             if (dl.dl_type == suiji.SJ_YAN_SE.RAN_LIAO) {
                 return;
             }
+            egret.log("****掉落数据***********:" + dl.dl_type + "_" + dl.wq_type + "_" + dl.lv);
             x = mk.moKuaiPost.x;
             y = mk.moKuaiPost.y;
             // //添加模块
@@ -68,7 +69,6 @@ var shuke;
             }
             //如果该节点已经有模块
             if (this.moKuaiList[y][x]) {
-                egret.log("KKKKKKKKKKKKK");
                 var p = this.kuosan(x, y);
                 if (p) {
                     x = p.x;
@@ -79,25 +79,51 @@ var shuke;
             //装甲
             if (dl.dl_type == suiji.SJ_YAN_SE.ZHUANG_JIA) {
                 if (dl.lv == 1) {
-                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "zj_us_level_1_png", this);
+                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_1_png", this);
                 }
                 if (dl.lv == 2) {
-                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "zj_us_level_2_png", this);
+                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_2_png", this);
                 }
                 if (dl.lv == 3) {
-                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "zj_us_level_3_png", this);
+                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_3_png", this);
                 }
                 if (dl.lv == 4) {
-                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "zj_us_level_4_png", this);
+                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_4_png", this);
                 }
                 if (dl.lv == 5) {
-                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "zj_us_level_5_png", this);
+                    hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5_png", this);
                 }
             }
             if (dl.dl_type == suiji.SJ_YAN_SE.WU_QI) {
-                hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "wq_1_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                if (dl.wq_type == suiji.WQ_TYPE[0]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_1_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[1]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_2_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[2]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_3_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[3]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_4_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[4]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_5_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[5]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_6_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[6]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_7_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[7]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_8_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
+                if (dl.wq_type == suiji.WQ_TYPE[8]) {
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                }
                 var wq = hx;
-                hx.setMkLevel(5);
+                hx.setMkLevel(dl.lv);
                 this.wuqiList.push(wq);
             }
             hx.setMkLevel(1);

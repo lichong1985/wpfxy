@@ -10,11 +10,11 @@ module zidan {
             this.is_updata = true;
             this.damping = 0;
             this.suke = suke;
-            this.bit_name = "wq_3_png";
+            this.bit_name = "op_wq_3_png";
 
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("wq_4_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_3_png"))
             this.damping = 0;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;

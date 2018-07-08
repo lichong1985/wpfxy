@@ -55,9 +55,9 @@ var canhai;
             }
             for (var _b = 0, _c = this.yuntu; _b < _c.length; _b++) {
                 var p = _c[_b];
-                yt[p.moKuaiPost.y - ly][p.moKuaiPost.x - lx] = 2;
+                yt[p.moKuaiPost.y - ly][p.moKuaiPost.x - lx] = p.mk_level;
             }
-            this.initPro(yt);
+            this.initChanHai(yt);
             //初始化中心坐标
             var m = this.yuntu[0];
             var o = this.moKuaiList[m.moKuaiPost.y - ly][m.moKuaiPost.x - lx];
@@ -73,6 +73,46 @@ var canhai;
             this.position[0] = (this.zhuji.position[0] + rx);
             this.position[1] = (this.zhuji.position[1] + ry);
             this.angle = this.zhuji.angle;
+        };
+        CanHai.prototype.initChanHai = function (yun_tu) {
+            var s = egret.Point.create(yun_tu[0].length, yun_tu.length);
+            this.initList(yun_tu.length, yun_tu[0].length);
+            for (var h = 0; h < yun_tu.length; h++) {
+                for (var w = 0; w < yun_tu[0].length; w++) {
+                    this.initMK(yun_tu[h][w], h, w, s);
+                }
+            }
+            this.battle_scene.world.addBody(this);
+        };
+        CanHai.prototype.initMK = function (level, h, w, chang_kuan) {
+            var hx;
+            if (level == 1) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_1_ch_png", this);
+            }
+            if (level == 2) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_2_ch_png", this);
+            }
+            if (level == 3) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_3_ch_png", this);
+            }
+            if (level == 4) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_4_ch_png", this);
+            }
+            if (level == 5) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_5_ch_png", this);
+            }
+            if (level == 0) {
+                return;
+            }
+            var hpp = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+            var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+            box.collisionGroup = this.collGroup;
+            box.collisionMask = this.collMask;
+            this.addShape(box, [hpp.x, hpp.y]);
+            this.moKuaiList[h][w] = hx;
+            hx.boxShape = box;
+            this.battle_scene.addChild(hx);
+            this.mokuai_size++;
         };
         CanHai.prototype.updataSomeThing = function () {
             _super.prototype.updataSomeThing.call(this);

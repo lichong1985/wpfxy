@@ -51,10 +51,10 @@ module canhai {
             }
 
             for (let p of this.yuntu) {
-                yt[p.moKuaiPost.y - ly][p.moKuaiPost.x - lx] = 2;
+                yt[p.moKuaiPost.y - ly][p.moKuaiPost.x - lx] = p.mk_level;
 
             }
-            this.initPro(yt)
+            this.initChanHai(yt)
             //初始化中心坐标
             let m = this.yuntu[0];
             let o = this.moKuaiList[m.moKuaiPost.y - ly][m.moKuaiPost.x - lx];
@@ -76,6 +76,59 @@ module canhai {
             this.angle = this.zhuji.angle;
 
 
+        }
+
+        public initChanHai(yun_tu: number[][]) {
+            let s: egret.Point = egret.Point.create(yun_tu[0].length, yun_tu.length);
+            this.initList(yun_tu.length, yun_tu[0].length);
+            for (let h = 0; h < yun_tu.length; h++) {
+                for (let w = 0; w < yun_tu[0].length; w++) {
+                    this.initMK(yun_tu[h][w], h, w, s);
+                }
+            }
+
+            this.battle_scene.world.addBody(this);
+        }
+
+        public initMK(level: number, h: number, w: number, chang_kuan: egret.Point) {
+            let hx: mokuai.MoKuaiBase;
+
+
+            if (level == 1) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_1_ch_png", this);
+
+            }
+            if (level == 2) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_2_ch_png", this);
+
+            }
+            if (level == 3) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_3_ch_png", this);
+
+            }
+            if (level == 4) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_4_ch_png", this);
+
+            }
+            if (level == 5) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_5_ch_png", this);
+
+            }
+
+
+            if (level == 0) {
+                return;
+            }
+            let hpp: egret.Point = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+            let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+            box.collisionGroup = this.collGroup;
+            box.collisionMask = this.collMask;
+            this.addShape(box, [hpp.x, hpp.y])
+            this.moKuaiList[h][w] = hx;
+
+            hx.boxShape = box;
+            this.battle_scene.addChild(hx);
+            this.mokuai_size++;
         }
 
 

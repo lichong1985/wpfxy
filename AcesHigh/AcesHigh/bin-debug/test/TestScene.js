@@ -57,6 +57,7 @@ var TestScene = (function (_super) {
                 this.dijis.push(fc);
             }
             this.lastFeiJi = this.guanka.bos[this.nowBo][this.nowHeiHe].length;
+            5;
             //回合数增加
             this.nowHeiHe++;
             //如果回合数移除则 波数增加 并且重置回合数
