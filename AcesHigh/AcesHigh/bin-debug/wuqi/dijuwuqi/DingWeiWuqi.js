@@ -23,12 +23,7 @@ var djwq;
             var angle = this.fc.angle;
             var sx = Math.sin(angle) * this.sudu;
             var sy = Math.cos(angle) * this.sudu;
-            // if (suke.position[1] < this.fc.position[1]) {
             sy = sy * -1;
-            // }
-            var xx = -(this.fc.position[0] - suke.position[0]);
-            var xy = -(this.fc.position[1] - suke.position[1]);
-            // let liliang = Tools.bilv(xx, xy, 5);
             var liliang = egret.Point.create(sx, sy);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };

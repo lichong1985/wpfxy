@@ -29,7 +29,7 @@ module shuke {
                 return;
             }
 
-            egret.log("****掉落数据***********:" + dl.dl_type + "_" + dl.wq_type + "_" + dl.lv);
+            // egret.log("****掉落数据***********:" + dl.dl_type + "_" + dl.wq_type + "_" + dl.lv);
 
 
             x = mk.moKuaiPost.x;
@@ -101,11 +101,11 @@ module shuke {
                 }
 
                 if (dl.wq_type == suiji.WQ_TYPE[1]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_2_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.SanDanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_2_png", this, dl.lv);
                 }
 
                 if (dl.wq_type == suiji.WQ_TYPE[2]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_3_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.DaoDanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_3_png", this, dl.lv);
                 }
 
                 if (dl.wq_type == suiji.WQ_TYPE[3]) {
@@ -131,7 +131,7 @@ module shuke {
                     hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", wuqi.WUQI_TYPE.PU_TONG, this);
                 }
 
-               
+
                 let wq = <wuqi.PuTongDan>hx
                 hx.setMkLevel(dl.lv);
                 this.wuqiList.push(wq)

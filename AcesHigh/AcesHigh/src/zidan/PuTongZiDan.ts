@@ -5,6 +5,8 @@ module zidan {
             this.initPT();
             this.collNumber = 1;
             this.bit_name = "op_wq_4_png";
+            this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
+            this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;
             this.is_updata = true;

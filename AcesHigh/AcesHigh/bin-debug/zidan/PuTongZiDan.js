@@ -17,6 +17,8 @@ var zidan;
             _this.initPT();
             _this.collNumber = 1;
             _this.bit_name = "op_wq_4_png";
+            _this.bitmap.anchorOffsetX = _this.bitmap.width * 0.5;
+            _this.bitmap.anchorOffsetY = _this.bitmap.height * 0.5;
             _this.bitmap.scaleX = 0.5;
             _this.bitmap.scaleY = 0.5;
             _this.is_updata = true;

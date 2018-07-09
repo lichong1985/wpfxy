@@ -9,6 +9,11 @@ var Guanka = (function () {
     Guanka.prototype.init = function () {
         this.bos = [
             [
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "10_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "11_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "12_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "13_json" }],
+                [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "14_json" }],
                 [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "2_json" }],
                 [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "3_json" }],
                 [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "4_json" }],

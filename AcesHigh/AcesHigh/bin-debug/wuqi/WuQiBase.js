@@ -42,6 +42,8 @@ var wuqi;
             _this.mark_time = 0;
             //速度
             _this.sudu = 5;
+            //武器等级
+            _this.level = 1;
             _this.moKuaiType = mokuai.MO_KUAI_TYPE.WU_QI;
             _this.wuqi_type = wuqii_type;
             return _this;
@@ -73,6 +75,12 @@ var wuqi;
             }
             if (w_t == WUQI_TYPE.GEN_ZHONG) {
                 zd = new zidan.GenZongZiDan(this.fc.battle_scene, zy, 0.0001, this.fc.battle_scene.sk);
+            }
+            if (w_t == wuqi.WUQI_TYPE.SAN_DAN) {
+                zd = new zidan.SanDanZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
+            if (w_t == wuqi.WUQI_TYPE.DAO_DAN) {
+                zd = new zidan.DaoDanZiDan(this.fc.battle_scene, zy, 0.0001, this.tiaget_fc);
             }
             zd.angle = angle;
             this.fc.battle_scene.world.addBody(zd);

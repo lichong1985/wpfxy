@@ -135,7 +135,7 @@ module feichuan {
 
                     let bitName: string = js.tiles[data[i] - 1].image.replace(".", "_");
                     let hx: mokuai.MoKuaiBase;
-                    if (bitName == "op_hx_hx_png" || bitName == "op_hx_ss_png"|| bitName == "op_hx_zj_png") {
+                    if (bitName == "op_hx_hx_png" || bitName == "op_hx_ss_png" || bitName == "op_hx_zj_png") {
                         this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = this.hx;
                     }
@@ -376,8 +376,8 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", wuqi.WUQI_TYPE.PU_TONG, this);
-                let wq = <wuqi.PuTongDan>hx
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", this, 5);
+                let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)
             }
