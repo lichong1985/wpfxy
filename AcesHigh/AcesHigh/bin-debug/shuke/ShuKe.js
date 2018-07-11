@@ -109,7 +109,7 @@ var shuke;
                 }
                 //激光
                 if (dl.wq_type == suiji.WQ_TYPE[3]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.JiGuangWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
                 //炮台
                 if (dl.wq_type == suiji.WQ_TYPE[4]) {
