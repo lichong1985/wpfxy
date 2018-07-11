@@ -2,7 +2,7 @@ module wuqi {
     export class PuTongDan extends wuqi.WuQiBase {
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, wuqii_type: WUQI_TYPE, fc: feichuan.FeiChuanBase) {
             super(mokaiPos, shType, "us_wq_1_png", wuqii_type, fc)
-            this.cd = 500;
+           
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {

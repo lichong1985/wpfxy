@@ -212,7 +212,15 @@ var feichuan;
             this.updataPos();
             this.updataAI();
             this.updataZTJ();
+            // this.updataJiGuang();
         };
+        //更新激光
+        // public updataJiGuang() {
+        //     for (let wq of this.wuqiList) {
+        //         if (wq instanceof wjwq.JiGuangWuqi) {
+        //         }
+        //     }
+        // }
         FeiChuanBase.prototype.updataZTJ = function () {
             if (this.ztj) {
                 this.ztj.upStep(egret.getTimer());
@@ -259,7 +267,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
+                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);

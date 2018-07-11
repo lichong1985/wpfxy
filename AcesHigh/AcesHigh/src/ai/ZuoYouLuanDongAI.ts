@@ -39,7 +39,7 @@ module ai {
 
         //获取随机坐标点
         private getRandomX(): number {
-            let x = Math.random() * (scene.p2_you - scene.p2_zuo) + scene.p2_zuo;
+            let x = Math.random() * (32 - 20) + 20;
             return x;
         }
     }

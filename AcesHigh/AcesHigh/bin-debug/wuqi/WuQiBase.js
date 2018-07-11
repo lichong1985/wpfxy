@@ -37,7 +37,7 @@ var wuqi;
         function WuQiBase(mokaiPos, shType, name, wuqii_type, fc) {
             var _this = _super.call(this, mokaiPos, shType, name, fc) || this;
             //武器攻击cd 单位毫秒
-            _this.cd = 500;
+            _this.cd = 2000;
             //时间标记 上一次攻击的时间
             _this.mark_time = 0;
             //速度

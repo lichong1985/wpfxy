@@ -18,7 +18,6 @@ module djwq {
 
         //射击
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
-            // egret.log("XXXXXXXX:" + this.fc.battle_scene.canHais.length);
             if (this.zt == JG_TYPE.TIAO_ZHENG) {
                 return;
             }

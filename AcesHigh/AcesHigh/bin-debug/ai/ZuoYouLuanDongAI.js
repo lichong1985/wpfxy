@@ -46,7 +46,7 @@ var ai;
         };
         //获取随机坐标点
         ZuoYouLuanDongAI.prototype.getRandomX = function () {
-            var x = Math.random() * (scene.p2_you - scene.p2_zuo) + scene.p2_zuo;
+            var x = Math.random() * (32 - 20) + 20;
             return x;
         };
         return ZuoYouLuanDongAI;

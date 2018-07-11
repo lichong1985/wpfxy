@@ -85,7 +85,7 @@ module zidan {
             this.dell(this.bitmap);
         }
 
-        //移除特效
+        //移除特效（超时时移除）
         public removeTeXiao() {
             this.addRemove();
         }
@@ -108,7 +108,7 @@ module zidan {
         }
 
 
-        //移除约束
+        //移除约束(所有子弹删除的时候 都要尝试)
         public removeYueShu() {
             if (this.yueShulist.length <= 0) {
                 return;

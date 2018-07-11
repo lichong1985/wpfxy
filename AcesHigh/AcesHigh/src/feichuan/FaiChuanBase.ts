@@ -319,7 +319,17 @@ module feichuan {
             this.updataPos();
             this.updataAI();
             this.updataZTJ();
+            // this.updataJiGuang();
         }
+
+        //更新激光
+        // public updataJiGuang() {
+        //     for (let wq of this.wuqiList) {
+        //         if (wq instanceof wjwq.JiGuangWuqi) {
+
+        //         }
+        //     }
+        // }
 
         public updataZTJ() {
             if (this.ztj) {
@@ -376,7 +386,7 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
+                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
                 let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)

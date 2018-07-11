@@ -24,8 +24,8 @@ var scene;
     //物理世界 屏幕范围
     scene.p2_zuo = 10;
     scene.p2_shang = 60;
-    scene.p2_you = 52;
-    scene.p2_xia = 27;
+    scene.p2_you = 45;
+    scene.p2_xia = 37;
     var SceneBase = (function (_super) {
         __extends(SceneBase, _super);
         function SceneBase() {

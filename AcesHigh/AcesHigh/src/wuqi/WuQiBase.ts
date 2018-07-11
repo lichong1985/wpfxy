@@ -28,7 +28,7 @@ module wuqi {
         //武器类型
         public wuqi_type: WUQI_TYPE;
         //武器攻击cd 单位毫秒
-        public cd: number = 500;
+        public cd: number = 2000;
 
         //时间标记 上一次攻击的时间
         public mark_time: number = 0;

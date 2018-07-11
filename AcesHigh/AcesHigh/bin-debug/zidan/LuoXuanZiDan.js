@@ -14,11 +14,13 @@ var zidan;
         __extends(LuoXuanZiDan, _super);
         function LuoXuanZiDan(scene, zhenying, mass) {
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.YU_LEI) || this;
+            _this.sudu = 5;
             _this.collNumber = 1;
             _this.bit_name = "us_zd_7_png";
             _this.is_updata = true;
             _this.sheng_ming_zhou_qi = 10000;
             _this.initPT();
+            _this.sheng_ming_zhou_qi = 1000 * 60;
             return _this;
         }
         LuoXuanZiDan.prototype.initPT = function () {
@@ -34,13 +36,18 @@ var zidan;
             this.scene.world.addConstraint(constraint1);
             constraint1.upperLimitEnabled = true;
             constraint1.lowerLimitEnabled = true;
-            constraint1.upperLimit = 2;
-            constraint1.lowerLimit = 1.5;
+            constraint1.upperLimit = 3;
+            constraint1.lowerLimit = 3;
             this.yueShulist.push(constraint1);
         };
         LuoXuanZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
-            this.velocity = [3, 3];
+            var angle = (Math.atan2((this.scene.sk.position[1] - this.position[1]), (this.scene.sk.position[0] - this.position[0])) + Math.PI * 0.5) - (90 * Math.PI / 180);
+            var sx = Math.sin(angle) * this.sudu;
+            var sy = Math.cos(angle) * this.sudu;
+            sy = sy * -1;
+            this.angle = angle;
+            this.velocity = [sx, sy];
         };
         return LuoXuanZiDan;
     }(zidan.ZiDanBase));

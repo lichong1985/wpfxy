@@ -22,6 +22,7 @@ var wjwq;
             _this.FA10 = -10 * Math.PI / 180;
             _this.FA15 = -15 * Math.PI / 180;
             _this.level = level;
+            _this.cd = 2000;
             return _this;
         }
         SanDanWuqi.prototype.fashe = function (angel, suke, now) {

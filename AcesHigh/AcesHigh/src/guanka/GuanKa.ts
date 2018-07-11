@@ -12,6 +12,7 @@ class Guanka {
     public init() {
         this.bos = [
             [
+                
                 [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "10_json" }],
                 [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "11_json" }],
                 [{ nowP: egret.Point.create(1300, 800), toP: egret.Point.create(1300, 1200), sName: "12_json" }],

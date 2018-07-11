@@ -30,7 +30,6 @@ var djwq;
         }
         //射击
         JiGuangWuqi.prototype.fashe = function (angel, suke, now) {
-            // egret.log("XXXXXXXX:" + this.fc.battle_scene.canHais.length);
             if (this.zt == JG_TYPE.TIAO_ZHENG) {
                 return;
             }

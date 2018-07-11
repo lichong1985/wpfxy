@@ -15,8 +15,8 @@ module scene {
     //物理世界 屏幕范围
     export const p2_zuo: number = 10;
     export const p2_shang: number = 60;
-    export const p2_you: number = 52;
-    export const p2_xia: number = 27;
+    export const p2_you: number = 45;
+    export const p2_xia: number = 37;
 
 
 
@@ -386,7 +386,6 @@ module scene {
                 if (boxBody instanceof canhai.CanHai) {
 
                 }
-
                 if (boxBody instanceof shuke.ShuKe) {
                     boxBody.velocity = [0, 0];
                 }
@@ -396,8 +395,6 @@ module scene {
                     i.updataSomeThing();
                     continue;
                 }
-
-
 
                 var box: egret.DisplayObject = boxBody.displays[0];
                 if (box) {

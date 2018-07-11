@@ -13,9 +13,7 @@ var wuqi;
     var PuTongDan = (function (_super) {
         __extends(PuTongDan, _super);
         function PuTongDan(mokaiPos, shType, wuqii_type, fc) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_1_png", wuqii_type, fc) || this;
-            _this.cd = 500;
-            return _this;
+            return _super.call(this, mokaiPos, shType, "us_wq_1_png", wuqii_type, fc) || this;
         }
         PuTongDan.prototype.fashe = function (angel, suke, now) {
             _super.prototype.fashe.call(this, angel, suke, now);
