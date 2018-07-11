@@ -36,7 +36,12 @@ var wjwq;
             if (this.result.hasHit) {
                 var dj = this.result.body;
                 var p_1 = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
-                dj.checkCollision(p_1.x, p_1.y, 1);
+                if (dj) {
+                    dj.checkCollision(p_1.x, p_1.y, 1);
+                }
+                else {
+                    p_1.y *= -1;
+                }
                 var shp = new egret.Shape();
                 shp.graphics.lineStyle(10, 0xffff00);
                 shp.graphics.moveTo(this.x, this.y);

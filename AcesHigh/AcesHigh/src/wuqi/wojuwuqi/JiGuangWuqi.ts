@@ -26,13 +26,14 @@ module wjwq {
 
             this.result.getHitPoint(this.hitPoint, this.rayClosest);
             if (this.result.hasHit) {
-
-
                 let dj = <feichuan.FeiChuanBase>this.result.body;
-
-
                 let p = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
-                dj.checkCollision(p.x, p.y, 1);
+                if (dj) {
+
+                    dj.checkCollision(p.x, p.y, 1);
+                } else {
+                    p.y *= -1
+                }
                 let shp: egret.Shape = new egret.Shape();
                 shp.graphics.lineStyle(10, 0xffff00);
                 shp.graphics.moveTo(this.x, this.y);
@@ -43,6 +44,7 @@ module wjwq {
                 let ff = this.fc
 
                 egret.Tween.get(shp).to({ "alpha": 0.1 }, 600).call(this.removeXin, this, [shp]);
+
             }
         }
 
