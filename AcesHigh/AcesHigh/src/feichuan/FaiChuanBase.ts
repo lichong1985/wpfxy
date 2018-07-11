@@ -386,7 +386,7 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
                 let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)
@@ -444,7 +444,7 @@ module feichuan {
         }
 
         //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
-        public checkCollision(x: number, y: number, zd: zidan.ZiDanBase) {
+        public checkCollision(x: number, y: number, hitNumber: number) {
 
             let zm: mokuai.MoKuaiBase = this.jia_ce_peng_zhuang_dian(x, y);
 
@@ -455,7 +455,7 @@ module feichuan {
             }
 
             // 模块碰撞 检测
-            if (zm.coll(zd.hitNumber)) {
+            if (zm.coll(hitNumber)) {
 
                 //将节点标记  之后在碰撞循环外清空
                 this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;

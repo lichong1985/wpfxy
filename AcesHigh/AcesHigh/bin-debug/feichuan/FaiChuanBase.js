@@ -267,7 +267,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);
@@ -315,14 +315,14 @@ var feichuan;
             return zm;
         };
         //检测飞船碰撞点 将飞船上的碰撞点 标记 并且纪录到 删除列表里  在循环外删除
-        FeiChuanBase.prototype.checkCollision = function (x, y, zd) {
+        FeiChuanBase.prototype.checkCollision = function (x, y, hitNumber) {
             var zm = this.jia_ce_peng_zhuang_dian(x, y);
             //如果没有找到碰撞点
             if (!zm) {
                 return;
             }
             // 模块碰撞 检测
-            if (zm.coll(zd.hitNumber)) {
+            if (zm.coll(hitNumber)) {
                 //将节点标记  之后在碰撞循环外清空
                 this.moKuaiList[zm.moKuaiPost.y][zm.moKuaiPost.x] = null;
                 //将飞船添加到受伤飞船列表

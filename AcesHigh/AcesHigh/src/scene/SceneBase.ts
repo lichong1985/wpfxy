@@ -99,6 +99,9 @@ module scene {
                 //     return;
                 // }
 
+
+                //---------------------------------------------
+
                 //--------------掉落道具------------------
                 if (evt.bodyA instanceof diaoluo.DiaoLuo) {
                     let dl = <diaoluo.DiaoLuo>evt.bodyA;
@@ -138,7 +141,7 @@ module scene {
                         if (oh instanceof zidan.ZiDanBase) {
                             //检测碰撞点 并且标记好在循环外删除
                             if (ogzd.is_first) {
-                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd);
+                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd.hitNumber);
                                 ogzd.is_first = false;
                             }
                         }
