@@ -376,7 +376,7 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", this, 5);
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
                 let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)

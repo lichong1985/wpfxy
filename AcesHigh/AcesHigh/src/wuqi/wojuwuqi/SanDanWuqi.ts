@@ -10,8 +10,8 @@ module wjwq {
         public FA15: number = -15 * Math.PI / 180;
 
 
-        constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, name: string, fc: feichuan.FeiChuanBase, level: number) {
-            super(mokaiPos, shType, name, wuqi.WUQI_TYPE.SAN_DAN, fc);
+        constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
+            super(mokaiPos, shType, "us_wq_2_png", wuqi.WUQI_TYPE.SAN_DAN, fc);
             this.level = level;
         }
 

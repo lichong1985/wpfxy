@@ -16,7 +16,7 @@ var zidan;
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
             _this.initPT();
             _this.collNumber = 1;
-            _this.bit_name = "op_wq_4_png";
+            _this.bit_name = "us_zd_1_png";
             _this.bitmap.anchorOffsetX = _this.bitmap.width * 0.5;
             _this.bitmap.anchorOffsetY = _this.bitmap.height * 0.5;
             _this.bitmap.scaleX = 0.5;
@@ -25,7 +25,7 @@ var zidan;
             return _this;
         }
         PuTongZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_4_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_1_png"));
             this.damping = 0;
             this.displays = [this.bitmap];
         };

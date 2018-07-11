@@ -24,7 +24,6 @@ var djwq;
             var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JI_GUANG) || this;
             _this.kuan = 10;
             _this.G_kuan = 4;
-            _this.cd = 100;
             _this.sudu = 25;
             _this.zt = JG_TYPE.WU;
             return _this;

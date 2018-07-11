@@ -95,32 +95,39 @@ var shuke;
                 }
             }
             if (dl.dl_type == suiji.SJ_YAN_SE.WU_QI) {
+                //普通
                 if (dl.wq_type == suiji.WQ_TYPE[0]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_1_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
                 }
+                //散弹
                 if (dl.wq_type == suiji.WQ_TYPE[1]) {
-                    hx = new wjwq.SanDanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_2_png", this, dl.lv);
+                    hx = new wjwq.SanDanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
+                //导弹
                 if (dl.wq_type == suiji.WQ_TYPE[2]) {
-                    hx = new wjwq.DaoDanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_3_png", this, dl.lv);
+                    hx = new wjwq.DaoDanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
+                //激光
                 if (dl.wq_type == suiji.WQ_TYPE[3]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_4_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
                 }
+                //炮台
                 if (dl.wq_type == suiji.WQ_TYPE[4]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_5_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.PaoTaiWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
+                //鱼雷
                 if (dl.wq_type == suiji.WQ_TYPE[5]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_6_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.YuLeiWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
+                //螺旋
                 if (dl.wq_type == suiji.WQ_TYPE[6]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_7_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.LuoXuanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
                 if (dl.wq_type == suiji.WQ_TYPE[7]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_8_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
                 }
                 if (dl.wq_type == suiji.WQ_TYPE[8]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
                 }
                 var wq = hx;
                 hx.setMkLevel(dl.lv);

@@ -12,7 +12,6 @@ module djwq {
         public zt: JG_TYPE;
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
             super(fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JI_GUANG);
-            this.cd = 100;
             this.sudu = 25;
             this.zt = JG_TYPE.WU;
         }

@@ -20,7 +20,6 @@ var djwq;
             //每次发射的数量
             _this.shu_liang = 0;
             _this.shu_liang_mark = 5;
-            _this.cd = 500;
             _this.shu_liang_mark = 5;
             _this.shu_liang = _this.shu_liang_mark;
             _this.sudu = 1.2;

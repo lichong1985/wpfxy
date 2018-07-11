@@ -129,7 +129,12 @@ var mokuai;
             this.dk_now = level;
         };
         //移除缓动动画
-        MoKuaiBase.prototype.dell = function (DD) { this.fc.battle_scene.removeChild(DD); DD = null; };
+        MoKuaiBase.prototype.dell = function (DD) {
+            if (DD.parent) {
+                this.fc.battle_scene.removeChild(DD);
+            }
+            DD = null;
+        };
         MoKuaiBase.prototype.jihui_texiao = function () {
             var b = new egret.Bitmap(RES.getRes(this.bitName));
             b.x = this.x;

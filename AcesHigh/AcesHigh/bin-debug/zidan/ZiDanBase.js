@@ -26,9 +26,14 @@ var zidan;
             _this.is_first = true;
             //发射标记时间
             _this.mark_time = egret.getTimer();
+            //生命周期
+            _this.sheng_ming_zhou_qi = 10000;
+            //是否添加的移除列表
+            _this.isAddRem = false;
             _this.zhenying = zhenying;
             _this.wqt = wqt;
             _this.scene = scene;
+            _this.yueShulist = new Array();
             _this.initColl();
             _this.initZidan();
             return _this;
@@ -38,6 +43,9 @@ var zidan;
             this.addShape(box);
             box.collisionMask = this.collMask;
             box.collisionGroup = this.collGroup;
+        };
+        //约束
+        ZiDanBase.prototype.yue_shu = function () {
         };
         //初始化碰撞参数
         ZiDanBase.prototype.initColl = function () {
@@ -57,14 +65,33 @@ var zidan;
         ZiDanBase.prototype.texiao = function () {
             this.dell(this.bitmap);
         };
+        //移除特效
+        ZiDanBase.prototype.removeTeXiao = function () {
+            this.addRemove();
+        };
+        ZiDanBase.prototype.addRemove = function () {
+            this.scene.ovzRemoveZiDanBodyList.push(this);
+        };
         //移除缓动动画
         ZiDanBase.prototype.dell = function (DD) {
             if (DD) {
                 if (DD.parent) {
+                    egret.Tween.removeTweens(DD);
                     this.scene.removeChild(DD);
                 }
             }
             DD = null;
+        };
+        //移除约束
+        ZiDanBase.prototype.removeYueShu = function () {
+            if (this.yueShulist.length <= 0) {
+                return;
+            }
+            var size = this.yueShulist.length;
+            for (var i = 0; i < size; i++) {
+                var ys = this.yueShulist.pop();
+                this.scene.world.removeConstraint(ys);
+            }
         };
         ZiDanBase.prototype.updata = function () {
         };

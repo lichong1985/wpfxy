@@ -22,10 +22,10 @@ var scene;
     //位移生效百分比
     scene.scene_wy_bfb = 0.2;
     //物理世界 屏幕范围
-    scene.p2_zuo = 20;
+    scene.p2_zuo = 10;
     scene.p2_shang = 60;
-    scene.p2_you = 32;
-    scene.p2_xia = 37;
+    scene.p2_you = 52;
+    scene.p2_xia = 27;
     var SceneBase = (function (_super) {
         __extends(SceneBase, _super);
         function SceneBase() {
@@ -187,6 +187,8 @@ var scene;
                             // this.removeChild(d);
                         }
                     }
+                    //移除约束
+                    zd.removeYueShu();
                     this.world.removeBody(zd);
                     zd = null;
                 }
@@ -206,6 +208,8 @@ var scene;
                         this.removeChild(d);
                     }
                 }
+                //移除约束
+                zd.removeYueShu();
                 this.world.removeBody(zd);
                 zd = null;
             }
@@ -302,15 +306,22 @@ var scene;
                         this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     //超过15秒删除
-                    if ((egret.getTimer() - zd.mark_time) > 10000) {
-                        this.ovzRemoveZiDanBodyList.push(zd);
+                    if ((egret.getTimer() - zd.mark_time) > zd.sheng_ming_zhou_qi) {
+                        if (!zd.isAddRem) {
+                            zd.isAddRem = true;
+                            zd.removeTeXiao();
+                        }
+                        // this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     //速度==0
                     if (zd.velocity[0] == 0 && zd.velocity[1] == 0) {
-                        this.ovzRemoveZiDanBodyList.push(zd);
+                        // this.ovzRemoveZiDanBodyList.push(zd);
                     }
                 }
                 if (boxBody instanceof canhai.CanHai) {
+                }
+                if (boxBody instanceof shuke.ShuKe) {
+                    boxBody.velocity = [0, 0];
                 }
                 if (boxBody instanceof feichuan.FeiChuanBase) {
                     var i_2 = boxBody;

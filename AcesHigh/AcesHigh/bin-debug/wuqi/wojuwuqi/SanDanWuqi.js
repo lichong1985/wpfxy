@@ -12,8 +12,8 @@ var wjwq;
 (function (wjwq) {
     var SanDanWuqi = (function (_super) {
         __extends(SanDanWuqi, _super);
-        function SanDanWuqi(mokaiPos, shType, name, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, name, wuqi.WUQI_TYPE.SAN_DAN, fc) || this;
+        function SanDanWuqi(mokaiPos, shType, fc, level) {
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_2_png", wuqi.WUQI_TYPE.SAN_DAN, fc) || this;
             _this.A0 = 0 * Math.PI / 180;
             _this.A5 = 5 * Math.PI / 180;
             _this.A10 = 10 * Math.PI / 180;

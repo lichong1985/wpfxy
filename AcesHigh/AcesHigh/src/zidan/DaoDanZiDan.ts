@@ -12,12 +12,12 @@ module zidan {
             this.is_updata = true;
             this.damping = 0;
             this.fc = fc;
-            this.bit_name = "op_zd_3_png";
+            this.bit_name = "us_zd_3_png";
             this.sudu = 8;
 
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("op_zd_3_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_3_png"))
             this.damping = 0;
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;

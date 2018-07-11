@@ -49,12 +49,14 @@ var wuqi;
             return _this;
         }
         WuQiBase.prototype.updata_wq = function (angel, suke, now) {
-            _super.prototype.updata.call(this);
+            this.updata();
             if ((now - this.mark_time) > this.cd) {
                 this.mark_time = now;
                 this.fashe(angel, suke, now);
                 return;
             }
+        };
+        WuQiBase.prototype.updata = function () {
         };
         WuQiBase.prototype.fashe = function (angel, suke, now) {
         };
@@ -82,6 +84,15 @@ var wuqi;
             if (w_t == wuqi.WUQI_TYPE.DAO_DAN) {
                 zd = new zidan.DaoDanZiDan(this.fc.battle_scene, zy, 0.0001, this.tiaget_fc);
             }
+            if (w_t == wuqi.WUQI_TYPE.DING_XIANG) {
+                zd = new zidan.DingXiangZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
+            if (w_t == wuqi.WUQI_TYPE.YU_LEI) {
+                zd = new zidan.YuLeiZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
+            if (w_t == wuqi.WUQI_TYPE.LUO_XUAN) {
+                zd = new zidan.LuoXuanZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
             zd.angle = angle;
             this.fc.battle_scene.world.addBody(zd);
             this.fc.battle_scene.addChild(zd.bitmap);
@@ -89,6 +100,7 @@ var wuqi;
             zd.position[0] = p.x;
             zd.position[1] = p.y;
             zd.velocity = [v.x, v.y];
+            zd.yue_shu();
         };
         return WuQiBase;
     }(mokuai.MoKuaiBase));

@@ -15,7 +15,6 @@ var djwq;
         __extends(JianSuWuqi, _super);
         function JianSuWuqi(moKuaiPost, shapeType, bitName, fc) {
             var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JIAN_SU) || this;
-            _this.cd = 1000;
             _this.sudu = 25;
             return _this;
         }

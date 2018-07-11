@@ -12,8 +12,8 @@ var wjwq;
 (function (wjwq) {
     var DaoDanWuqi = (function (_super) {
         __extends(DaoDanWuqi, _super);
-        function DaoDanWuqi(mokaiPos, shType, name, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, name, wuqi.WUQI_TYPE.DAO_DAN, fc) || this;
+        function DaoDanWuqi(mokaiPos, shType, fc, level) {
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_3_png", wuqi.WUQI_TYPE.DAO_DAN, fc) || this;
             _this.small_cd = 2000;
             _this.mark_small_time = 0;
             //每次发射的数量
@@ -48,7 +48,7 @@ var wjwq;
                 var ff = _a[_i];
                 if (!zj) {
                     zj = ff;
-                    if (ff) {
+                    if (ff.hx) {
                         jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
                     }
                     continue;

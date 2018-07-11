@@ -259,7 +259,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_wq_9_png", this, 5);
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);

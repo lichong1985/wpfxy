@@ -6,8 +6,8 @@ module wjwq {
         public shu_liang: number = 0;
         public shu_liang_mark: number = 5;
 
-        constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, name: string, fc: feichuan.FeiChuanBase, level: number) {
-            super(mokaiPos, shType, name, wuqi.WUQI_TYPE.DAO_DAN, fc);
+        constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
+            super(mokaiPos, shType, "us_wq_3_png", wuqi.WUQI_TYPE.DAO_DAN, fc);
             this.level = level;
             this.shu_liang_mark = level;
             this.cd = 150;
@@ -38,7 +38,7 @@ module wjwq {
             for (let ff of this.fc.battle_scene.dijis) {
                 if (!zj) {
                     zj = ff;
-                    if (ff) {
+                    if (ff.hx) {
                         jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
                     }
                     continue;

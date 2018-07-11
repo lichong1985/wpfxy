@@ -13,10 +13,10 @@ module scene {
     //位移生效百分比
     export const scene_wy_bfb: number = 0.2;
     //物理世界 屏幕范围
-    export const p2_zuo: number = 20;
+    export const p2_zuo: number = 10;
     export const p2_shang: number = 60;
-    export const p2_you: number = 32;
-    export const p2_xia: number = 37;
+    export const p2_you: number = 52;
+    export const p2_xia: number = 27;
 
 
 
@@ -224,6 +224,9 @@ module scene {
                             // this.removeChild(d);
                         }
                     }
+
+                    //移除约束
+                    zd.removeYueShu();
                     this.world.removeBody(zd);
                     zd = null;
                 }
@@ -246,10 +249,14 @@ module scene {
                         this.removeChild(d);
                     }
                 }
+                //移除约束
+                zd.removeYueShu();
                 this.world.removeBody(zd);
                 zd = null;
 
             }
+
+
 
             //掉落道具
             size = this.removeDLList.length;
@@ -275,6 +282,7 @@ module scene {
 
 
         }
+
 
         //检测飞船
         public chackFeiChuan() {
@@ -360,12 +368,16 @@ module scene {
                         this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     //超过15秒删除
-                    if ((egret.getTimer() - zd.mark_time) > 10000) {
-                        this.ovzRemoveZiDanBodyList.push(zd);
+                    if ((egret.getTimer() - zd.mark_time) > zd.sheng_ming_zhou_qi) {
+                        if (!zd.isAddRem) {
+                            zd.isAddRem = true;
+                            zd.removeTeXiao();
+                        }
+                        // this.ovzRemoveZiDanBodyList.push(zd);
                     }
                     //速度==0
                     if (zd.velocity[0] == 0 && zd.velocity[1] == 0) {
-                        this.ovzRemoveZiDanBodyList.push(zd);
+                        // this.ovzRemoveZiDanBodyList.push(zd);
 
                     }
 
@@ -375,11 +387,17 @@ module scene {
 
                 }
 
+                if (boxBody instanceof shuke.ShuKe) {
+                    boxBody.velocity = [0, 0];
+                }
+
                 if (boxBody instanceof feichuan.FeiChuanBase) {
                     let i = <feichuan.FeiChuanBase>boxBody;
                     i.updataSomeThing();
                     continue;
                 }
+
+
 
                 var box: egret.DisplayObject = boxBody.displays[0];
                 if (box) {

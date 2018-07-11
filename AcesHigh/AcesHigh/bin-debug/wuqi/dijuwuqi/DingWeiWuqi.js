@@ -14,9 +14,7 @@ var djwq;
     var DingWeiWuqi = (function (_super) {
         __extends(DingWeiWuqi, _super);
         function DingWeiWuqi(moKuaiPost, shapeType, bitName, fc) {
-            var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.DING_WEI) || this;
-            _this.cd = 1000;
-            return _this;
+            return _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.DING_WEI) || this;
         }
         //射击
         DingWeiWuqi.prototype.fashe = function (angel, suke, now) {

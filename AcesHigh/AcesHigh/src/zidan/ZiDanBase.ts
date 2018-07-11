@@ -32,6 +32,13 @@ module zidan {
 
         //发射标记时间
         public mark_time: number = egret.getTimer();
+        //生命周期
+        public sheng_ming_zhou_qi: number = 10000;
+
+        //是否添加的移除列表
+        public isAddRem: boolean = false;
+
+        public yueShulist: Array<p2.DistanceConstraint>;
 
 
         constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number, wqt: wuqi.WUQI_TYPE) {
@@ -39,6 +46,7 @@ module zidan {
             this.zhenying = zhenying;
             this.wqt = wqt;
             this.scene = scene;
+            this.yueShulist = new Array<p2.DistanceConstraint>();
             this.initColl();
             this.initZidan();
 
@@ -49,6 +57,11 @@ module zidan {
             this.addShape(box);
             box.collisionMask = this.collMask;
             box.collisionGroup = this.collGroup;
+        }
+
+        //约束
+        public yue_shu() {
+
         }
 
 
@@ -72,17 +85,41 @@ module zidan {
             this.dell(this.bitmap);
         }
 
+        //移除特效
+        public removeTeXiao() {
+            this.addRemove();
+        }
+
+        public addRemove() {
+            this.scene.ovzRemoveZiDanBodyList.push(this);
+        }
+
 
         //移除缓动动画
         public dell(DD: egret.DisplayObject) {
             if (DD) {
                 if (DD.parent) {
+                    egret.Tween.removeTweens(DD);
                     this.scene.removeChild(DD);
                 }
             }
             DD = null;
+
         }
 
+
+        //移除约束
+        public removeYueShu() {
+            if (this.yueShulist.length <= 0) {
+                return;
+            }
+
+            let size = this.yueShulist.length;
+            for (let i = 0; i < size; i++) {
+                let ys = this.yueShulist.pop();
+                this.scene.world.removeConstraint(ys);
+            }
+        }
 
         public updata() {
 

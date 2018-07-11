@@ -13,7 +13,9 @@ var djwq;
     var DJWQBase = (function (_super) {
         __extends(DJWQBase, _super);
         function DJWQBase(suzhu, moKuaiPost, shapeType, bitName, w_t) {
-            return _super.call(this, moKuaiPost, shapeType, bitName, w_t, suzhu) || this;
+            var _this = _super.call(this, moKuaiPost, shapeType, bitName, w_t, suzhu) || this;
+            _this.cd = 5000;
+            return _this;
         }
         //射击
         DJWQBase.prototype.fashe = function (angel, suke, now) {

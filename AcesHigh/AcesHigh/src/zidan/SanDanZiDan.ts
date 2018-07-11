@@ -3,11 +3,11 @@ module zidan {
         constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number) {
             super(scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
-            this.bit_name = "op_zd_2_png";
+            this.bit_name = "us_zd_2_png";
             this.is_updata = true;
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("op_zd_2_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_2_png"))
             this.damping = 0;
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;

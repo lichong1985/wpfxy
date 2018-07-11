@@ -1,13 +1,13 @@
 module wuqi {
     export class PuTongDan extends wuqi.WuQiBase {
-        constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, name: string, wuqii_type: WUQI_TYPE, fc: feichuan.FeiChuanBase) {
-            super(mokaiPos, shType, name, wuqii_type, fc)
+        constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, wuqii_type: WUQI_TYPE, fc: feichuan.FeiChuanBase) {
+            super(mokaiPos, shType, "us_wq_1_png", wuqii_type, fc)
             this.cd = 500;
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
             super.fashe(angel, suke, now)
-            let zd: zidan.PuTongZiDan = new zidan.PuTongZiDan(this.fc.battle_scene,GameConstant.ZHEN_YING.WO_JUN_ZIDAN, 0.0001);
+            let zd: zidan.PuTongZiDan = new zidan.PuTongZiDan(this.fc.battle_scene, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, 0.0001);
             let p: egret.Point = Tools.egretTOp2(egret.Point.create(this.x, this.y))
             zd.position[0] = p.x;
             zd.position[1] = p.y;

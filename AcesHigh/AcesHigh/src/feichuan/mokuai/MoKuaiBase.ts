@@ -185,7 +185,12 @@ module mokuai {
         }
 
         //移除缓动动画
-        public dell(DD: egret.DisplayObject) { this.fc.battle_scene.removeChild(DD); DD = null; }
+        public dell(DD: egret.DisplayObject) {
+            if (DD.parent) {
+                this.fc.battle_scene.removeChild(DD);
+            }
+            DD = null;
+        }
 
 
         public jihui_texiao() {

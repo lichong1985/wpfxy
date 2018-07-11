@@ -14,9 +14,7 @@ var djwq;
     var ZhiSheWuQi = (function (_super) {
         __extends(ZhiSheWuQi, _super);
         function ZhiSheWuQi(moKuaiPost, shapeType, bitName, fc) {
-            var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.ZHI_SHE) || this;
-            _this.cd = 1000;
-            return _this;
+            return _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.ZHI_SHE) || this;
         }
         //射击
         ZhiSheWuQi.prototype.fashe = function (angel, suke, now) {

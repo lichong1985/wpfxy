@@ -3,7 +3,6 @@ module djwq {
     export class JianSuWuqi extends DJWQBase {
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
             super(fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JIAN_SU);
-            this.cd = 1000;
             this.sudu = 25;
         }
 
