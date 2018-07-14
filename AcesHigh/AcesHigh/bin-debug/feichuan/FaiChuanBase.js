@@ -267,7 +267,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
+                hx = new wjwq.ChangDingWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);
@@ -318,14 +318,14 @@ var feichuan;
         FeiChuanBase.prototype.checkCollision = function (x, y, hitNumber) {
             var zm = this.jia_ce_peng_zhuang_dian(x, y);
             //如果没有找到碰撞点
-            if (!zm) {
-                return;
-            }
             //装甲受伤处理
             this.shang_hai(zm, hitNumber);
         };
         //装甲受伤处理
         FeiChuanBase.prototype.shang_hai = function (zm, hitNumber) {
+            if (!zm) {
+                return;
+            }
             // 模块碰撞 检测
             if (zm.coll(hitNumber)) {
                 //将节点标记  之后在碰撞循环外清空

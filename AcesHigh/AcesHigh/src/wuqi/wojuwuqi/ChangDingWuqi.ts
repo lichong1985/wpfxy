@@ -6,6 +6,7 @@ module wjwq {
             super(mokaiPos, shType, "us_wq_8_png", wuqi.WUQI_TYPE.CHANG_DING, fc);
             this.level = level;
             this.cd = 2000;
+            this.sudu = 1;
 
         }
 

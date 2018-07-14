@@ -386,7 +386,7 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
+                hx = new wjwq.ChangDingWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 1);
                 let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)
@@ -450,9 +450,7 @@ module feichuan {
 
 
             //如果没有找到碰撞点
-            if (!zm) {
-                return;
-            }
+
 
             //装甲受伤处理
             this.shang_hai(zm, hitNumber);
@@ -462,6 +460,9 @@ module feichuan {
 
         //装甲受伤处理
         public shang_hai(zm: mokuai.MoKuaiBase, hitNumber: number) {
+            if (!zm) {
+                return;
+            }
             // 模块碰撞 检测
             if (zm.coll(hitNumber)) {
 

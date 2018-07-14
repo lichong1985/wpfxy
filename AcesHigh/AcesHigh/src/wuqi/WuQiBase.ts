@@ -111,7 +111,7 @@ module wuqi {
             }
 
             if (w_t == wuqi.WUQI_TYPE.CHANG_DING) {
-                zd = new zidan.ChangDingZiDan(this.fc.battle_scene, zy, 0.0001);
+                zd = new zidan.ChangDingZiDan(this.fc.battle_scene, zy, 0.0001, this.level);
             }
 
 
