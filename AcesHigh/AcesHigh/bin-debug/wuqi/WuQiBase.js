@@ -93,6 +93,9 @@ var wuqi;
             if (w_t == wuqi.WUQI_TYPE.LUO_XUAN) {
                 zd = new zidan.LuoXuanZiDan(this.fc.battle_scene, zy, 0.0001);
             }
+            if (w_t == wuqi.WUQI_TYPE.CHANG_DING) {
+                zd = new zidan.ChangDingZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
             zd.angle = angle;
             this.fc.battle_scene.world.addBody(zd);
             this.fc.battle_scene.addChild(zd.bitmap);

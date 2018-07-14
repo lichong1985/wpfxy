@@ -454,6 +454,14 @@ module feichuan {
                 return;
             }
 
+            //装甲受伤处理
+            this.shang_hai(zm, hitNumber);
+
+        }
+
+
+        //装甲受伤处理
+        public shang_hai(zm: mokuai.MoKuaiBase, hitNumber: number) {
             // 模块碰撞 检测
             if (zm.coll(hitNumber)) {
 
@@ -478,8 +486,6 @@ module feichuan {
                 zm.jihui_texiao();
             }
             zm.jiZhong_texiao();
-
-
         }
 
         //删除模块

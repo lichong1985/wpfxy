@@ -108,7 +108,13 @@ var scene;
                         if (oh instanceof zidan.ZiDanBase) {
                             //检测碰撞点 并且标记好在循环外删除
                             if (ogzd.is_first) {
-                                fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd.hitNumber);
+                                // fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd.hitNumber);
+                                var mk = fc.jia_ce_peng_zhuang_dian(oh.displays[0].x, oh.displays[0].y);
+                                fc.shang_hai(mk, ogzd.hitNumber);
+                                if (ogzd instanceof zidan.ChangDingZiDan) {
+                                    var cd = ogzd;
+                                    cd.chuan_jia(mk, fc);
+                                }
                                 ogzd.is_first = false;
                             }
                         }

@@ -59,6 +59,9 @@ var wjwq;
                 this.fc.battle_scene.removeChild(shp);
             }
         };
+        //溅射伤害 
+        JiGuangWuqi.prototype.jianse = function () {
+        };
         return JiGuangWuqi;
     }(wuqi.WuQiBase));
     wjwq.JiGuangWuqi = JiGuangWuqi;

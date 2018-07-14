@@ -321,6 +321,11 @@ var feichuan;
             if (!zm) {
                 return;
             }
+            //装甲受伤处理
+            this.shang_hai(zm, hitNumber);
+        };
+        //装甲受伤处理
+        FeiChuanBase.prototype.shang_hai = function (zm, hitNumber) {
             // 模块碰撞 检测
             if (zm.coll(hitNumber)) {
                 //将节点标记  之后在碰撞循环外清空

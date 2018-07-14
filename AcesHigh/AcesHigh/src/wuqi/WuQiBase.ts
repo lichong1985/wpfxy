@@ -110,6 +110,10 @@ module wuqi {
                 zd = new zidan.LuoXuanZiDan(this.fc.battle_scene, zy, 0.0001);
             }
 
+            if (w_t == wuqi.WUQI_TYPE.CHANG_DING) {
+                zd = new zidan.ChangDingZiDan(this.fc.battle_scene, zy, 0.0001);
+            }
+
 
 
             zd.angle = angle;

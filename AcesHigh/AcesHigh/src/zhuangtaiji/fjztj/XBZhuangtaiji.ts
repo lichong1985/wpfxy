@@ -25,6 +25,7 @@ module fjztj {
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER) {
                 if (!this.fc.moveAI || !(this.fc.moveAI instanceof ai.ZuoYouLuanDongAI)) {
                     this.fc.moveAI = new ai.ZuoYouLuanDongAI(this.fc);
+                    // this.fc.moveAI = new ai.XuanZhuanAI(this.fc, 0.1);
                 }
             }
         }

@@ -56,5 +56,11 @@ module wjwq {
         }
 
 
+        //溅射伤害 
+        public jianse() {
+
+        }
+
+
     }
 }
