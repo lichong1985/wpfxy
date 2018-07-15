@@ -148,6 +148,11 @@ module scene {
                                     let cd = <zidan.ChangDingZiDan>ogzd;
                                     cd.chuan_jia(mk, fc);
                                 }
+
+                                if (ogzd instanceof zidan.ZhongChuiZiDan) {
+                                    let cd = <zidan.ZhongChuiZiDan>ogzd;
+                                    cd.chuan_jia(mk, fc);
+                                }
                                 ogzd.is_first = false;
                             }
                         }

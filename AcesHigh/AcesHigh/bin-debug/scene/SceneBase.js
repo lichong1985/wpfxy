@@ -115,6 +115,10 @@ var scene;
                                     var cd = ogzd;
                                     cd.chuan_jia(mk, fc);
                                 }
+                                if (ogzd instanceof zidan.ZhongChuiZiDan) {
+                                    var cd = ogzd;
+                                    cd.chuan_jia(mk, fc);
+                                }
                                 ogzd.is_first = false;
                             }
                         }

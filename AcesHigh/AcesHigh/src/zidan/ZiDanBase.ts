@@ -40,6 +40,8 @@ module zidan {
 
         public yueShulist: Array<p2.DistanceConstraint>;
 
+        public level: number;
+
 
         constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number, wqt: wuqi.WUQI_TYPE) {
             super({ mass: mass })

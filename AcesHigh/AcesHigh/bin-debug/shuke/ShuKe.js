@@ -123,11 +123,13 @@ var shuke;
                 if (dl.wq_type == suiji.WQ_TYPE[6]) {
                     hx = new wjwq.LuoXuanWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
+                //长钉
                 if (dl.wq_type == suiji.WQ_TYPE[7]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.ChangDingWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
+                //重锤
                 if (dl.wq_type == suiji.WQ_TYPE[8]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wjwq.ZhongChuiWuqi(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
                 var wq = hx;
                 hx.setMkLevel(dl.lv);

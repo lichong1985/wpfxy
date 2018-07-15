@@ -42,26 +42,21 @@ module zidan {
             //正
             if (mok.rotation > -45 && mok.rotation < 45) {
                 this.loopJs(x, y, false, false, fc);
-                egret.log("正正正正正正正正正正正正正正正正正正正")
             }
             //左
             if (mok.rotation < -45 && mok.rotation > -135) {
                 this.loopJs(x, y, true, true, fc);
-                egret.log("左左左左左左左左左左左左左左左左左左")
 
             }
 
             //右
             if (mok.rotation > 45 && mok.rotation < 135) {
                 this.loopJs(x, y, true, false, fc);
-                egret.log("右右右右右右右右右右右右右右右右右右")
             }
 
-            //后
+            //后 11
             if (mok.rotation < -135 || mok.rotation > 135) {
                 this.loopJs(x, y, false, true, fc);
-                egret.log("后后后后后后后后后后后后后后后后后后后")
-
             }
         }
 
