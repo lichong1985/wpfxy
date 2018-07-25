@@ -1,11 +1,16 @@
 module Tools {
+    //屏幕宽30个格子
+    export let GE_ZI_NUM_W: number = 30;
+    //屏幕高50个格子
+    export let GE_ZI_NUM_H: number = 50;
+
 
     //p2  坐标 转 白鹭 坐标
     export function p2TOegretPoitn(p: egret.Point): egret.Point {
         return egret.Point.create(p.x * Physics.factor, scene.battle_sceneH - p.y * Physics.factor);
     }
 
-    // 白鹭 坐标 转 p2 坐标ßß
+    // 白鹭 坐标 转 p2 坐标
     export function egretTOp2(p: egret.Point): egret.Point {
         return egret.Point.create(p.x / Physics.factor, (scene.battle_sceneH - p.y) / Physics.factor);
     }
@@ -58,14 +63,32 @@ module Tools {
 
     //格子坐标转 物理坐标
     export function gridTop2(x: number, y: number): egret.Point {
-        let ex = x * 100 + 50;
-        let ey = y * 100 + 50;
+        let w_base = getPhoneW() / GE_ZI_NUM_W;
+        let h_base = getPhoneH() / GE_ZI_NUM_H;
+        let ex = x * w_base + w_base * 0.5 + 1000;
+        let ey = y * h_base + h_base * 0.5 + 1000;
+
         return egret.Point.create(ex / Physics.factor, (scene.battle_sceneH - ey) / Physics.factor);
     }
 
     //格子坐标转 屏幕坐标
     export function gridToEgret(x: number, y: number): egret.Point {
 
-        return egret.Point.create((x * 100 + 50), (y * 100 + 50));
+        let w_base = getPhoneW() / GE_ZI_NUM_W;
+        let h_base = getPhoneH() / GE_ZI_NUM_H;
+
+        return egret.Point.create((x * w_base + w_base * 0.5 + 1000), (y * h_base + h_base * 0.5 + 1000));
+    }
+
+    //获取设备分辨率宽
+    export function getPhoneW(): number {
+        // return document.documentElement.clientWidth;
+        return 640;
+    }
+
+    //获取设备分辨率高
+    export function getPhoneH(): number {
+        // return document.documentElement.clientHeight;
+        return 1136;
     }
 }

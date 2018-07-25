@@ -13,6 +13,7 @@ module feichuan {
          * 核心列表
          */
         public heXinList: Array<mokuai.DongLiHeXin>;
+
         /**
          * 装甲列表
          */
@@ -94,6 +95,11 @@ module feichuan {
         public ztj: fjztj.FjZTJ;
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+        //-----------------------难度评分相关-------------------
+        // 初始化时需要分配的分数
+        public fengshu: number;
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++
+
         //TODO: 通过配置文件来加载
         constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING) {
             super({ mass: 1 })
@@ -109,18 +115,18 @@ module feichuan {
             this.initPhPost();
             this.initColl();
             this.ztj = new fjztj.XBZhuangtaiji(this);
+
         }
 
 
 
         //初始化飞船
-        public initJson(res: string) {
-            let js = RES.getRes(res);
+        public initJson(info: feichuan.FeiChuanInfo) {
             //读取飞船的宽高
-            this.W = js.layers[0].width;
-            this.H = js.layers[0].height;
+            this.W = info.width
+            this.H = info.height;
             this.initList(this.H, this.W);
-            let data = js.layers[0].data;
+            let data = info.data;
             //初始化模块
             this.moKuaiList = new Array(this.H);
             let i: number = 0;
@@ -133,7 +139,7 @@ module feichuan {
                         continue;
                     }
 
-                    let bitName: string = js.tiles[data[i] - 1].image.replace(".", "_");
+                    let bitName: string = info.tiles[data[i] - 1];
                     let hx: mokuai.MoKuaiBase;
                     if (bitName == "op_hx_hx_png" || bitName == "op_hx_ss_png" || bitName == "op_hx_zj_png") {
                         this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
@@ -250,9 +256,9 @@ module feichuan {
 
         //设置物理世界坐标 
         public initPhPost() {
-            let pos = Tools.egretTOp2(this.egretWorldPoint);
-            this.position[0] = pos.x;
-            this.position[1] = pos.y;
+            let g2p = Tools.gridTop2(this.egretWorldPoint.x, this.egretWorldPoint.y);
+            this.position[0] = g2p.x;
+            this.position[1] = g2p.y;
         }
 
 
@@ -277,6 +283,7 @@ module feichuan {
         }
         //更新坐标以及角度
         public updataPos() {
+
 
             let h = this.moKuaiList.length;
             let w = this.moKuaiList[0].length;
@@ -307,12 +314,14 @@ module feichuan {
                     let p: egret.Point = Tools.p2TOegretPoitn(egret.Point.create(rx + this.position[0], ry + this.position[1]))
                     dis.x = p.x;
                     dis.y = p.y;
+
                     dis.markPoint = p;
                     dis.rotation = 360 - this.angle * 180 / Math.PI;
 
 
                 }
             }
+
         }
 
         public updataSomeThing() {

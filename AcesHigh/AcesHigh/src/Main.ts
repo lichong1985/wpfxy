@@ -59,7 +59,7 @@ class Main extends eui.UILayer {
             const loadingView = new LoadingUI();
             this.stage.addChild(loadingView);
             await RES.loadConfig("resource/default.res.json", "resource/");
-            await RES.loadGroup("testLoad", 0, loadingView);
+            await RES.loadGroup("preload", 0, loadingView);
             await this.stage.removeChild(loadingView);
             this.addTestScene();
         }
@@ -73,13 +73,42 @@ class Main extends eui.UILayer {
     public _distance: egret.Point = new egret.Point();
     //添加测试场景
     public addTestScene() {
+        //初始化所有飞船
+        let fc_list = RES.getRes("all_fc_json");
+        for (let fc of fc_list) {
+            let info = new feichuan.FeiChuanInfo();
+            info.data = fc.layers[0].data;
+            info.fc_type = fc.layers[0].fc_type;
+            info.file_name = fc.layers[0].file_name;
+            info.height = fc.layers[0].height;
+            info.is_gen_zong = fc.layers[0].is_gen_zong;
+            info.is_ji_guang = fc.layers[0].is_ji_guang;
+            info.is_ju_zhen = fc.layers[0].is_ju_zhen;
+            info.is_san_dan = fc.layers[0].is_san_dan;
+            info.is_wei_bu = fc.layers[0].is_wei_bu;
+            info.ti_ji = fc.layers[0].ti_ji;
+            info.width = fc.layers[0].width;
+            info.wu_qi_nan_du = fc.layers[0].wu_qi_nan_du;
+            info.wu_qi_shu_liang = fc.layers[0].wu_qi_shu_liang;
+            info.zhuang_jia_nan_du = fc.layers[0].zhuang_jia_nan_du;
+            let size = fc.tiles.length;
+            info.tiles = new Array(size);
+            //图片
+            for (let i = 0; i < size; i++) {
+                info.tiles[i] = fc.tiles[i].image.replace(".", "_");
+            }
+            FC_Console.addFcInfo(info);
 
+
+        }
         // this.testSen = new TestScene();
         this.testSen = TestScene.getInstance();
         this.stage.addChild(this.testSen);
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
     }
+
+
 
 
 

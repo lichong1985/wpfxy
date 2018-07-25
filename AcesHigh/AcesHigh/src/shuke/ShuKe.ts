@@ -3,7 +3,7 @@ module shuke {
 
         public yun_tu: number[][];
         constructor(battle_scene: scene.SceneBase) {
-            super(battle_scene, egret.Point.create(scene.scene_anch_x + 640 * 0.5, 2100), GameConstant.ZHEN_YING.WO_JUN)
+            super(battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN)
             this.fc_type = feichuan.FC_TYPE.SUKE;
             this.initSuKe();
 
@@ -208,6 +208,8 @@ module shuke {
 
         public updataPos() {
             super.updataPos();
+            let p = Tools.p2TOegretPoitn(egret.Point.create(this.position[0], this.position[1]))
+            // egret.log("SSSSSSSSSSSSSSSSS" + this.position[0] + "_" + this.position[1]+"|"+p.x+"_"+p.y)
         }
 
         //扩散

@@ -152,19 +152,15 @@ module mokuai {
                     if (this.mk_level == 3) {
                         this.texture = RES.getRes("op_zj_pt_level_3_png");
                         this.bitName = "op_zj_pt_level_3_png";
-
                     }
                     if (this.mk_level == 2) {
                         this.texture = RES.getRes("op_zj_pt_level_2_png");
                         this.bitName = "op_zj_pt_level_2_png";
-
                     }
                     if (this.mk_level == 1) {
                         this.texture = RES.getRes("op_zj_pt_level_1_png");
                         this.bitName = "op_zj_pt_level_1_png";
-
                     }
-
                 }
                 this.dk_now = this.mk_level;
             }
@@ -174,7 +170,6 @@ module mokuai {
                 //已经被销毁
                 return true;
             }
-
             return false;
         }
 

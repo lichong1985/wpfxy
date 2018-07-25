@@ -12,10 +12,10 @@ module test {
         public box1: p2.Box;
         public box2: p2.Box;
         constructor(battle_scene: scene.SceneBase) {
-            super(battle_scene, egret.Point.create(1200, 1300), GameConstant.ZHEN_YING.DI_JUN)
+            super(battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN)
 
             this.fc_type = feichuan.FC_TYPE.DIJI;
-            this.initJson("6_1_json");
+            // this.initJson("6_1_json");
             this.initTestFchuan();
         }
 
@@ -26,7 +26,7 @@ module test {
             // this.addAI(new ai.KeepDistanceAI(this, 5));
             // this.addAI(new ai.ShiShiMiaoZhunAi(this));
             // let ps: Array<egret.Point> = new Array<egret.Point>();
-            // ps.push(Tools.egretTOp2(egret.Point.create(1300, 1300)));
+            // ps.push(Tools.egretTOp2(egret.Point.create(15, 15)));
             // ps.push(Tools.egretTOp2(egret.Point.create(1700, 1700)));
             // this.addAI(new ai.MoveToAi(this, ps, true));
             // this.addAI(new ai.ZhuanXiang(this));

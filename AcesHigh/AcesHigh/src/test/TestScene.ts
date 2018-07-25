@@ -38,7 +38,7 @@ class TestScene extends scene.SceneBase {
         let sk: shuke.ShuKe = new shuke.ShuKe(this);
         this.sk = sk;
 
-        // let fc = new feichuan.XiaoBing(this, egret.Point.create(1200, 1300), egret.Point.create(1500, 800), "6_1_json")
+        // let fc = new feichuan.XiaoBing(this, egret.Point.create(1200, 15), egret.Point.create(1500, 800), "6_1_json")
 
         // let fc: test.TestFeiChuan = new test.TestFeiChuan(this);
         // this.dijis.push(fc)
@@ -46,6 +46,7 @@ class TestScene extends scene.SceneBase {
     }
 
     public upSomeThing() {
+        // egret.log("LLLLLLLLLLLLLLLLL:"+suiji.GetRandomNum(0, 11))
         super.upSomeThing();
 
         // //刚刚开场
@@ -66,7 +67,7 @@ class TestScene extends scene.SceneBase {
 
                 this.dijis.push(fc);
             }
-            this.lastFeiJi = this.guanka.bos[this.nowBo][this.nowHeiHe].length;5
+            this.lastFeiJi = this.guanka.bos[this.nowBo][this.nowHeiHe].length;
             //回合数增加
             this.nowHeiHe++;
             //如果回合数移除则 波数增加 并且重置回合数
