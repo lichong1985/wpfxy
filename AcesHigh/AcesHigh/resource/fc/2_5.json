@@ -1,0 +1,48 @@
+{
+    "layers": [
+        {
+            "data": [0, 5, 10, 5, 0, 0, 5, 5, 5, 0, 6, 6, 4, 6, 6],
+         "height": 3,
+            "width": 5
+        }
+    ],
+    "tiles": [
+        {
+            "image": "op_wq_1.png"
+        },
+        {
+            "image": "op_wq_2.png"
+        },
+        {
+            "image": "op_wq_3.png"
+        },
+        {
+            "image": "op_wq_4.png"
+        },
+        {
+            "image": "op_zj_pt_level_1.png"
+        },
+        {
+            "image": "op_zj_pt_level_2.png"
+        },
+        {
+            "image": "op_zj_pt_level_3.png"
+        },
+        {
+            "image": "op_zj_pt_level_4.png"
+        },
+        {
+            "image": "op_zj_pt_level_5.png"
+        },
+        {
+            "image": "op_hx_hx.png"
+        },
+        {
+            "image": "op_hx_ss.png"
+        },
+        {
+            "image": "op_hx_zj.png"
+        }
+
+    ]
+}
