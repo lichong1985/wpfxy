@@ -3,9 +3,13 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 var juzi;
 (function (juzi) {
+    //上中结构句子
     var ShangZhongJuzi = (function () {
         function ShangZhongJuzi() {
         }
+        //初始化随机的飞机
+        ShangZhongJuzi.prototype.initFC = function () {
+        };
         return ShangZhongJuzi;
     }());
     juzi.ShangZhongJuzi = ShangZhongJuzi;

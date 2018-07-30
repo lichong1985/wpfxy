@@ -19,9 +19,9 @@ var test;
     var TestFeiChuan = (function (_super) {
         __extends(TestFeiChuan, _super);
         function TestFeiChuan(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(1200, 1300), GameConstant.ZHEN_YING.DI_JUN) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN) || this;
             _this.fc_type = feichuan.FC_TYPE.DIJI;
-            _this.initJson("6_1_json");
+            // this.initJson("6_1_json");
             _this.initTestFchuan();
             return _this;
         }
@@ -31,7 +31,7 @@ var test;
             // this.addAI(new ai.KeepDistanceAI(this, 5));
             // this.addAI(new ai.ShiShiMiaoZhunAi(this));
             // let ps: Array<egret.Point> = new Array<egret.Point>();
-            // ps.push(Tools.egretTOp2(egret.Point.create(1300, 1300)));
+            // ps.push(Tools.egretTOp2(egret.Point.create(15, 15)));
             // ps.push(Tools.egretTOp2(egret.Point.create(1700, 1700)));
             // this.addAI(new ai.MoveToAi(this, ps, true));
             // this.addAI(new ai.ZhuanXiang(this));

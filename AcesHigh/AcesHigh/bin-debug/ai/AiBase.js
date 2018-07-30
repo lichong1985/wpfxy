@@ -27,7 +27,7 @@ var ai;
             //是否停止ai
             this.hang_up = false;
             //间隔
-            this.jian_ge = 500;
+            this.jian_ge = 50;
             this.mark_time = 0;
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;

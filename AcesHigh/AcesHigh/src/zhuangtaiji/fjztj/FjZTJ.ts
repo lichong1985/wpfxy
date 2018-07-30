@@ -5,9 +5,9 @@ module fjztj {
             super();
         }
 
-         //进步器
+        //进步器
         public upStep(time: number) {
-
+            super.upStep(time);
         }
     }
 }

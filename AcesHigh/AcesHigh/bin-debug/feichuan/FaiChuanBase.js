@@ -21,10 +21,12 @@ var feichuan;
      */
     var FeiChuanBase = (function (_super) {
         __extends(FeiChuanBase, _super);
-        //+++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++
         //TODO: 通过配置文件来加载
         function FeiChuanBase(battle_scene, egretWorldPoint, zhenying) {
-            var _this = _super.call(this, { mass: 1 }) || this;
+            var _this = 
+            // super()
+            _super.call(this, { mass: 1 }) || this;
             //当前模块数量
             _this.mokuai_size = 0;
             //核心列表
@@ -42,13 +44,12 @@ var feichuan;
             return _this;
         }
         //初始化飞船
-        FeiChuanBase.prototype.initJson = function (res) {
-            var js = RES.getRes(res);
+        FeiChuanBase.prototype.initJson = function (info) {
             //读取飞船的宽高
-            this.W = js.layers[0].width;
-            this.H = js.layers[0].height;
+            this.W = info.width;
+            this.H = info.height;
             this.initList(this.H, this.W);
-            var data = js.layers[0].data;
+            var data = info.data;
             //初始化模块
             this.moKuaiList = new Array(this.H);
             var i = 0;
@@ -60,7 +61,7 @@ var feichuan;
                         i++;
                         continue;
                     }
-                    var bitName = js.tiles[data[i] - 1].image.replace(".", "_");
+                    var bitName = info.tiles[data[i] - 1];
                     var hx = void 0;
                     if (bitName == "op_hx_hx_png" || bitName == "op_hx_ss_png" || bitName == "op_hx_zj_png") {
                         this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
@@ -158,9 +159,9 @@ var feichuan;
         };
         //设置物理世界坐标 
         FeiChuanBase.prototype.initPhPost = function () {
-            var pos = Tools.egretTOp2(this.egretWorldPoint);
-            this.position[0] = pos.x;
-            this.position[1] = pos.y;
+            var g2p = Tools.gridTop2(this.egretWorldPoint.x, this.egretWorldPoint.y);
+            this.position[0] = g2p.x;
+            this.position[1] = g2p.y;
         };
         FeiChuanBase.prototype.initList = function (h, w) {
             this.moKuaiList = new Array();
@@ -387,6 +388,9 @@ var feichuan;
             this.wuqiList.splice(inx, 1);
         };
         FeiChuanBase.prototype.ji_guang_peng_zhuang = function (x, y) {
+        };
+        FeiChuanBase.prototype.reLoadToPoint = function (grid) {
+            this.toPoint = Tools.gridTop2(grid.x, grid.y);
         };
         return FeiChuanBase;
     }(p2.Body));

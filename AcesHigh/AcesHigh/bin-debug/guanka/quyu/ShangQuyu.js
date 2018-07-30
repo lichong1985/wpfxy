@@ -20,6 +20,7 @@ var quyu;
         }
         ShangQuyu.prototype.initFc = function () {
             _super.prototype.initFc.call(this);
+            var i = suiji.GetRandomNum(0, FC_Console.all_list.length);
         };
         return ShangQuyu;
     }(quyu.QuYu));

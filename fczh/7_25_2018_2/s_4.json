@@ -1,0 +1,72 @@
+{
+    "layers": [
+        {
+            "data": [0, 0, 2, 2, 2, 0, 0, 0, 0, 6, 0, 6, 0, 0, 1, 0, 6, 0, 6, 0, 1, 1, 5, 5, 10, 5, 5, 1, 1, 0, 6, 0, 6, 0, 1, 0, 0, 6, 0, 6, 0, 0, 0, 0, 2, 2, 2, 0, 0],
+         "height": 7,
+            "width": 7,
+            "zhuang_jia_nan_du": 1, 
+            "wu_qi_nan_du":1,       
+            "fc_type":5,            
+            "is_ji_guang":0,        
+            "is_gen_zong":1,        
+            "is_ju_zhen":0,        
+            "is_san_dan":0,         
+            "is_wei_bu":1,           
+	    "wu_qi_shu_liang":12,     
+      	    "fc_type":5,            
+	    "ti_ji":2,                
+	    "file_name":"s_4"  
+        }
+    ],
+    "tiles": [
+        {
+            "image": "op_wq_1.png"
+        },
+        {
+            "image": "op_wq_2.png"
+        },
+        {
+            "image": "op_wq_3.png"
+        },
+        {
+            "image": "op_wq_4.png"
+        },
+        {
+            "image": "op_zj_pt_level_1.png"
+        },
+        {
+            "image": "op_zj_pt_level_2.png"
+        },
+        {
+            "image": "op_zj_pt_level_3.png"
+        },
+        {
+            "image": "op_zj_pt_level_4.png"
+        },
+        {
+            "image": "op_zj_pt_level_5.png"
+        },
+        {
+            "image": "op_hx_hx.png"
+        },
+        {
+            "image": "op_hx_ss.png"
+        },
+        {
+            "image": "op_hx_zj.png"
+        },
+        {
+            "image": "op_zj_pt_level_6.png"
+        },
+        {
+            "image": "op_zj_pt_level_7.png"
+        },
+        {
+            "image": "op_zj_pt_level_8.png"
+        },
+        {
+            "image": "op_zj_pt_level_9.png"
+        },
+        {
+    ]
+}

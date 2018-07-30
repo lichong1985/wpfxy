@@ -77,10 +77,10 @@ module zidan {
                 this.collGroup = GameConstant.DI_JUN_ZIDAN;
                 this.collMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
             }
-            if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
-                this.collGroup = GameConstant.ZHONG_LI;
-                this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN_ZIDAN;
-            }
+            // if (this.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
+            //     this.collGroup = GameConstant.ZHONG_LI;
+            //     this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN_ZIDAN;
+            // }
         }
 
         public texiao() {

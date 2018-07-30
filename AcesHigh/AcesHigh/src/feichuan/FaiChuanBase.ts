@@ -102,6 +102,8 @@ module feichuan {
 
         //TODO: 通过配置文件来加载
         constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING) {
+
+            // super()
             super({ mass: 1 })
             //核心列表
             this.heXinList = new Array<mokuai.DongLiHeXin>();
@@ -116,12 +118,14 @@ module feichuan {
             this.initColl();
             this.ztj = new fjztj.XBZhuangtaiji(this);
 
+
         }
 
 
 
         //初始化飞船
         public initJson(info: feichuan.FeiChuanInfo) {
+
             //读取飞船的宽高
             this.W = info.width
             this.H = info.height;
@@ -205,6 +209,8 @@ module feichuan {
                     let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
                     box.collisionGroup = this.collGroup;
                     box.collisionMask = this.collMask;
+
+
                     this.addShape(box, [hpp.x, hpp.y])
                     this.moKuaiList[h][w] = hx;
 
@@ -240,6 +246,7 @@ module feichuan {
 
         //初始化碰撞参数
         public initColl() {
+
             if (this.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
                 this.collGroup = GameConstant.WO_JUN;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.DI_JUN_ZIDAN | GameConstant.DIAO_LUO;
@@ -252,6 +259,7 @@ module feichuan {
                 this.collGroup = GameConstant.ZHONG_LI;
                 this.collMask = GameConstant.DI_JUN | GameConstant.ZHONG_LI | GameConstant.WO_JUN | GameConstant.WO_JUN_ZIDAN | GameConstant.DI_JUN_ZIDAN;
             }
+
         }
 
         //设置物理世界坐标 
@@ -346,6 +354,8 @@ module feichuan {
             }
         }
 
+        
+
         //更新ai
         public updataAI() {
             // for (let a of this.ais) {
@@ -417,6 +427,7 @@ module feichuan {
             let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
             box.collisionGroup = this.collGroup;
             box.collisionMask = this.collMask;
+
             this.addShape(box, [hpp.x, hpp.y])
             this.moKuaiList[h][w] = hx;
 
@@ -538,6 +549,10 @@ module feichuan {
         }
 
         public ji_guang_peng_zhuang(x: number, y: number) {
+        }
+
+        public reLoadToPoint(grid: egret.Point) {
+            this.toPoint = Tools.gridTop2(grid.x, grid.y);
         }
     }
 }

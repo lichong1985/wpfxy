@@ -31,7 +31,7 @@ module ai {
         public hang_up: boolean = false;
 
         //间隔
-        public jian_ge: number = 500;
+        public jian_ge: number = 50;
         public mark_time: number = 0;
 
         //时间标记

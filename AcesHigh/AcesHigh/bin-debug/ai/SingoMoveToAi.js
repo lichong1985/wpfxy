@@ -36,9 +36,8 @@ var ai;
                 this.fc.ztj.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER;
                 return;
             }
-            this.rx = (this.fc.toPoint.x - this.fc.position[0]) * 0.5;
-            this.ry = (this.fc.toPoint.y - this.fc.position[1]) * 0.5;
-            this.fc.velocity = [this.rx, this.ry];
+            var xl = Tools.xiangliang(egret.Point.create(this.fc.position[0], this.fc.position[1]), this.fc.toPoint, 1);
+            this.fc.velocity = [xl.x, xl.y];
         };
         return SingoMoveToAi;
     }(ai.AiBase));

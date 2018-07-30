@@ -11,8 +11,8 @@
             "is_gen_zong":1,        
             "is_ju_zhen":0,        
             "is_san_dan":0,         
-            "is_wei_bu":1,           
-	    "wu_qi_shu_liang":10,     
+            "is_wei_bu":0,           
+	        "wu_qi_shu_liang":10,     
       	    "fc_type":5,            
 	    "ti_ji":3,                
 	    "file_name":"m_5"  

@@ -103,4 +103,27 @@ module suiji {
         return 0;
     }
 
+    //随机方向 上下左右 1234
+    export function randomFangXiang(): number {
+        return GetRandomNum(1, 4);
+    }
+
+
+    //返回随机坐标 简单
+    export function randomTargetPos_simple(): egret.Point {
+        let x: number;
+        let y: number;
+        x = GetRandomNum(0, 30);
+        y = GetRandomNum(0, 50)
+        return egret.Point.create(x, y);
+    }
+    //返回随机坐标 困难
+    export function randomTargetPos_hard(): egret.Point {
+        let x: number;
+        let y: number;
+        x = GetRandomNum(-3, 33);
+        y = GetRandomNum(-3, 53)
+        return egret.Point.create(x, y);
+    }
+
 }

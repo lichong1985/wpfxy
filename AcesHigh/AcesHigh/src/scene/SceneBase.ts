@@ -400,10 +400,11 @@ module scene {
                 }
 
                 if (boxBody instanceof canhai.CanHai) {
-
                 }
                 if (boxBody instanceof shuke.ShuKe) {
                     boxBody.velocity = [0, 0];
+                }
+                if (boxBody instanceof feichuan.XiaoBing) {
                 }
 
                 if (boxBody instanceof feichuan.FeiChuanBase) {
@@ -447,8 +448,10 @@ module scene {
             if (!this.sk_p2_now) {
                 this.sk_p2_now = egret.Point.create(0, 0);
             }
-            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.1
-            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.1
+            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.02
+            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.02
+
+            // egret.log("WWWWWWWWWWWWWWWWWWWWWWWW:"+this.sk_p2_now.x+"__"+this.sk_p2_now.y)
         }
 
 

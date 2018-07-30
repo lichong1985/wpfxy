@@ -5,10 +5,17 @@ var guanqia;
         var num = suiji.GetRandomNum(0, 10);
         //上中模式
         if (num == juzi.JU_ZI_TYPE.SZ) {
-            return new juzi.ShangZhongJuzi();
         }
         return null;
     }
     guanqia.juzi_suiji = juzi_suiji;
+    //随机句子
+    function getJz() {
+        var jz = new juzi.JuZiGuanLi();
+        var size = FC_Console.all_list.length;
+        var one = FC_Console.all_list[suiji.GetRandomNum(0, size)];
+        return null;
+    }
+    guanqia.getJz = getJz;
 })(guanqia || (guanqia = {}));
 //# sourceMappingURL=SuiJi.js.map

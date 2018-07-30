@@ -5,6 +5,8 @@ var quyu;
 (function (quyu) {
     var QuYu = (function () {
         function QuYu() {
+            //飞船列表
+            this.fc_list = new Array();
         }
         //初始化飞船
         QuYu.prototype.initFc = function () {

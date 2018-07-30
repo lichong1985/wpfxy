@@ -107,7 +107,7 @@ var Main = (function (_super) {
                         return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, RES.loadGroup("testLoad", 0, loadingView)];
+                        return [4 /*yield*/, RES.loadGroup("preload", 0, loadingView)];
                     case 2:
                         _a.sent();
                         return [4 /*yield*/, this.stage.removeChild(loadingView)];
@@ -126,6 +126,33 @@ var Main = (function (_super) {
     };
     //添加测试场景
     Main.prototype.addTestScene = function () {
+        //初始化所有飞船
+        var fc_list = RES.getRes("all_fc_json");
+        for (var _i = 0, fc_list_1 = fc_list; _i < fc_list_1.length; _i++) {
+            var fc = fc_list_1[_i];
+            var info = new feichuan.FeiChuanInfo();
+            info.data = fc.layers[0].data;
+            info.fc_type = fc.layers[0].fc_type;
+            info.file_name = fc.layers[0].file_name;
+            info.height = fc.layers[0].height;
+            info.is_gen_zong = fc.layers[0].is_gen_zong;
+            info.is_ji_guang = fc.layers[0].is_ji_guang;
+            info.is_ju_zhen = fc.layers[0].is_ju_zhen;
+            info.is_san_dan = fc.layers[0].is_san_dan;
+            info.is_wei_bu = fc.layers[0].is_wei_bu;
+            info.ti_ji = fc.layers[0].ti_ji;
+            info.width = fc.layers[0].width;
+            info.wu_qi_nan_du = fc.layers[0].wu_qi_nan_du;
+            info.wu_qi_shu_liang = fc.layers[0].wu_qi_shu_liang;
+            info.zhuang_jia_nan_du = fc.layers[0].zhuang_jia_nan_du;
+            var size = fc.tiles.length;
+            info.tiles = new Array(size);
+            //图片
+            for (var i = 0; i < size; i++) {
+                info.tiles[i] = fc.tiles[i].image.replace(".", "_");
+            }
+            FC_Console.addFcInfo(info);
+        }
         // this.testSen = new TestScene();
         this.testSen = TestScene.getInstance();
         this.stage.addChild(this.testSen);

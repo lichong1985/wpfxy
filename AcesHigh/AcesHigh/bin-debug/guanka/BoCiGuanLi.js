@@ -17,11 +17,31 @@ var guanqia;
         function BoCiGuanLi() {
             //当前波次
             this.bociNum = 0;
+            //是否进行下一个关卡
+            this.is_next = true;
         }
         //下一波
         BoCiGuanLi.prototype.nextBo = function () {
+            this.is_next = false;
             this.bociNum++;
             //1 
+            this.bc_now = new boci.BoCi();
+            this.bc_now.initJuzi();
+        };
+        BoCiGuanLi.prototype.addFc = function (scene) {
+            egret.log("SSSSSSSSSSSSSSS:" + this.bc_now.jz.fc_info_list.length);
+            for (var _i = 0, _a = this.bc_now.jz.fc_info_list; _i < _a.length; _i++) {
+                var info = _a[_i];
+                info.reRandomPos();
+                var fc = new feichuan.XiaoBing(scene, info);
+                scene.dijis.push(fc);
+            }
+        };
+        //随机相关
+        BoCiGuanLi.prototype.upSomeThing = function () {
+            if (TestScene.getInstance().dijis.length <= 0) {
+                this.is_next = true;
+            }
         };
         return BoCiGuanLi;
     }());

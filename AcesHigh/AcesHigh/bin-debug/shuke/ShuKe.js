@@ -13,7 +13,7 @@ var shuke;
     var ShuKe = (function (_super) {
         __extends(ShuKe, _super);
         function ShuKe(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(scene.scene_anch_x + 640 * 0.5, 2100), GameConstant.ZHEN_YING.WO_JUN) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN) || this;
             _this.fc_type = feichuan.FC_TYPE.SUKE;
             _this.initSuKe();
             return _this;
@@ -187,6 +187,7 @@ var shuke;
         };
         ShuKe.prototype.updataPos = function () {
             _super.prototype.updataPos.call(this);
+            var p = Tools.p2TOegretPoitn(egret.Point.create(this.position[0], this.position[1]));
         };
         //扩散
         ShuKe.prototype.kuosan = function (x, y) {

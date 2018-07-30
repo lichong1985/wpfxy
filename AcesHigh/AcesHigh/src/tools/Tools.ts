@@ -91,4 +91,15 @@ module Tools {
         // return document.documentElement.clientHeight;
         return 1136;
     }
+
+    //求两个点之间的向量
+    export function xiangliang(from: egret.Point, to: egret.Point, sd: number): egret.Point {
+        let jl = egret.Point.distance(to, from);
+        let pi = sd / jl;
+
+        let rx = (to.x - from.x) * pi;
+        let ry = (to.y - from.y) * pi;
+        return egret.Point.create(rx, ry);
+
+    }
 }

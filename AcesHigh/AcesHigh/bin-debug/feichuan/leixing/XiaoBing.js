@@ -12,19 +12,19 @@ var feichuan;
 (function (feichuan) {
     var XiaoBing = (function (_super) {
         __extends(XiaoBing, _super);
-        function XiaoBing(battle_scends, addPoint, toPoint, jName) {
-            var _this = _super.call(this, battle_scends, addPoint, GameConstant.ZHEN_YING.DI_JUN) || this;
+        function XiaoBing(battle_scends, info) {
+            var _this = _super.call(this, battle_scends, info.chu_sheng_pos, GameConstant.ZHEN_YING.DI_JUN) || this;
             _this.fc_type = feichuan.FC_TYPE.DIJI;
-            _this.initJson(jName);
+            _this.initJson(info);
             _this.initTestFchuan();
-            _this.toPoint = Tools.egretTOp2(toPoint);
+            _this.toPoint = Tools.gridTop2(info.target_pos.x, info.target_pos.y);
             return _this;
         }
         //做一个 飞船
         XiaoBing.prototype.initTestFchuan = function () {
-            this.angularDamping = 0.6;
-            this.mass = 100;
-            this.damping = 0.5;
+            this.angularDamping = 0;
+            this.mass = this.W * this.H * 5;
+            this.damping = 0;
         };
         return XiaoBing;
     }(feichuan.FeiChuanBase));

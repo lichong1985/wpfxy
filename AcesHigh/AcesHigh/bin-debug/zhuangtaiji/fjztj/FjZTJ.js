@@ -18,6 +18,7 @@ var fjztj;
         }
         //进步器
         FjZTJ.prototype.upStep = function (time) {
+            _super.prototype.upStep.call(this, time);
         };
         return FjZTJ;
     }(zhuangtaiji.ZhuangTaiJiBase));

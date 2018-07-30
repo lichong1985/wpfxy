@@ -9,13 +9,29 @@ var zhuangtaiji;
         ZT_TYPE[ZT_TYPE["SINGO_MOVE_OVER"] = 1] = "SINGO_MOVE_OVER";
         ZT_TYPE[ZT_TYPE["ZUO_YOU_MOVE"] = 2] = "ZUO_YOU_MOVE";
         ZT_TYPE[ZT_TYPE["MOVE_OVER"] = 3] = "MOVE_OVER";
-        ZT_TYPE[ZT_TYPE["NULL_T"] = 4] = "NULL_T";
+        ZT_TYPE[ZT_TYPE["XUAN_ZHUAN"] = 4] = "XUAN_ZHUAN";
+        ZT_TYPE[ZT_TYPE["XUAN_ZHUAN_OVER"] = 5] = "XUAN_ZHUAN_OVER";
+        ZT_TYPE[ZT_TYPE["MIAO_ZHUN"] = 6] = "MIAO_ZHUN";
+        ZT_TYPE[ZT_TYPE["MIAO_ZHUN_OVER"] = 7] = "MIAO_ZHUN_OVER";
+        ZT_TYPE[ZT_TYPE["NULL_T"] = 8] = "NULL_T";
     })(ZT_TYPE = zhuangtaiji.ZT_TYPE || (zhuangtaiji.ZT_TYPE = {}));
     var ZhuangTaiJiBase = (function () {
         function ZhuangTaiJiBase() {
         }
         //进步器
         ZhuangTaiJiBase.prototype.upStep = function (time) {
+            this.markTime = time;
+        };
+        //休眠
+        ZhuangTaiJiBase.prototype.sleep = function (t) {
+            this.sleep_long = this.markTime + t;
+        };
+        //判断是否是休眠状态
+        ZhuangTaiJiBase.prototype.isSleep = function () {
+            if (this.markTime < this.sleep_long) {
+                return true;
+            }
+            return false;
         };
         return ZhuangTaiJiBase;
     }());

@@ -123,6 +123,7 @@ module canhai {
             let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
             box.collisionGroup = this.collGroup;
             box.collisionMask = this.collMask;
+
             this.addShape(box, [hpp.x, hpp.y])
             this.moKuaiList[h][w] = hx;
 

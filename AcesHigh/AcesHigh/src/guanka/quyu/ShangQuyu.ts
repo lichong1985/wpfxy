@@ -8,6 +8,8 @@ module quyu {
 
         public initFc() {
             super.initFc();
+            let i = suiji.GetRandomNum(0, FC_Console.all_list.length);
+
 
         }
 

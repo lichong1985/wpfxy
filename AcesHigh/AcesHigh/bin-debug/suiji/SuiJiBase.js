@@ -96,5 +96,28 @@ var suiji;
         return 0;
     }
     suiji.getQuanZhongKey = getQuanZhongKey;
+    //随机方向 上下左右 1234
+    function randomFangXiang() {
+        return GetRandomNum(1, 4);
+    }
+    suiji.randomFangXiang = randomFangXiang;
+    //返回随机坐标 简单
+    function randomTargetPos_simple() {
+        var x;
+        var y;
+        x = GetRandomNum(0, 30);
+        y = GetRandomNum(0, 50);
+        return egret.Point.create(x, y);
+    }
+    suiji.randomTargetPos_simple = randomTargetPos_simple;
+    //返回随机坐标 困难
+    function randomTargetPos_hard() {
+        var x;
+        var y;
+        x = GetRandomNum(-3, 33);
+        y = GetRandomNum(-3, 53);
+        return egret.Point.create(x, y);
+    }
+    suiji.randomTargetPos_hard = randomTargetPos_hard;
 })(suiji || (suiji = {}));
 //# sourceMappingURL=SuiJiBase.js.map
