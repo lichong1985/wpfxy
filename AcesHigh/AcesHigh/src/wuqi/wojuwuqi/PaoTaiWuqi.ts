@@ -7,7 +7,7 @@ module wjwq {
         public shu_liang_mark: number = 5;
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
-            super(mokaiPos, shType, "us_wq_5_png", wuqi.WUQI_TYPE.DING_XIANG, fc);
+            super(mokaiPos, shType, "us_wq_5", wuqi.WUQI_TYPE.DING_XIANG, fc);
             this.level = level;
             this.shu_liang_mark = level;
             this.cd = 50;

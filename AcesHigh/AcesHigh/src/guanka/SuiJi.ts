@@ -13,12 +13,12 @@ module guanqia {
 
     //随机句子
     export function getJz(): juzi.JuZiGuanLi {
-        let jz: juzi.JuZiGuanLi = new juzi.JuZiGuanLi();
+        let jz: juzi.JuZiGuanLi = new juzi.JuZiGuanLi(1);
         let size = FC_Console.all_list.length;
         let one = FC_Console.all_list[suiji.GetRandomNum(0, size)]
-        
 
-        return null;
+
+        return jz;
     }
 
 

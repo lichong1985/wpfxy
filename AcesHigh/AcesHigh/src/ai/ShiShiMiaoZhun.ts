@@ -3,8 +3,8 @@ module ai {
      * 实时瞄准 ai
      */
     export class ShiShiMiaoZhunAi extends AiBase {
-        constructor(fc: feichuan.FeiChuanBase) {
-            super(fc);
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
 
         }
         public doUpData(time: number) {

@@ -19,8 +19,9 @@ module guanqia {
         //是否进行下一个关卡
         public is_next = true;
 
-        constructor() {
-
+        public scene: scene.SceneBase;
+        constructor(scene: scene.SceneBase) {
+            this.scene = scene;
         }
 
         //下一波
@@ -34,19 +35,13 @@ module guanqia {
         }
 
         public addFc(scene: scene.SceneBase) {
-            egret.log("SSSSSSSSSSSSSSS:" + this.bc_now.jz.fc_info_list.length);
-            for (let info of this.bc_now.jz.fc_info_list) {
-                info.reRandomPos();
-                let fc = new feichuan.XiaoBing(scene,
-                    info);
-
-                scene.dijis.push(fc);
-            }
+            this.bc_now.jz.addFc(scene);
         }
 
         //随机相关
         public upSomeThing() {
-            if (TestScene.getInstance().dijis.length <= 0) {
+            // egret.log("IS_NNNNNNN:" + this.scene.dijis.length);
+            if (this.scene.dijis.length <= 0) {
                 this.is_next = true;
             }
         }

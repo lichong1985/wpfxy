@@ -13,7 +13,7 @@ var wjwq;
     var ChangDingWuqi = (function (_super) {
         __extends(ChangDingWuqi, _super);
         function ChangDingWuqi(mokaiPos, shType, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_8_png", wuqi.WUQI_TYPE.CHANG_DING, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_8", wuqi.WUQI_TYPE.CHANG_DING, fc) || this;
             _this.level = level;
             _this.cd = 2000;
             _this.sudu = 1;

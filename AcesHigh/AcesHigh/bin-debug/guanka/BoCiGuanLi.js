@@ -14,11 +14,12 @@ var guanqia;
         FC_TYPE[FC_TYPE["TONG_YONG"] = 6] = "TONG_YONG";
     })(FC_TYPE = guanqia.FC_TYPE || (guanqia.FC_TYPE = {}));
     var BoCiGuanLi = (function () {
-        function BoCiGuanLi() {
+        function BoCiGuanLi(scene) {
             //当前波次
             this.bociNum = 0;
             //是否进行下一个关卡
             this.is_next = true;
+            this.scene = scene;
         }
         //下一波
         BoCiGuanLi.prototype.nextBo = function () {
@@ -29,17 +30,12 @@ var guanqia;
             this.bc_now.initJuzi();
         };
         BoCiGuanLi.prototype.addFc = function (scene) {
-            egret.log("SSSSSSSSSSSSSSS:" + this.bc_now.jz.fc_info_list.length);
-            for (var _i = 0, _a = this.bc_now.jz.fc_info_list; _i < _a.length; _i++) {
-                var info = _a[_i];
-                info.reRandomPos();
-                var fc = new feichuan.XiaoBing(scene, info);
-                scene.dijis.push(fc);
-            }
+            this.bc_now.jz.addFc(scene);
         };
         //随机相关
         BoCiGuanLi.prototype.upSomeThing = function () {
-            if (TestScene.getInstance().dijis.length <= 0) {
+            // egret.log("IS_NNNNNNN:" + this.scene.dijis.length);
+            if (this.scene.dijis.length <= 0) {
                 this.is_next = true;
             }
         };

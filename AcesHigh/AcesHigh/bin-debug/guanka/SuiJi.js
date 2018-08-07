@@ -11,10 +11,10 @@ var guanqia;
     guanqia.juzi_suiji = juzi_suiji;
     //随机句子
     function getJz() {
-        var jz = new juzi.JuZiGuanLi();
+        var jz = new juzi.JuZiGuanLi(1);
         var size = FC_Console.all_list.length;
         var one = FC_Console.all_list[suiji.GetRandomNum(0, size)];
-        return null;
+        return jz;
     }
     guanqia.getJz = getJz;
 })(guanqia || (guanqia = {}));

@@ -13,7 +13,7 @@ var wjwq;
     var YuLeiWuqi = (function (_super) {
         __extends(YuLeiWuqi, _super);
         function YuLeiWuqi(mokaiPos, shType, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_6_png", wuqi.WUQI_TYPE.YU_LEI, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_6", wuqi.WUQI_TYPE.YU_LEI, fc) || this;
             _this.level = level;
             _this.cd = 1000;
             if (level == 1) {

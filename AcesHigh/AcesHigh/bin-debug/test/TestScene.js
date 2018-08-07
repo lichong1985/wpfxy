@@ -30,7 +30,7 @@ var TestScene = (function (_super) {
         this.nowBo = 0;
         this.nowHeiHe = 0;
         this.allHeiHe = this.guanka.bos[this.nowBo].length;
-        this.bcgl = new guanqia.BoCiGuanLi();
+        this.bcgl = new guanqia.BoCiGuanLi(this);
     };
     TestScene.prototype.initTest = function () {
         var wp = egret.Point.create(1200, 1200);

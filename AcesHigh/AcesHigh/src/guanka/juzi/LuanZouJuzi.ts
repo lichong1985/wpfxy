@@ -1,10 +1,10 @@
 module juzi {
     //乱走句子
     export class LuanZouJuzi extends juzi.JuZiGuanLi {
-        constructor() {
-            super();
+        constructor(nan_du: number) {
+            super(nan_du);
         }
 
-      
+
     }
 }

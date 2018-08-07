@@ -14,13 +14,14 @@ module ai {
         public rx;
         public ry;
 
-        constructor(fc: feichuan.FeiChuanBase, r: RANDOM_POINT, d_limit: number) {
-            super(fc);
+        constructor(fc: feichuan.FeiChuanBase, r: RANDOM_POINT, d_limit: number, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
             this.d_limit = d_limit;
             this.random_type = r;
             this.r_point = this.random_p();
 
         }
+
         public doUpData(time: number) {
             //计算 sk 与 宿主 之间的距离
             let jl = egret.Point.distance(egret.Point.create(this.r_point.x, this.r_point.y),

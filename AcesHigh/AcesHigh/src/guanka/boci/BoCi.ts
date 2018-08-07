@@ -31,7 +31,7 @@ module boci {
         }
         //初始化句子
         public initJuzi() {
-            this.jz = new juzi.LuanZouJuzi();
+            this.jz = new juzi.LuanZouJuzi(1);
             this.jz.initFcInfo();
         }
 

@@ -3,8 +3,8 @@ module ai {
         public xs: number = 0.5;
         //当前旋转方向
         public xuan_zhuan_fang_xiang: ai.ZHUAN_XIANG;
-        constructor(fc: feichuan.FeiChuanBase) {
-            super(fc);
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
             this.fc.angularDamping = 0.9;
         }
 

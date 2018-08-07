@@ -16,7 +16,7 @@ var zidan;
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.YU_LEI) || this;
             _this.sudu = 5;
             _this.collNumber = 1;
-            _this.bit_name = "us_zd_7_png";
+            _this.bit_name = "us_zd_7";
             _this.is_updata = true;
             _this.sheng_ming_zhou_qi = 10000;
             _this.initPT();
@@ -24,7 +24,7 @@ var zidan;
             return _this;
         }
         LuoXuanZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_7_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_7"));
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;
             this.displays = [this.bitmap];

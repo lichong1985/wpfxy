@@ -15,14 +15,14 @@ var zidan;
         function YuLeiZiDan(scene, zhenying, mass) {
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.YU_LEI) || this;
             _this.collNumber = 1;
-            _this.bit_name = "us_zd_6_png";
+            _this.bit_name = "us_zd_6";
             _this.is_updata = true;
             _this.sheng_ming_zhou_qi = 10000;
             _this.initPT();
             return _this;
         }
         YuLeiZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_6_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_6"));
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;
             this.damping = 0;

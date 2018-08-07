@@ -149,7 +149,7 @@ var Main = (function (_super) {
             info.tiles = new Array(size);
             //图片
             for (var i = 0; i < size; i++) {
-                info.tiles[i] = fc.tiles[i].image.replace(".", "_");
+                info.tiles[i] = fc.tiles[i].image.split(".")[0];
             }
             FC_Console.addFcInfo(info);
         }

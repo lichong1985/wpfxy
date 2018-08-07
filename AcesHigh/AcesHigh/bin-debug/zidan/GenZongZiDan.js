@@ -21,11 +21,11 @@ var zidan;
             _this.is_updata = true;
             _this.damping = 0;
             _this.suke = suke;
-            _this.bit_name = "op_wq_3_png";
+            _this.bit_name = "op_wq_3";
             return _this;
         }
         GenZongZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_3_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_3"));
             this.damping = 0;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;

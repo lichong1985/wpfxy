@@ -23,12 +23,12 @@ var zidan;
             _this.is_updata = true;
             _this.damping = 0;
             _this.fc = fc;
-            _this.bit_name = "us_zd_3_png";
+            _this.bit_name = "us_zd_3";
             _this.sudu = 8;
             return _this;
         }
         DaoDanZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_3_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_3"));
             this.damping = 0;
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;

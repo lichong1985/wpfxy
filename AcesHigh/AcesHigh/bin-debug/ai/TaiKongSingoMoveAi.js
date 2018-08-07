@@ -12,8 +12,8 @@ var ai;
 (function (ai) {
     var TaiKongSingoMoveAi = (function (_super) {
         __extends(TaiKongSingoMoveAi, _super);
-        function TaiKongSingoMoveAi(fc) {
-            var _this = _super.call(this, fc) || this;
+        function TaiKongSingoMoveAi(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
             //误差范围
             _this.wu_cha = 0.3;
             //减速距离
@@ -37,8 +37,7 @@ var ai;
             //判断是否到达目的地 并修改状态
             if (jl < this.wu_cha) {
                 this.fc.toPoint = null;
-                this.fc.ztj.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER;
-                // this.fc.velocity = [0.001,0.0001];
+                this.upOver();
                 return;
             }
             //计算速度向量

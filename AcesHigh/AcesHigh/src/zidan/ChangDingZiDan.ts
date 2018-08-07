@@ -5,7 +5,7 @@ module zidan {
         constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number, level: number) {
             super(scene, zhenying, mass, wuqi.WUQI_TYPE.DAO_DAN);
             this.initPT();
-            this.bit_name = "us_zd_8_png";
+            this.bit_name = "us_zd_8";
             if (level >= 3) {
                 this.jsNumb = 4;
             }
@@ -18,7 +18,7 @@ module zidan {
 
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_8_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_8"))
             this.damping = 0;
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;

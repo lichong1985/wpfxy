@@ -429,8 +429,10 @@ var scene;
         SceneBase.prototype.removeTheFcInTheGame = function (fc) {
             //从敌机列表中
             if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
-                var inx = this.dijis.indexOf(fc);
-                this.dijis.splice(inx);
+                var inx = this.dijis.indexOf(fc, 0);
+                if (inx > -1) {
+                    this.dijis.splice(inx, 1);
+                }
             }
             //从残骸列表中
             if (fc.fc_type == feichuan.FC_TYPE.CANHAI) {

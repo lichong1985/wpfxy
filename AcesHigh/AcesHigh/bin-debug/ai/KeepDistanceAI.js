@@ -15,9 +15,9 @@ var ai;
      */
     var KeepDistanceAI = (function (_super) {
         __extends(KeepDistanceAI, _super);
-        function KeepDistanceAI(fc, xs) {
-            var _this = _super.call(this, fc) || this;
-            _this.xs = xs;
+        function KeepDistanceAI(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
+            _this.xs = 1;
             return _this;
         }
         KeepDistanceAI.prototype.doUpData = function (time) {

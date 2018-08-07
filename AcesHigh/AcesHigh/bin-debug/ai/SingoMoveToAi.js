@@ -12,8 +12,8 @@ var ai;
 (function (ai) {
     var SingoMoveToAi = (function (_super) {
         __extends(SingoMoveToAi, _super);
-        function SingoMoveToAi(fc) {
-            var _this = _super.call(this, fc) || this;
+        function SingoMoveToAi(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
             //是否变换目标
             _this.is_u = true;
             // 巡逻坐标节点 下标
@@ -33,7 +33,7 @@ var ai;
             //到达后清楚 目标点标记
             if (jl < this.wu_cha) {
                 this.fc.toPoint = null;
-                this.fc.ztj.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER;
+                this.upOver();
                 return;
             }
             var xl = Tools.xiangliang(egret.Point.create(this.fc.position[0], this.fc.position[1]), this.fc.toPoint, 1);

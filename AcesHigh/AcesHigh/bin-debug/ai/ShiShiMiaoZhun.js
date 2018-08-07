@@ -15,8 +15,8 @@ var ai;
      */
     var ShiShiMiaoZhunAi = (function (_super) {
         __extends(ShiShiMiaoZhunAi, _super);
-        function ShiShiMiaoZhunAi(fc) {
-            return _super.call(this, fc) || this;
+        function ShiShiMiaoZhunAi(fc, mt, xz, mz) {
+            return _super.call(this, fc, mt, xz, mz) || this;
         }
         ShiShiMiaoZhunAi.prototype.doUpData = function (time) {
             if (!this.hang_up) {

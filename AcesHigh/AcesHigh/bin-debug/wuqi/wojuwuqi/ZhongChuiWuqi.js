@@ -13,7 +13,7 @@ var wjwq;
     var ZhongChuiWuqi = (function (_super) {
         __extends(ZhongChuiWuqi, _super);
         function ZhongChuiWuqi(mokaiPos, shType, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_9_png", wuqi.WUQI_TYPE.ZHONG_CHUI, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_9", wuqi.WUQI_TYPE.ZHONG_CHUI, fc) || this;
             _this.level = level;
             _this.cd = 2000;
             return _this;

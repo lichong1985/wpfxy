@@ -13,7 +13,7 @@ var wjwq;
     var DaoDanWuqi = (function (_super) {
         __extends(DaoDanWuqi, _super);
         function DaoDanWuqi(mokaiPos, shType, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_3_png", wuqi.WUQI_TYPE.DAO_DAN, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_3", wuqi.WUQI_TYPE.DAO_DAN, fc) || this;
             _this.small_cd = 2000;
             _this.mark_small_time = 0;
             //每次发射的数量

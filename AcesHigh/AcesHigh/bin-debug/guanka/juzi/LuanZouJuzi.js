@@ -13,8 +13,8 @@ var juzi;
     //乱走句子
     var LuanZouJuzi = (function (_super) {
         __extends(LuanZouJuzi, _super);
-        function LuanZouJuzi() {
-            return _super.call(this) || this;
+        function LuanZouJuzi(nan_du) {
+            return _super.call(this, nan_du) || this;
         }
         return LuanZouJuzi;
     }(juzi.JuZiGuanLi));

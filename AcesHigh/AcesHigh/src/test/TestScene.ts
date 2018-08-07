@@ -26,7 +26,7 @@ class TestScene extends scene.SceneBase {
         this.nowBo = 0;
         this.nowHeiHe = 0;
         this.allHeiHe = this.guanka.bos[this.nowBo].length;
-        this.bcgl = new guanqia.BoCiGuanLi();
+        this.bcgl = new guanqia.BoCiGuanLi(this);
     }
 
 

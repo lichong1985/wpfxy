@@ -18,6 +18,7 @@ var feichuan;
             _this.initJson(info);
             _this.initTestFchuan();
             _this.toPoint = Tools.gridTop2(info.target_pos.x, info.target_pos.y);
+            _this.ztj = new fjztj.XBZhuangtaiji(_this);
             return _this;
         }
         //做一个 飞船

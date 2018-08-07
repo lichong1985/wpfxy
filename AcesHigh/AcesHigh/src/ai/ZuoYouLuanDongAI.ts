@@ -6,8 +6,8 @@ module ai {
         private is_get: boolean = true;
         //速度
         private v: number = 1;
-        constructor(fc: feichuan.FeiChuanBase) {
-            super(fc);
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
 
         }
         /**

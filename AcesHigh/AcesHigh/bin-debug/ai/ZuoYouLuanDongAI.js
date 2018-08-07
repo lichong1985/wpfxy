@@ -12,8 +12,8 @@ var ai;
 (function (ai) {
     var ZuoYouLuanDongAI = (function (_super) {
         __extends(ZuoYouLuanDongAI, _super);
-        function ZuoYouLuanDongAI(fc) {
-            var _this = _super.call(this, fc) || this;
+        function ZuoYouLuanDongAI(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
             //是否抵达
             _this.is_get = true;
             //速度

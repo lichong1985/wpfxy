@@ -12,8 +12,8 @@ var ai;
 (function (ai) {
     var ZhuanXiang = (function (_super) {
         __extends(ZhuanXiang, _super);
-        function ZhuanXiang(fc) {
-            var _this = _super.call(this, fc) || this;
+        function ZhuanXiang(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
             _this.xs = 0.5;
             _this.fc.angularDamping = 0.9;
             return _this;

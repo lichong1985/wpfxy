@@ -7,7 +7,7 @@ module wjwq {
         public hitPoint = p2.vec2.create();
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
-            super(mokaiPos, shType, "us_wq_4_png", wuqi.WUQI_TYPE.DAO_DAN, fc);
+            super(mokaiPos, shType, "us_wq_4", wuqi.WUQI_TYPE.DAO_DAN, fc);
             this.level = level;
             this.cd = 2000;
             this.rayClosest.collisionGroup = GameConstant.WO_JUN_ZIDAN;

@@ -24,7 +24,7 @@ var boci;
         }
         //初始化句子
         BoCi.prototype.initJuzi = function () {
-            this.jz = new juzi.LuanZouJuzi();
+            this.jz = new juzi.LuanZouJuzi(1);
             this.jz.initFcInfo();
         };
         return BoCi;

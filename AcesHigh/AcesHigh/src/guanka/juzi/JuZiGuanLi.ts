@@ -18,10 +18,14 @@ module juzi {
         public MAX_NUMBER: number = 30 * 50;
         public fc_list: Array<feichuan.FeiChuanBase> = new Array<feichuan.FeiChuanBase>();
         public fc_info_list: Array<feichuan.FeiChuanInfo> = new Array<feichuan.FeiChuanInfo>();
+        //句子难度系数 1-5
+        public nan_du: number;
 
         //句子里当前的飞机数量
         public fc_num_now: number;
-        public constructor() { }
+        public constructor(nan_du: number) {
+            this.nan_du = nan_du;
+        }
 
         //初始化飞机 数量
         public randomNum() {
@@ -39,7 +43,7 @@ module juzi {
         public initFcInfo() {
             let num = this.randomNum();
             num += 1;
-            num = 1;
+            // num = 1;
             for (let i = 0; i < num; i++) {
                 let info = this.getandomFc();
                 this.fc_info_list.push(this.getandomFc());
@@ -47,9 +51,20 @@ module juzi {
 
 
         }
-        //随机相关
+        //刷新相关
         public upSomeThing() {
 
+        }
+
+        //添加飞机到 战场
+        public addFc(scene: scene.SceneBase) {
+            for (let info of this.fc_info_list) {
+                info.reRandomPos();
+                let fc = new feichuan.XiaoBing(scene,
+                    info);
+
+                scene.dijis.push(fc);
+            }
         }
 
     }

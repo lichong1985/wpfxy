@@ -531,8 +531,10 @@ module scene {
         public removeTheFcInTheGame(fc: feichuan.FeiChuanBase) {
             //从敌机列表中
             if (fc.fc_type == feichuan.FC_TYPE.DIJI) {
-                let inx = this.dijis.indexOf(fc);
-                this.dijis.splice(inx);
+                let inx = this.dijis.indexOf(fc, 0);
+                if (inx > -1) {
+                    this.dijis.splice(inx, 1);
+                }
             }
 
             //从残骸列表中

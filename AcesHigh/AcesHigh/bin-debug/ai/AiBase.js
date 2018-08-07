@@ -23,7 +23,7 @@ var ai;
         ZHUAN_XIANG[ZHUAN_XIANG["Anti_clockwise"] = 1] = "Anti_clockwise";
     })(ZHUAN_XIANG = ai.ZHUAN_XIANG || (ai.ZHUAN_XIANG = {}));
     var AiBase = (function () {
-        function AiBase(fc) {
+        function AiBase(fc, mT, xZ, mZ) {
             //是否停止ai
             this.hang_up = false;
             //间隔
@@ -32,6 +32,9 @@ var ai;
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
+            this.mT_over = mT;
+            this.xZ_over = xZ;
+            this.mZ_over = mZ;
         }
         AiBase.prototype.updata_ai = function (now) {
             if ((now - this.mark_time) > this.jian_ge) {
@@ -41,6 +44,17 @@ var ai;
         };
         //场景刷新器
         AiBase.prototype.doUpData = function (time) {
+        };
+        AiBase.prototype.upOver = function () {
+            if (this.mT_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.mT = this.mT_over;
+            }
+            if (this.xZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.xzT = this.xZ_over;
+            }
+            if (this.mZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.mzT = this.mZ_over;
+            }
         };
         return AiBase;
     }());

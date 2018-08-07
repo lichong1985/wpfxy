@@ -12,83 +12,59 @@ var ai;
 (function (ai) {
     var MiaoZhun = (function (_super) {
         __extends(MiaoZhun, _super);
-        function MiaoZhun(fc, xs) {
-            var _this = _super.call(this, fc) || this;
-            _this.is_xuan_ting = false; //是否悬停
-            _this.xs = xs;
+        function MiaoZhun(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
+            //角速度
+            _this.xs = 4;
+            //需要转到的角度
+            _this.angle = 0;
+            _this.xs_hu = 1;
+            //飞船实际需要面准的部位
+            _this.jian_tou = -Math.PI * 0.5;
             return _this;
         }
         MiaoZhun.prototype.doUpData = function (time) {
-            if (!this.hang_up) {
-                _super.prototype.doUpData.call(this, time);
-                var angle = Math.atan2((this.suke.position[1] - this.fc.position[1]), (this.suke.position[0] - this.fc.position[0])) + Math.PI * 0.5;
-                var zx = (Math.PI + 1.57);
-                // 
-                //画重点
-                if (this.fc.angle > zx) {
-                    this.fc.angle = this.fc.angle - 2 * Math.PI;
+            _super.prototype.doUpData.call(this, time);
+            //角度测算
+            this.angle = Math.atan2((this.fc.battle_scene.sk.position[1] - this.fc.position[1]), (this.fc.battle_scene.sk.position[0] - this.fc.position[0]));
+            this.angle = this.angle % (Math.PI * 2);
+            if (this.angle < 0) {
+                this.angle = Math.PI * 2 + this.angle;
+            }
+            var fcAng = this.fc.angle + this.jian_tou;
+            //规范化角度数值
+            fcAng = fcAng % (Math.PI * 2);
+            if (fcAng < 0) {
+                fcAng = Math.PI * 2 + fcAng;
+            }
+            var js = this.xs;
+            //角度差距
+            var jc = Math.abs(fcAng - this.angle);
+            jc = jc % (Math.PI * 2);
+            //方向计算
+            if (fcAng >= this.angle) {
+                if (jc > Math.PI) {
+                    this.xs_hu = 1;
                 }
-                //连续画重点
-                if (this.fc.angle < -Math.PI * 0.5) {
-                    this.fc.angle = zx;
-                }
-                if (Math.abs(this.fc.angle - angle) < 0.3) {
-                    return;
-                }
-                egret.log("YYYYYYYYYYYYYYY:" + (this.fc.angle) + "_____" + angle + " || " + Math.abs(this.fc.angle - angle));
-                if (angle >= 0 && this.fc.angle >= 0) {
-                    if (Math.abs(angle - this.fc.angle) < Math.PI) {
-                        if (angle < this.fc.angle) {
-                            this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                        }
-                        else {
-                            this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise;
-                        }
-                    }
-                    else {
-                        if (angle < this.fc.angle) {
-                            this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise;
-                        }
-                        else {
-                            this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                        }
-                    }
-                }
-                if (angle < 0 && this.fc.angle >= 0) {
-                    if (Math.abs(angle) + this.fc.angle < Math.PI) {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                    }
-                    else {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise;
-                    }
-                }
-                if (this.fc.angle < 0 && angle >= 0) {
-                    if (Math.abs(angle) + this.fc.angle < Math.PI) {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise;
-                    }
-                    else {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                    }
-                }
-                if (this.fc.angle < 0 && angle < 0) {
-                    if (this.fc.angle < angle) {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise;
-                    }
-                    else {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                    }
-                }
-                // //是否处于悬停状态
-                if (!this.is_xuan_ting) {
-                    //顺时针
-                    if (this.xuan_zhuan_fang_xiang == ai.ZHUAN_XIANG.Clockwise) {
-                        this.fc.angularVelocity = -this.xs;
-                    }
-                    if (this.xuan_zhuan_fang_xiang == ai.ZHUAN_XIANG.Anti_clockwise) {
-                        this.fc.angularVelocity = this.xs;
-                    }
+                else {
+                    this.xs_hu = -1;
                 }
             }
+            if (fcAng < this.angle) {
+                if (jc > Math.PI) {
+                    this.xs_hu = -1;
+                }
+                else {
+                    this.xs_hu = 1;
+                }
+            }
+            var pi = jc / Math.PI;
+            js = this.xs * pi;
+            if (jc < 0.05) {
+                this.fc.angularVelocity = 0;
+                return;
+            }
+            this.fc.angularVelocity = this.xs_hu * js;
         };
         return MiaoZhun;
     }(ai.AiBase));

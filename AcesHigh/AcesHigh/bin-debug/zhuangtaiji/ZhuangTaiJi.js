@@ -13,7 +13,12 @@ var zhuangtaiji;
         ZT_TYPE[ZT_TYPE["XUAN_ZHUAN_OVER"] = 5] = "XUAN_ZHUAN_OVER";
         ZT_TYPE[ZT_TYPE["MIAO_ZHUN"] = 6] = "MIAO_ZHUN";
         ZT_TYPE[ZT_TYPE["MIAO_ZHUN_OVER"] = 7] = "MIAO_ZHUN_OVER";
-        ZT_TYPE[ZT_TYPE["NULL_T"] = 8] = "NULL_T";
+        ZT_TYPE[ZT_TYPE["DAO_HANG"] = 8] = "DAO_HANG";
+        ZT_TYPE[ZT_TYPE["DAO_HANG_OVER"] = 9] = "DAO_HANG_OVER";
+        ZT_TYPE[ZT_TYPE["JIN_CHANG"] = 10] = "JIN_CHANG";
+        ZT_TYPE[ZT_TYPE["JIN_CHANG_OVER"] = 11] = "JIN_CHANG_OVER";
+        ZT_TYPE[ZT_TYPE["NULL_T"] = 12] = "NULL_T";
+        ZT_TYPE[ZT_TYPE["NO_THING"] = 13] = "NO_THING";
     })(ZT_TYPE = zhuangtaiji.ZT_TYPE || (zhuangtaiji.ZT_TYPE = {}));
     var ZhuangTaiJiBase = (function () {
         function ZhuangTaiJiBase() {

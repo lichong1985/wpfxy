@@ -17,7 +17,7 @@ var zidan;
             //溅射数量
             _this.jsNumb = 3;
             _this.initPT();
-            _this.bit_name = "us_zd_8_png";
+            _this.bit_name = "us_zd_8";
             if (level >= 3) {
                 _this.jsNumb = 4;
             }
@@ -28,7 +28,7 @@ var zidan;
             return _this;
         }
         ChangDingZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_8_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_8"));
             this.damping = 0;
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;

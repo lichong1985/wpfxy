@@ -115,6 +115,7 @@ module suiji {
         let y: number;
         x = GetRandomNum(0, 30);
         y = GetRandomNum(0, 50)
+        egret.log("随机坐标：" + x + "_" + y)
         return egret.Point.create(x, y);
     }
     //返回随机坐标 困难

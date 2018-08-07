@@ -3,7 +3,7 @@ module wjwq {
 
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
-            super(mokaiPos, shType, "us_wq_6_png", wuqi.WUQI_TYPE.YU_LEI, fc);
+            super(mokaiPos, shType, "us_wq_6", wuqi.WUQI_TYPE.YU_LEI, fc);
             this.level = level;
             this.cd = 1000;
             if (level == 1) {

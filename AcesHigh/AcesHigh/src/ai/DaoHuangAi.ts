@@ -1,13 +1,16 @@
 module ai {
     export class DaoHuangAi extends AiBase {
         //角速度
-        public xs: number = 1;
+        public xs: number = 2;
         //当前旋转方向
         public xuan_zhuan_fang_xiang: ai.ZHUAN_XIANG;
         public is_chick: boolean = false;//是否完成
         public is_upFX: boolean = true;//是否更新旋转方向
-        constructor(fc: feichuan.FeiChuanBase) {
-            super(fc);
+        public angle: number = 0;
+        public xs_hu: number = 1;
+        public jian_tou: number = -Math.PI * 0.5;
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
         }
         public doUpData(time: number) {
             super.doUpData(time);
@@ -15,97 +18,60 @@ module ai {
             if (!this.fc.toPoint) {
                 return;
             }
+            //角度测算
+            if (this.is_upFX) {
+                this.angle = Math.atan2((this.fc.toPoint.y - this.fc.position[1]), (this.fc.toPoint.x - this.fc.position[0]));
+                this.angle = this.angle % (Math.PI * 2);
+                if (this.angle < 0) {
+                    this.angle = Math.PI * 2 + this.angle;
+                }
 
-            let angle: number = Math.atan2((this.fc.toPoint.y - this.fc.position[1]), (this.fc.toPoint.x - this.fc.position[0])) + Math.PI * 0.5
-            let zx = (Math.PI + 1.57);
+
+            }
+            let fcAng = this.fc.angle + this.jian_tou;
+            //规范化角度数值
+            fcAng = fcAng % (Math.PI * 2);
+            if (fcAng < 0) {
+                fcAng = Math.PI * 2 + fcAng;
+            }
+
             let js = this.xs;
 
-
-
-            //画重点
-            if (this.fc.angle > zx) {
-                this.fc.angle = this.fc.angle - 2 * Math.PI;
-            }
-            //连续画重点
-            if (this.fc.angle < -Math.PI * 0.5) {
-                this.fc.angle = zx;
-            }
             //角度差距
-            let jc = Math.abs(this.fc.angle - angle);
-            //转向递减
-            if (jc < 1) {
-                js = this.xs * jc;
-                if (js < 0.1) {
-                    js = 0.1;
-                }
-
-            }
-            if (jc < 0.1) {
-                this.fc.angularVelocity = 0;
-                if (!this.is_chick) {
-                    this.fc.ztj.mT = zhuangtaiji.ZT_TYPE.MIAO_ZHUN_OVER;
-                    this.is_chick = true;
-                }
-                this.is_upFX = true;
-                return;
-            }
-
-
-            if (angle >= 0 && this.fc.angle >= 0) {
-                if (Math.abs(angle - this.fc.angle) < Math.PI) {
-                    if (angle < this.fc.angle) {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise
-                    } else {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise
-
-                    }
-                } else {
-                    if (angle < this.fc.angle) {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise
-                    } else {
-                        this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                    }
-                }
-            }
-
-            if (angle < 0 && this.fc.angle >= 0) {
-                if (Math.abs(angle) + this.fc.angle < Math.PI) {
-                    this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise
-                } else {
-                    this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise;
-                }
-
-            }
-
-            if (this.fc.angle < 0 && angle >= 0) {
-                if (Math.abs(angle) + this.fc.angle < Math.PI) {
-                    this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise
-                } else {
-                    this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise;
-                }
-
-            }
-
-            if (this.fc.angle < 0 && angle < 0) {
-                if (this.fc.angle < angle) {
-                    this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Anti_clockwise
-                } else {
-                    this.xuan_zhuan_fang_xiang = ai.ZHUAN_XIANG.Clockwise
-                }
-
-
-            }
-
+            let jc = Math.abs(fcAng - this.angle);
+            jc = jc % (Math.PI * 2);
+            //方向计算
             if (this.is_upFX) {
-                //顺时针
-                if (this.xuan_zhuan_fang_xiang == ai.ZHUAN_XIANG.Clockwise) {
-                    this.fc.angularVelocity = -js;
+                if (fcAng >= this.angle) {
+                    if (jc > Math.PI) {
+                        this.xs_hu = 1;
+                    } else {
+                        this.xs_hu = -1;
+                    }
+
                 }
-                if (this.xuan_zhuan_fang_xiang == ai.ZHUAN_XIANG.Anti_clockwise) {
-                    this.fc.angularVelocity = js;
+                if (fcAng < this.angle) {
+                    if (jc > Math.PI) {
+                        this.xs_hu = -1;
+                    } else {
+                        this.xs_hu = 1;
+                    }
                 }
                 this.is_upFX = false;
             }
+
+            let pi = jc / Math.PI;
+            js = this.xs * pi;
+
+            if (jc < 0.05) {
+                this.fc.angularVelocity = 0;
+                if (!this.is_chick) {
+                    this.upOver();
+                }
+                return;
+            }
+
+            this.fc.angularVelocity = this.xs_hu * js;
         }
 
     }

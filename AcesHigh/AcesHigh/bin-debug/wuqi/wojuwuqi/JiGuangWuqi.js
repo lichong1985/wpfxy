@@ -13,7 +13,7 @@ var wjwq;
     var JiGuangWuqi = (function (_super) {
         __extends(JiGuangWuqi, _super);
         function JiGuangWuqi(mokaiPos, shType, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_4_png", wuqi.WUQI_TYPE.DAO_DAN, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_4", wuqi.WUQI_TYPE.DAO_DAN, fc) || this;
             _this.result = new p2.RaycastResult();
             _this.rayClosest = new p2.Ray({
                 mode: p2.Ray.CLOSEST

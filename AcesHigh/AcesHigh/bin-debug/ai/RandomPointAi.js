@@ -18,8 +18,8 @@ var ai;
     })(RANDOM_POINT = ai.RANDOM_POINT || (ai.RANDOM_POINT = {}));
     var RandomPointAi = (function (_super) {
         __extends(RandomPointAi, _super);
-        function RandomPointAi(fc, r, d_limit) {
-            var _this = _super.call(this, fc) || this;
+        function RandomPointAi(fc, r, d_limit, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
             _this.is_u = true;
             _this.d_limit = d_limit;
             _this.random_type = r;

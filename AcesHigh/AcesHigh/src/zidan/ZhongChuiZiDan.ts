@@ -7,7 +7,7 @@ module zidan {
             super(scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
             this.collNumber = 1;
-            this.bit_name = "us_zd_9_png";
+            this.bit_name = "us_zd_9";
             this.bitmap.anchorOffsetX = this.bitmap.width * 0.5;
             this.bitmap.anchorOffsetY = this.bitmap.height * 0.5;
             this.bitmap.scaleX = 0.5;
@@ -17,7 +17,7 @@ module zidan {
 
         }
         public initPT() {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_9_png"))
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_9"))
             this.damping = 0;
             this.displays = [this.bitmap];
         }

@@ -107,6 +107,7 @@ var suiji;
         var y;
         x = GetRandomNum(0, 30);
         y = GetRandomNum(0, 50);
+        egret.log("随机坐标：" + x + "_" + y);
         return egret.Point.create(x, y);
     }
     suiji.randomTargetPos_simple = randomTargetPos_simple;

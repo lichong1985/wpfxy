@@ -15,11 +15,11 @@ var zidan;
         function ZhiSheZhiDan(scene, zhenying, mass) {
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
             _this.initPT();
-            _this.bit_name = "op_wq_1_png";
+            _this.bit_name = "op_wq_1";
             return _this;
         }
         ZhiSheZhiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_1_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("op_wq_1"));
             this.damping = 0;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;

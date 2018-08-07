@@ -17,11 +17,8 @@ module ai {
         public rx;
         public ry;
 
-        constructor(fc: feichuan.FeiChuanBase, p2_points: Array<egret.Point>, is_loop: boolean) {
-            super(fc);
-            this.points = p2_points;
-            this.is_loop = is_loop;
-            this.fc.p2_target = p2_points[0];
+         constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
         }
 
 

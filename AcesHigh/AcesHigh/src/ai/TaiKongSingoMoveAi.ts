@@ -17,8 +17,8 @@ module ai {
         //到目标点的距离
         public jl_z: number;
 
-        constructor(fc: feichuan.FeiChuanBase) {
-            super(fc);
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
             //纪录 始发位置 以及 总旅程
             this.start_point = egret.Point.create(this.fc.position[0], this.fc.position[1]);
             if (this.fc.toPoint) {
@@ -42,8 +42,7 @@ module ai {
             //判断是否到达目的地 并修改状态
             if (jl < this.wu_cha) {
                 this.fc.toPoint = null;
-                this.fc.ztj.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER;
-                // this.fc.velocity = [0.001,0.0001];
+                this.upOver();
                 return;
             }
 

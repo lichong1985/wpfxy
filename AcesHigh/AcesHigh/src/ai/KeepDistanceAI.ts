@@ -3,11 +3,9 @@ module ai {
      * 与sk保持 固定距离ai
      */
     export class KeepDistanceAI extends AiBase {
-        public xs: number;
-        constructor(fc: feichuan.FeiChuanBase, xs: number) {
-            super(fc);
-            this.xs = xs;
-
+        public xs: number = 1;
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
         }
 
         public doUpData(time: number) {

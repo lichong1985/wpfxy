@@ -19,7 +19,7 @@ var zidan;
             _this.lv_5 = [[-3, 0], [3, 0], [-2, -1], [2, -1], [-1, -2], [1, -2], [0, -3]];
             _this.initPT();
             _this.collNumber = 1;
-            _this.bit_name = "us_zd_9_png";
+            _this.bit_name = "us_zd_9";
             _this.bitmap.anchorOffsetX = _this.bitmap.width * 0.5;
             _this.bitmap.anchorOffsetY = _this.bitmap.height * 0.5;
             _this.bitmap.scaleX = 0.5;
@@ -29,7 +29,7 @@ var zidan;
             return _this;
         }
         ZhongChuiZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_9_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("us_zd_9"));
             this.damping = 0;
             this.displays = [this.bitmap];
         };

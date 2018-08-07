@@ -57,21 +57,21 @@ module diaoluo {
             //掉落燃料
             if (this.dl_type == suiji.SJ_YAN_SE.RAN_LIAO) {
                 if (this.lv == 1) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op__dl_rl_1_dl_png"));
-                    this.name1 = "op__dl_rl_1_dl_png";
-                    this.name2 = "op_dl_rl_1_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op__dl_rl_1_dl"));
+                    this.name1 = "op__dl_rl_1_dl";
+                    this.name2 = "op_dl_rl_1_s_dl";
                 }
 
                 if (this.lv == 2) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op__dl_rl_2_dl_png"));
-                    this.name1 = "op__dl_rl_2_dl_png";
-                    this.name2 = "op_dl_rl_2_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op__dl_rl_2_dl"));
+                    this.name1 = "op__dl_rl_2_dl";
+                    this.name2 = "op_dl_rl_2_s_dl";
                 }
 
                 if (this.lv == 3) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op__dl_rl_3_dl_png"));
-                    this.name1 = "op__dl_rl_3_dl_png";
-                    this.name2 = "op_dl_rl_3_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op__dl_rl_3_dl"));
+                    this.name1 = "op__dl_rl_3_dl";
+                    this.name2 = "op_dl_rl_3_s_dl";
                 }
 
             }
@@ -82,97 +82,97 @@ module diaoluo {
             if (this.dl_type == suiji.SJ_YAN_SE.WU_QI) {
                 //普通武器
                 if (this.wq_type == wuqi.WUQI_TYPE.PU_TONG) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_1_png"));
-                    this.name1 = "op_dl_wq_1_png";
-                    this.name2 = "op_dl_wq_1_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_1"));
+                    this.name1 = "op_dl_wq_1";
+                    this.name2 = "op_dl_wq_1_s";
                 }
                 //散弹
                 if (this.wq_type == wuqi.WUQI_TYPE.SAN_DAN) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_2_png"));
-                    this.name1 = "op_dl_wq_2_png";
-                    this.name2 = "op_dl_wq_2_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_2"));
+                    this.name1 = "op_dl_wq_2";
+                    this.name2 = "op_dl_wq_2_s";
                 }
 
                 //导弹
                 if (this.wq_type == wuqi.WUQI_TYPE.DAO_DAN) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_3_png"));
-                    this.name1 = "op_dl_wq_3_png";
-                    this.name2 = "op_dl_wq_3_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_3"));
+                    this.name1 = "op_dl_wq_3";
+                    this.name2 = "op_dl_wq_3_s";
                 }
 
                 //射线
                 if (this.wq_type == wuqi.WUQI_TYPE.SHE_XIAN) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_4_png"));
-                    this.name1 = "op_dl_wq_4_png";
-                    this.name2 = "op_dl_wq_4_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_4"));
+                    this.name1 = "op_dl_wq_4";
+                    this.name2 = "op_dl_wq_4_s";
                 }
 
                 //定向
                 if (this.wq_type == wuqi.WUQI_TYPE.DING_XIANG) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_5_png"));
-                    this.name1 = "op_dl_wq_5_png";
-                    this.name2 = "op_dl_wq_5_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_5"));
+                    this.name1 = "op_dl_wq_5";
+                    this.name2 = "op_dl_wq_5_s";
                 }
 
                 //鱼雷
                 if (this.wq_type == wuqi.WUQI_TYPE.YU_LEI) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_6_png"));
-                    this.name1 = "op_dl_wq_6_png";
-                    this.name2 = "op_dl_wq_6_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_6"));
+                    this.name1 = "op_dl_wq_6";
+                    this.name2 = "op_dl_wq_6_s";
                 }
 
                 //螺旋
                 if (this.wq_type == wuqi.WUQI_TYPE.LUO_XUAN) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_7_png"));
-                    this.name1 = "op_dl_wq_7_png";
-                    this.name2 = "op_dl_wq_7_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_7"));
+                    this.name1 = "op_dl_wq_7";
+                    this.name2 = "op_dl_wq_7_s";
                 }
 
                 //长钉
                 if (this.wq_type == wuqi.WUQI_TYPE.CHANG_DING) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_8_png"));
-                    this.name1 = "op_dl_wq_8_png";
-                    this.name2 = "op_dl_wq_8_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_8"));
+                    this.name1 = "op_dl_wq_8";
+                    this.name2 = "op_dl_wq_8_s";
                 }
 
                 //重锤
                 if (this.wq_type == wuqi.WUQI_TYPE.ZHONG_CHUI) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_9_png"));
-                    this.name1 = "op_dl_wq_9_png";
-                    this.name2 = "op_dl_wq_9_s_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_wq_9"));
+                    this.name1 = "op_dl_wq_9";
+                    this.name2 = "op_dl_wq_9_s";
                 }
 
             }
             //装甲
             if (this.dl_type == suiji.SJ_YAN_SE.ZHUANG_JIA) {
                 if (this.lv == 1) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_1_dl_png"));
-                    this.name1 = "op_dl_zj_level_1_dl_png";
-                    this.name2 = "op_dl_zj_level_1_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_1_dl"));
+                    this.name1 = "op_dl_zj_level_1_dl";
+                    this.name2 = "op_dl_zj_level_1_s_dl";
                 }
 
                 if (this.lv == 2) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_2_dl_png"));
-                    this.name1 = "op_dl_zj_level_2_dl_png";
-                    this.name2 = "op_dl_zj_level_2_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_2_dl"));
+                    this.name1 = "op_dl_zj_level_2_dl";
+                    this.name2 = "op_dl_zj_level_2_s_dl";
                 }
 
                 if (this.lv == 3) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_3_dl_png"));
-                    this.name1 = "op_dl_zj_level_3_dl_png";
-                    this.name2 = "op_dl_zj_level_3_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_3_dl"));
+                    this.name1 = "op_dl_zj_level_3_dl";
+                    this.name2 = "op_dl_zj_level_3_s_dl";
                 }
 
                 if (this.lv == 4) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_4_dl_png"));
-                    this.name1 = "op_dl_zj_level_4_dl_png";
-                    this.name2 = "op_dl_zj_level_4_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_4_dl"));
+                    this.name1 = "op_dl_zj_level_4_dl";
+                    this.name2 = "op_dl_zj_level_4_s_dl";
                 }
 
                 if (this.lv == 5) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_5_dl_png"));
-                    this.name1 = "op_dl_zj_level_5_dl_png";
-                    this.name2 = "op_dl_zj_level_5_s_dl_png";
+                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_5_dl"));
+                    this.name1 = "op_dl_zj_level_5_dl";
+                    this.name2 = "op_dl_zj_level_5_s_dl";
                 }
             }
 

@@ -17,8 +17,8 @@ module ai {
         public rx;
         public ry;
 
-        constructor(fc: feichuan.FeiChuanBase) {
-            super(fc);
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, xz, mz);
         }
 
 
@@ -34,7 +34,7 @@ module ai {
             //到达后清楚 目标点标记
             if (jl < this.wu_cha) {
                 this.fc.toPoint = null;
-                this.fc.ztj.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER;
+                this.upOver();
                 return;
             }
             let xl = Tools.xiangliang(egret.Point.create(this.fc.position[0], this.fc.position[1]), this.fc.toPoint, 1);

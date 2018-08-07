@@ -14,6 +14,38 @@ var FC_Console;
     FC_Console.xuan_list = new Array();
     FC_Console.nai_list = new Array();
     FC_Console.tong_list = new Array();
+    //跟类型 与飞机名字 返回飞机信息
+    function getInfoByName(type, name) {
+        var list;
+        //微型
+        if (type == 1) {
+            list = FC_Console.wei_list;
+        }
+        //小型
+        if (type == 2) {
+            list = FC_Console.xiao_list;
+        }
+        //中型
+        if (type == 3) {
+            list = FC_Console.zhong_list;
+        }
+        //大型
+        if (type == 4) {
+            list = FC_Console.da_list;
+        }
+        //boss级别
+        if (type == 5) {
+            list = FC_Console.boss_list;
+        }
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var info = list_1[_i];
+            if (info.file_name == name) {
+                return info;
+            }
+        }
+        return null;
+    }
+    FC_Console.getInfoByName = getInfoByName;
     function addFcInfo(info) {
         if (info.ti_ji == 5) {
             FC_Console.boss_list.push(info);

@@ -13,7 +13,7 @@ var wjwq;
     var PaoTaiWuqi = (function (_super) {
         __extends(PaoTaiWuqi, _super);
         function PaoTaiWuqi(mokaiPos, shType, fc, level) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_5_png", wuqi.WUQI_TYPE.DING_XIANG, fc) || this;
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_5", wuqi.WUQI_TYPE.DING_XIANG, fc) || this;
             _this.small_cd = 1000;
             _this.mark_small_time = 0;
             //每次发射的数量

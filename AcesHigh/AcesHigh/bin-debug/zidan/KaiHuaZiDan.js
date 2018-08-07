@@ -16,11 +16,11 @@ var zidan;
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG) || this;
             _this.initPT();
             _this.is_updata = true;
-            _this.bit_name = "1-5_png";
+            _this.bit_name = "1-5";
             return _this;
         }
         KaiHuaZiDan.prototype.initPT = function () {
-            this.bitmap = new egret.Bitmap(RES.getRes("1-5_png"));
+            this.bitmap = new egret.Bitmap(RES.getRes("1-5"));
             this.damping = 0;
             this.bitmap.scaleX = 0.5;
             this.bitmap.scaleY = 0.5;

@@ -1,4 +1,5 @@
 module FC_Console {
+
     //按体积区分
     export let boss_list: Array<feichuan.FeiChuanInfo> = new Array<feichuan.FeiChuanInfo>();
     export let da_list: Array<feichuan.FeiChuanInfo> = new Array<feichuan.FeiChuanInfo>();
@@ -19,7 +20,40 @@ module FC_Console {
 
 
 
+    //跟类型 与飞机名字 返回飞机信息
+    export function getInfoByName(type: number, name: string): feichuan.FeiChuanInfo {
+        let list: Array<feichuan.FeiChuanInfo>;
+        //微型
+        if (type == 1) {
+            list = wei_list;
+        }
+        //小型
+        if (type == 2) {
+            list = xiao_list;
+        }
 
+        //中型
+        if (type == 3) {
+            list = zhong_list;
+        }
+
+        //大型
+        if (type == 4) {
+            list = da_list;
+        }
+
+        //boss级别
+        if (type == 5) {
+            list = boss_list;
+        }
+
+        for (let info of list) {
+            if (info.file_name == name) {
+                return info;
+            }
+        }
+        return null;
+    }
 
     export function addFcInfo(info: feichuan.FeiChuanInfo) {
         if (info.ti_ji == 5) {

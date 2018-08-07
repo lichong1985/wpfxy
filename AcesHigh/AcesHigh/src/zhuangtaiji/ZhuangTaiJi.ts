@@ -2,13 +2,16 @@ module zhuangtaiji {
     export enum ZT_TYPE {
         SINGO_MOVE_ING,//简单移动
         SINGO_MOVE_OVER,//简单移动结束
-        ZUO_YOU_MOVE,//左右移动
-        MOVE_OVER,//移动结束
         XUAN_ZHUAN,//旋转状态
         XUAN_ZHUAN_OVER,//旋转结束
-        MIAO_ZHUN,//瞄准状态
-        MIAO_ZHUN_OVER,//瞄准结束 
+        MIAO_ZHUN_SK,//瞄准舒克
+        MIAO_ZHUN_SK_OVER,//瞄准结束
+        DAO_HANG,//导航
+        DAO_HANG_OVER,//导航结束 
+        PU_TONG_GONG_JI,    //普通攻击状态
+        PU_TONG_GONG_JI_OVER,//普通攻击结束
         NULL_T,//空状态
+        NO_THING,// 不做任何改变
 
     }
 

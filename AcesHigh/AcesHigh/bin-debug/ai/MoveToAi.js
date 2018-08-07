@@ -12,8 +12,8 @@ var ai;
 (function (ai) {
     var MoveToAi = (function (_super) {
         __extends(MoveToAi, _super);
-        function MoveToAi(fc, p2_points, is_loop) {
-            var _this = _super.call(this, fc) || this;
+        function MoveToAi(fc, mt, xz, mz) {
+            var _this = _super.call(this, fc, mt, xz, mz) || this;
             //是否变换目标
             _this.is_u = true;
             // 巡逻坐标节点 下标
@@ -21,9 +21,6 @@ var ai;
             // public su_du: number = 1;
             //误差范围
             _this.wu_cha = 1;
-            _this.points = p2_points;
-            _this.is_loop = is_loop;
-            _this.fc.p2_target = p2_points[0];
             return _this;
         }
         MoveToAi.prototype.doUpData = function (time) {
