@@ -21,7 +21,7 @@ var juzi;
             return _this;
         }
         FangZhenJuzi.prototype.initFcInfo = function () {
-            this.fc_info = FC_Console.getInfoByName(1, "wei_1");
+            this.fc_info = FC_Console.getInfoByName(1, "xiao_3");
             this.fc_w = this.fc_info.width;
             this.fc_h = this.fc_info.height;
             this.jg_w = Math.floor(30 / this.kuan[this.nan_du]);
@@ -33,9 +33,17 @@ var juzi;
             var h = this.hou[this.nan_du];
             for (var x = 0; x < w; x++) {
                 for (var y = 0; y < h; y++) {
-                    var fc = new feichuan.JuZhenJidui(scene, this.fc_info, egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y), egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)));
+                    //1 创建飞船
+                    var fc = new feichuan.JuZhenJidui(scene, this.fc_info, egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y));
+                    //2 创建状态机
+                    var ztj_info = new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)), zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 0, 0, -1, "");
+                    var ztj = new fjztj.QuYuZTJ(fc);
+                    ztj.is_loop = false;
+                    ztj.addInfo(ztj_info);
+                    ztj.nextStep(0);
+                    fc.ztj = ztj;
+                    //3 添加到列表
                     scene.dijis.push(fc);
-                    // egret.log("SSSSLLLLLL:" + scene.dijis.length);
                 }
             }
         };

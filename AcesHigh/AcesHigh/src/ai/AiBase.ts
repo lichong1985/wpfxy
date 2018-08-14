@@ -8,8 +8,9 @@ module ai {
     export enum WEI_ZHI {
         ZS = 0,//左上
         ZX = 1,//左下
-        YS = 2,//右下
-        YX = 3,//右上
+        YS = 2,//右上
+        YX = 3,//右下
+        NN = 4,//空状态
     }
 
     //转向
@@ -30,33 +31,40 @@ module ai {
         //是否停止ai
         public hang_up: boolean = false;
 
-        //间隔
-        public jian_ge: number = 50;
-        public mark_time: number = 0;
+        //单次状态 持续时间
+        public jian_ge: number = 10 * 1000;
+        // public mark_time: number = 0;
 
         // over type 
         public mT_over: zhuangtaiji.ZT_TYPE;
-        public xZ_over: zhuangtaiji.ZT_TYPE;
+        public gj_over: zhuangtaiji.ZT_TYPE;
         public mZ_over: zhuangtaiji.ZT_TYPE;
+
+        //系数
+        public xs: number;
 
         //时间标记
         public time_mark: number;
-        constructor(fc: feichuan.FeiChuanBase, mT: zhuangtaiji.ZT_TYPE, xZ: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE) {
+        constructor(fc: feichuan.FeiChuanBase, mT: zhuangtaiji.ZT_TYPE, gj: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE) {
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
             this.mT_over = mT;
-            this.xZ_over = xZ;
+            this.gj_over = gj;
             this.mZ_over = mZ;
+            this.time_mark = egret.getTimer();
 
         }
 
-        public updata_ai(now: number) {
+        public init() {
+        }
 
-            if ((now - this.mark_time) > this.jian_ge) {
-                this.mark_time = now;
-                this.doUpData(now);
+        public updata_ai(now: number) {
+            //到时没有达成任务 退出
+            if ((egret.getTimer() - this.time_mark) > this.jian_ge) {
+                // this.upOver();
             }
+            this.doUpData(now);
         }
         //场景刷新器
         public doUpData(time: number) {
@@ -67,8 +75,8 @@ module ai {
             if (this.mT_over != zhuangtaiji.ZT_TYPE.NO_THING) {
                 this.fc.ztj.mT = this.mT_over;
             }
-            if (this.xZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
-                this.fc.ztj.xzT = this.xZ_over;
+            if (this.gj_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.gjT = this.gj_over;
             }
             if (this.mZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
                 this.fc.ztj.mzT = this.mZ_over;

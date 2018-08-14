@@ -20,11 +20,12 @@ var boci;
         BO_CI_TYPE[BO_CI_TYPE["SZ"] = 0] = "SZ";
     })(BO_CI_TYPE = boci.BO_CI_TYPE || (boci.BO_CI_TYPE = {}));
     var BoCi = (function () {
-        function BoCi() {
+        function BoCi(scene) {
+            this.scene = scene;
         }
         //初始化句子
         BoCi.prototype.initJuzi = function () {
-            this.jz = new juzi.LuanZouJuzi(1);
+            this.jz = new juzi.SiXiongDiJuzi(1, this.scene);
             this.jz.initFcInfo();
         };
         return BoCi;

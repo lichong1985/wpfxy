@@ -88,11 +88,13 @@ var feichuan;
                     }
                     //敌军直射武器
                     if (bitName == "op_wq_1") {
-                        hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
                     //激光
                     if (bitName == "op_wq_2") {
+                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
                     }
@@ -161,6 +163,14 @@ var feichuan;
             var g2p = Tools.gridTop2(this.egretWorldPoint.x, this.egretWorldPoint.y);
             this.position[0] = g2p.x;
             this.position[1] = g2p.y;
+            this.beforToPoint = g2p;
+        };
+        //更新目标点
+        FeiChuanBase.prototype.upToPoint = function (pos) {
+            if (this.toPoint != null) {
+                this.beforToPoint = this.toPoint;
+            }
+            this.toPoint = pos;
         };
         FeiChuanBase.prototype.initList = function (h, w) {
             this.moKuaiList = new Array();
@@ -235,9 +245,9 @@ var feichuan;
             if (this.moveAI) {
                 this.moveAI.updata_ai(egret.getTimer());
             }
-            //旋转
-            if (this.xzAI) {
-                this.xzAI.updata_ai(egret.getTimer());
+            //攻击
+            if (this.gjAI) {
+                this.gjAI.updata_ai(egret.getTimer());
             }
             //瞄准
             if (this.mzAI) {

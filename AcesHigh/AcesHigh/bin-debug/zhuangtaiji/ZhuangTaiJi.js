@@ -7,16 +7,16 @@ var zhuangtaiji;
     (function (ZT_TYPE) {
         ZT_TYPE[ZT_TYPE["SINGO_MOVE_ING"] = 0] = "SINGO_MOVE_ING";
         ZT_TYPE[ZT_TYPE["SINGO_MOVE_OVER"] = 1] = "SINGO_MOVE_OVER";
-        ZT_TYPE[ZT_TYPE["ZUO_YOU_MOVE"] = 2] = "ZUO_YOU_MOVE";
-        ZT_TYPE[ZT_TYPE["MOVE_OVER"] = 3] = "MOVE_OVER";
+        ZT_TYPE[ZT_TYPE["JIAN_SI_MOVE_ING"] = 2] = "JIAN_SI_MOVE_ING";
+        ZT_TYPE[ZT_TYPE["JIAN_SI_MOVE_OVER"] = 3] = "JIAN_SI_MOVE_OVER";
         ZT_TYPE[ZT_TYPE["XUAN_ZHUAN"] = 4] = "XUAN_ZHUAN";
         ZT_TYPE[ZT_TYPE["XUAN_ZHUAN_OVER"] = 5] = "XUAN_ZHUAN_OVER";
-        ZT_TYPE[ZT_TYPE["MIAO_ZHUN"] = 6] = "MIAO_ZHUN";
-        ZT_TYPE[ZT_TYPE["MIAO_ZHUN_OVER"] = 7] = "MIAO_ZHUN_OVER";
+        ZT_TYPE[ZT_TYPE["MIAO_ZHUN_SK"] = 6] = "MIAO_ZHUN_SK";
+        ZT_TYPE[ZT_TYPE["MIAO_ZHUN_SK_OVER"] = 7] = "MIAO_ZHUN_SK_OVER";
         ZT_TYPE[ZT_TYPE["DAO_HANG"] = 8] = "DAO_HANG";
         ZT_TYPE[ZT_TYPE["DAO_HANG_OVER"] = 9] = "DAO_HANG_OVER";
-        ZT_TYPE[ZT_TYPE["JIN_CHANG"] = 10] = "JIN_CHANG";
-        ZT_TYPE[ZT_TYPE["JIN_CHANG_OVER"] = 11] = "JIN_CHANG_OVER";
+        ZT_TYPE[ZT_TYPE["PU_TONG_GONG_JI"] = 10] = "PU_TONG_GONG_JI";
+        ZT_TYPE[ZT_TYPE["PU_TONG_GONG_JI_OVER"] = 11] = "PU_TONG_GONG_JI_OVER";
         ZT_TYPE[ZT_TYPE["NULL_T"] = 12] = "NULL_T";
         ZT_TYPE[ZT_TYPE["NO_THING"] = 13] = "NO_THING";
     })(ZT_TYPE = zhuangtaiji.ZT_TYPE || (zhuangtaiji.ZT_TYPE = {}));
@@ -27,9 +27,9 @@ var zhuangtaiji;
         ZhuangTaiJiBase.prototype.upStep = function (time) {
             this.markTime = time;
         };
-        //休眠
+        //休眠 单位秒
         ZhuangTaiJiBase.prototype.sleep = function (t) {
-            this.sleep_long = this.markTime + t;
+            this.sleep_long = this.markTime + t * 1000;
         };
         //判断是否是休眠状态
         ZhuangTaiJiBase.prototype.isSleep = function () {

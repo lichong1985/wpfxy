@@ -28,6 +28,7 @@ var ai;
             //角度测算
             this.angle = Math.atan2((this.fc.battle_scene.sk.position[1] - this.fc.position[1]), (this.fc.battle_scene.sk.position[0] - this.fc.position[0]));
             this.angle = this.angle % (Math.PI * 2);
+            var jd = this.angle * 180 / Math.PI;
             if (this.angle < 0) {
                 this.angle = Math.PI * 2 + this.angle;
             }

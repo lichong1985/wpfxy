@@ -18,7 +18,7 @@ module juzi {
         }
 
         public initFcInfo() {
-            this.fc_info = FC_Console.getInfoByName(1, "wei_1");
+            this.fc_info = FC_Console.getInfoByName(1, "xiao_3");
             this.fc_w = this.fc_info.width;
             this.fc_h = this.fc_info.height;
             this.jg_w = Math.floor(30 / this.kuan[this.nan_du]);
@@ -33,11 +33,20 @@ module juzi {
 
             for (let x = 0; x < w; x++) {
                 for (let y = 0; y < h; y++) {
+                    //1 创建飞船
                     let fc: feichuan.JuZhenJidui = new feichuan.JuZhenJidui(scene, this.fc_info,
-                        egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y),
-                        egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)));
+                        egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y));
+
+                    //2 创建状态机
+                    let ztj_info: zhuangtaiji.ZhuangTaiJiInfoBean = new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)),
+                        zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 0, 0, -1, "");
+                    let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(fc);
+                    ztj.is_loop = false;
+                    ztj.addInfo(ztj_info);
+                    ztj.nextStep(0);
+                    fc.ztj = ztj;
+                    //3 添加到列表
                     scene.dijis.push(fc);
-                    // egret.log("SSSSLLLLLL:" + scene.dijis.length);
                 }
             }
         }

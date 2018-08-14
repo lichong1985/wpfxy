@@ -15,16 +15,13 @@ var ai;
      */
     var XuanZhuanAI = (function (_super) {
         __extends(XuanZhuanAI, _super);
-        function XuanZhuanAI(fc, xs, mt, xz, mz) {
-            var _this = _super.call(this, fc, mt, xz, mz) || this;
-            _this.xs = xs;
-            return _this;
+        function XuanZhuanAI(fc, mt, xz, mz) {
+            return _super.call(this, fc, mt, xz, mz) || this;
         }
         XuanZhuanAI.prototype.doUpData = function (time) {
             if (!this.hang_up) {
                 _super.prototype.doUpData.call(this, time);
                 this.fc.angularVelocity = this.xs;
-                egret.log("KKKKKKKKKK:" + this.fc.angle);
             }
         };
         return XuanZhuanAI;

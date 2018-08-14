@@ -22,7 +22,7 @@ var fjztj;
             _this.miao_zhun_limit = 15 * 1000;
             _this.fc = fc;
             _this.mT = zhuangtaiji.ZT_TYPE.DAO_HANG;
-            _this.xzT = zhuangtaiji.ZT_TYPE.NULL_T;
+            _this.gjT = zhuangtaiji.ZT_TYPE.NULL_T;
             _this.mzT = zhuangtaiji.ZT_TYPE.NULL_T;
             return _this;
         }
@@ -36,12 +36,12 @@ var fjztj;
             //检测移动状态并赋值 ai
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING) {
                 if (!this.fc.moveAI) {
-                    this.fc.moveAI = new ai.TaiKongSingoMoveAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.moveAI = new ai.TaiKongSingoMoveAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, -1);
                 }
             }
             //当移动状态 停止后 设置新的ai
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER) {
-                this.mT = zhuangtaiji.ZT_TYPE.MIAO_ZHUN;
+                this.mT = zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK;
                 this.fc.moveAI = null;
                 this.miao_zhun_mark = egret.getTimer();
             }
@@ -52,17 +52,17 @@ var fjztj;
             if (this.mT == zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_OVER) {
             }
             //瞄准
-            if (this.mT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN) {
+            if (this.mT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK) {
                 if (!this.fc.mzAI) {
-                    this.fc.mzAI = new ai.MiaoZhun(this.fc, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.mzAI = new ai.MiaoZhun(this.fc, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
                 }
                 //瞄准时间到了
                 if ((egret.getTimer() - this.miao_zhun_mark) > this.miao_zhun_limit) {
-                    this.mT = zhuangtaiji.ZT_TYPE.MIAO_ZHUN_OVER;
+                    this.mT = zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER;
                 }
             }
             //瞄准结束
-            if (this.mT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_OVER) {
+            if (this.mT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER) {
                 this.mT = zhuangtaiji.ZT_TYPE.DAO_HANG;
                 this.fc.mzAI = null;
             }

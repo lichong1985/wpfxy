@@ -77,14 +77,16 @@ module feichuan {
         //移动ai
         public moveAI: ai.AiBase;
 
-        //旋转ai
-        public xzAI: ai.AiBase;
+        //攻击AI
+        public gjAI: ai.AiBase;
 
         //瞄准ai 
         public mzAI: ai.AiBase;
 
         //需要移动到的坐标点 (物理世界坐标)
         public toPoint: egret.Point;
+        //上一次的坐标点
+        public beforToPoint: egret.Point;
         //----------------------------------------------
 
         //飞船当前前往的 目的地坐标 null则没有
@@ -116,7 +118,7 @@ module feichuan {
             this.zhenying = zhenying;
             this.initPhPost();
             this.initColl();
-           
+
 
         }
 
@@ -174,12 +176,14 @@ module feichuan {
 
                     //敌军直射武器
                     if (bitName == "op_wq_1") {
-                        hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
                     //激光
                     if (bitName == "op_wq_2") {
+                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                     }
@@ -266,6 +270,15 @@ module feichuan {
             let g2p = Tools.gridTop2(this.egretWorldPoint.x, this.egretWorldPoint.y);
             this.position[0] = g2p.x;
             this.position[1] = g2p.y;
+            this.beforToPoint = g2p;
+        }
+
+        //更新目标点
+        public upToPoint(pos: egret.Point) {
+            if (this.toPoint != null) {
+                this.beforToPoint = this.toPoint;
+            }
+            this.toPoint = pos;
         }
 
 
@@ -366,9 +379,9 @@ module feichuan {
                 this.moveAI.updata_ai(egret.getTimer())
             }
 
-            //旋转
-            if (this.xzAI) {
-                this.xzAI.updata_ai(egret.getTimer());
+            //攻击
+            if (this.gjAI) {
+                this.gjAI.updata_ai(egret.getTimer());
             }
 
             //瞄准

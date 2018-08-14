@@ -115,6 +115,7 @@ module mokuai {
 
             // 更新模块位置
             // this.UpdataPosition(wroldPointAch);
+            
         }
 
 

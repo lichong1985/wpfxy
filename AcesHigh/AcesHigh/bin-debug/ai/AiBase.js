@@ -15,6 +15,7 @@ var ai;
         WEI_ZHI[WEI_ZHI["ZX"] = 1] = "ZX";
         WEI_ZHI[WEI_ZHI["YS"] = 2] = "YS";
         WEI_ZHI[WEI_ZHI["YX"] = 3] = "YX";
+        WEI_ZHI[WEI_ZHI["NN"] = 4] = "NN";
     })(WEI_ZHI = ai.WEI_ZHI || (ai.WEI_ZHI = {}));
     //转向
     var ZHUAN_XIANG;
@@ -23,24 +24,27 @@ var ai;
         ZHUAN_XIANG[ZHUAN_XIANG["Anti_clockwise"] = 1] = "Anti_clockwise";
     })(ZHUAN_XIANG = ai.ZHUAN_XIANG || (ai.ZHUAN_XIANG = {}));
     var AiBase = (function () {
-        function AiBase(fc, mT, xZ, mZ) {
+        function AiBase(fc, mT, gj, mZ) {
             //是否停止ai
             this.hang_up = false;
-            //间隔
-            this.jian_ge = 50;
-            this.mark_time = 0;
+            //单次状态 持续时间
+            this.jian_ge = 10 * 1000;
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
             this.mT_over = mT;
-            this.xZ_over = xZ;
+            this.gj_over = gj;
             this.mZ_over = mZ;
+            this.time_mark = egret.getTimer();
         }
+        AiBase.prototype.init = function () {
+        };
         AiBase.prototype.updata_ai = function (now) {
-            if ((now - this.mark_time) > this.jian_ge) {
-                this.mark_time = now;
-                this.doUpData(now);
+            //到时没有达成任务 退出
+            if ((egret.getTimer() - this.time_mark) > this.jian_ge) {
+                // this.upOver();
             }
+            this.doUpData(now);
         };
         //场景刷新器
         AiBase.prototype.doUpData = function (time) {
@@ -49,8 +53,8 @@ var ai;
             if (this.mT_over != zhuangtaiji.ZT_TYPE.NO_THING) {
                 this.fc.ztj.mT = this.mT_over;
             }
-            if (this.xZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
-                this.fc.ztj.xzT = this.xZ_over;
+            if (this.gj_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.gjT = this.gj_over;
             }
             if (this.mZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
                 this.fc.ztj.mzT = this.mZ_over;

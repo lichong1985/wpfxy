@@ -66,7 +66,7 @@ module ai {
             if (jc < 0.05) {
                 this.fc.angularVelocity = 0;
                 if (!this.is_chick) {
-                    this.upOver();
+                    // this.upOver();
                 }
                 return;
             }

@@ -7,6 +7,7 @@ module feichuan {
             this.initJson(info);
             this.initTestFchuan();
             this.toPoint = Tools.gridTop2(info.target_pos.x, info.target_pos.y);
+            
             this.ztj = new fjztj.XBZhuangtaiji(this);
 
         }

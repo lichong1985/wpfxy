@@ -12,13 +12,11 @@ var feichuan;
 (function (feichuan) {
     var JuZhenJidui = (function (_super) {
         __extends(JuZhenJidui, _super);
-        function JuZhenJidui(battle_scends, info, cs_pos, to_pos) {
+        function JuZhenJidui(battle_scends, info, cs_pos) {
             var _this = _super.call(this, battle_scends, cs_pos, GameConstant.ZHEN_YING.DI_JUN) || this;
             _this.fc_type = feichuan.FC_TYPE.DIJI;
             _this.initJson(info);
             _this.initTestFchuan();
-            _this.toPoint = Tools.gridTop2(to_pos.x, to_pos.y);
-            _this.ztj = new fjztj.JuZhenZTJ(_this);
             return _this;
         }
         //做一个 飞船

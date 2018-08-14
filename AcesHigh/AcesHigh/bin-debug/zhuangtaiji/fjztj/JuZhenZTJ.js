@@ -16,7 +16,7 @@ var fjztj;
             var _this = _super.call(this) || this;
             _this.fc = fc;
             _this.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING;
-            _this.xzT = zhuangtaiji.ZT_TYPE.NULL_T;
+            _this.gjT = zhuangtaiji.ZT_TYPE.NULL_T;
             _this.mzT = zhuangtaiji.ZT_TYPE.NULL_T;
             return _this;
         }
@@ -30,7 +30,7 @@ var fjztj;
             //检测移动状态并赋值 ai
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING) {
                 if (!this.fc.moveAI) {
-                    this.fc.moveAI = new ai.TaiKongSingoMoveAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.moveAI = new ai.TaiKongSingoMoveAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, -1);
                 }
             }
             //当移动状态 停止后 设置新的ai

@@ -26,7 +26,7 @@ var guanqia;
             this.is_next = false;
             this.bociNum++;
             //1 
-            this.bc_now = new boci.BoCi();
+            this.bc_now = new boci.BoCi(this.scene);
             this.bc_now.initJuzi();
         };
         BoCiGuanLi.prototype.addFc = function (scene) {

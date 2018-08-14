@@ -7,14 +7,11 @@ module fjztj {
         constructor(fc: feichuan.FeiChuanBase) {
             super();
             this.fc = fc;
-            this.mT = zhuangtaiji.ZT_TYPE.NO_THING;
+            this.mT = zhuangtaiji.ZT_TYPE.NULL_T;
             this.gjT = zhuangtaiji.ZT_TYPE.NULL_T;
             this.mzT = zhuangtaiji.ZT_TYPE.NULL_T;
         }
 
-        public nextTick() {
-
-        }
 
         //进步器
         public upStep(time: number) {
@@ -24,25 +21,44 @@ module fjztj {
                 return;
             }
 
-            //------------------------------------------------移动------------------------------------------------------
+
+
+            //------------------------------------------------简单移动------------------------------------------------------
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING) {
                 if (this.fc.moveAI == null) {
-                    this.fc.moveAI = new ai.TaiKongSingoMoveAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.moveAI = new ai.TKXZZuiZhongAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, false);
                     this.fc.moveAI.xs = this.info.mT_xs;
+                    this.fc.moveAI.init();
                 }
             }
 
             //当移动状态 停止后 设置新的ai
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER) {
                 this.fc.moveAI = null;
-                this.nextStep();
+                this.nextStep(this.info.sleep_time);
+
             }
 
+            //-----------------------------------------------减速移动--------------------------------------
 
+            if (this.mT == zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING) {
+                if (this.fc.moveAI == null) {
+                    this.fc.moveAI = new ai.TestSameThingAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, true);
+                    this.fc.moveAI.xs = this.info.mT_xs;
+                    this.fc.moveAI.init();
+                }
+            }
+
+            //当移动状态 停止后 设置新的ai
+            if (this.mT == zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER) {
+                this.fc.moveAI = null;
+                this.nextStep(this.info.sleep_time);
+
+            }
 
             //------------------------------保持瞄准sk--------------------------
             if (this.mzT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK) {
-                if (this.mzT == null) {
+                if (this.fc.mzAI == null) {
                     this.fc.mzAI = new ai.MiaoZhun(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
                     this.fc.mzAI.xs = this.info.mZ_xs;
                 }
@@ -62,7 +78,7 @@ module fjztj {
 
             if (this.mzT == zhuangtaiji.ZT_TYPE.DAO_HANG_OVER) {
                 if (this.mT == zhuangtaiji.ZT_TYPE.NULL_T) {
-                    this.nextStep();
+                    this.nextStep(this.info.sleep_time);
                 }
             }
 

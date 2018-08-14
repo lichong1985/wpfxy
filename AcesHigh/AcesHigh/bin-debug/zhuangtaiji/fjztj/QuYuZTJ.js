@@ -10,15 +10,14 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var fjztj;
 (function (fjztj) {
+    //区域瞄准状态机
     var QuYuZTJ = (function (_super) {
         __extends(QuYuZTJ, _super);
         function QuYuZTJ(fc) {
             var _this = _super.call(this) || this;
-            //选罗路线
-            _this.lu_xian = new Array();
             _this.fc = fc;
-            _this.mT = zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING;
-            _this.xzT = zhuangtaiji.ZT_TYPE.NULL_T;
+            _this.mT = zhuangtaiji.ZT_TYPE.NULL_T;
+            _this.gjT = zhuangtaiji.ZT_TYPE.NULL_T;
             _this.mzT = zhuangtaiji.ZT_TYPE.NULL_T;
             return _this;
         }
@@ -29,21 +28,61 @@ var fjztj;
             if (this.isSleep()) {
                 return;
             }
-            //进场状态
-            if (this.mT == zhuangtaiji.ZT_TYPE.JIN_CHANG) {
+            //------------------------------------------------简单移动------------------------------------------------------
+            if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING) {
                 if (this.fc.moveAI == null) {
-                    this.fc.moveAI = new ai.TaiKongSingoMoveAi(this.fc, zhuangtaiji.ZT_TYPE.JIN_CHANG_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.moveAI = new ai.TKXZZuiZhongAi(this.fc, zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, false);
+                    this.fc.moveAI.xs = this.info.mT_xs;
+                    this.fc.moveAI.init();
                 }
             }
             //当移动状态 停止后 设置新的ai
-            if (this.mT == zhuangtaiji.ZT_TYPE.JIN_CHANG_OVER) {
-                this.mT = zhuangtaiji.ZT_TYPE.NULL_T;
+            if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_OVER) {
                 this.fc.moveAI = null;
+                this.nextStep(this.info.sleep_time);
             }
-        };
-        //添加坐标点
-        QuYuZTJ.prototype.addPos = function (x, y) {
-            this.lu_xian.push(Tools.gridTop2(x, y));
+            //-----------------------------------------------减速移动--------------------------------------
+            if (this.mT == zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING) {
+                if (this.fc.moveAI == null) {
+                    this.fc.moveAI = new ai.TestSameThingAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, true);
+                    this.fc.moveAI.xs = this.info.mT_xs;
+                    this.fc.moveAI.init();
+                }
+            }
+            //当移动状态 停止后 设置新的ai
+            if (this.mT == zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER) {
+                this.fc.moveAI = null;
+                this.nextStep(this.info.sleep_time);
+            }
+            //------------------------------保持瞄准sk--------------------------
+            if (this.mzT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK) {
+                if (this.fc.mzAI == null) {
+                    this.fc.mzAI = new ai.MiaoZhun(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.mzAI.xs = this.info.mZ_xs;
+                }
+            }
+            if (this.mzT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER) {
+                //瞄准结束
+            }
+            //------------------------------导航--------------------------------
+            if (this.mzT == zhuangtaiji.ZT_TYPE.DAO_HANG) {
+                if (this.mzT == null) {
+                    this.fc.mzAI = new ai.DaoHuangAi(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.DAO_HANG_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.mzAI.xs = this.info.mZ_xs;
+                }
+            }
+            if (this.mzT == zhuangtaiji.ZT_TYPE.DAO_HANG_OVER) {
+                if (this.mT == zhuangtaiji.ZT_TYPE.NULL_T) {
+                    this.nextStep(this.info.sleep_time);
+                }
+            }
+            //----------------------------旋转-----------------------------------
+            if (this.mzT == zhuangtaiji.ZT_TYPE.XUAN_ZHUAN) {
+                if (this.mzT == null) {
+                    this.fc.mzAI = new ai.XuanZhuanAI(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.DAO_HANG_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.mzAI.xs = this.info.mZ_xs;
+                }
+            }
         };
         return QuYuZTJ;
     }(fjztj.FjZTJ));

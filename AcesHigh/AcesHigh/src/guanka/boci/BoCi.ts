@@ -26,12 +26,13 @@ module boci {
         public is_wei_bu: boolean;
         //句子管理
         public jz: juzi.JuZiGuanLi;
-        constructor() {
-
+        public scene: scene.SceneBase;
+        constructor(scene: scene.SceneBase) {
+            this.scene = scene;
         }
         //初始化句子
         public initJuzi() {
-            this.jz = new juzi.LuanZouJuzi(1);
+            this.jz = new juzi.SiXiongDiJuzi(1, this.scene);
             this.jz.initFcInfo();
         }
 
