@@ -45,16 +45,30 @@ module ai {
         public is_guo: boolean = false;
         public mk: number;
 
+        public add_num: number = 2;
+        public lase_t: number = 0;
+
+        public y20: number;
 
 
-        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE, run_time: number, is_js: boolean) {
+
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE, run_time: number, time_: number) {
             super(fc, mt, xz, mz);
-            this.is_js = is_js;
             this.start_point = egret.Point.create(this.fc.position[0], this.fc.position[1]);
             this.y_jl = this.fc.position[1] - this.fc.toPoint.y;
             this.fc.damping = 0;
-            this.fc.mass=1000;
+            this.fc.mass = 1000;
+            // this.fc.velocity = [0, -1];
             this.mk = egret.getTimer();
+            this.y20 = this.y_jl * 0.2;
+
+            // // s= vt*1.8 + a*1.8*tt/2*1.8
+
+            //s*1.8=v*t
+            let v = (this.y_jl - this.y20) * 1.8 / time_;
+
+
+            egret.log("JJJJJJJJJJJJJJJJJJJJJJJJJ:" + this.y_jl)
         }
 
 
@@ -63,38 +77,48 @@ module ai {
             if (egret.getTimer() - this.mk < 2000) {
                 return;
             }
+
             super.doUpData(time);
             let x_li = 0;
             let y_li = -this.xs;
 
             let jl_y = this.start_point.y - this.fc.position[1];
-            egret.log(jl_y + " -- " + this.fc.velocity[1] + " -- " + egret.getTimer() + " -- " + this.fc.damping)
-            this.fc.force = [0, -2];
+            if (this.add_num > 0) {
+                this.fc.force = [0, -1];
+                this.add_num--;
+            }
+            let now = egret.getTimer();
+            egret.log(jl_y + " -- " + this.fc.velocity[1] + " -- " + egret.getTimer() + " -- " + this.fc.damping + " -- " + this.fc.mass + " ** " + (now - this.lase_t))
+            this.lase_t = now;
+
+            // this.fc.velocity = [0, -2];
+
+            // 1.6739997863769531 -- - 1.7999992370605469 -- 4421 -- 0 -- 1000 
+
+            //6.587993621826172 -- - 3.5999975204467773 -- 5421 -- 0 -- 1000
+
+            //14.741992950439453 -- - 5.399995803833008 -- 6421 -- 0 -- 1000 
+
+            // s= （vt*1.8 + a*1.8*tt/2）*1.8 
+
+            // 8.16  13.07 
 
 
-            // let sudu_cha: number = 0;
-            // sudu_cha = Math.abs(Math.abs(this.fc.velocity[1]) - this.xs);
-
-            // if (this.li_num > 0) {
-            //     this.fc.force = [x_li, y_li];
-            //     this.li_num--;
+            //  let pi = 0;
+            // if (this.fc.velocity[0] > 0) {
+            //     pi = -1;
             // }
 
-            // if (jl_y > this.y_jl && !this.is_guo) {
-
-            //     this.is_guo = true;
-            //     this.jian_num = Math.abs(Math.round(this.fc.velocity[1] / (0.06)));
-
-            // }
-            // if (jl_y > this.y_jl) {
-            //     if (this.jian_num > 0) {
-            //         this.fc.force = [x_li, 1];
-            //         this.jian_num--;
-            //     }
+            // if (this.fc.velocity[0] < 0) {
+            //     pi = 1;
             // }
 
-            // let jj_y = Math.abs(this.fc.position[1] - this.fc.toPoint.y);
-
+            // if (Math.abs(this.fc.velocity[0]) > this.jian_su_li_pi) {
+            //     this.force_x = this.jian_su_li * pi;
+            //     return;
+            // }
+            // 
+            // this.force_x = Math.abs(this.fc.velocity[0]) / this.jian_su_li_pi * pi;
 
 
         }

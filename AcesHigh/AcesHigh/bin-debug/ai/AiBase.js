@@ -29,6 +29,8 @@ var ai;
             this.hang_up = false;
             //单次状态 持续时间
             this.jian_ge = 10 * 1000;
+            //误差
+            this.wu_cha = 0.2;
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
@@ -36,8 +38,26 @@ var ai;
             this.gj_over = gj;
             this.mZ_over = mZ;
             this.time_mark = egret.getTimer();
+            this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
+            this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
         }
         AiBase.prototype.init = function () {
+        };
+        //目标 相对 你的位置
+        AiBase.prototype.js_wz = function (you, to) {
+            if (to > you) {
+                if ((to - you) < 0.1) {
+                    return 2;
+                }
+                return 3;
+            }
+            if (you > to) {
+                if ((you - to) < 0.1) {
+                    return 2;
+                }
+                return 1;
+            }
+            return 2;
         };
         AiBase.prototype.updata_ai = function (now) {
             //到时没有达成任务 退出
@@ -59,6 +79,38 @@ var ai;
             if (this.mZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
                 this.fc.ztj.mzT = this.mZ_over;
             }
+        };
+        //---------------判断是否到达目的地----------------
+        AiBase.prototype.is_x_over = function () {
+            //左边
+            // if (this.mu_biao_wz_X == 1 && Math.abs(this.fc.position[0] - this.fc.toPoint.x) < this.wu_cha) {
+            if (this.mu_biao_wz_X == 1 && this.fc.position[0] < this.fc.toPoint.x) {
+                return true;
+            }
+            //中
+            if (this.mu_biao_wz_X == 2) {
+                return true;
+            }
+            //右
+            if (this.mu_biao_wz_X == 3 && this.fc.position[0] > this.fc.toPoint.x) {
+                return true;
+            }
+            return false;
+        };
+        AiBase.prototype.is_y_over = function () {
+            //左边
+            if (this.mu_biao_wz_Y == 1 && this.fc.position[1] < this.fc.toPoint.y) {
+                return true;
+            }
+            //中
+            if (this.mu_biao_wz_Y == 2) {
+                return true;
+            }
+            //右
+            if (this.mu_biao_wz_Y == 3 && this.fc.position[1] > this.fc.toPoint.y) {
+                return true;
+            }
+            return false;
         };
         return AiBase;
     }());

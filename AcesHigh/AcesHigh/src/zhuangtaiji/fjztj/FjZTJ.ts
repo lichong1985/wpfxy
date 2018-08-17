@@ -63,5 +63,21 @@ module fjztj {
         }
 
 
+        //返回下一个 节点信息
+        public getNextInfo(): zhuangtaiji.ZhuangTaiJiInfoBean {
+            if (this.step_mark < this.zt_list.length) {
+                return this.zt_list[(this.step_mark + 1)];
+            }
+
+            if (this.step_mark >= this.zt_list.length && this.is_loop) {
+                return this.zt_list[0];
+            }
+
+            if (this.step_mark >= this.zt_list.length && !this.is_loop) {
+                return null;
+            }
+        }
+
+
     }
 }

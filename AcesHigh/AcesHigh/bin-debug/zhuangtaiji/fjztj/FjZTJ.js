@@ -59,6 +59,18 @@ var fjztj;
                 this.step_mark = 0;
             }
         };
+        //返回下一个 节点信息
+        FjZTJ.prototype.getNextInfo = function () {
+            if (this.step_mark < this.zt_list.length) {
+                return this.zt_list[(this.step_mark + 1)];
+            }
+            if (this.step_mark >= this.zt_list.length && this.is_loop) {
+                return this.zt_list[0];
+            }
+            if (this.step_mark >= this.zt_list.length && !this.is_loop) {
+                return null;
+            }
+        };
         return FjZTJ;
     }(zhuangtaiji.ZhuangTaiJiBase));
     fjztj.FjZTJ = FjZTJ;

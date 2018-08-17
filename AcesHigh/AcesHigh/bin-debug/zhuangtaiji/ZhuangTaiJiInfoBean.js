@@ -5,7 +5,7 @@ var zhuangtaiji;
 (function (zhuangtaiji) {
     var ZhuangTaiJiInfoBean = (function () {
         //目标坐标  三种状态机类型 以及参数 达成成后休眠时间  
-        function ZhuangTaiJiInfoBean(pos, mT, mZ, gjT, mT_xs, mZ_xs, gjT_xs, sleep_time, mb) {
+        function ZhuangTaiJiInfoBean(pos, mT, mZ, gjT, mT_xs, mZ_xs, gjT_xs, move_time, sleep_time, mb) {
             this.pos = Tools.gridTop2(pos.x, pos.y);
             this.mT = mT;
             this.mZ = mZ;
@@ -13,6 +13,7 @@ var zhuangtaiji;
             this.mT_xs = mT_xs;
             this.mZ_xs = mZ_xs;
             this.gjT_xs = gjT_xs;
+            this.move_time = move_time;
             this.sleep_time = sleep_time;
             this.mb = mb;
         }

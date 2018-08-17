@@ -22,9 +22,12 @@ module zhuangtaiji {
 
         public mb: string;
 
+        //加速度 时间
+        public move_time: number;
+
 
         //目标坐标  三种状态机类型 以及参数 达成成后休眠时间  
-        constructor(pos: egret.Point, mT: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE, gjT: zhuangtaiji.ZT_TYPE, mT_xs: number, mZ_xs: number, gjT_xs: number, sleep_time: number, mb: string) {
+        constructor(pos: egret.Point, mT: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE, gjT: zhuangtaiji.ZT_TYPE, mT_xs: number, mZ_xs: number, gjT_xs: number, move_time: number, sleep_time: number, mb: string) {
             this.pos = Tools.gridTop2(pos.x, pos.y);
             this.mT = mT;
             this.mZ = mZ;
@@ -32,6 +35,8 @@ module zhuangtaiji {
             this.mT_xs = mT_xs;
             this.mZ_xs = mZ_xs;
             this.gjT_xs = gjT_xs;
+
+            this.move_time = move_time;
             this.sleep_time = sleep_time;
             this.mb = mb
 

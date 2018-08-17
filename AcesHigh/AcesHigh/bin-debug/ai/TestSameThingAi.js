@@ -12,7 +12,7 @@ var ai;
 (function (ai) {
     var TestSameThingAi = (function (_super) {
         __extends(TestSameThingAi, _super);
-        function TestSameThingAi(fc, mt, xz, mz, run_time, is_js) {
+        function TestSameThingAi(fc, mt, xz, mz, run_time, time_) {
             var _this = _super.call(this, fc, mt, xz, mz) || this;
             //误差范围
             _this.wu_cha = 0.3;
@@ -33,12 +33,19 @@ var ai;
             _this.li_num = 20;
             _this.jian_num = 0;
             _this.is_guo = false;
-            _this.is_js = is_js;
+            _this.add_num = 2;
+            _this.lase_t = 0;
             _this.start_point = egret.Point.create(_this.fc.position[0], _this.fc.position[1]);
             _this.y_jl = _this.fc.position[1] - _this.fc.toPoint.y;
             _this.fc.damping = 0;
             _this.fc.mass = 1000;
+            // this.fc.velocity = [0, -1];
             _this.mk = egret.getTimer();
+            _this.y20 = _this.y_jl * 0.2;
+            // // s= vt*1.8 + a*1.8*tt/2*1.8
+            //s*1.8=v*t
+            var v = (_this.y_jl - _this.y20) * 1.8 / time_;
+            egret.log("JJJJJJJJJJJJJJJJJJJJJJJJJ:" + _this.y_jl);
             return _this;
         }
         TestSameThingAi.prototype.doUpData = function (time) {
@@ -49,25 +56,32 @@ var ai;
             var x_li = 0;
             var y_li = -this.xs;
             var jl_y = this.start_point.y - this.fc.position[1];
-            egret.log(jl_y + " -- " + this.fc.velocity[1] + " -- " + egret.getTimer() + " -- " + this.fc.damping);
-            this.fc.force = [0, -2];
-            // let sudu_cha: number = 0;
-            // sudu_cha = Math.abs(Math.abs(this.fc.velocity[1]) - this.xs);
-            // if (this.li_num > 0) {
-            //     this.fc.force = [x_li, y_li];
-            //     this.li_num--;
+            if (this.add_num > 0) {
+                this.fc.force = [0, -1];
+                this.add_num--;
+            }
+            var now = egret.getTimer();
+            egret.log(jl_y + " -- " + this.fc.velocity[1] + " -- " + egret.getTimer() + " -- " + this.fc.damping + " -- " + this.fc.mass + " ** " + (now - this.lase_t));
+            this.lase_t = now;
+            // this.fc.velocity = [0, -2];
+            // 1.6739997863769531 -- - 1.7999992370605469 -- 4421 -- 0 -- 1000 
+            //6.587993621826172 -- - 3.5999975204467773 -- 5421 -- 0 -- 1000
+            //14.741992950439453 -- - 5.399995803833008 -- 6421 -- 0 -- 1000 
+            // s= （vt*1.8 + a*1.8*tt/2）*1.8 
+            // 8.16  13.07 
+            //  let pi = 0;
+            // if (this.fc.velocity[0] > 0) {
+            //     pi = -1;
             // }
-            // if (jl_y > this.y_jl && !this.is_guo) {
-            //     this.is_guo = true;
-            //     this.jian_num = Math.abs(Math.round(this.fc.velocity[1] / (0.06)));
+            // if (this.fc.velocity[0] < 0) {
+            //     pi = 1;
             // }
-            // if (jl_y > this.y_jl) {
-            //     if (this.jian_num > 0) {
-            //         this.fc.force = [x_li, 1];
-            //         this.jian_num--;
-            //     }
+            // if (Math.abs(this.fc.velocity[0]) > this.jian_su_li_pi) {
+            //     this.force_x = this.jian_su_li * pi;
+            //     return;
             // }
-            // let jj_y = Math.abs(this.fc.position[1] - this.fc.toPoint.y);
+            // 
+            // this.force_x = Math.abs(this.fc.velocity[0]) / this.jian_su_li_pi * pi;
         };
         return TestSameThingAi;
     }(ai.AiBase));

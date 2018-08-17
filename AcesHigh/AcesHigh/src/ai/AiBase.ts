@@ -20,6 +20,8 @@ module ai {
 
 
     }
+
+
     export class AiBase {
         //场景管理器
         public sceneConsole: scene.SceneBase;
@@ -43,6 +45,20 @@ module ai {
         //系数
         public xs: number;
 
+
+        //目标相对飞机 所在位置  1左边  2中 3右边 
+        public mu_biao_wz_X: number;
+        //目标相对飞机 所在位置  1上边  2中 3下边 
+        public mu_biao_wz_Y: number;
+
+        //误差
+        public wu_cha: number = 0.2;
+
+        //初始位置
+        public start_pos: egret.Point;
+
+
+
         //时间标记
         public time_mark: number;
         constructor(fc: feichuan.FeiChuanBase, mT: zhuangtaiji.ZT_TYPE, gj: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE) {
@@ -54,9 +70,30 @@ module ai {
             this.mZ_over = mZ;
             this.time_mark = egret.getTimer();
 
+            this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
+            this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
         }
 
         public init() {
+        }
+
+
+        //目标 相对 你的位置
+        public js_wz(you: number, to: number): number {
+            if (to > you) {
+                if ((to - you) < 0.1) {
+                    return 2;
+                }
+                return 3;
+            }
+
+            if (you > to) {
+                if ((you - to) < 0.1) {
+                    return 2;
+                }
+                return 1;
+            }
+            return 2;
         }
 
         public updata_ai(now: number) {
@@ -83,6 +120,52 @@ module ai {
             }
 
         }
+
+
+        //---------------判断是否到达目的地----------------
+        public is_x_over(): boolean {
+            //左边
+            // if (this.mu_biao_wz_X == 1 && Math.abs(this.fc.position[0] - this.fc.toPoint.x) < this.wu_cha) {
+            if (this.mu_biao_wz_X == 1 && this.fc.position[0] < this.fc.toPoint.x) {
+                return true;
+            }
+            //中
+            if (this.mu_biao_wz_X == 2) {
+                return true;
+            }
+
+            //右
+            if (this.mu_biao_wz_X == 3 && this.fc.position[0] > this.fc.toPoint.x) {
+                return true;
+            }
+
+
+            return false;
+        }
+
+        public is_y_over() {
+
+            //左边
+            if (this.mu_biao_wz_Y == 1 && this.fc.position[1] < this.fc.toPoint.y) {
+                return true;
+            }
+            //中
+            if (this.mu_biao_wz_Y == 2) {
+                return true;
+            }
+
+            //右
+            if (this.mu_biao_wz_Y == 3 && this.fc.position[1] > this.fc.toPoint.y) {
+                return true;
+            }
+
+
+            return false;
+
+        }
+
+
+        //----------------------------------------------
 
 
     }
