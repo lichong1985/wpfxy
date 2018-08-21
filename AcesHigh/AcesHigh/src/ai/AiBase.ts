@@ -145,7 +145,7 @@ module ai {
 
         public is_y_over() {
 
-            //左边
+            //下边
             if (this.mu_biao_wz_Y == 1 && this.fc.position[1] < this.fc.toPoint.y) {
                 return true;
             }
@@ -154,7 +154,7 @@ module ai {
                 return true;
             }
 
-            //右
+            //上
             if (this.mu_biao_wz_Y == 3 && this.fc.position[1] > this.fc.toPoint.y) {
                 return true;
             }

@@ -18,7 +18,11 @@ var zhuangtaiji;
         ZT_TYPE[ZT_TYPE["PU_TONG_GONG_JI"] = 10] = "PU_TONG_GONG_JI";
         ZT_TYPE[ZT_TYPE["PU_TONG_GONG_JI_OVER"] = 11] = "PU_TONG_GONG_JI_OVER";
         ZT_TYPE[ZT_TYPE["NULL_T"] = 12] = "NULL_T";
-        ZT_TYPE[ZT_TYPE["NO_THING"] = 13] = "NO_THING";
+        ZT_TYPE[ZT_TYPE["YUAN_TI_DENG_DAI_ING"] = 13] = "YUAN_TI_DENG_DAI_ING";
+        ZT_TYPE[ZT_TYPE["YUAN_TI_DENG_DAI_OVER"] = 14] = "YUAN_TI_DENG_DAI_OVER";
+        ZT_TYPE[ZT_TYPE["PU_TONG_WU_QI_ING"] = 15] = "PU_TONG_WU_QI_ING";
+        ZT_TYPE[ZT_TYPE["PU_TONG_WU_QI_OVER"] = 16] = "PU_TONG_WU_QI_OVER";
+        ZT_TYPE[ZT_TYPE["NO_THING"] = 17] = "NO_THING";
     })(ZT_TYPE = zhuangtaiji.ZT_TYPE || (zhuangtaiji.ZT_TYPE = {}));
     var ZhuangTaiJiBase = (function () {
         function ZhuangTaiJiBase() {

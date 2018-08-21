@@ -23,6 +23,10 @@ module feichuan {
          * 武器列表
          */
         public wuqiList: Array<wuqi.WuQiBase>;
+        public pt_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public jg_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public gz_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public js_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
 
         /**
          * 飞船宽
@@ -178,26 +182,28 @@ module feichuan {
                     if (bitName == "op_wq_1") {
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.pt_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
                     //激光
                     if (bitName == "op_wq_2") {
-                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.jg_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
                     //敌军跟踪武器
                     if (bitName == "op_wq_3") {
                         hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.gz_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
                     //敌军减速武器
                     if (bitName == "op_wq_4") {
                         hx = new djwq.JianSuWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.js_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
 

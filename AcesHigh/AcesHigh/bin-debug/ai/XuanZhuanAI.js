@@ -19,10 +19,8 @@ var ai;
             return _super.call(this, fc, mt, xz, mz) || this;
         }
         XuanZhuanAI.prototype.doUpData = function (time) {
-            if (!this.hang_up) {
-                _super.prototype.doUpData.call(this, time);
-                this.fc.angularVelocity = this.xs;
-            }
+            _super.prototype.doUpData.call(this, time);
+            this.fc.angularVelocity = this.xs;
         };
         return XuanZhuanAI;
     }(ai.AiBase));

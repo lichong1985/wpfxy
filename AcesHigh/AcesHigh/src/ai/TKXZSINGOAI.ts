@@ -38,7 +38,6 @@ module ai {
 
         constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE, run_time: number, time_: number) {
             super(fc, mt, xz, mz);
-            egret.log("CCCCCCCCCCCCCCCCCCC:" + this.mu_biao_wz_X + " -- " + this.mu_biao_wz_Y);
             this.start_pos = egret.Point.create(this.fc.position[0], this.fc.position[1]);
             this.time_ = time_;
 
@@ -94,7 +93,7 @@ module ai {
         //----------------------------减速---------------------------------------
         public x_jian_su() {
             //vt =v0 + at*1.8  2=0.5秒
-            let f = -this.fc.velocity[0] / 1.8 / 0.5
+            let f = -this.fc.velocity[0] / 1.8 / (1 / this.xs)
             if (f > 0 && this.force_x < f) {
                 this.force_x = f;
             }
@@ -106,7 +105,7 @@ module ai {
         }
 
         public y_jian_su() {
-            let f = -this.fc.velocity[1] / 1.8 / 0.5
+            let f = -this.fc.velocity[1] / 1.8 / (1 / this.xs)
             if (f > 0 && this.force_y < f) {
                 this.force_y = f;
             }
@@ -187,6 +186,14 @@ module ai {
         public doUpData(time: number) {
             super.doUpData(time);
             this.upType();
+
+
+            //判断是否到达目的地 并修改状态
+            if (this.x_da_cheng && this.y_da_cheng) {
+                this.upOver();
+                return;
+            }
+
             if (this.x_type == 1) {
                 this.x_jian_su();
             }
@@ -215,12 +222,7 @@ module ai {
             //施加力
             this.fc.force = [this.force_x, this.force_y];
 
-            //判断是否到达目的地 并修改状态
-            if (this.x_da_cheng && this.y_da_cheng) {
-                // egret.log("TTTTTTTTTTTTTTTTTTTTTTT:" + this.mu_biao_wz_X + " -- " + this.mu_biao_wz_Y);
-                this.upOver();
-                return;
-            }
+
         }
 
 

@@ -56,6 +56,19 @@ module fjztj {
 
             }
 
+            //-----------------------------------原地等待----------------------------------------
+            if (this.mT == zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING) {
+                if (this.fc.moveAI == null) {
+                    this.fc.moveAI = new ai.YuanDiAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_xs);
+                }
+            }
+            if (this.mT == zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_OVER) {
+                this.fc.moveAI = null;
+                this.nextStep(this.info.sleep_time);
+            }
+
+            //--------------------------------------------------------------------------------
+
             //------------------------------保持瞄准sk--------------------------
             if (this.mzT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK) {
                 if (this.fc.mzAI == null) {
@@ -84,9 +97,23 @@ module fjztj {
 
             //----------------------------旋转-----------------------------------
             if (this.mzT == zhuangtaiji.ZT_TYPE.XUAN_ZHUAN) {
-                if (this.mzT == null) {
-                    this.fc.mzAI = new ai.XuanZhuanAI(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.DAO_HANG_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
+                if (this.fc.mzAI == null) {
+                    this.fc.mzAI = new ai.XuanZhuanAI(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
                     this.fc.mzAI.xs = this.info.mZ_xs;
+                }
+            }
+
+
+            //-------------------普通武器射击---------------------------------
+            if (this.gjT == zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING) {
+                if (this.fc.gjAI == null) {
+                    this.fc.gjAI = new ai.PuTongWuqiAi(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_OVER, zhuangtaiji.ZT_TYPE.NO_THING, this.info.gjT_xs);
+                }
+            }
+
+            if (this.gjT == zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_OVER) {
+                if (this.fc.gjAI != null) {
+                    this.fc.gjAI = null;
                 }
             }
 

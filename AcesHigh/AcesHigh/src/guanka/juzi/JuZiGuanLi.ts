@@ -23,6 +23,10 @@ module juzi {
 
         //句子里当前的飞机数量
         public fc_num_now: number;
+        public scene: scene.SceneBase;
+
+        //当前句子 是否通过
+        public is_next: boolean = false;
         public constructor(nan_du: number) {
             this.nan_du = nan_du;
         }

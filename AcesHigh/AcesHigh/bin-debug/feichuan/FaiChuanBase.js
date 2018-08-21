@@ -27,6 +27,10 @@ var feichuan;
             var _this = 
             // super()
             _super.call(this, { mass: 1 }) || this;
+            _this.pt_wuqiList = new Array();
+            _this.jg_wuqiList = new Array();
+            _this.gz_wuqiList = new Array();
+            _this.js_wuqiList = new Array();
             //当前模块数量
             _this.mokuai_size = 0;
             //核心列表
@@ -90,23 +94,25 @@ var feichuan;
                     if (bitName == "op_wq_1") {
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
+                        this.pt_wuqiList.push(hx);
                     }
                     //激光
                     if (bitName == "op_wq_2") {
-                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        // hx = new djwq.ZhiSheWuQi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
+                        this.jg_wuqiList.push(hx);
                     }
                     //敌军跟踪武器
                     if (bitName == "op_wq_3") {
                         hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
+                        this.gz_wuqiList.push(hx);
                     }
                     //敌军减速武器
                     if (bitName == "op_wq_4") {
                         hx = new djwq.JianSuWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         this.wuqiList.push(hx);
+                        this.js_wuqiList.push(hx);
                     }
                     //掉落随机
                     this.suiji_dl(hx);

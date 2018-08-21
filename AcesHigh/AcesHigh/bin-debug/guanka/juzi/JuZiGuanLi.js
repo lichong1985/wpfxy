@@ -24,6 +24,8 @@ var juzi;
             this.MAX_NUMBER = 30 * 50;
             this.fc_list = new Array();
             this.fc_info_list = new Array();
+            //当前句子 是否通过
+            this.is_next = false;
             this.nan_du = nan_du;
         }
         //初始化飞机 数量

@@ -13,11 +13,10 @@ module ai {
         }
 
         public doUpData(time: number) {
-            if (!this.hang_up) {
-                super.doUpData(time)
-                this.fc.angularVelocity = this.xs;
 
-            }
+            super.doUpData(time)
+            this.fc.angularVelocity = this.xs;
+
         }
     }
 }

@@ -13,6 +13,11 @@ module zhuangtaiji {
         PU_TONG_GONG_JI,    //普通攻击状态
         PU_TONG_GONG_JI_OVER,//普通攻击结束
         NULL_T,//空状态
+        YUAN_TI_DENG_DAI_ING,//原地等待
+        YUAN_TI_DENG_DAI_OVER,//原地等待结束
+
+        PU_TONG_WU_QI_ING,//所有普通武器射击
+        PU_TONG_WU_QI_OVER,//所有普通武器射击结束
         NO_THING,// 不做任何改变
 
     }

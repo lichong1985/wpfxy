@@ -98,7 +98,7 @@ var ai;
             return false;
         };
         AiBase.prototype.is_y_over = function () {
-            //左边
+            //下边
             if (this.mu_biao_wz_Y == 1 && this.fc.position[1] < this.fc.toPoint.y) {
                 return true;
             }
@@ -106,7 +106,7 @@ var ai;
             if (this.mu_biao_wz_Y == 2) {
                 return true;
             }
-            //右
+            //上
             if (this.mu_biao_wz_Y == 3 && this.fc.position[1] > this.fc.toPoint.y) {
                 return true;
             }

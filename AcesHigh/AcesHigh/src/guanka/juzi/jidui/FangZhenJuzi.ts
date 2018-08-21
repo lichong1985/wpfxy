@@ -39,7 +39,7 @@ module juzi {
 
                     //2 创建状态机
                     let ztj_info: zhuangtaiji.ZhuangTaiJiInfoBean = new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)),
-                        zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 0, 0, 2,-1, "");
+                        zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 0, null, 2, -1, "");
                     let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(fc);
                     ztj.is_loop = false;
                     ztj.addInfo(ztj_info);

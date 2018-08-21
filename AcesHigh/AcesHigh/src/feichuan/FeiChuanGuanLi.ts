@@ -56,6 +56,8 @@ module FC_Console {
     }
 
     export function addFcInfo(info: feichuan.FeiChuanInfo) {
+
+       
         if (info.ti_ji == 5) {
             boss_list.push(info);
         }

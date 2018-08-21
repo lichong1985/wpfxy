@@ -41,7 +41,11 @@ module guanqia {
         //随机相关
         public upSomeThing() {
             // egret.log("IS_NNNNNNN:" + this.scene.dijis.length);
-            if (this.scene.dijis.length <= 0) {
+            // if (this.scene.dijis.length <= 0) {
+            //     this.is_next = true;
+            // }
+
+            if (this.bc_now.jz.is_next) {
                 this.is_next = true;
             }
         }

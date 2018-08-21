@@ -25,8 +25,11 @@ var boci;
         }
         //初始化句子
         BoCi.prototype.initJuzi = function () {
-            this.jz = new juzi.SiXiongDiJuzi(1, this.scene);
+            this.jz = new juzi.SanXiongDiManDongJZ(1, this.scene);
+            // this.jz = new juzi.ShuangJiJiaoChaXuanZHuan(1, this.scene);
             this.jz.initFcInfo();
+        };
+        BoCi.prototype.randonGuzi = function () {
         };
         return BoCi;
     }());
