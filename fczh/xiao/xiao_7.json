@@ -1,0 +1,91 @@
+{
+    "layers": [
+        {
+            "data": [
+                6,
+                0,
+                0,
+                6,
+                6,
+                6,
+                6,
+                6,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                6,
+                6,
+                6,
+                1,
+                6,
+                6,
+                6,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                6,
+                0,
+                0,
+                0,
+                6,
+                0,
+                0,
+                6,
+                6,
+                6,
+                6,
+                6,
+                0,
+                0,
+                6
+            ],
+            "height": 7,
+            "width": 7
+        }
+    ],
+    "tiles": [
+        {
+            "image": "op_hx_hx.png"
+        },
+        {
+            "image": "op_wq_1.png"
+        },
+        {
+            "image": "op_wq_2.png"
+        },
+        {
+            "image": "op_wq_3.png"
+        },
+        {
+            "image": "op_wq_4.png"
+        },
+        {
+            "image": "op_zj_pt_level_1.png"
+        },
+        {
+            "image": "op_zj_pt_level_2.png"
+        },
+        {
+            "image": "op_zj_pt_level_3.png"
+        },
+        {
+            "image": "op_zj_pt_level_4.png"
+        },
+        {
+            "image": "op_zj_pt_level_5.png"
+        }
+    ]
+}

@@ -12,8 +12,8 @@ var ai;
 (function (ai) {
     var DaoHuangAi = (function (_super) {
         __extends(DaoHuangAi, _super);
-        function DaoHuangAi(fc, mt, xz, mz) {
-            var _this = _super.call(this, fc, mt, xz, mz) || this;
+        function DaoHuangAi(fc, mt, mz, gj) {
+            var _this = _super.call(this, fc, mt, mz, gj) || this;
             //角速度
             _this.xs = 2;
             _this.is_chick = false; //是否完成
@@ -71,9 +71,7 @@ var ai;
             js = this.xs * pi;
             if (jc < 0.05) {
                 this.fc.angularVelocity = 0;
-                if (!this.is_chick) {
-                    // this.upOver();
-                }
+                this.upOver();
                 return;
             }
             this.fc.angularVelocity = this.xs_hu * js;

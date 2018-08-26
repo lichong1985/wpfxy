@@ -12,50 +12,63 @@ var ai;
 (function (ai) {
     var PuTongWuqiAi = (function (_super) {
         __extends(PuTongWuqiAi, _super);
+        //射几次数标记
         function PuTongWuqiAi(fc, mt, xz, mz, wuqiInfo) {
             var _this = _super.call(this, fc, mt, xz, mz) || this;
-            //大间隔标记
-            _this.da_ge_mark = 0;
-            //小间隔标记
-            _this.xiao_ge_mark = 0;
-            //射几次数标记
-            _this.da_num_mark = 0;
-            _this.xiao_num_mark = 0;
-            _this.is_xiao = false;
             _this.wuqiInfo = wuqiInfo;
             return _this;
-            // this.da_ge_mark = egret.getTimer();
-            // this.xiao_ge_mark = egret.getTimer();
         }
         PuTongWuqiAi.prototype.doUpData = function (time) {
             _super.prototype.doUpData.call(this, time);
-            if ((time - this.da_ge_mark) > this.wuqiInfo.da_jian_ge && this.da_num_mark < this.wuqiInfo.da_num) {
-                //目标达成结束
-                if (this.da_num_mark <= this.wuqiInfo.da_num) {
-                    this.is_xiao = true;
+            // let size = this.wuqiInfo.length;
+            for (var _i = 0, _a = this.wuqiInfo; _i < _a.length; _i++) {
+                var info = _a[_i];
+                if ((time - info.da_ge_mark) > info.da_jian_ge && info.da_num_mark < info.da_num) {
+                    //目标达成结束
+                    if (info.da_num_mark <= info.da_num) {
+                        info.is_xiao = true;
+                    }
+                    info.da_ge_mark = time;
+                    info.da_num_mark++;
                 }
-                this.da_ge_mark = time;
-                this.da_num_mark++;
+                this.sheji(time, info);
             }
-            this.sheji(time);
         };
         //射击
-        PuTongWuqiAi.prototype.sheji = function (time) {
-            if (this.xiao_num_mark >= this.wuqiInfo.xiao_num) {
-                this.is_xiao = false;
-                this.xiao_num_mark = 0;
+        PuTongWuqiAi.prototype.sheji = function (time, info) {
+            if (info.xiao_num_mark >= info.xiao_num) {
+                info.is_xiao = false;
+                info.xiao_num_mark = 0;
             }
-            // egret.log((time - this.xiao_ge_mark) + " -- " + this.xiao_num_mark + " -- " + this.is_xiao + " -- " + this.wuqiInfo.xiao_jian_ge + " -- " + this.da_num_mark)
-            if ((time - this.xiao_ge_mark) > this.wuqiInfo.xiao_jian_ge && this.xiao_num_mark < this.wuqiInfo.xiao_num && this.is_xiao) {
+            var wuqiList;
+            if (info.wq_type == 1) {
+                wuqiList = this.fc.pt1_wuqiList;
+            }
+            if (info.wq_type == 16) {
+                wuqiList = this.fc.pth_wuqiList;
+            }
+            if (info.wq_type == 2) {
+                wuqiList = this.fc.jg1_wuqiList;
+            }
+            if (info.wq_type == 3) {
+                wuqiList = this.fc.gz1_wuqiList;
+            }
+            if (info.wq_type == 4) {
+                wuqiList = this.fc.js1_wuqiList;
+            }
+            if (info.wq_type == 5) {
+                wuqiList = this.fc.sd1_wuqiList;
+            }
+            if ((time - info.xiao_ge_mark) > info.xiao_jian_ge && info.xiao_num_mark < info.xiao_num && info.is_xiao) {
                 //射击
-                for (var _i = 0, _a = this.fc.pt_wuqiList; _i < _a.length; _i++) {
-                    var w = _a[_i];
+                for (var _i = 0, wuqiList_1 = wuqiList; _i < wuqiList_1.length; _i++) {
+                    var w = wuqiList_1[_i];
                     //发射
-                    w.sudu = this.wuqiInfo.she_su;
+                    w.sudu = info.she_su;
                     w.fashe(null, null, time);
                 }
-                this.xiao_num_mark++;
-                this.xiao_ge_mark = time;
+                info.xiao_num_mark++;
+                info.xiao_ge_mark = time;
             }
         };
         return PuTongWuqiAi;

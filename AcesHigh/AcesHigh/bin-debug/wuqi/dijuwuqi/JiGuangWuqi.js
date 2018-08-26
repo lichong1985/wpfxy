@@ -28,6 +28,8 @@ var djwq;
             _this.zt = JG_TYPE.WU;
             return _this;
         }
+        JiGuangWuqi.prototype.updata = function () {
+        };
         //射击
         JiGuangWuqi.prototype.fashe = function (angel, suke, now) {
             if (this.zt == JG_TYPE.TIAO_ZHENG) {

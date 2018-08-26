@@ -16,6 +16,11 @@ module djwq {
             this.zt = JG_TYPE.WU;
         }
 
+        public updata() {
+
+        }
+
+
         //射击
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
             if (this.zt == JG_TYPE.TIAO_ZHENG) {
@@ -44,6 +49,7 @@ module djwq {
                 shp.graphics.moveTo(this.x, this.y);
                 shp.graphics.lineTo(this.x, (this.y + 1000));
                 shp.graphics.endFill();
+
                 this.fc.battle_scene.addChild(shp);
                 let ff = this.fc
                 shp.alpha = 0.7;

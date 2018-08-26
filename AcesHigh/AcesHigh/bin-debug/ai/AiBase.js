@@ -24,7 +24,7 @@ var ai;
         ZHUAN_XIANG[ZHUAN_XIANG["Anti_clockwise"] = 1] = "Anti_clockwise";
     })(ZHUAN_XIANG = ai.ZHUAN_XIANG || (ai.ZHUAN_XIANG = {}));
     var AiBase = (function () {
-        function AiBase(fc, mT, gj, mZ) {
+        function AiBase(fc, mT, mZ, gj) {
             //是否停止ai
             this.hang_up = false;
             //单次状态 持续时间
@@ -40,19 +40,24 @@ var ai;
             this.time_mark = egret.getTimer();
             this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
             this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
+            // egret.log("GGGGGGG:"+this.mu_biao_wz_X+" -- "+this.mu_biao_wz_Y)
         }
         AiBase.prototype.init = function () {
         };
         //目标 相对 你的位置
         AiBase.prototype.js_wz = function (you, to) {
             if (to > you) {
-                if ((to - you) < 0.1) {
+                // egret.log("(to - you):" + (to - you) + " | " + to + " -- " + you);
+                if ((to - you) < 0.25) {
+                    // egret.log("222222")
                     return 2;
                 }
                 return 3;
             }
             if (you > to) {
-                if ((you - to) < 0.1) {
+                // egret.log("(you - to):" + (you - to) + " | " + you + " -- " + to);
+                if ((you - to) < 0.25) {
+                    // egret.log("222222")
                     return 2;
                 }
                 return 1;

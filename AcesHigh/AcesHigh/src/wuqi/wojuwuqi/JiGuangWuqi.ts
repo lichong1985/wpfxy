@@ -40,6 +40,8 @@ module wjwq {
                 shp.graphics.lineTo(p.x, p.y);
                 shp.graphics.endFill();
                 shp.alpha = 0.5;
+
+                
                 this.fc.battle_scene.addChild(shp);
                 let ff = this.fc
 

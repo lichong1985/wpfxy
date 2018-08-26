@@ -29,15 +29,15 @@ module juzi {
 
             //移动加普通武器射击
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
 
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 15),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
 
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(2, 15),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
 
             ztj.nextStep(0);
             this.fc1.ztj = ztj;
@@ -54,14 +54,14 @@ module juzi {
                 zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 10, 15, null, 2, -1, "-2:52"));
             //移动加普通武器射击
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(2, 15),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 25),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
 
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(8, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10), 2, -1, "13:15"));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 15, [new zhuangtaiji.WuQiAiInfo(5, 2000, 3, 100, 10, 1)], 2, -1, "13:15"));
 
             ztj.nextStep(0);
             this.fc2.ztj = ztj;

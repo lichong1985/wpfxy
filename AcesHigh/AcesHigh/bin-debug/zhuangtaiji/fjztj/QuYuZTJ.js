@@ -75,17 +75,24 @@ var fjztj;
             if (this.mzT == zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK_OVER) {
                 //瞄准结束
             }
+            //------------------------------运动导航--------------------------
+            if (this.mzT == zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING) {
+                if (this.fc.mzAI == null) {
+                    this.fc.mzAI = new ai.DaoHuangAi(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.mzAI.xs = this.info.mZ_xs;
+                }
+            }
             //------------------------------导航--------------------------------
             if (this.mzT == zhuangtaiji.ZT_TYPE.DAO_HANG) {
-                if (this.mzT == null) {
+                if (this.fc.mzAI == null) {
                     this.fc.mzAI = new ai.DaoHuangAi(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.DAO_HANG_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
                     this.fc.mzAI.xs = this.info.mZ_xs;
                 }
             }
             if (this.mzT == zhuangtaiji.ZT_TYPE.DAO_HANG_OVER) {
-                if (this.mT == zhuangtaiji.ZT_TYPE.NULL_T) {
-                    this.nextStep(this.info.sleep_time);
-                }
+                this.fc.mzAI = null;
+                this.nextStep(this.info.sleep_time);
+                egret.log("DDDDDDDDDDDDDDDDDDDDDDDDD");
             }
             //----------------------------旋转-----------------------------------
             if (this.mzT == zhuangtaiji.ZT_TYPE.XUAN_ZHUAN) {
@@ -100,10 +107,9 @@ var fjztj;
                     this.fc.gjAI = new ai.PuTongWuqiAi(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_OVER, zhuangtaiji.ZT_TYPE.NO_THING, this.info.gjT_xs);
                 }
             }
-            if (this.gjT == zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_OVER) {
-                if (this.fc.gjAI != null) {
-                    this.fc.gjAI = null;
-                }
+            //停止射击
+            if (this.gjT == zhuangtaiji.ZT_TYPE.STOP_SHOOT_NOW) {
+                this.fc.gjAI = null;
             }
         };
         return QuYuZTJ;

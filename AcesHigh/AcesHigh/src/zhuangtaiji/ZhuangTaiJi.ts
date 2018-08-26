@@ -8,6 +8,7 @@ module zhuangtaiji {
         XUAN_ZHUAN_OVER,//旋转结束
         MIAO_ZHUN_SK,//瞄准舒克
         MIAO_ZHUN_SK_OVER,//瞄准结束
+        YUN_DONG_DAO_HANG_ING,//运动导航
         DAO_HANG,//导航
         DAO_HANG_OVER,//导航结束 
         PU_TONG_GONG_JI,    //普通攻击状态
@@ -18,6 +19,8 @@ module zhuangtaiji {
 
         PU_TONG_WU_QI_ING,//所有普通武器射击
         PU_TONG_WU_QI_OVER,//所有普通武器射击结束
+
+        STOP_SHOOT_NOW,//停止射击
         NO_THING,// 不做任何改变
 
     }

@@ -21,6 +21,8 @@ var fjztj;
             _this.zt_list = new Array();
             //是否循环
             _this.is_loop = true;
+            //已经循环过
+            _this.looped = false;
             return _this;
         }
         //进步器
@@ -36,7 +38,7 @@ var fjztj;
             //清空
             this.fc.moveAI = null;
             this.fc.mzAI = null;
-            this.fc.gjAI = null;
+            // this.fc.gjAI = null;
             //0 检查
             if (this.step_mark >= this.zt_list.length) {
                 this.mT = zhuangtaiji.ZT_TYPE.NULL_T;
@@ -47,7 +49,12 @@ var fjztj;
             }
             //1 设置 
             this.info = this.zt_list[this.step_mark];
-            egret.log(">>>>>>>>>>>>>>:" + this.info.mb);
+            //过滤不参与循环的设置
+            while (!this.info.is_loop && this.looped) {
+                this.step_mark++;
+                this.info = this.zt_list[this.step_mark];
+            }
+            egret.log(">>>>>>>>>>>>>>:" + this.info.mb + " -- " + this.info.is_loop);
             this.mT = this.info.mT;
             this.mzT = this.info.mZ;
             this.gjT = this.info.gjT;
@@ -57,6 +64,7 @@ var fjztj;
             this.step_mark++;
             if (this.step_mark >= this.zt_list.length && this.is_loop) {
                 this.step_mark = 0;
+                this.looped = true;
             }
         };
         //返回下一个 节点信息

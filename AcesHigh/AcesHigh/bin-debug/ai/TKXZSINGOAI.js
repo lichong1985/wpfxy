@@ -171,6 +171,7 @@ var ai;
                 this.jia_su_y();
             }
             // egret.log("???????????:" + this.x_type + " -- " + this.y_type + " | " + this.force_x + " -- " + this.force_y + " | " + this.mu_biao_wz_X + " -- " + this.mu_biao_wz_Y);
+            // egret.log("??????????:" + this.mu_biao_wz_X)
             //施加力
             this.fc.force = [this.force_x, this.force_y];
         };

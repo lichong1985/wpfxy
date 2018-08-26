@@ -23,10 +23,13 @@ module feichuan {
          * 武器列表
          */
         public wuqiList: Array<wuqi.WuQiBase>;
-        public pt_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
-        public jg_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
-        public gz_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
-        public js_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public pt1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public pt2_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public pth_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public jg1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public gz1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public js1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public sd1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
 
         /**
          * 飞船宽
@@ -178,34 +181,61 @@ module feichuan {
                     }
 
 
-                    //敌军直射武器
+                    //----------------------------------敌军直射武器-------------------------------------------
                     if (bitName == "op_wq_1") {
-                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
-                        this.pt_wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.pt1_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+                    if (bitName == "op_wq_1_1") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.pt1_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+                    //普通后射
+                    if (bitName == "op_wq_1_h") {
+                        hx = new djwq.HouSheWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.pth_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
-                    //激光
+                    //-------------------------------------激光------------------------------------------------
                     if (bitName == "op_wq_2") {
-                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
-                        this.jg_wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.jg1_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+                    if (bitName == "op_wq_2_1") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.jg1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
-                    //敌军跟踪武器
+                    //---------------------------------------敌军跟踪武器-----------------------------------------------
                     if (bitName == "op_wq_3") {
-                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
-                        this.gz_wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.gz1_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+                    if (bitName == "op_wq_3_1") {
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.gz1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
-                    //敌军减速武器
-                    if (bitName == "op_wq_4") {
-                        hx = new djwq.JianSuWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                    //----------------------------------------敌军减速武器-----------------------------------------------
+                    if (bitName == "op_wq_4_1") {
+                        hx = new djwq.JianSuWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_4", this);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
-                        this.js_wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.js1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
+                    //--------------------------------敌军散弹 ------------------------------------------------
+                    if (bitName == "op_wq_5_1") {
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.sd1_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
 
                     //掉落随机
                     this.suiji_dl(hx);

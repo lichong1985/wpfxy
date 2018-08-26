@@ -61,7 +61,7 @@ module ai {
 
         //时间标记
         public time_mark: number;
-        constructor(fc: feichuan.FeiChuanBase, mT: zhuangtaiji.ZT_TYPE, gj: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE) {
+        constructor(fc: feichuan.FeiChuanBase, mT: zhuangtaiji.ZT_TYPE, mZ: zhuangtaiji.ZT_TYPE, gj: zhuangtaiji.ZT_TYPE) {
             this.fc = fc;
             this.sceneConsole = fc.battle_scene;
             this.suke = this.sceneConsole.sk;
@@ -72,6 +72,8 @@ module ai {
 
             this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
             this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
+
+            // egret.log("GGGGGGG:"+this.mu_biao_wz_X+" -- "+this.mu_biao_wz_Y)
         }
 
         public init() {
@@ -81,14 +83,18 @@ module ai {
         //目标 相对 你的位置
         public js_wz(you: number, to: number): number {
             if (to > you) {
-                if ((to - you) < 0.1) {
+                // egret.log("(to - you):" + (to - you) + " | " + to + " -- " + you);
+                if ((to - you) < 0.25) {
+                    // egret.log("222222")
                     return 2;
                 }
                 return 3;
             }
 
             if (you > to) {
-                if ((you - to) < 0.1) {
+                // egret.log("(you - to):" + (you - to) + " | " + you + " -- " + to);
+                if ((you - to) < 0.25) {
+                    // egret.log("222222")
                     return 2;
                 }
                 return 1;

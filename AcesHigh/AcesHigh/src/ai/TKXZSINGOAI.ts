@@ -41,6 +41,7 @@ module ai {
             this.start_pos = egret.Point.create(this.fc.position[0], this.fc.position[1]);
             this.time_ = time_;
 
+
             //初始化 减速参数
             this.zong_ju_li_x = Math.abs(this.fc.position[0] - this.fc.toPoint.x);
             this.zong_ju_li_y = Math.abs(this.fc.position[1] - this.fc.toPoint.y);
@@ -218,7 +219,7 @@ module ai {
 
             // egret.log("???????????:" + this.x_type + " -- " + this.y_type + " | " + this.force_x + " -- " + this.force_y + " | " + this.mu_biao_wz_X + " -- " + this.mu_biao_wz_Y);
 
-
+            // egret.log("??????????:" + this.mu_biao_wz_X)
             //施加力
             this.fc.force = [this.force_x, this.force_y];
 

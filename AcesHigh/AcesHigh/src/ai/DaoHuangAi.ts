@@ -9,8 +9,8 @@ module ai {
         public angle: number = 0;
         public xs_hu: number = 1;
         public jian_tou: number = -Math.PI * 0.5;
-        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE) {
-            super(fc, mt, xz, mz);
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE, gj: zhuangtaiji.ZT_TYPE) {
+            super(fc, mt, mz, gj);
         }
         public doUpData(time: number) {
             super.doUpData(time);
@@ -65,9 +65,7 @@ module ai {
 
             if (jc < 0.05) {
                 this.fc.angularVelocity = 0;
-                if (!this.is_chick) {
-                    // this.upOver();
-                }
+                this.upOver();
                 return;
             }
 
