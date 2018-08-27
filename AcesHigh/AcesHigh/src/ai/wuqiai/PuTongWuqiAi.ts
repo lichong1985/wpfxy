@@ -74,6 +74,7 @@ module ai {
                 //射击
                 for (let w of wuqiList) {
                     //发射
+                    // let w = wuqiList[0];
                     w.sudu = info.she_su;
                     w.fashe(null, null, time);
                 }

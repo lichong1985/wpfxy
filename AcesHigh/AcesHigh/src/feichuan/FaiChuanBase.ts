@@ -183,7 +183,9 @@ module feichuan {
 
                     //----------------------------------敌军直射武器-------------------------------------------
                     if (bitName == "op_wq_1") {
-                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                         this.pt1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
@@ -453,7 +455,7 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 3);
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 3);
                 let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)

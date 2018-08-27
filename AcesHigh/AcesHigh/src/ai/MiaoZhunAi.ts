@@ -28,17 +28,31 @@ module ai {
 
 
             let fcAng = this.fc.angle + this.jian_tou;
+
+
+
             //规范化角度数值
             fcAng = fcAng % (Math.PI * 2);
             if (fcAng < 0) {
                 fcAng = Math.PI * 2 + fcAng;
             }
 
+
+
             let js = this.xs;
 
             //角度差距
             let jc = Math.abs(fcAng - this.angle);
-            jc = jc % (Math.PI * 2);
+            let m = 0;
+            // if (fcAng > (Math.PI + Math.PI * 0.5) && this.angle < Math.PI * 0.5) {
+            //     m = Math.PI * 2 - fcAng + this.angle
+            // }
+
+            // if (this.angle > (Math.PI + Math.PI * 0.5) && fcAng < Math.PI * 0.5) {
+            //     m = Math.PI * 2 - this.angle + fcAng
+            // }
+
+            egret.log("FFF：" + jc + " -- " + m + " -- " + fcAng + " -- " + this.angle)
             //方向计算
 
             if (fcAng >= this.angle) {
@@ -57,9 +71,20 @@ module ai {
                 }
             }
 
+            // if (fcAng > (Math.PI + Math.PI * 0.5) && this.angle < Math.PI * 0.5) {
+            //     this.xs_hu = -1;
+            // }
+            // if (this.angle > (Math.PI + Math.PI * 0.5) && fcAng < Math.PI * 0.5) {
+            //     this.xs_hu = 1;
+            // }
 
+
+            if (jc > (Math.PI + Math.PI * 0.5)) {
+                jc = Math.PI * 2 - jc;
+            }
             let pi = jc / Math.PI;
             js = this.xs * pi;
+
 
             if (jc < 0.05) {
                 this.fc.angularVelocity = 0;
@@ -67,6 +92,7 @@ module ai {
             }
 
             this.fc.angularVelocity = this.xs_hu * js;
+
 
         }
     }

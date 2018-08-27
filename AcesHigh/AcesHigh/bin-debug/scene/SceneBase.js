@@ -152,16 +152,18 @@ var scene;
         };
         //更新飞船武器
         SceneBase.prototype.updataWuQi = function () {
-            // let now = egret.getTimer();
-            // for (let fc of this.dijis) {
-            //     let i = 0;
-            //     for (let wq of fc.wuqiList) {
-            //         if (wq) {
-            //             i++;
-            //             wq.updata_wq(fc.angle, this.sk, now);
-            //         }
-            //     }
-            // }
+            var now = egret.getTimer();
+            for (var _i = 0, _a = this.dijis; _i < _a.length; _i++) {
+                var fc = _a[_i];
+                var i = 0;
+                for (var _b = 0, _c = fc.wuqiList; _b < _c.length; _b++) {
+                    var wq = _c[_b];
+                    if (wq) {
+                        i++;
+                        wq.updata_wq(fc.angle, this.sk, now);
+                    }
+                }
+            }
         };
         //检测场景内的残骸列表 是否在有效区域内
         SceneBase.prototype.updataIsInWorld = function () {

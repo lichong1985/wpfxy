@@ -8,7 +8,7 @@ module djwq {
 
         //射击
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
-           
+
 
             let angle: number = this.fc.angle
             let sx = Math.sin(angle) * this.sudu;
@@ -20,6 +20,7 @@ module djwq {
             let liliang = egret.Point.create(sx, sy);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
 
+        
+            }
         }
     }
-}

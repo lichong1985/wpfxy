@@ -24,12 +24,14 @@ module wjwq {
             this.result.reset();
             this.fc.battle_scene.world.raycast(this.result, this.rayClosest);
 
+
             this.result.getHitPoint(this.hitPoint, this.rayClosest);
             if (this.result.hasHit) {
+                // egret.log("ZZZZZZZZZZZ:" + this.hitPoint[0] + " -- " + this.hitPoint[1])
+
                 let dj = <feichuan.FeiChuanBase>this.result.body;
                 let p = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
                 if (dj) {
-
                     dj.checkCollision(p.x, p.y, 1);
                 } else {
                     p.y *= -1
@@ -41,7 +43,7 @@ module wjwq {
                 shp.graphics.endFill();
                 shp.alpha = 0.5;
 
-                
+
                 this.fc.battle_scene.addChild(shp);
                 let ff = this.fc
 

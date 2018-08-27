@@ -50,7 +50,7 @@ var wuqi;
         }
         WuQiBase.prototype.updata_wq = function (angel, suke, now) {
             this.updata();
-            if ((now - this.mark_time) > this.cd) {
+            if ((now - this.mark_time) > this.cd && this.fc.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
                 this.mark_time = now;
                 this.fashe(angel, suke, now);
                 return;

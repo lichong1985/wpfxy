@@ -15,16 +15,16 @@
 		"bin-debug/feichuan/mokuai/MoKuaiBase.js",
 		"bin-debug/zhuangtaiji/ZhuangTaiJi.js",
 		"bin-debug/wuqi/WuQiBase.js",
+		"bin-debug/guanka/quyu/QuYu.js",
 		"bin-debug/wuqi/dijuwuqi/DJWQBase.js",
 		"bin-debug/ai/AiBase.js",
 		"bin-debug/zhuangtaiji/fjztj/FjZTJ.js",
-		"bin-debug/guanka/quyu/QuYu.js",
+		"bin-debug/texiao/TeXiaoBase.js",
 		"bin-debug/scene/SceneBase.js",
 		"bin-debug/guanka/juzi/JuZiGuanLi.js",
 		"bin-debug/feichuan/zhuangjia/ZhuangJiaBase.js",
 		"bin-debug/zidan/ZiDanBase.js",
 		"bin-debug/feichuan/FaiChuanBase.js",
-		"bin-debug/texiao/TeXiaoBase.js",
 		"bin-debug/suiji/SuiJiBase.js",
 		"bin-debug/ai/TaiKongSingoMoveAi.js",
 		"bin-debug/ai/TKXZjiaqianban.js",
@@ -69,7 +69,7 @@
 		"bin-debug/guanka/juzi/jidui/xuanZhun/ShuangJiJIaoChaXhuanZuan.js",
 		"bin-debug/guanka/juzi/jidui/yidui/KaoJinLiKaiJZ.js",
 		"bin-debug/guanka/juzi/jidui/yidui/YiPaiSheJiJZ.js",
-		"bin-debug/AssetAdapter.js",
+		"bin-debug/LoadingUI.js",
 		"bin-debug/guanka/quyu/ShangQuyu.js",
 		"bin-debug/hexin/DongLIHexin.js",
 		"bin-debug/physics/Physics.js",
@@ -125,6 +125,6 @@
 		"bin-debug/zidan/YuLeiZiDan.js",
 		"bin-debug/zidan/ZhiSheZiDan.js",
 		"bin-debug/zidan/ZhongChuiZiDan.js",
-		"bin-debug/LoadingUI.js"
+		"bin-debug/AssetAdapter.js"
 	]
 }

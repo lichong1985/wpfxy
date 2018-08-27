@@ -64,6 +64,7 @@ var ai;
                 for (var _i = 0, wuqiList_1 = wuqiList; _i < wuqiList_1.length; _i++) {
                     var w = wuqiList_1[_i];
                     //发射
+                    // let w = wuqiList[0];
                     w.sudu = info.she_su;
                     w.fashe(null, null, time);
                 }

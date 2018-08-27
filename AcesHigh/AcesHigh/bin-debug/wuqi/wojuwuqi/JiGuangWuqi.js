@@ -34,6 +34,7 @@ var wjwq;
             this.fc.battle_scene.world.raycast(this.result, this.rayClosest);
             this.result.getHitPoint(this.hitPoint, this.rayClosest);
             if (this.result.hasHit) {
+                // egret.log("ZZZZZZZZZZZ:" + this.hitPoint[0] + " -- " + this.hitPoint[1])
                 var dj = this.result.body;
                 var p_1 = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
                 if (dj) {

@@ -22,57 +22,69 @@ var djwq;
         __extends(JiGuangWuqi, _super);
         function JiGuangWuqi(moKuaiPost, shapeType, bitName, fc) {
             var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JI_GUANG) || this;
+            _this.result = new p2.RaycastResult();
+            _this.rayClosest = new p2.Ray({
+                mode: p2.Ray.CLOSEST
+            });
+            _this.hitPoint = p2.vec2.create();
+            //射线宽度
             _this.kuan = 10;
-            _this.G_kuan = 4;
-            _this.sudu = 25;
-            _this.zt = JG_TYPE.WU;
+            _this.shp = new egret.Shape();
+            _this.rayClosest.collisionGroup = GameConstant.DI_JUN_ZIDAN;
+            _this.rayClosest.collisionMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
+            _this.fc.battle_scene.addChild(_this.shp);
             return _this;
         }
         JiGuangWuqi.prototype.updata = function () {
+            // this.huizhikd(this.kuan, 0xffff00, 0.5);
         };
         //射击
         JiGuangWuqi.prototype.fashe = function (angel, suke, now) {
-            if (this.zt == JG_TYPE.TIAO_ZHENG) {
-                return;
-            }
-            //没有状态时候 发起照射
-            if (this.zt == JG_TYPE.WU) {
-                var shp = new egret.Shape();
-                shp.graphics.lineStyle(this.kuan, 0xffff00);
-                shp.graphics.moveTo(this.x, this.y);
-                shp.graphics.lineTo(this.x, (this.y + 1000));
-                shp.graphics.endFill();
-                shp.alpha = 0.5;
-                this.fc.battle_scene.addChild(shp);
-                var ff = this.fc;
-                egret.Tween.get(shp).to({ "alpha": 0.1 }, 600)
-                    .call(this.rmJG_zhao, this, [ff, shp]).call(this.t, this, [JG_TYPE.ZHAO]);
-                this.zt = JG_TYPE.TIAO_ZHENG;
-                this.fc.battle_scene.sk.ji_guang_peng_zhuang(this.x, this.y);
-            }
-            if (this.zt == JG_TYPE.ZHAO) {
-                var shp = new egret.Shape();
-                shp.graphics.lineStyle(this.G_kuan, 0xffff00);
-                shp.graphics.moveTo(this.x, this.y);
-                shp.graphics.lineTo(this.x, (this.y + 1000));
-                shp.graphics.endFill();
-                this.fc.battle_scene.addChild(shp);
-                var ff = this.fc;
-                shp.alpha = 0.7;
-                egret.Tween.get(shp).to({ "alpha": 0.9 }, 400)
-                    .call(this.rmJG_gong, this, [ff, shp]).wait(2000).call(this.t, this, [JG_TYPE.WU]);
-                this.zt = JG_TYPE.TIAO_ZHENG;
-            }
         };
-        //移除激光
-        JiGuangWuqi.prototype.rmJG_zhao = function (fc, shp) {
-            fc.battle_scene.removeChild(shp);
+        // 宽度  颜色  透明度
+        JiGuangWuqi.prototype.huizhikd = function (kd, color, alpha) {
+            // 计算碰撞点
+            var p = Tools.egretTOp2(egret.Point.create(this.x, this.y));
+            var angle = this.fc.angle;
+            var sx = Math.sin(angle) * 18;
+            var sy = Math.cos(angle) * 18;
+            // sy = sy * -1;
+            //无碰撞目标点
+            var pTo = egret.Point.create(p.x + sx, p.y - sy);
+            this.rayClosest.from = [p.x, p.y];
+            this.rayClosest.to = [p.x + sx, p.y - sy];
+            this.rayClosest.update();
+            this.result.reset();
+            this.fc.battle_scene.world.raycast(this.result, this.rayClosest);
+            this.result.getHitPoint(this.hitPoint, this.rayClosest);
+            // 2画线
+            var egP;
+            if (this.result.hasHit) {
+                var dj = this.result.body;
+                if (dj) {
+                    egP = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
+                }
+                else {
+                    egP = Tools.p2TOegretPoitn(pTo);
+                }
+            }
+            //清理
+            this.shp.graphics.clear();
+            //重绘
+            this.shp.graphics.lineStyle(kd, color);
+            this.shp.graphics.moveTo(this.x, this.y);
+            this.shp.graphics.lineTo(egP.x, egP.y);
+            this.shp.graphics.endFill();
+            this.shp.alpha = alpha;
+            // this.fc.battle_scene.addChild(shp);
+            // egret.Tween.get(shp).to({ "alpha": 0.1 }, 600).call(this.removeXin, this, [shp]);
         };
-        JiGuangWuqi.prototype.rmJG_gong = function (fc, shp) {
-            fc.battle_scene.removeChild(shp);
-        };
-        JiGuangWuqi.prototype.t = function (zt) {
-            this.zt = zt;
+        //去掉激光线
+        JiGuangWuqi.prototype.removeXin = function (shp) {
+            if (shp.parent) {
+                this.fc.battle_scene.removeChild(shp);
+                // this.shp.graphics.clear();
+            }
         };
         return JiGuangWuqi;
     }(djwq.DJWQBase));

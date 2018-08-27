@@ -191,16 +191,16 @@ module scene {
 
         //更新飞船武器
         public updataWuQi() {
-            // let now = egret.getTimer();
-            // for (let fc of this.dijis) {
-            //     let i = 0;
-            //     for (let wq of fc.wuqiList) {
-            //         if (wq) {
-            //             i++;
-            //             wq.updata_wq(fc.angle, this.sk, now);
-            //         }
-            //     }
-            // }
+            let now = egret.getTimer();
+            for (let fc of this.dijis) {
+                let i = 0;
+                for (let wq of fc.wuqiList) {
+                    if (wq) {
+                        i++;
+                        wq.updata_wq(fc.angle, this.sk, now);
+                    }
+                }
+            }
         }
 
         //检测场景内的残骸列表 是否在有效区域内
