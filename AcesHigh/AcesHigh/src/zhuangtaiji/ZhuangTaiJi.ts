@@ -22,6 +22,9 @@ module zhuangtaiji {
 
         STOP_SHOOT_NOW,//停止射击
         NO_THING,// 不做任何改变
+        HUA_XING_ING,//滑行
+        HUA_XING_OVER,//滑行结束
+        XUAN_ZHUAN_JIAN_ING,//旋转减速
 
     }
 

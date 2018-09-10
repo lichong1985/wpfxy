@@ -33,19 +33,34 @@ module boci {
         //初始化句子
         public initJuzi() {
 
-
-            
+            //------------test---------------------
+            // this.jz = new juzi.Test1(1, this.scene);
+            //-------------------------------------
+            // this.jz = new juzi.DaWuJZ(1, this.scene);
+            // this.jz = new juzi.SiXiongDiShuangGenZongJZ(1, this.scene);
+            // this.jz = new juzi.DaSiJZ(1, this.scene);
+            //20
+            // this.jz = new juzi.DanJiRaoFeiJZ(1, this.scene);
+            // this.jz = new juzi.ShuangXuanZHuanFeiDanJZ(1, this.scene);
+            // this.jz = new juzi.ShuangJiDuiJiaoXianXuanZhuanJZ(1, this.scene);//双机对角线 加旋转
+            this.jz = new juzi.ShuangJiShangXiaJZ(1, this.scene);//双机上下
+            // this.jz = new juzi.DaSan(1, this.scene);//大 3 武器多
+            // this.jz = new juzi.ShuangKuanTiJiaXuanZhuanJUZI(1, this.scene);//双宽体 旋转
+            // this.jz = new juzi.ShuangQianHouDanXuanZhuanJUZI(1, this.scene);//双前后加旋转
+            // this.jz = new juzi.ShuangJiXuanTingSheJiJUZI(1, this.scene);//双机悬停散弹
+            // this.jz = new juzi.SanDanJiDuiXuanZhuanJZ(1, this.scene);//散弹机队螺旋
+            // this.jz = new juzi.DaErJZ(1, this.scene);//大二 散弹
             //10
-            // this.jz = new juzi.SiXiongDiJZ(1, this.scene);
-            // this.jz = new juzi.Xiao62XunLuoGonJiJZ(1, this.scene);
-            // this.jz = new juzi.DaYiXiaoDiJZ(1, this.scene);
-            // this.jz = new juzi.DaYiJZ(1, this.scene);
-            // this.jz = new juzi.KaoJinLiKaiJz(1, this.scene);
-            // this.jz = new juzi.YiPaiSheJiJZ(1, this.scene);
-            // this.jz = new juzi.DanJiGenZongDanJZ(1, this.scene);
-            // this.jz = new juzi.LiangXiongDiBuKaiQiangJZ(1, this.scene);
-            this.jz = new juzi.SanXiongDiManDongJZ(1, this.scene);
-            // this.jz = new juzi.ShuangJiJiaoChaXuanZHuan(1, this.scene);
+            // this.jz = new juzi.SiXiongDiJZ(1, this.scene);//四兄弟
+            // this.jz = new juzi.Xiao62XunLuoGonJiJZ(1, this.scene);//顶部 加 机队
+            // this.jz = new juzi.DaYiXiaoDiJZ(1, this.scene);//大一小弟
+            // this.jz = new juzi.DaYiJZ(1, this.scene);//大一 单机
+            // this.jz = new juzi.KaoJinLiKaiJz(1, this.scene);//靠近离开机队
+            // this.jz = new juzi.YiPaiSheJiJZ(1, this.scene); //一排射击
+            // this.jz = new juzi.DanJiGenZongDanJZ(1, this.scene);//单机（章鱼）跟踪弹
+            // this.jz = new juzi.LiangXiongDiBuKaiQiangJZ(1, this.scene);//两兄弟行走不开枪
+            // this.jz = new juzi.SanXiongDiManDongJZ(1, this.scene);//三兄弟
+            // this.jz = new juzi.ShuangJiJiaoChaXuanZHuan(1, this.scene);//双机交叉 旋转
             this.jz.initFcInfo();
         }
 

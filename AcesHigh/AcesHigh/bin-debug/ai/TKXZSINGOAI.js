@@ -12,7 +12,8 @@ var ai;
 (function (ai) {
     var TKZXSINGOAI = (function (_super) {
         __extends(TKZXSINGOAI, _super);
-        function TKZXSINGOAI(fc, mt, xz, mz, run_time, time_) {
+        //减速距离
+        function TKZXSINGOAI(fc, mt, xz, mz, run_time, time_, xs) {
             var _this = _super.call(this, fc, mt, xz, mz) || this;
             //减速次数上线
             _this.jian_su_num = 20;
@@ -32,23 +33,18 @@ var ai;
             //总距离
             _this.zong_ju_li_x = 0;
             _this.zong_ju_li_y = 0;
-            //减速距离
-            _this.jian_su_ju_li_x = 0;
-            _this.jian_su_ju_li_y = 0;
             _this.start_pos = egret.Point.create(_this.fc.position[0], _this.fc.position[1]);
             _this.time_ = time_;
+            _this.xs = xs;
             //初始化 减速参数
             _this.zong_ju_li_x = Math.abs(_this.fc.position[0] - _this.fc.toPoint.x);
             _this.zong_ju_li_y = Math.abs(_this.fc.position[1] - _this.fc.toPoint.y);
-            _this.jian_su_ju_li_x = _this.zong_ju_li_x * 0.1;
-            _this.jian_su_ju_li_y = _this.zong_ju_li_y * 0.1;
-            if (_this.jian_su_ju_li_x > 1) {
-                _this.jian_su_ju_li_x = 1;
-            }
-            if (_this.jian_su_ju_li_y > 1) {
-                _this.jian_su_ju_li_y = 1;
-            }
+            // this.xs_x = (this.zong_ju_li_x / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs
+            // this.xs_y = (this.zong_ju_li_y / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs;
+            _this.xs_x = _this.xs;
+            _this.xs_y = _this.xs;
             return _this;
+            // egret.log(this.xs_x + " -- " + this.xs_y + " -- " + this.xs);
         }
         //更新状态
         TKZXSINGOAI.prototype.upType = function () {
@@ -77,7 +73,7 @@ var ai;
         };
         //----------------------------减速---------------------------------------
         TKZXSINGOAI.prototype.x_jian_su = function () {
-            //vt =v0 + at*1.8  2=0.5秒
+            //vt =v0 + FT*1.8  2=0.5秒
             var f = -this.fc.velocity[0] / 1.8 / (1 / this.xs);
             if (f > 0 && this.force_x < f) {
                 this.force_x = f;
@@ -101,13 +97,13 @@ var ai;
             //vt =v0 + at*1.8
             var mb_s = 0;
             if (this.mu_biao_wz_X == 1) {
-                mb_s = -this.xs;
+                mb_s = -this.xs_x;
             }
             if (this.mu_biao_wz_X == 2) {
                 mb_s = 0;
             }
             if (this.mu_biao_wz_X == 3) {
-                mb_s = this.xs;
+                mb_s = this.xs_x;
             }
             var vt = this.fc.velocity[0] + this.force_x * 1.8;
             if (mb_s > 0 && vt >= mb_s) {
@@ -124,13 +120,13 @@ var ai;
             //vt =v0 + at*1.8
             var mb_s = 0;
             if (this.mu_biao_wz_Y == 1) {
-                mb_s = -this.xs;
+                mb_s = -this.xs_y;
             }
             if (this.mu_biao_wz_Y == 2) {
                 mb_s = 0;
             }
             if (this.mu_biao_wz_Y == 3) {
-                mb_s = this.xs;
+                mb_s = this.xs_y;
             }
             var vt = this.fc.velocity[1] + this.force_y * 1.8;
             if (mb_s > 0 && vt >= mb_s) {
@@ -170,8 +166,6 @@ var ai;
             if (this.y_type == 3) {
                 this.jia_su_y();
             }
-            // egret.log("???????????:" + this.x_type + " -- " + this.y_type + " | " + this.force_x + " -- " + this.force_y + " | " + this.mu_biao_wz_X + " -- " + this.mu_biao_wz_Y);
-            // egret.log("??????????:" + this.mu_biao_wz_X)
             //施加力
             this.fc.force = [this.force_x, this.force_y];
         };

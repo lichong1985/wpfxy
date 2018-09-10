@@ -37,7 +37,7 @@ module wjwq {
         }
 
         public getLiliang(angel: number): egret.Point {
-            return egret.Point.create(Math.sin(angel) * this.sudu, Math.cos(angel) * this.sudu);
+            return egret.Point.create(Math.sin(-angel) * this.sudu, Math.cos(-angel) * this.sudu);
         }
 
     }

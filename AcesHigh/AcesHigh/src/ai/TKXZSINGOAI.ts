@@ -32,29 +32,25 @@ module ai {
         public zong_ju_li_x: number = 0;
         public zong_ju_li_y: number = 0;
         //减速距离
-        public jian_su_ju_li_x: number = 0;
-        public jian_su_ju_li_y: number = 0;
 
 
-        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE, run_time: number, time_: number) {
+
+        constructor(fc: feichuan.FeiChuanBase, mt: zhuangtaiji.ZT_TYPE, xz: zhuangtaiji.ZT_TYPE, mz: zhuangtaiji.ZT_TYPE, run_time: number, time_: number, xs: number) {
             super(fc, mt, xz, mz);
             this.start_pos = egret.Point.create(this.fc.position[0], this.fc.position[1]);
             this.time_ = time_;
-
+            this.xs = xs;
 
             //初始化 减速参数
             this.zong_ju_li_x = Math.abs(this.fc.position[0] - this.fc.toPoint.x);
             this.zong_ju_li_y = Math.abs(this.fc.position[1] - this.fc.toPoint.y);
-            this.jian_su_ju_li_x = this.zong_ju_li_x * 0.1;
-            this.jian_su_ju_li_y = this.zong_ju_li_y * 0.1;
-            if (this.jian_su_ju_li_x > 1) {
-                this.jian_su_ju_li_x = 1;
-            }
-            if (this.jian_su_ju_li_y > 1) {
-                this.jian_su_ju_li_y = 1;
-            }
 
+            // this.xs_x = (this.zong_ju_li_x / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs
+            // this.xs_y = (this.zong_ju_li_y / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs;
+            this.xs_x = this.xs
+            this.xs_y = this.xs;
 
+            // egret.log(this.xs_x + " -- " + this.xs_y + " -- " + this.xs);
         }
 
         //更新状态
@@ -93,7 +89,7 @@ module ai {
 
         //----------------------------减速---------------------------------------
         public x_jian_su() {
-            //vt =v0 + at*1.8  2=0.5秒
+            //vt =v0 + FT*1.8  2=0.5秒
             let f = -this.fc.velocity[0] / 1.8 / (1 / this.xs)
             if (f > 0 && this.force_x < f) {
                 this.force_x = f;
@@ -123,7 +119,7 @@ module ai {
             //vt =v0 + at*1.8
             let mb_s: number = 0;
             if (this.mu_biao_wz_X == 1) {
-                mb_s = -this.xs;
+                mb_s = -this.xs_x;
 
             }
 
@@ -132,7 +128,7 @@ module ai {
 
             }
             if (this.mu_biao_wz_X == 3) {
-                mb_s = this.xs;
+                mb_s = this.xs_x;
 
             }
             let vt = this.fc.velocity[0] + this.force_x * 1.8;
@@ -152,7 +148,7 @@ module ai {
             //vt =v0 + at*1.8
             let mb_s: number = 0;
             if (this.mu_biao_wz_Y == 1) {
-                mb_s = -this.xs;
+                mb_s = -this.xs_y;
 
             }
 
@@ -161,7 +157,7 @@ module ai {
 
             }
             if (this.mu_biao_wz_Y == 3) {
-                mb_s = this.xs;
+                mb_s = this.xs_y;
 
             }
 
@@ -217,13 +213,8 @@ module ai {
                 this.jia_su_y();
             }
 
-            // egret.log("???????????:" + this.x_type + " -- " + this.y_type + " | " + this.force_x + " -- " + this.force_y + " | " + this.mu_biao_wz_X + " -- " + this.mu_biao_wz_Y);
-
-            // egret.log("??????????:" + this.mu_biao_wz_X)
             //施加力
             this.fc.force = [this.force_x, this.force_y];
-
-
         }
 
 

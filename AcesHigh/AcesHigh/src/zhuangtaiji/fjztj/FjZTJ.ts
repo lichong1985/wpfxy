@@ -40,7 +40,7 @@ module fjztj {
             //清空
             this.fc.moveAI = null;
             this.fc.mzAI = null;
-            // this.fc.gjAI = null;
+            this.fc.gjAI = null;
 
             //0 检查
             if (this.step_mark >= this.zt_list.length) {

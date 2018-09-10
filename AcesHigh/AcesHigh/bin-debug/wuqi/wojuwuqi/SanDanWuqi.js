@@ -42,7 +42,7 @@ var wjwq;
             }
         };
         SanDanWuqi.prototype.getLiliang = function (angel) {
-            return egret.Point.create(Math.sin(angel) * this.sudu, Math.cos(angel) * this.sudu);
+            return egret.Point.create(Math.sin(-angel) * this.sudu, Math.cos(-angel) * this.sudu);
         };
         return SanDanWuqi;
     }(wuqi.WuQiBase));

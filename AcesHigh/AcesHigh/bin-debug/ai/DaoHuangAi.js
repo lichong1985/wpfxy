@@ -67,6 +67,10 @@ var ai;
                 }
                 this.is_upFX = false;
             }
+            //校准
+            if (jc > (Math.PI + Math.PI * 0.5)) {
+                jc = Math.PI * 2 - jc;
+            }
             var pi = jc / Math.PI;
             js = this.xs * pi;
             if (jc < 0.05) {

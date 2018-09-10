@@ -161,7 +161,7 @@ var shuke;
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -188,6 +188,12 @@ var shuke;
         ShuKe.prototype.updataPos = function () {
             _super.prototype.updataPos.call(this);
             var p = Tools.p2TOegretPoitn(egret.Point.create(this.position[0], this.position[1]));
+            if (this.battle_scene.dijis[0]) {
+                var a = Math.atan2((this.battle_scene.dijis[0].position[1] - this.position[1]), (this.battle_scene.dijis[0].position[0] - this.position[0])) + Math.PI * 0.5;
+                // a = a % (Math.PI * 2);
+                // let angle = Math.atan2((this.fc.position[1] - this.position[1]), (this.fc.position[0] - this.position[0]))
+                // egret.log("aaa??:" + a);
+            }
         };
         //扩散
         ShuKe.prototype.kuosan = function (x, y) {

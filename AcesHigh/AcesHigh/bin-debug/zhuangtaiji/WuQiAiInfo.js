@@ -12,6 +12,8 @@ var zhuangtaiji;
             this.zi_dan_da_xiao = 2;
             //跟子弹威力相关 跟子弹威力系数想关
             this.nan_du = 0;
+            //延迟
+            this.yan_chi = 0;
             this.da_num = da_num;
             this.da_jian_ge = da_jian_ge;
             this.xiao_num = xiao_num;
@@ -19,11 +21,18 @@ var zhuangtaiji;
             this.she_su = she_su % 100;
             this.wq_type = wq_type;
             this.da_ge_mark = egret.getTimer() + (she_su - this.she_su);
+            this.yan_chi = (she_su - this.she_su);
             this.xiao_ge_mark = egret.getTimer();
             if (nan_du) {
                 this.nan_du = nan_du;
             }
         }
+        //重新设置cd
+        WuQiAiInfo.prototype.initCD = function () {
+            this.da_ge_mark = egret.getTimer() - this.da_jian_ge + this.yan_chi;
+            this.da_num_mark = 0;
+            this.xiao_num_mark = 0;
+        };
         return WuQiAiInfo;
     }());
     zhuangtaiji.WuQiAiInfo = WuQiAiInfo;

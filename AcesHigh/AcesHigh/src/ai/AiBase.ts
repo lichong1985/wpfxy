@@ -45,6 +45,10 @@ module ai {
         //系数
         public xs: number;
 
+        //计算后的速度  xy方向
+        public xs_x: number;
+        public xs_y: number;
+
 
         //目标相对飞机 所在位置  1左边  2中 3右边 
         public mu_biao_wz_X: number;
@@ -72,8 +76,6 @@ module ai {
 
             this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
             this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
-
-            // egret.log("GGGGGGG:"+this.mu_biao_wz_X+" -- "+this.mu_biao_wz_Y)
         }
 
         public init() {
@@ -83,18 +85,14 @@ module ai {
         //目标 相对 你的位置
         public js_wz(you: number, to: number): number {
             if (to > you) {
-                // egret.log("(to - you):" + (to - you) + " | " + to + " -- " + you);
                 if ((to - you) < 0.25) {
-                    // egret.log("222222")
                     return 2;
                 }
                 return 3;
             }
 
             if (you > to) {
-                // egret.log("(you - to):" + (you - to) + " | " + you + " -- " + to);
                 if ((you - to) < 0.25) {
-                    // egret.log("222222")
                     return 2;
                 }
                 return 1;
@@ -170,6 +168,16 @@ module ai {
 
         }
 
+
+        //返回  x方向 动力系数
+        public getXS_X(): number {
+            return 0;
+        }
+
+        //返回 Y  方向动力系数
+        public getXS_Y(): number {
+            return 0;
+        }
 
         //----------------------------------------------
 

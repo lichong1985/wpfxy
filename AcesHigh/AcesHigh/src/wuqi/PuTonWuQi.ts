@@ -2,6 +2,7 @@ module wuqi {
     export class PuTongDan extends wuqi.WuQiBase {
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, wuqii_type: WUQI_TYPE, fc: feichuan.FeiChuanBase) {
             super(mokaiPos, shType, "us_wq_1", wuqii_type, fc)
+            this.sudu=10;
            
         }
 

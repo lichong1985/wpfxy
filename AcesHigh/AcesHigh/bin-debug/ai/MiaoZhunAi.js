@@ -41,14 +41,6 @@ var ai;
             var js = this.xs;
             //角度差距
             var jc = Math.abs(fcAng - this.angle);
-            var m = 0;
-            // if (fcAng > (Math.PI + Math.PI * 0.5) && this.angle < Math.PI * 0.5) {
-            //     m = Math.PI * 2 - fcAng + this.angle
-            // }
-            // if (this.angle > (Math.PI + Math.PI * 0.5) && fcAng < Math.PI * 0.5) {
-            //     m = Math.PI * 2 - this.angle + fcAng
-            // }
-            egret.log("FFF：" + jc + " -- " + m + " -- " + fcAng + " -- " + this.angle);
             //方向计算
             if (fcAng >= this.angle) {
                 if (jc > Math.PI) {
@@ -66,12 +58,6 @@ var ai;
                     this.xs_hu = 1;
                 }
             }
-            // if (fcAng > (Math.PI + Math.PI * 0.5) && this.angle < Math.PI * 0.5) {
-            //     this.xs_hu = -1;
-            // }
-            // if (this.angle > (Math.PI + Math.PI * 0.5) && fcAng < Math.PI * 0.5) {
-            //     this.xs_hu = 1;
-            // }
             if (jc > (Math.PI + Math.PI * 0.5)) {
                 jc = Math.PI * 2 - jc;
             }

@@ -19,7 +19,7 @@ module zidan {
 
         public updata() {
             super.updata();
-            super.weiyi(this.bit_name);
+            super.weiyi("us_zd_2_wy");
         }
 
         public texiao() {

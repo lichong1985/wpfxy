@@ -194,10 +194,12 @@ module scene {
             let now = egret.getTimer();
             for (let fc of this.dijis) {
                 let i = 0;
-                for (let wq of fc.wuqiList) {
-                    if (wq) {
-                        i++;
-                        wq.updata_wq(fc.angle, this.sk, now);
+                if (fc.wuqiList.length > 0) {
+                    for (let wq of fc.wuqiList) {
+                        if (wq) {
+                            i++;
+                            wq.updata_wq(fc.angle, this.sk, now);
+                        }
                     }
                 }
             }

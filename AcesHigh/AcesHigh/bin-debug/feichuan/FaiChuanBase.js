@@ -27,13 +27,21 @@ var feichuan;
             var _this = 
             // super()
             _super.call(this, { mass: 1 }) || this;
+            /**
+             * 武器列表
+             */
+            _this.wuqiList = new Array();
             _this.pt1_wuqiList = new Array();
             _this.pt2_wuqiList = new Array();
+            _this.pt3_wuqiList = new Array();
             _this.pth_wuqiList = new Array();
+            _this.ptz_wuqiList = new Array();
+            _this.pty_wuqiList = new Array();
             _this.jg1_wuqiList = new Array();
             _this.gz1_wuqiList = new Array();
             _this.js1_wuqiList = new Array();
             _this.sd1_wuqiList = new Array();
+            _this.sd2_wuqiList = new Array();
             //当前模块数量
             _this.mokuai_size = 0;
             //核心列表
@@ -95,15 +103,24 @@ var feichuan;
                     }
                     //----------------------------------敌军直射武器-------------------------------------------
                     if (bitName == "op_wq_1") {
-                        // hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
-                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 1);
                         this.wuqiList.push(hx);
                         this.pt1_wuqiList.push(hx);
                     }
                     if (bitName == "op_wq_1_1") {
-                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 1);
                         this.wuqiList.push(hx);
                         this.pt1_wuqiList.push(hx);
+                    }
+                    if (bitName == "op_wq_1_2") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 1);
+                        this.wuqiList.push(hx);
+                        this.pt2_wuqiList.push(hx);
+                    }
+                    if (bitName == "op_wq_1_3") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 1);
+                        this.wuqiList.push(hx);
+                        this.pt3_wuqiList.push(hx);
                     }
                     //普通后射
                     if (bitName == "op_wq_1_h") {
@@ -111,14 +128,24 @@ var feichuan;
                         this.wuqiList.push(hx);
                         this.pth_wuqiList.push(hx);
                     }
+                    if (bitName == "op_wq_1_z") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 3);
+                        this.wuqiList.push(hx);
+                        this.ptz_wuqiList.push(hx);
+                    }
+                    if (bitName == "op_wq_1_y") {
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 4);
+                        this.wuqiList.push(hx);
+                        this.pty_wuqiList.push(hx);
+                    }
                     //-------------------------------------激光------------------------------------------------
                     if (bitName == "op_wq_2") {
-                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
+                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
                         this.wuqiList.push(hx);
                         this.jg1_wuqiList.push(hx);
                     }
                     if (bitName == "op_wq_2_1") {
-                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
+                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
                         this.wuqiList.push(hx);
                         this.jg1_wuqiList.push(hx);
                     }
@@ -141,10 +168,17 @@ var feichuan;
                     }
                     //--------------------------------敌军散弹 ------------------------------------------------
                     if (bitName == "op_wq_5_1") {
+                        egret.log("?????????????");
                         hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this);
                         this.wuqiList.push(hx);
                         this.sd1_wuqiList.push(hx);
                     }
+                    if (bitName == "op_wq_5_2") {
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this);
+                        this.wuqiList.push(hx);
+                        this.sd2_wuqiList.push(hx);
+                    }
+                    egret.log("???:" + bitName);
                     //掉落随机
                     this.suiji_dl(hx);
                     var hpp = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
@@ -314,7 +348,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 3);
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);

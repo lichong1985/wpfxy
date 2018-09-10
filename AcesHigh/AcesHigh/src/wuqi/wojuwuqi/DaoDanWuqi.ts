@@ -4,12 +4,12 @@ module wjwq {
         private mark_small_time: number = 0;
         //每次发射的数量
         public shu_liang: number = 0;
-        public shu_liang_mark: number = 5;
+        public shu_liang_mark: number = 1;
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
             super(mokaiPos, shType, "us_wq_3", wuqi.WUQI_TYPE.DAO_DAN, fc);
             this.level = level;
-            this.shu_liang_mark = level;
+            // this.shu_liang_mark = level;
             this.cd = 150;
 
         }
@@ -18,7 +18,7 @@ module wjwq {
             if ((now - this.mark_small_time) > this.small_cd) {
                 if (this.shu_liang > 0) {
                     let angle: number = this.fc.angle
-                    let liliang = egret.Point.create(0, this.sudu);
+                    let liliang = egret.Point.create(0, -5);
                     if (this.mark_tiaget()) {
                         this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angle);
                     }

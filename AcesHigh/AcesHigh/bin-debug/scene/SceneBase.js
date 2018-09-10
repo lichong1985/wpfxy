@@ -156,11 +156,13 @@ var scene;
             for (var _i = 0, _a = this.dijis; _i < _a.length; _i++) {
                 var fc = _a[_i];
                 var i = 0;
-                for (var _b = 0, _c = fc.wuqiList; _b < _c.length; _b++) {
-                    var wq = _c[_b];
-                    if (wq) {
-                        i++;
-                        wq.updata_wq(fc.angle, this.sk, now);
+                if (fc.wuqiList.length > 0) {
+                    for (var _b = 0, _c = fc.wuqiList; _b < _c.length; _b++) {
+                        var wq = _c[_b];
+                        if (wq) {
+                            i++;
+                            wq.updata_wq(fc.angle, this.sk, now);
+                        }
                     }
                 }
             }

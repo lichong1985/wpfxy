@@ -40,24 +40,19 @@ var ai;
             this.time_mark = egret.getTimer();
             this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
             this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
-            // egret.log("GGGGGGG:"+this.mu_biao_wz_X+" -- "+this.mu_biao_wz_Y)
         }
         AiBase.prototype.init = function () {
         };
         //目标 相对 你的位置
         AiBase.prototype.js_wz = function (you, to) {
             if (to > you) {
-                // egret.log("(to - you):" + (to - you) + " | " + to + " -- " + you);
                 if ((to - you) < 0.25) {
-                    // egret.log("222222")
                     return 2;
                 }
                 return 3;
             }
             if (you > to) {
-                // egret.log("(you - to):" + (you - to) + " | " + you + " -- " + to);
                 if ((you - to) < 0.25) {
-                    // egret.log("222222")
                     return 2;
                 }
                 return 1;
@@ -116,6 +111,14 @@ var ai;
                 return true;
             }
             return false;
+        };
+        //返回  x方向 动力系数
+        AiBase.prototype.getXS_X = function () {
+            return 0;
+        };
+        //返回 Y  方向动力系数
+        AiBase.prototype.getXS_Y = function () {
+            return 0;
         };
         return AiBase;
     }());

@@ -18,9 +18,9 @@ var wjwq;
             _this.mark_small_time = 0;
             //每次发射的数量
             _this.shu_liang = 0;
-            _this.shu_liang_mark = 5;
+            _this.shu_liang_mark = 1;
             _this.level = level;
-            _this.shu_liang_mark = level;
+            // this.shu_liang_mark = level;
             _this.cd = 150;
             return _this;
         }
@@ -28,7 +28,7 @@ var wjwq;
             if ((now - this.mark_small_time) > this.small_cd) {
                 if (this.shu_liang > 0) {
                     var angle = this.fc.angle;
-                    var liliang = egret.Point.create(0, this.sudu);
+                    var liliang = egret.Point.create(0, -5);
                     if (this.mark_tiaget()) {
                         this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angle);
                     }

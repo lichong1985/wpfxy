@@ -15,7 +15,7 @@ module zidan {
         public bit_name: string;
         public scene: scene.SceneBase;
         //尾翼cd
-        public wyCD: number = 25;
+        public wyCD: number = 15;
         public wyMark: number = 0;
         public wyName: string;
 
@@ -140,11 +140,11 @@ module zidan {
             b.rotation = 360 - this.angle * 180 / Math.PI;
             b.x = this.bitmap.x;
             b.y = this.bitmap.y;
-            b.scaleX = 0.3;
-            b.scaleY = 0.3;
+            b.scaleX = 0.4;
+            b.scaleY = 0.5;
             this.scene.addChild(b);
             b.alpha = 0.5;
-            egret.Tween.get(b).to({ "scaleX": 0.3, "scaleY": 0.3 }, 110).call(this.dell, this, [b]);
+            egret.Tween.get(b).to({ "alpha": 0.1}, 110).call(this.dell, this, [b]);
 
         }
     }

@@ -30,7 +30,7 @@ var zidan;
         };
         SanDanZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
-            _super.prototype.weiyi.call(this, this.bit_name);
+            _super.prototype.weiyi.call(this, "us_zd_2_wy");
         };
         SanDanZiDan.prototype.texiao = function () {
             this.bitmap.scaleX = 0.8;

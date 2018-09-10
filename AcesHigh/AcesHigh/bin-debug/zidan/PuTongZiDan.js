@@ -19,8 +19,8 @@ var zidan;
             _this.bit_name = "us_zd_1";
             _this.bitmap.anchorOffsetX = _this.bitmap.width * 0.5;
             _this.bitmap.anchorOffsetY = _this.bitmap.height * 0.5;
-            _this.bitmap.scaleX = 0.5;
-            _this.bitmap.scaleY = 0.5;
+            _this.bitmap.scaleX = 0.4;
+            _this.bitmap.scaleY = 0.4;
             _this.is_updata = true;
             return _this;
         }
@@ -31,11 +31,11 @@ var zidan;
         };
         PuTongZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
-            _super.prototype.weiyi.call(this, this.bit_name);
+            _super.prototype.weiyi.call(this, "pt_wy");
         };
         PuTongZiDan.prototype.texiao = function () {
-            this.bitmap.scaleX = 0.8;
-            this.bitmap.scaleY = 0.8;
+            this.bitmap.scaleX = 1;
+            this.bitmap.scaleY = 1;
             this.bitmap.alpha = 0.8;
             egret.Tween.get(this.bitmap).to({ "alpha": 0.3 }, 300).call(_super.prototype.dell, this, [this.bitmap]);
         };

@@ -468,16 +468,16 @@
             "height": 22,
             "width": 21,
             "is_wei_bu": 0,
-            "is_san_dan": 0,
+            "is_san_dan": 1,
             "is_ju_zhen": 0,
             "is_gen_zong": 0,
             "is_ji_guang": 0,
-            "wu_qi_nan_du": 1,
-            "wu_qi_shu_liang": 4,
+            "wu_qi_nan_du": 3,
+            "wu_qi_shu_liang": 13,
             "zhuang_jia_nan_du": 1,
-            "zhuang_jia_liang": 1,
-            "ti_ji": 2,
-            "file_name": "xiao_9"
+            "zhuang_jia_liang": 3,
+            "ti_ji": 4,
+            "file_name": "da_2"
         }
     ],
     "tiles": [

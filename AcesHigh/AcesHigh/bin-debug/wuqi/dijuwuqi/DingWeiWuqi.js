@@ -13,15 +13,30 @@ var djwq;
     //直射类武器
     var DingWeiWuqi = (function (_super) {
         __extends(DingWeiWuqi, _super);
-        function DingWeiWuqi(moKuaiPost, shapeType, bitName, fc) {
-            return _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.DING_WEI) || this;
+        function DingWeiWuqi(moKuaiPost, shapeType, bitName, fc, fx) {
+            var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.DING_WEI) || this;
+            _this.fx = 1;
+            _this.fx = fx;
+            return _this;
         }
+        // 1 前  2 后 3左 4右
         //射击
         DingWeiWuqi.prototype.fashe = function (angel, suke, now) {
-            var angle = this.fc.angle;
+            var angle;
+            if (this.fx == 1 || this.fx == 2) {
+                angle = this.fc.angle;
+            }
+            if (this.fx == 3) {
+                angle = this.fc.angle + (-90 - 360) / 180 * Math.PI;
+            }
+            if (this.fx == 4) {
+                angle = this.fc.angle + (90 - 360) / 180 * Math.PI;
+            }
             var sx = Math.sin(angle) * this.sudu;
             var sy = Math.cos(angle) * this.sudu;
-            sy = sy * -1;
+            if (this.fx == 1) {
+                sy = sy * -1;
+            }
             var liliang = egret.Point.create(sx, sy);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };

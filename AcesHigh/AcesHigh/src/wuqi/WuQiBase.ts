@@ -19,6 +19,7 @@ module wuqi {
         LUO_XUAN,//螺旋
         CHANG_DING,//长钉
         ZHONG_CHUI,//重锤
+        DJ_SAN_DAN,//敌军散弹
 
 
     }
@@ -115,6 +116,9 @@ module wuqi {
             }
             if (w_t == wuqi.WUQI_TYPE.ZHONG_CHUI) {
                 zd = new zidan.ZhongChuiZiDan(this.fc.battle_scene, zy, 0.0001, this.level);
+            }
+            if (w_t == wuqi.WUQI_TYPE.DJ_SAN_DAN) {
+                zd = new zidan.DJSanDanZiDan(this.fc.battle_scene, zy, 0.0001);
             }
 
 

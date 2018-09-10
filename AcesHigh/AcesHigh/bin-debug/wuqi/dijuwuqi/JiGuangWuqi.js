@@ -29,25 +29,50 @@ var djwq;
             _this.hitPoint = p2.vec2.create();
             //射线宽度
             _this.kuan = 10;
+            _this.kuan_mark = 0;
+            _this.kuan_more = 20;
+            //激光标记次数
+            _this.hit_mark = 0;
+            _this.is_hit = false;
             _this.shp = new egret.Shape();
             _this.rayClosest.collisionGroup = GameConstant.DI_JUN_ZIDAN;
             _this.rayClosest.collisionMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
-            _this.fc.battle_scene.addChild(_this.shp);
             return _this;
         }
         JiGuangWuqi.prototype.updata = function () {
-            // this.huizhikd(this.kuan, 0xffff00, 0.5);
+            //攻击
+            if (this.hit_mark > 0 && this.kuan_mark <= 0) {
+                this.is_hit = true;
+                this.kuan_mark = 0;
+                this.huizhikd(5, 0xffff00, 0.5);
+                //清理
+                egret.Tween.get(this.shp).to({ "alpha": 0.1 }, 600).call(this.clear, this);
+                this.hit_mark = 0;
+            }
+            if (this.kuan_mark <= 0) {
+                if (this.shp.parent && !this.is_hit) {
+                    this.fc.battle_scene.removeChild(this.shp);
+                }
+                return;
+            }
+            var pi = this.kuan_mark / this.kuan_more;
+            this.huizhikd(this.kuan * pi, 0xffff00, 0.5);
+            this.kuan_mark--;
         };
         //射击
         JiGuangWuqi.prototype.fashe = function (angel, suke, now) {
+            this.fc.battle_scene.addChild(this.shp);
+            this.kuan_mark = this.kuan_more;
+            this.is_hit = false;
+            this.hit_mark = 0;
         };
         // 宽度  颜色  透明度
         JiGuangWuqi.prototype.huizhikd = function (kd, color, alpha) {
             // 计算碰撞点
             var p = Tools.egretTOp2(egret.Point.create(this.x, this.y));
             var angle = this.fc.angle;
-            var sx = Math.sin(angle) * 18;
-            var sy = Math.cos(angle) * 18;
+            var sx = Math.sin(angle) * 20;
+            var sy = Math.cos(angle) * 20;
             // sy = sy * -1;
             //无碰撞目标点
             var pTo = egret.Point.create(p.x + sx, p.y - sy);
@@ -63,9 +88,11 @@ var djwq;
                 var dj = this.result.body;
                 if (dj) {
                     egP = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
+                    this.hit_mark++;
                 }
                 else {
                     egP = Tools.p2TOegretPoitn(pTo);
+                    this.hit_mark = 0;
                 }
             }
             //清理
@@ -76,15 +103,12 @@ var djwq;
             this.shp.graphics.lineTo(egP.x, egP.y);
             this.shp.graphics.endFill();
             this.shp.alpha = alpha;
-            // this.fc.battle_scene.addChild(shp);
-            // egret.Tween.get(shp).to({ "alpha": 0.1 }, 600).call(this.removeXin, this, [shp]);
         };
-        //去掉激光线
-        JiGuangWuqi.prototype.removeXin = function (shp) {
-            if (shp.parent) {
-                this.fc.battle_scene.removeChild(shp);
-                // this.shp.graphics.clear();
-            }
+        JiGuangWuqi.prototype.clear = function () {
+            this.shp.graphics.clear();
+            if (this.shp.parent)
+                this.fc.battle_scene.removeChild(this.shp);
+            this.is_hit = false;
         };
         return JiGuangWuqi;
     }(djwq.DJWQBase));

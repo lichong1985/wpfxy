@@ -15,7 +15,7 @@ var zidan;
         function ZiDanBase(scene, zhenying, mass, wqt) {
             var _this = _super.call(this, { mass: mass }) || this;
             //尾翼cd
-            _this.wyCD = 25;
+            _this.wyCD = 15;
             _this.wyMark = 0;
             _this.is_updata = false;
             //碰撞次数
@@ -107,11 +107,11 @@ var zidan;
             b.rotation = 360 - this.angle * 180 / Math.PI;
             b.x = this.bitmap.x;
             b.y = this.bitmap.y;
-            b.scaleX = 0.3;
-            b.scaleY = 0.3;
+            b.scaleX = 0.4;
+            b.scaleY = 0.5;
             this.scene.addChild(b);
             b.alpha = 0.5;
-            egret.Tween.get(b).to({ "scaleX": 0.3, "scaleY": 0.3 }, 110).call(this.dell, this, [b]);
+            egret.Tween.get(b).to({ "alpha": 0.1 }, 110).call(this.dell, this, [b]);
         };
         return ZiDanBase;
     }(p2.Body));

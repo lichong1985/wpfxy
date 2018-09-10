@@ -31,6 +31,7 @@ var wuqi;
         WUQI_TYPE[WUQI_TYPE["LUO_XUAN"] = 16] = "LUO_XUAN";
         WUQI_TYPE[WUQI_TYPE["CHANG_DING"] = 17] = "CHANG_DING";
         WUQI_TYPE[WUQI_TYPE["ZHONG_CHUI"] = 18] = "ZHONG_CHUI";
+        WUQI_TYPE[WUQI_TYPE["DJ_SAN_DAN"] = 19] = "DJ_SAN_DAN";
     })(WUQI_TYPE = wuqi.WUQI_TYPE || (wuqi.WUQI_TYPE = {}));
     var WuQiBase = (function (_super) {
         __extends(WuQiBase, _super);
@@ -98,6 +99,9 @@ var wuqi;
             }
             if (w_t == wuqi.WUQI_TYPE.ZHONG_CHUI) {
                 zd = new zidan.ZhongChuiZiDan(this.fc.battle_scene, zy, 0.0001, this.level);
+            }
+            if (w_t == wuqi.WUQI_TYPE.DJ_SAN_DAN) {
+                zd = new zidan.DJSanDanZiDan(this.fc.battle_scene, zy, 0.0001);
             }
             zd.angle = angle;
             this.fc.battle_scene.world.addBody(zd);
