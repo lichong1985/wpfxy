@@ -36,14 +36,16 @@ module boci {
             //------------test---------------------
             // this.jz = new juzi.Test1(1, this.scene);
             //-------------------------------------
-            // this.jz = new juzi.DaWuJZ(1, this.scene);
-            // this.jz = new juzi.SiXiongDiShuangGenZongJZ(1, this.scene);
-            // this.jz = new juzi.DaSiJZ(1, this.scene);
+            this.jz = new juzi.BoSiMaoJiaXuanZhuanJZ(1, this.scene);//波斯猫 加 旋转
+            // this.jz = new juzi.DanJiSanDanChangTiaoJZ(1, this.scene)//散弹两侧长条
+            // this.jz = new juzi.DaWuJZ(1, this.scene);//大五
+            // this.jz = new juzi.SiXiongDiShuangGenZongJZ(1, this.scene);//四兄弟 双跟踪
+            // this.jz = new juzi.DaSiJZ(1, this.scene); //大四
             //20
-            // this.jz = new juzi.DanJiRaoFeiJZ(1, this.scene);
-            // this.jz = new juzi.ShuangXuanZHuanFeiDanJZ(1, this.scene);
+            // this.jz = new juzi.DanJiRaoFeiJZ(1, this.scene);//单机机队绕飞
+            // this.jz = new juzi.ShuangXuanZHuanFeiDanJZ(1, this.scene);// 双旋转 四射
             // this.jz = new juzi.ShuangJiDuiJiaoXianXuanZhuanJZ(1, this.scene);//双机对角线 加旋转
-            this.jz = new juzi.ShuangJiShangXiaJZ(1, this.scene);//双机上下
+            // this.jz = new juzi.ShuangJiShangXiaJZ(1, this.scene);//双机上下
             // this.jz = new juzi.DaSan(1, this.scene);//大 3 武器多
             // this.jz = new juzi.ShuangKuanTiJiaXuanZhuanJUZI(1, this.scene);//双宽体 旋转
             // this.jz = new juzi.ShuangQianHouDanXuanZhuanJUZI(1, this.scene);//双前后加旋转

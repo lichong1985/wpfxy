@@ -21,7 +21,8 @@ var wjwq;
             _this.shu_liang_mark = 5;
             _this.level = level;
             _this.shu_liang_mark = level;
-            _this.cd = 50;
+            _this.cd = 200;
+            _this.sudu = 9;
             return _this;
         }
         PaoTaiWuqi.prototype.fashe = function (angel, suke, now) {

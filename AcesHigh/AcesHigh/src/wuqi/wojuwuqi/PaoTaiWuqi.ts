@@ -10,7 +10,8 @@ module wjwq {
             super(mokaiPos, shType, "us_wq_5", wuqi.WUQI_TYPE.DING_XIANG, fc);
             this.level = level;
             this.shu_liang_mark = level;
-            this.cd = 50;
+            this.cd = 200;
+            this.sudu = 9;
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
