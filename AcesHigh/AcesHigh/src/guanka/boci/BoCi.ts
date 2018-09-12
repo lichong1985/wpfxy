@@ -36,7 +36,9 @@ module boci {
             //------------test---------------------
             // this.jz = new juzi.Test1(1, this.scene);
             //-------------------------------------
-            this.jz = new juzi.BoSiMaoJiaXuanZhuanJZ(1, this.scene);//波斯猫 加 旋转
+            // this.jz = new juzi.ChaoDaLuoXuanJZ(1, this.scene);//超大一螺旋
+            // this.jz = new juzi.ShuangJiJieZouRaoFeiJZ(1, this.scene);//双击节奏绕飞 
+            // this.jz = new juzi.BoSiMaoJiaXuanZhuanJZ(1, this.scene);//波斯猫 加 旋转
             // this.jz = new juzi.DanJiSanDanChangTiaoJZ(1, this.scene)//散弹两侧长条
             // this.jz = new juzi.DaWuJZ(1, this.scene);//大五
             // this.jz = new juzi.SiXiongDiShuangGenZongJZ(1, this.scene);//四兄弟 双跟踪

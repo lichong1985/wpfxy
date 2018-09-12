@@ -87,22 +87,6 @@ var zidan;
                 }
             }
         };
-        //检测 节点是否可以被击中
-        ChangDingZiDan.prototype.chickThePost = function (x, y, fc) {
-            if (x < 0) {
-                return;
-            }
-            if (y < 0) {
-                return;
-            }
-            if (x >= fc.moKuaiList[0].length) {
-                return;
-            }
-            if (y >= fc.moKuaiList.length) {
-                return;
-            }
-            fc.shang_hai(fc.moKuaiList[y][x], this.hitNumber);
-        };
         ChangDingZiDan.prototype.texiao = function () {
             this.bitmap.scaleX = 0.8;
             this.bitmap.scaleY = 0.8;

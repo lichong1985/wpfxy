@@ -34,12 +34,33 @@ var zidan;
         YuLeiZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
             this.velocity = [0, 0.2];
-            this.angularVelocity = 5;
+            this.angularVelocity = 4;
+        };
+        //穿甲相关
+        YuLeiZiDan.prototype.chuan_jia = function (mok, fc) {
+            if (!mok || !fc) {
+                return;
+            }
+            //碰撞点
+            var x = mok.moKuaiPost.x;
+            var y = mok.moKuaiPost.y;
+            this.chickThePost(x + 1, y, fc);
+            this.chickThePost(x + 2, y, fc);
+            this.chickThePost(x - 1, y, fc);
+            this.chickThePost(x - 2, y, fc);
+            this.chickThePost(x, y + 1, fc);
+            this.chickThePost(x, y + 2, fc);
+            this.chickThePost(x, y - 1, fc);
+            this.chickThePost(x, y - 2, fc);
+            this.chickThePost(x - 1, y - 1, fc);
+            this.chickThePost(x + 1, y - 1, fc);
+            this.chickThePost(x - 1, y + 1, fc);
+            this.chickThePost(x + 1, y + 1, fc);
         };
         //循环特效
         YuLeiZiDan.prototype.loop = function () {
             var tw = egret.Tween.get(this.bitmap, { loop: true });
-            tw.to({ "scaleX": 1.6, "scaleY": 2, "alpha": 1.6 }, 100).to({ "alpha": 1, "scaleX": 1, "scaleY": 1 }, 150);
+            tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.8 }, 50).to({ "alpha": 1, "scaleX": 1, "scaleY": 1 }, 180);
         };
         YuLeiZiDan.prototype.removeTeXiao = function () {
             egret.Tween.removeTweens(this.bitmap);

@@ -70,11 +70,6 @@ var scene;
         SceneBase.prototype.initcoll = function () {
             var s = this;
             this.world.on('beginContact', function (evt) {
-                //如果碰撞没有子弹 则退出
-                // if (!(evt.bodyB instanceof zidan.ZiDanBase) && !(evt.bodyA instanceof zidan.ZiDanBase)) {
-                //     return;
-                // }
-                //---------------------------------------------
                 //--------------掉落道具------------------
                 if (evt.bodyA instanceof diaoluo.DiaoLuo) {
                     var dl = evt.bodyA;
@@ -108,14 +103,20 @@ var scene;
                         if (oh instanceof zidan.ZiDanBase) {
                             //检测碰撞点 并且标记好在循环外删除
                             if (ogzd.is_first) {
-                                // fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd.hitNumber);
                                 var mk = fc.jia_ce_peng_zhuang_dian(oh.displays[0].x, oh.displays[0].y);
                                 fc.shang_hai(mk, ogzd.hitNumber);
+                                //长钉 
                                 if (ogzd instanceof zidan.ChangDingZiDan) {
                                     var cd = ogzd;
                                     cd.chuan_jia(mk, fc);
                                 }
+                                //重锤
                                 if (ogzd instanceof zidan.ZhongChuiZiDan) {
+                                    var cd = ogzd;
+                                    cd.chuan_jia(mk, fc);
+                                }
+                                //鱼雷
+                                if (ogzd instanceof zidan.YuLeiZiDan) {
                                     var cd = ogzd;
                                     cd.chuan_jia(mk, fc);
                                 }
@@ -373,7 +374,6 @@ var scene;
             }
             this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.02;
             this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.02;
-            // egret.log("WWWWWWWWWWWWWWWWWWWWWWWW:"+this.sk_p2_now.x+"__"+this.sk_p2_now.y)
         };
         //掉落道具
         SceneBase.prototype.diao_luo_dao_ju = function (mk) {

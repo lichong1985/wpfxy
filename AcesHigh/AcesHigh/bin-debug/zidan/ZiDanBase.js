@@ -113,6 +113,22 @@ var zidan;
             b.alpha = 0.5;
             egret.Tween.get(b).to({ "alpha": 0.1 }, 110).call(this.dell, this, [b]);
         };
+        //检测 节点是否可以被击中
+        ZiDanBase.prototype.chickThePost = function (x, y, fc) {
+            if (x < 0) {
+                return;
+            }
+            if (y < 0) {
+                return;
+            }
+            if (x >= fc.moKuaiList[0].length) {
+                return;
+            }
+            if (y >= fc.moKuaiList.length) {
+                return;
+            }
+            fc.shang_hai(fc.moKuaiList[y][x], this.hitNumber);
+        };
         return ZiDanBase;
     }(p2.Body));
     zidan.ZiDanBase = ZiDanBase;

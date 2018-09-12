@@ -144,8 +144,27 @@ module zidan {
             b.scaleY = 0.5;
             this.scene.addChild(b);
             b.alpha = 0.5;
-            egret.Tween.get(b).to({ "alpha": 0.1}, 110).call(this.dell, this, [b]);
+            egret.Tween.get(b).to({ "alpha": 0.1 }, 110).call(this.dell, this, [b]);
 
+        }
+
+        //检测 节点是否可以被击中
+        public chickThePost(x: number, y: number, fc: feichuan.FeiChuanBase) {
+            if (x < 0) {
+                return;
+            }
+            if (y < 0) {
+                return;
+            }
+
+            if (x >= fc.moKuaiList[0].length) {
+                return;
+            }
+
+            if (y >= fc.moKuaiList.length) {
+                return;
+            }
+            fc.shang_hai(fc.moKuaiList[y][x], this.hitNumber);
         }
     }
 }

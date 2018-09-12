@@ -96,22 +96,22 @@ var zidan;
                 }
             }
         };
-        //检测 节点是否可以被击中
-        ZhongChuiZiDan.prototype.chickThePost = function (x, y, fc) {
-            if (x < 0) {
-                return;
-            }
-            if (y < 0) {
-                return;
-            }
-            if (x >= fc.moKuaiList[0].length) {
-                return;
-            }
-            if (y >= fc.moKuaiList.length) {
-                return;
-            }
-            fc.shang_hai(fc.moKuaiList[y][x], this.hitNumber);
-        };
+        // //检测 节点是否可以被击中
+        // public chickThePost(x: number, y: number, fc: feichuan.FeiChuanBase) {
+        //     if (x < 0) {
+        //         return;
+        //     }
+        //     if (y < 0) {
+        //         return;
+        //     }
+        //     if (x >= fc.moKuaiList[0].length) {
+        //         return;
+        //     }
+        //     if (y >= fc.moKuaiList.length) {
+        //         return;
+        //     }
+        //     fc.shang_hai(fc.moKuaiList[y][x], this.hitNumber);
+        // }
         ZhongChuiZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
             _super.prototype.weiyi.call(this, this.bit_name);

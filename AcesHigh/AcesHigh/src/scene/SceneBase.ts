@@ -94,14 +94,6 @@ module scene {
             let s: scene.SceneBase = this;
             this.world.on('beginContact', function (evt) {
 
-                //如果碰撞没有子弹 则退出
-                // if (!(evt.bodyB instanceof zidan.ZiDanBase) && !(evt.bodyA instanceof zidan.ZiDanBase)) {
-                //     return;
-                // }
-
-
-                //---------------------------------------------
-
                 //--------------掉落道具------------------
                 if (evt.bodyA instanceof diaoluo.DiaoLuo) {
                     let dl = <diaoluo.DiaoLuo>evt.bodyA;
@@ -110,7 +102,6 @@ module scene {
                     if (dl.collNum == 0) {
                         s.removeDLList.push(dl);
                     }
-
                 }
 
                 if (evt.bodyB instanceof diaoluo.DiaoLuo) {
@@ -120,8 +111,6 @@ module scene {
                     if (dl.collNum == 0) {
                         s.removeDLList.push(dl);
                     }
-
-
                 }
 
                 //-----------------------子弹与 地方碰撞----------------
@@ -142,18 +131,26 @@ module scene {
                         if (oh instanceof zidan.ZiDanBase) {
                             //检测碰撞点 并且标记好在循环外删除
                             if (ogzd.is_first) {
-                                // fc.checkCollision(oh.displays[0].x, oh.displays[0].y, ogzd.hitNumber);
                                 let mk = fc.jia_ce_peng_zhuang_dian(oh.displays[0].x, oh.displays[0].y);
                                 fc.shang_hai(mk, ogzd.hitNumber);
+                                //长钉 
                                 if (ogzd instanceof zidan.ChangDingZiDan) {
                                     let cd = <zidan.ChangDingZiDan>ogzd;
                                     cd.chuan_jia(mk, fc);
                                 }
 
+                                //重锤
                                 if (ogzd instanceof zidan.ZhongChuiZiDan) {
                                     let cd = <zidan.ZhongChuiZiDan>ogzd;
                                     cd.chuan_jia(mk, fc);
                                 }
+
+                                //鱼雷
+                                if (ogzd instanceof zidan.YuLeiZiDan) {
+                                    let cd = <zidan.YuLeiZiDan>ogzd;
+                                    cd.chuan_jia(mk, fc);
+                                }
+
                                 ogzd.is_first = false;
                             }
                         }
@@ -176,7 +173,6 @@ module scene {
             this.upSomeThing();
             this.updataIsInWorld();
             this.updataWuQi();
-
         }
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -453,7 +449,6 @@ module scene {
             this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.02
             this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.02
 
-            // egret.log("WWWWWWWWWWWWWWWWWWWWWWWW:"+this.sk_p2_now.x+"__"+this.sk_p2_now.y)
         }
 
 
