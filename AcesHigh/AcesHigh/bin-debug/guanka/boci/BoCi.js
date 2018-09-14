@@ -28,7 +28,11 @@ var boci;
             //------------test---------------------
             // this.jz = new juzi.Test1(1, this.scene);
             //-------------------------------------
-            this.jz = new juzi.ChaoDaLuoXuanJZ(1, this.scene); //超大一螺旋
+            //30
+            this.jz = new juzi.ShuangJiRaoLuoXuanFeiJZ(1, this.scene);
+            // this.jz = new juzi.ShuangDuiJiaoJiaXuanZhuanJZ(1, this.scene);//双对角 旋转
+            // this.jz = new juzi.SanBianYiXuanZhuanJZ(1, this.scene);// 三变异 旋转
+            // this.jz = new juzi.ChaoDaLuoXuanJZ(1, this.scene);//超大一螺旋
             // this.jz = new juzi.ShuangJiJieZouRaoFeiJZ(1, this.scene);//双击节奏绕飞 
             // this.jz = new juzi.BoSiMaoJiaXuanZhuanJZ(1, this.scene);//波斯猫 加 旋转
             // this.jz = new juzi.DanJiSanDanChangTiaoJZ(1, this.scene)//散弹两侧长条
