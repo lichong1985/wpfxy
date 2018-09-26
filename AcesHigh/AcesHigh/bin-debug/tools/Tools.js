@@ -87,5 +87,12 @@ var Tools;
         return egret.Point.create(rx, ry);
     }
     Tools.xiangliang = xiangliang;
+    //生成随机数
+    function GetRandomNum(Min, Max) {
+        var Range = Max - Min;
+        var Rand = Math.random();
+        return (Min + Math.round(Rand * Range));
+    }
+    Tools.GetRandomNum = GetRandomNum;
 })(Tools || (Tools = {}));
 //# sourceMappingURL=Tools.js.map

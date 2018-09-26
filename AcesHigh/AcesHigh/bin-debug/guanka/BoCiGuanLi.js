@@ -20,14 +20,15 @@ var guanqia;
             //是否进行下一个关卡
             this.is_next = true;
             this.scene = scene;
+            this.bc_now = new boci.BoCi(this.scene);
         }
         //下一波
         BoCiGuanLi.prototype.nextBo = function () {
             this.is_next = false;
             this.bociNum++;
             //1 
-            this.bc_now = new boci.BoCi(this.scene);
-            this.bc_now.initJuzi();
+            // this.bc_now = new boci.BoCi(this.scene);
+            this.bc_now.next();
         };
         BoCiGuanLi.prototype.addFc = function (scene) {
             this.bc_now.jz.addFc(scene);
@@ -35,9 +36,9 @@ var guanqia;
         //随机相关
         BoCiGuanLi.prototype.upSomeThing = function () {
             // egret.log("IS_NNNNNNN:" + this.scene.dijis.length);
-            // if (this.scene.dijis.length <= 0) {
-            //     this.is_next = true;
-            // }
+            if (this.scene.dijis.length <= 0) {
+                this.is_next = true;
+            }
             if (this.bc_now.jz.is_next) {
                 this.is_next = true;
             }

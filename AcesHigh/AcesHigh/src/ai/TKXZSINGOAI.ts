@@ -51,6 +51,11 @@ module ai {
             this.xs_y = this.xs;
 
             // egret.log(this.xs_x + " -- " + this.xs_y + " -- " + this.xs);
+
+            //s = v0·t + a·t²/2
+            //s=v0 * xs + f/m*xs*xs/2
+            //(s-v0*t)*2*m/tt=f
+
         }
 
         //更新状态
@@ -116,7 +121,7 @@ module ai {
 
         //------------------------加速------------------------------------
         public jia_su_x() {
-            //vt =v0 + at*1.8
+            //vt =v0 + fmt*1.8
             let mb_s: number = 0;
             if (this.mu_biao_wz_X == 1) {
                 mb_s = -this.xs_x;
@@ -215,6 +220,7 @@ module ai {
 
             //施加力
             this.fc.force = [this.force_x, this.force_y];
+
         }
 
 

@@ -44,7 +44,7 @@ var fjztj;
             //-----------------------------------------------减速移动--------------------------------------
             if (this.mT == zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING) {
                 if (this.fc.moveAI == null) {
-                    this.fc.moveAI = new ai.TKZXSINGOAI(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, this.info.move_time, this.info.mT_xs);
+                    this.fc.moveAI = new ai.testAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, this.info.move_time, this.info.mT_xs);
                     // this.fc.moveAI.xs = this.info.mT_xs;
                     this.fc.moveAI.init();
                 }
@@ -97,6 +97,13 @@ var fjztj;
             if (this.mzT == zhuangtaiji.ZT_TYPE.XUAN_ZHUAN) {
                 if (this.fc.mzAI == null) {
                     this.fc.mzAI = new ai.XuanZhuanAI(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
+                    this.fc.mzAI.xs = this.info.mZ_xs;
+                }
+            }
+            //-------------------------正下方--------------------------------------
+            if (this.mzT == zhuangtaiji.ZT_TYPE.ZHENG_XIA_FANG_ING) {
+                if (this.fc.mzAI == null) {
+                    this.fc.mzAI = new ai.ZhengXiaFangAi(this.fc, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_OVER, zhuangtaiji.ZT_TYPE.NO_THING);
                     this.fc.mzAI.xs = this.info.mZ_xs;
                 }
             }

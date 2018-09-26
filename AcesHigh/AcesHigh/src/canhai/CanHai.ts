@@ -3,7 +3,7 @@ module canhai {
         public yuntu: Array<mokuai.MoKuaiBase>;
         public zhuji: feichuan.FeiChuanBase;
         constructor(zhuji: feichuan.FeiChuanBase, yuntu: Array<mokuai.MoKuaiBase>) {
-            super(zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI)
+            super(zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI,1)
             this.fc_type = feichuan.FC_TYPE.CANHAI;
             this.yuntu = yuntu;
             this.zhuji = zhuji;

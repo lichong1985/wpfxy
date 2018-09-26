@@ -102,4 +102,11 @@ module Tools {
         return egret.Point.create(rx, ry);
 
     }
+
+    //生成随机数
+    export function GetRandomNum(Min, Max): number {
+        let Range: number = Max - Min;
+        let Rand: number = Math.random();
+        return (Min + Math.round(Rand * Range));
+    }
 }

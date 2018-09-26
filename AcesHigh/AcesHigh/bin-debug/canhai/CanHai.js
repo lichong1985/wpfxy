@@ -13,7 +13,7 @@ var canhai;
     var CanHai = (function (_super) {
         __extends(CanHai, _super);
         function CanHai(zhuji, yuntu) {
-            var _this = _super.call(this, zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI) || this;
+            var _this = _super.call(this, zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI, 1) || this;
             _this.fc_type = feichuan.FC_TYPE.CANHAI;
             _this.yuntu = yuntu;
             _this.zhuji = zhuji;

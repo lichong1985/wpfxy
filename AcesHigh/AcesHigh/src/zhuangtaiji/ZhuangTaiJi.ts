@@ -25,6 +25,8 @@ module zhuangtaiji {
         HUA_XING_ING,//滑行
         HUA_XING_OVER,//滑行结束
         XUAN_ZHUAN_JIAN_ING,//旋转减速
+        ZHENG_XIA_FANG_ING,//正下方
+
 
     }
 

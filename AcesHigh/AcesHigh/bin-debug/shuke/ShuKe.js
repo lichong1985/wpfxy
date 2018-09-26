@@ -13,7 +13,7 @@ var shuke;
     var ShuKe = (function (_super) {
         __extends(ShuKe, _super);
         function ShuKe(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN, 5) || this;
             _this.fc_type = feichuan.FC_TYPE.SUKE;
             _this.initSuKe();
             return _this;

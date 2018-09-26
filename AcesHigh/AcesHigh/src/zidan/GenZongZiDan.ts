@@ -4,8 +4,8 @@ module zidan {
         public gz_time: number = 10000;
         public suke: shuke.ShuKe;
         public sudu: number = 2;
-        constructor(scene: scene.SceneBase,zhenying: GameConstant.ZHEN_YING, mass: number, suke: shuke.ShuKe) {
-            super(scene,zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
+        constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number, suke: shuke.ShuKe) {
+            super(scene, zhenying, mass, wuqi.WUQI_TYPE.PU_TONG);
             this.initPT();
             this.is_updata = true;
             this.damping = 0;
@@ -23,10 +23,17 @@ module zidan {
 
         public updata() {
             super.updata();
+
+            //设置两秒后启动跟踪
+            if ((egret.getTimer() - this.mark_time) < 500) {
+                return;
+            }
+
             if ((egret.getTimer() - this.mark_time) > this.gz_time) {
                 this.is_updata = false;
                 return;
             }
+
             let angle: number = Math.atan2((this.suke.position[1] - this.position[1]), (this.suke.position[0] - this.position[0])) + Math.PI * 0.5
             let sx = Math.sin(angle) * this.sudu;
             let sy = Math.cos(angle) * this.sudu;

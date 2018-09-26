@@ -33,6 +33,10 @@ var zidan;
         };
         GenZongZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
+            //设置两秒后启动跟踪
+            if ((egret.getTimer() - this.mark_time) < 500) {
+                return;
+            }
             if ((egret.getTimer() - this.mark_time) > this.gz_time) {
                 this.is_updata = false;
                 return;

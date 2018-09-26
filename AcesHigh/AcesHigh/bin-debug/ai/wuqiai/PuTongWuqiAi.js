@@ -69,8 +69,26 @@ var ai;
             if (info.wq_type == 2) {
                 wuqiList = this.fc.jg1_wuqiList;
             }
+            if (info.wq_type == 22) {
+                wuqiList = this.fc.jg2_wuqiList;
+            }
+            if (info.wq_type == 23) {
+                wuqiList = this.fc.jg3_wuqiList;
+            }
+            if (info.wq_type == 24) {
+                wuqiList = this.fc.jg4_wuqiList;
+            }
             if (info.wq_type == 3) {
                 wuqiList = this.fc.gz1_wuqiList;
+            }
+            if (info.wq_type == 36) {
+                wuqiList = this.fc.gzh_wuqiList;
+            }
+            if (info.wq_type == 37) {
+                wuqiList = this.fc.gzz_wuqiList;
+            }
+            if (info.wq_type == 38) {
+                wuqiList = this.fc.gzy_wuqiList;
             }
             if (info.wq_type == 4) {
                 wuqiList = this.fc.js1_wuqiList;
@@ -80,6 +98,15 @@ var ai;
             }
             if (info.wq_type == 52) {
                 wuqiList = this.fc.sd2_wuqiList;
+            }
+            if (info.wq_type == 56) {
+                wuqiList = this.fc.sdh_wuqiList;
+            }
+            if (info.wq_type == 57) {
+                wuqiList = this.fc.sdz_wuqiList;
+            }
+            if (info.wq_type == 58) {
+                wuqiList = this.fc.sdy_wuqiList;
             }
             // egret.log("info.wq_type:" + info.wq_type);
             // egret.log("SSSSSSSSS:" + (time - info.xiao_ge_mark) + " -- " + info.xiao_num_mark + " -- " + info.xiao_num + " -- " + info.is_xiao);

@@ -30,10 +30,19 @@ module feichuan {
         public ptz_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
         public pty_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
         public jg1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public jg2_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public jg3_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public jg4_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
         public gz1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public gzz_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public gzy_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public gzh_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
         public js1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
         public sd1_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
         public sd2_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public sdh_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public sdz_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
+        public sdy_wuqiList: Array<wuqi.WuQiBase> = new Array<wuqi.WuQiBase>();
 
         /**
          * 飞船宽
@@ -82,6 +91,9 @@ module feichuan {
         //当前模块数量
         public mokuai_size: number = 0;
 
+        //初始质量'
+        public cs_mass: number = 0;
+
         //ai 列表-----------------------------------
         public ais: Array<ai.AiBase>;
 
@@ -114,10 +126,11 @@ module feichuan {
         //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         //TODO: 通过配置文件来加载
-        constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING) {
+        constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING, mass_: number) {
 
             // super()
-            super({ mass: 1 })
+            super({ mass: mass_ })
+            this.cs_mass = mass_;
             //核心列表
             this.heXinList = new Array<mokuai.DongLiHeXin>();
             //装甲列表
@@ -129,7 +142,6 @@ module feichuan {
             this.zhenying = zhenying;
             this.initPhPost();
             this.initColl();
-
 
         }
 
@@ -239,16 +251,52 @@ module feichuan {
                         this.jg1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
+                    if (bitName == "op_wq_2_2") {
+                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.jg2_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+                    if (bitName == "op_wq_2_3") {
+                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.jg3_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+                    if (bitName == "op_wq_2_4") {
+                        hx = new djwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_2", this);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.jg4_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
                     //---------------------------------------敌军跟踪武器-----------------------------------------------
                     if (bitName == "op_wq_3") {
-                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this);
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this, 1);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                         this.gz1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
                     if (bitName == "op_wq_3_1") {
-                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this);
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this, 1);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                         this.gz1_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+                    if (bitName == "op_wq_3_z") {
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this, 3);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.gzz_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+                    if (bitName == "op_wq_3_y") {
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this, 4);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.gzy_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+                    if (bitName == "op_wq_3_h") {
+                        hx = new djwq.GenZhongWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_3", this, 4);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.gzh_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
                     //----------------------------------------敌军减速武器-----------------------------------------------
@@ -260,20 +308,39 @@ module feichuan {
 
                     //--------------------------------敌军散弹 ------------------------------------------------
                     if (bitName == "op_wq_5_1") {
-                        egret.log("?????????????")
-                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this);
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this, 1);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                         this.sd1_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
                     if (bitName == "op_wq_5_2") {
-                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this);
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this, 1);
                         this.wuqiList.push(<wuqi.WuQiBase>hx);
                         this.sd2_wuqiList.push(<wuqi.WuQiBase>hx);
                     }
 
+                    if (bitName == "op_wq_5_h") {
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this, 2);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.sdh_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
 
-                    egret.log("???:" + bitName);
+                    if (bitName == "op_wq_5_z") {
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this, 3);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.sdz_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+
+                    if (bitName == "op_wq_5_y") {
+                        hx = new djwq.DJSanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_5", this, 4);
+                        this.wuqiList.push(<wuqi.WuQiBase>hx);
+                        this.sdy_wuqiList.push(<wuqi.WuQiBase>hx);
+                    }
+
+
+
+                    egret.log("??? --" + data[i] + ":" + bitName);
                     //掉落随机
                     this.suiji_dl(hx);
 
@@ -290,10 +357,10 @@ module feichuan {
 
                     hx.boxShape = box;
                     if (hx instanceof mokuai.DongLiHeXin) {
-                        this.battle_scene.addChildAt(hx, 10);
+                        this.battle_scene.addChildAt(hx, 100);
 
                     } else {
-                        this.battle_scene.addChildAt(hx, 5);
+                        this.battle_scene.addChildAt(hx, 1);
                     }
                     this.mokuai_size++;
                     i++;

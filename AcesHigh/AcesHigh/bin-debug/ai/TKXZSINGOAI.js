@@ -45,6 +45,9 @@ var ai;
             _this.xs_y = _this.xs;
             return _this;
             // egret.log(this.xs_x + " -- " + this.xs_y + " -- " + this.xs);
+            //s = v0·t + a·t²/2
+            //s=v0 * xs + f/m*xs*xs/2
+            //(s-v0*t)*2*m/tt=f
         }
         //更新状态
         TKZXSINGOAI.prototype.upType = function () {
@@ -94,7 +97,7 @@ var ai;
         //----------------------------------------------------------------
         //------------------------加速------------------------------------
         TKZXSINGOAI.prototype.jia_su_x = function () {
-            //vt =v0 + at*1.8
+            //vt =v0 + fmt*1.8
             var mb_s = 0;
             if (this.mu_biao_wz_X == 1) {
                 mb_s = -this.xs_x;

@@ -52,7 +52,7 @@ module ai {
 
         //目标相对飞机 所在位置  1左边  2中 3右边 
         public mu_biao_wz_X: number;
-        //目标相对飞机 所在位置  1上边  2中 3下边 
+        //目标相对飞机 所在位置   1下边 2中 3上边  
         public mu_biao_wz_Y: number;
 
         //误差
@@ -85,16 +85,16 @@ module ai {
         //目标 相对 你的位置
         public js_wz(you: number, to: number): number {
             if (to > you) {
-                if ((to - you) < 0.25) {
-                    return 2;
-                }
+                // if ((to - you) < 0.25) {
+                //     return 2;
+                // }
                 return 3;
             }
 
             if (you > to) {
-                if ((you - to) < 0.25) {
-                    return 2;
-                }
+                // if ((you - to) < 0.25) {
+                //     return 2;
+                // }
                 return 1;
             }
             return 2;

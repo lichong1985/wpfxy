@@ -6,32 +6,42 @@ module djwq {
         //每次发射的数量
         public shu_liang: number = 0;
         public shu_liang_mark: number = 5;
+        public fx: number = 1;
 
 
 
-        constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
+        constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase, fx: number) {
             super(fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.GEN_ZHONG);
             this.shu_liang_mark = 5;
             this.shu_liang = this.shu_liang_mark;
             this.sudu = 1.2;
+            this.fx = fx;
         }
+        // 1 前  2 后 3左 4右
 
         //射击
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
 
-            if ((now - this.mark_small_time) > this.small_cd) {
-                if (this.shu_liang > 0) {
-
-                    let angle: number = this.fc.angle
-                    let liliang = egret.Point.create(0, this.sudu);
-                    this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
-                    this.shu_liang--;
-                } else {
-                    this.mark_small_time = now + this.small_cd;
-                    this.shu_liang = this.shu_liang_mark;
-                }
+            let angle: number
+            if (this.fx == 1 || this.fx == 2) {
+                angle = this.fc.angle
+            }
+            if (this.fx == 3) {
+                angle = this.fc.angle + (-90 - 360) / 180 * Math.PI;
+            }
+            if (this.fx == 4) {
+                angle = this.fc.angle + (90 - 360) / 180 * Math.PI;
+            }
+            let sx = Math.sin(angle) * this.sudu;
+            let sy = Math.cos(angle) * this.sudu;
+            if (this.fx == 1) {
+                sy = sy * -1;
             }
 
+            let liliang = egret.Point.create(sx, sy);
+            this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         }
+
     }
+
 }

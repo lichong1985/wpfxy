@@ -22,6 +22,7 @@ module guanqia {
         public scene: scene.SceneBase;
         constructor(scene: scene.SceneBase) {
             this.scene = scene;
+            this.bc_now = new boci.BoCi(this.scene);
         }
 
         //下一波
@@ -29,8 +30,8 @@ module guanqia {
             this.is_next = false;
             this.bociNum++;
             //1 
-            this.bc_now = new boci.BoCi(this.scene);
-            this.bc_now.initJuzi();
+            // this.bc_now = new boci.BoCi(this.scene);
+            this.bc_now.next();
 
         }
 
@@ -41,9 +42,9 @@ module guanqia {
         //随机相关
         public upSomeThing() {
             // egret.log("IS_NNNNNNN:" + this.scene.dijis.length);
-            // if (this.scene.dijis.length <= 0) {
-            //     this.is_next = true;
-            // }
+            if (this.scene.dijis.length <= 0) {
+                this.is_next = true;
+            }
 
             if (this.bc_now.jz.is_next) {
                 this.is_next = true;

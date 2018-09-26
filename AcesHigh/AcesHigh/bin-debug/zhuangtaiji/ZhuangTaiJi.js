@@ -28,6 +28,7 @@ var zhuangtaiji;
         ZT_TYPE[ZT_TYPE["HUA_XING_ING"] = 20] = "HUA_XING_ING";
         ZT_TYPE[ZT_TYPE["HUA_XING_OVER"] = 21] = "HUA_XING_OVER";
         ZT_TYPE[ZT_TYPE["XUAN_ZHUAN_JIAN_ING"] = 22] = "XUAN_ZHUAN_JIAN_ING";
+        ZT_TYPE[ZT_TYPE["ZHENG_XIA_FANG_ING"] = 23] = "ZHENG_XIA_FANG_ING";
     })(ZT_TYPE = zhuangtaiji.ZT_TYPE || (zhuangtaiji.ZT_TYPE = {}));
     var ZhuangTaiJiBase = (function () {
         function ZhuangTaiJiBase() {

@@ -13,32 +13,40 @@ var djwq;
     //直射类武器
     var GenZhongWuqi = (function (_super) {
         __extends(GenZhongWuqi, _super);
-        function GenZhongWuqi(moKuaiPost, shapeType, bitName, fc) {
+        function GenZhongWuqi(moKuaiPost, shapeType, bitName, fc, fx) {
             var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.GEN_ZHONG) || this;
             _this.small_cd = 2000;
             _this.mark_small_time = 0;
             //每次发射的数量
             _this.shu_liang = 0;
             _this.shu_liang_mark = 5;
+            _this.fx = 1;
             _this.shu_liang_mark = 5;
             _this.shu_liang = _this.shu_liang_mark;
             _this.sudu = 1.2;
+            _this.fx = fx;
             return _this;
         }
+        // 1 前  2 后 3左 4右
         //射击
         GenZhongWuqi.prototype.fashe = function (angel, suke, now) {
-            if ((now - this.mark_small_time) > this.small_cd) {
-                if (this.shu_liang > 0) {
-                    var angle = this.fc.angle;
-                    var liliang = egret.Point.create(0, this.sudu);
-                    this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
-                    this.shu_liang--;
-                }
-                else {
-                    this.mark_small_time = now + this.small_cd;
-                    this.shu_liang = this.shu_liang_mark;
-                }
+            var angle;
+            if (this.fx == 1 || this.fx == 2) {
+                angle = this.fc.angle;
             }
+            if (this.fx == 3) {
+                angle = this.fc.angle + (-90 - 360) / 180 * Math.PI;
+            }
+            if (this.fx == 4) {
+                angle = this.fc.angle + (90 - 360) / 180 * Math.PI;
+            }
+            var sx = Math.sin(angle) * this.sudu;
+            var sy = Math.cos(angle) * this.sudu;
+            if (this.fx == 1) {
+                sy = sy * -1;
+            }
+            var liliang = egret.Point.create(sx, sy);
+            this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };
         return GenZhongWuqi;
     }(djwq.DJWQBase));

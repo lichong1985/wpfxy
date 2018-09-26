@@ -12,7 +12,7 @@ module test {
         public box1: p2.Box;
         public box2: p2.Box;
         constructor(battle_scene: scene.SceneBase) {
-            super(battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN)
+            super(battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN, 1);
 
             this.fc_type = feichuan.FC_TYPE.DIJI;
             // this.initJson("6_1_json");
@@ -21,7 +21,7 @@ module test {
 
         //做一个 飞船
         public initTestFchuan() {
-           
+
             this.mass = 100;
             // this.addAI(new ai.KeepDistanceAI(this, 5));
             // this.addAI(new ai.ShiShiMiaoZhunAi(this));
