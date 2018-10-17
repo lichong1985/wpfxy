@@ -26,6 +26,7 @@ var wjwq;
             return _this;
         }
         SanDanWuqi.prototype.fashe = function (angel, suke, now) {
+            _super.prototype.fashe.call(this, angel, suke, now);
             if (this.level >= 1) {
                 this.diu(this.wuqi_type, this.getLiliang(this.A5), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, this.A5);
                 this.diu(this.wuqi_type, this.getLiliang(this.FA5), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, this.FA5);

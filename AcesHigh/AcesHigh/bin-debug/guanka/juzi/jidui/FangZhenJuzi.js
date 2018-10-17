@@ -34,7 +34,7 @@ var juzi;
             for (var x = 0; x < w; x++) {
                 for (var y = 0; y < h; y++) {
                     //1 创建飞船
-                    var fc = new feichuan.JuZhenJidui(scene, this.fc_info, egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y));
+                    var fc = new feichuan.JuZhenJidui(scene, this.fc_info, egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y), this.nan_du);
                     //2 创建状态机
                     var ztj_info = new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)), zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 0, null, 2, -1, "");
                     var ztj = new fjztj.QuYuZTJ(fc);

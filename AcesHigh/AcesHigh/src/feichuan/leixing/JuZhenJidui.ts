@@ -1,8 +1,7 @@
 module feichuan {
     export class JuZhenJidui extends feichuan.FeiChuanBase {
-        constructor(battle_scends: scene.SceneBase, info: feichuan.FeiChuanInfo, cs_pos: egret.Point) {
-            egret.log("JJJJJJJJJJJJJJJJJJJJJJJDDDDDDDDDDDDDDDDDDDDDD:" + info.width * info.height)
-            super(battle_scends, cs_pos, GameConstant.ZHEN_YING.DI_JUN, info.height * info.width);
+        constructor(battle_scends: scene.SceneBase, info: feichuan.FeiChuanInfo, cs_pos: egret.Point, nan_du: number) {
+            super(battle_scends, cs_pos, GameConstant.ZHEN_YING.DI_JUN, info.ti_ji, nan_du);
             this.fc_type = feichuan.FC_TYPE.DIJI;
             this.initJson(info);
             this.initTestFchuan();

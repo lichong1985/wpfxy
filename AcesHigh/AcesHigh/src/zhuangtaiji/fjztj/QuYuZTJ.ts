@@ -26,7 +26,7 @@ module fjztj {
             //------------------------------------------------简单移动------------------------------------------------------
             if (this.mT == zhuangtaiji.ZT_TYPE.SINGO_MOVE_ING) {
                 if (this.fc.moveAI == null) {
-                    this.fc.moveAI = new ai.TKZXSINGOAI(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, this.info.move_time, this.info.mT_xs);
+                    this.fc.moveAI = new ai.ShiJianYiDongAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, this.info.move_time, this.info.mT_xs);
                     // this.fc.moveAI.xs = this.info.mT_xs;
                     this.fc.moveAI.init();
                 }
@@ -43,7 +43,7 @@ module fjztj {
 
             if (this.mT == zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING) {
                 if (this.fc.moveAI == null) {
-                    this.fc.moveAI = new ai.testAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, this.info.move_time, this.info.mT_xs);
+                    this.fc.moveAI = new ai.ShiJianYiDongAi(this.fc, zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_OVER, zhuangtaiji.ZT_TYPE.NO_THING, zhuangtaiji.ZT_TYPE.NO_THING, this.info.mT_run_time, this.info.move_time, this.info.mT_xs);
                     // this.fc.moveAI.xs = this.info.mT_xs;
                     this.fc.moveAI.init();
                 }

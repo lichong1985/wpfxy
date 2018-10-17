@@ -25,7 +25,7 @@ var juzi;
         };
         ShuangJiJiaoChaXuanZHuan.prototype.init1ZTJ = function () {
             //1 创建飞船
-            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(2, 2));
+            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(2, 2), this.nan_du);
             //2 创建状态机
             var ztj = new fjztj.QuYuZTJ(this.fc1);
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 32), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 10, 15, null, 2, -1, "32:52"));
@@ -39,7 +39,7 @@ var juzi;
         };
         ShuangJiJiaoChaXuanZHuan.prototype.init2ZTJ = function () {
             //1 创建飞船
-            this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(32, -2));
+            this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(32, -2), this.nan_du);
             //2 创建状态机
             var ztj = new fjztj.QuYuZTJ(this.fc2);
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(2, 35), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 10, 15, null, 2, -1, "-2:52"));

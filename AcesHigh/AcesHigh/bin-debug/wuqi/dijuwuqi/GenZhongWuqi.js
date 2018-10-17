@@ -46,6 +46,7 @@ var djwq;
                 sy = sy * -1;
             }
             var liliang = egret.Point.create(sx, sy);
+            _super.prototype.fashe.call(this, angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };
         return GenZhongWuqi;

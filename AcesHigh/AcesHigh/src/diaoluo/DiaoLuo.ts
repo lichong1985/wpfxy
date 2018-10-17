@@ -145,35 +145,35 @@ module diaoluo {
             }
             //装甲
             if (this.dl_type == suiji.SJ_YAN_SE.ZHUANG_JIA) {
-                if (this.lv == 1) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_1_dl"));
-                    this.name1 = "op_dl_zj_level_1_dl";
-                    this.name2 = "op_dl_zj_level_1_s_dl";
-                }
+                // if (this.lv == 1) {
+                //     this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_1_dl"));
+                //     this.name1 = "op_dl_zj_level_1_dl";
+                //     this.name2 = "op_dl_zj_level_1_s_dl";
+                // }
 
-                if (this.lv == 2) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_2_dl"));
-                    this.name1 = "op_dl_zj_level_2_dl";
-                    this.name2 = "op_dl_zj_level_2_s_dl";
-                }
+                // if (this.lv == 2) {
+                //     this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_2_dl"));
+                //     this.name1 = "op_dl_zj_level_2_dl";
+                //     this.name2 = "op_dl_zj_level_2_s_dl";
+                // }
 
-                if (this.lv == 3) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_3_dl"));
-                    this.name1 = "op_dl_zj_level_3_dl";
-                    this.name2 = "op_dl_zj_level_3_s_dl";
-                }
+                // if (this.lv == 3) {
+                //     this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_3_dl"));
+                //     this.name1 = "op_dl_zj_level_3_dl";
+                //     this.name2 = "op_dl_zj_level_3_s_dl";
+                // }
 
-                if (this.lv == 4) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_4_dl"));
-                    this.name1 = "op_dl_zj_level_4_dl";
-                    this.name2 = "op_dl_zj_level_4_s_dl";
-                }
+                // if (this.lv == 4) {
+                //     this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_4_dl"));
+                //     this.name1 = "op_dl_zj_level_4_dl";
+                //     this.name2 = "op_dl_zj_level_4_s_dl";
+                // }
 
-                if (this.lv == 5) {
-                    this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_5_dl"));
-                    this.name1 = "op_dl_zj_level_5_dl";
-                    this.name2 = "op_dl_zj_level_5_s_dl";
-                }
+                // if (this.lv == 5) {
+                this.bitmap = new egret.Bitmap(RES.getRes("op_dl_zj_level_5_dl"));
+                this.name1 = "op_dl_zj_level_5_dl";
+                this.name2 = "op_dl_zj_level_5_s_dl";
+                // }
             }
 
             this.displays = [this.bitmap];

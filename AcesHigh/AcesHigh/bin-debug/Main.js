@@ -126,6 +126,9 @@ var Main = (function (_super) {
     };
     //添加测试场景
     Main.prototype.addTestScene = function () {
+        Main.W = this.stage.stageWidth;
+        Main.H = this.stage.stageHeight;
+        egret.log("SSSSSSSSSSSWWWWWWWWWWWWWWWWW:" + this.stage.stageWidth + " -- " + this.stage.stageHeight);
         //初始化所有飞船
         var fc_list = RES.getRes("all_fc_json");
         for (var _i = 0, fc_list_1 = fc_list; _i < fc_list_1.length; _i++) {
@@ -159,6 +162,8 @@ var Main = (function (_super) {
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
     };
+    Main.W = 0;
+    Main.H = 0;
     return Main;
 }(eui.UILayer));
 __reflect(Main.prototype, "Main");

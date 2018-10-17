@@ -17,6 +17,7 @@ module wjwq {
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
+             super.fashe(angel, suke, now);
             if (this.level >= 1) {
                 this.diu(this.wuqi_type, this.getLiliang(this.A5), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, this.A5);
                 this.diu(this.wuqi_type, this.getLiliang(this.FA5), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, this.FA5);

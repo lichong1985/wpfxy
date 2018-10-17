@@ -10,6 +10,7 @@ module GameConstant {
     }
 
     //碰撞组
+    export let XING_XING: number = Math.pow(2, 0);//不与任何组碰撞˝
     export let WO_JUN: number = Math.pow(2, 1);
     export let DI_JUN: number = Math.pow(2, 2);
     export let ZHONG_LI: number = Math.pow(2, 3);

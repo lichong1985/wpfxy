@@ -27,6 +27,7 @@ var djwq;
             var xx = -(this.fc.position[0] - suke.position[0]);
             var xy = -(this.fc.position[1] - suke.position[1]);
             var liliang = egret.Point.create(sx, sy);
+            _super.prototype.fashe.call(this, angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };
         return JianSuWuqi;

@@ -21,6 +21,7 @@ var djwq;
             var sx = Math.sin(angle) * this.sudu;
             var sy = Math.cos(angle) * this.sudu;
             var liliang = egret.Point.create(sx, sy);
+            _super.prototype.fashe.call(this, angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };
         return HouSheWuqi;

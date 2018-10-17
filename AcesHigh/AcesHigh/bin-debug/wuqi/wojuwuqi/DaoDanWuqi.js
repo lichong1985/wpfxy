@@ -30,6 +30,7 @@ var wjwq;
                     var angle = this.fc.angle;
                     var liliang = egret.Point.create(0, -5);
                     if (this.mark_tiaget()) {
+                        _super.prototype.fashe.call(this, angel, suke, now);
                         this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angle);
                     }
                     this.shu_liang--;
@@ -52,6 +53,10 @@ var wjwq;
                         jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
                     }
                     continue;
+                }
+                if (!ff.hx) {
+                }
+                if (!ff.hx.x) {
                 }
                 //根据 距离判断先打哪个飞机
                 var ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));

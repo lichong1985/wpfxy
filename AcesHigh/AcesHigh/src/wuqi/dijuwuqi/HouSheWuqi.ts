@@ -12,6 +12,7 @@ module djwq {
             let sy = Math.cos(angle) * this.sudu;
 
             let liliang = egret.Point.create(sx, sy);
+            super.fashe(angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
 
         }

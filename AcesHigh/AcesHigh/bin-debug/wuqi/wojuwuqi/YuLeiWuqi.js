@@ -31,6 +31,7 @@ var wjwq;
             if ((now - this.mark_small_time) > this.small_cd) {
                 if (this.shu_liang > 0) {
                     //发射子弹
+                    _super.prototype.fashe.call(this, angel, suke, now);
                     this.diu(this.wuqi_type, egret.Point.create(0, 0), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, 0);
                 }
                 else {

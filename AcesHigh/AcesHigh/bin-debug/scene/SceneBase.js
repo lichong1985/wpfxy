@@ -44,6 +44,10 @@ var scene;
             _this.lastFeiJi = 0;
             //是否可以添加回合内的飞机
             _this.add_hh_fc = true;
+            _this.number = 0;
+            //是否加速
+            _this.is_jiasu = false;
+            _this.xxList = new Array();
             _this._distance = new egret.Point();
             _this._skP = new egret.Point();
             _this.init();
@@ -65,6 +69,8 @@ var scene;
             this.canHais = new Array();
             this.zidanList = new Array();
             this.removeDLList = new Array();
+            this.removeXXList = new Array();
+            // this.dpBar = new bar.DunBar(this);
         };
         //创建碰撞检测函数
         SceneBase.prototype.initcoll = function () {
@@ -140,8 +146,30 @@ var scene;
             this.upSomeThing();
             this.updataIsInWorld();
             this.updataWuQi();
+            this.jiasu();
+            // this.updataCH();
         };
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        //xingxing加速相关
+        SceneBase.prototype.updataXX = function () {
+            var s = this.xxList.length;
+            for (var i = 0; i < s; i++) {
+                if (this.is_jiasu) {
+                    this.xxList[i].jiasu();
+                }
+                else {
+                    this.xxList[i].jiansu();
+                }
+            }
+        };
+        //残骸加速
+        // public updataCH() {
+        //     if (this.is_jiasu) {
+        //         for (let ch of this.canHais) {
+        //             ch.velocity = [0, -10];
+        //         }
+        //     }
+        // }
         //刷新子弹
         SceneBase.prototype.updataZidan = function () {
             for (var _i = 0, _a = this.zidanList; _i < _a.length; _i++) {
@@ -276,6 +304,25 @@ var scene;
                 }
             }
         };
+        SceneBase.prototype.setJiaSu = function () {
+            this.jiasu_time = egret.getTimer() + 5 * 1000;
+        };
+        //星空加速
+        SceneBase.prototype.jiasu = function () {
+            if (this.jiasu_time > egret.getTimer()) {
+                if (!this.is_jiasu) {
+                    this.is_jiasu = true;
+                    //加速
+                    this.updataXX();
+                }
+            }
+            else {
+                if (this.is_jiasu) {
+                    this.is_jiasu = false;
+                    this.updataXX();
+                }
+            }
+        };
         SceneBase.prototype.p2Updata = function () {
             //进入 物理引擎前 计算偏移量
             this.updataSKNow();
@@ -300,6 +347,13 @@ var scene;
                     var dl = boxBody;
                     dl.updata();
                     //todo删除
+                }
+                //移除星星
+                if (boxBody instanceof bj.XingXing) {
+                    var xx = boxBody;
+                    if (xx.position[1] < (scene.battle_sceneH - (1000 + Tools.getPhoneH())) / Physics.factor) {
+                        xx.reTop();
+                    }
                 }
                 if (boxBody instanceof zidan.ZiDanBase) {
                     var zd = boxBody;
@@ -333,11 +387,13 @@ var scene;
                     }
                 }
                 if (boxBody instanceof canhai.CanHai) {
+                    var ch = boxBody;
+                    if (this.is_jiasu) {
+                        ch.velocity = [0, -5];
+                    }
                 }
                 if (boxBody instanceof shuke.ShuKe) {
                     boxBody.velocity = [0, 0];
-                }
-                if (boxBody instanceof feichuan.XiaoBing) {
                 }
                 if (boxBody instanceof feichuan.FeiChuanBase) {
                     var i_2 = boxBody;

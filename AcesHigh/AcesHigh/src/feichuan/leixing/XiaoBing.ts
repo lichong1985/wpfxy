@@ -2,8 +2,7 @@ module feichuan {
     export class XiaoBing extends feichuan.FeiChuanBase {
 
         constructor(battle_scends: scene.SceneBase, info: feichuan.FeiChuanInfo) {
-            egret.log("XXXXXXXXXXXBBBBBBBBBBBBBBBBBBB:" + info.width * info.height)
-            super(battle_scends, info.chu_sheng_pos, GameConstant.ZHEN_YING.DI_JUN, info.width * info.height);
+            super(battle_scends, info.chu_sheng_pos, GameConstant.ZHEN_YING.DI_JUN, info.ti_ji,1);
             this.fc_type = feichuan.FC_TYPE.DIJI;
             this.initJson(info);
             this.initTestFchuan();

@@ -19,6 +19,7 @@ var wjwq;
             return _this;
         }
         ZhongChuiWuqi.prototype.fashe = function (angel, suke, now) {
+            _super.prototype.fashe.call(this, angel, suke, now);
             this.diu(this.wuqi_type, egret.Point.create(0, this.sudu), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, this.fc.angle);
         };
         return ZhongChuiWuqi;

@@ -13,7 +13,7 @@ module suiji {
         RAN_LIAO,//燃料
     }
     export let HXS: SJ_HE_XIN[] = [SJ_HE_XIN.HU_DUN, SJ_HE_XIN.ZI_YU, SJ_HE_XIN.JI_SU];
-    export let YSS: SJ_YAN_SE[] = [SJ_YAN_SE.WU_QI, SJ_YAN_SE.ZHUANG_JIA, SJ_YAN_SE.RAN_LIAO];
+    export let YSS: SJ_YAN_SE[] = [SJ_YAN_SE.WU_QI, SJ_YAN_SE.ZHUANG_JIA];
     export let LVS: number[] = [1, 2, 3, 4, 5];
     //掉落概率
     export let DIAO_LUO_GAI_LV: number = 20;
@@ -22,8 +22,8 @@ module suiji {
     export let HX_QUN_ZHONG: number[] = [30, 30, 30];
     export let HX_QUN_ZHONG_ALL: number = 90
     //颜色权重
-    export let YS_QUN_ZHONG: number[] = [40, 80, 3];
-    export let YS_QUN_ZHONG_ALL: number = 123;
+    export let YS_QUN_ZHONG: number[] = [40, 80];
+    export let YS_QUN_ZHONG_ALL: number = 120;
     //等级权重、
     export let LV_QUN_ZHONG: number[] = [50, 30, 10, 5, 100];
     export let LV_QUN_ZHONG_ALL: number = 195;

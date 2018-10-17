@@ -21,9 +21,8 @@ var feichuan;
      */
     var FeiChuanBase = (function (_super) {
         __extends(FeiChuanBase, _super);
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++
         //TODO: 通过配置文件来加载
-        function FeiChuanBase(battle_scene, egretWorldPoint, zhenying, mass_) {
+        function FeiChuanBase(battle_scene, egretWorldPoint, zhenying, mass_, nan_du) {
             var _this = 
             // super()
             _super.call(this, { mass: mass_ }) || this;
@@ -55,7 +54,11 @@ var feichuan;
             _this.mokuai_size = 0;
             //初始质量'
             _this.cs_mass = 0;
+            //++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //难度 1 ~ 11  飞船难度 从1 到 11 级别
+            _this.nan_du = 1;
             _this.cs_mass = mass_;
+            _this.nan_du = nan_du;
             //核心列表
             _this.heXinList = new Array();
             //装甲列表
@@ -93,24 +96,12 @@ var feichuan;
                         this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = this.hx;
                     }
-                    if (bitName == "op_zj_pt_level_5") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx.setMkLevel(5);
-                    }
-                    if (bitName == "op_zj_pt_level_4") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx.setMkLevel(4);
-                    }
-                    if (bitName == "op_zj_pt_level_3") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx.setMkLevel(3);
-                    }
                     if (bitName == "op_zj_pt_level_2") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(2), this);
                         hx.setMkLevel(2);
                     }
                     if (bitName == "op_zj_pt_level_1") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(1), this);
                         hx.setMkLevel(1);
                     }
                     //----------------------------------敌军直射武器-------------------------------------------
@@ -256,6 +247,68 @@ var feichuan;
             }
             this.battle_scene.world.addBody(this);
         };
+        //根据难度 返回装甲名称
+        FeiChuanBase.prototype.getZJname = function (level) {
+            if (this.nan_du == 1) {
+                return "op_zj_pt_level_1";
+            }
+            if (this.nan_du == 2) {
+                if (level == 1) {
+                    return "op_zj_pt_level_1";
+                }
+                if (level == 2) {
+                    return "op_zj_pt_level_2";
+                }
+            }
+            if (this.nan_du == 3) {
+                return "op_zj_pt_level_2";
+            }
+            if (this.nan_du == 4) {
+                if (level == 1) {
+                    return "op_zj_pt_level_2";
+                }
+                if (level == 2) {
+                    return "op_zj_pt_level_3";
+                }
+            }
+            if (this.nan_du == 5) {
+                return "op_zj_pt_level_3";
+            }
+            if (this.nan_du == 6) {
+                if (level == 1) {
+                    return "op_zj_pt_level_3";
+                }
+                if (level == 2) {
+                    return "op_zj_pt_level_4";
+                }
+            }
+            if (this.nan_du == 7) {
+                return "op_zj_pt_level_4";
+            }
+            if (this.nan_du == 8) {
+                if (level == 1) {
+                    return "op_zj_pt_level_4";
+                }
+                if (level == 2) {
+                    return "op_zj_pt_level_5";
+                }
+            }
+            if (this.nan_du == 9) {
+                return "op_zj_pt_level_5";
+            }
+            if (this.nan_du == 10) {
+                if (level == 1) {
+                    return "op_zj_pt_level_5";
+                }
+                if (level == 2) {
+                    return "op_zj_pt_level_6";
+                }
+            }
+            if (this.nan_du == 11) {
+                return "op_zj_pt_level_6";
+            }
+            return null;
+        };
         //随机掉落
         FeiChuanBase.prototype.suiji_dl = function (hx) {
             var is = suiji.isDiaoLuoMoKuai();
@@ -267,6 +320,10 @@ var feichuan;
             hx.diao_luo_type = suiji.suiji_yanse();
             if (hx.diao_luo_type == suiji.SJ_YAN_SE.WU_QI) {
                 hx.dl_wq_type = suiji.suiji_wuqi();
+            }
+            if (hx.diao_luo_type == suiji.SJ_YAN_SE.ZHUANG_JIA) {
+                hx.dl_lv = 5;
+                return;
             }
             hx.dl_lv = suiji.suiji_level(hx.diao_luo_type);
         };
@@ -404,7 +461,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.YuLeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 3);
+                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);

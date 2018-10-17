@@ -3,7 +3,7 @@ module canhai {
         public yuntu: Array<mokuai.MoKuaiBase>;
         public zhuji: feichuan.FeiChuanBase;
         constructor(zhuji: feichuan.FeiChuanBase, yuntu: Array<mokuai.MoKuaiBase>) {
-            super(zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI,1)
+            super(zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI, 1, 1)
             this.fc_type = feichuan.FC_TYPE.CANHAI;
             this.yuntu = yuntu;
             this.zhuji = zhuji;
@@ -128,7 +128,7 @@ module canhai {
             this.moKuaiList[h][w] = hx;
 
             hx.boxShape = box;
-            this.battle_scene.addChild(hx);
+            this.battle_scene.addChildAt(hx,1);
             this.mokuai_size++;
         }
 

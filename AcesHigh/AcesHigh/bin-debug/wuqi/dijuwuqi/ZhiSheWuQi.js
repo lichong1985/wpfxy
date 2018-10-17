@@ -28,6 +28,7 @@ var djwq;
             var xy = -(this.fc.position[1] - suke.position[1]);
             // let liliang = Tools.bilv(xx, xy, 5);
             var liliang = egret.Point.create(sx, sy);
+            _super.prototype.fashe.call(this, angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
         };
         return ZhiSheWuQi;

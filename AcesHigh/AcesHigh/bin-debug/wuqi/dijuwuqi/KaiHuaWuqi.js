@@ -33,6 +33,7 @@ var djwq;
                     var angle = this.fc.angle;
                     var liliang = egret.Point.create(0, this.sudu);
                     this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
+                    _super.prototype.fashe.call(this, angel, suke, now);
                     this.shu_liang--;
                 }
                 else {

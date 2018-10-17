@@ -21,6 +21,8 @@ var boci;
     })(BO_CI_TYPE = boci.BO_CI_TYPE || (boci.BO_CI_TYPE = {}));
     var BoCi = (function () {
         function BoCi(scene) {
+            //当前波数
+            this.now_bo = 0;
             this.numberList = new Array();
             this.scene = scene;
             this.init();
@@ -35,7 +37,7 @@ var boci;
             var max = this.numberList.length;
             var min = 0;
             var numb = Tools.GetRandomNum(min, max);
-            numb = 51;
+            // numb = 2;
             this.jz = this.getJZ(numb);
             this.jz.initFcInfo();
             //移除指定节点
@@ -43,6 +45,11 @@ var boci;
             if (index > -1) {
                 this.numberList.splice(index, 1);
             }
+            this.now_bo++;
+            this.scene.hhBar.setNumber(this.now_bo);
+            this.scene.zzBar.setNumber(this.now_bo);
+            this.scene.timeBar.setMark(egret.getTimer() + 90 * 1000);
+            this.scene.setJiaSu();
         };
         BoCi.prototype.getJZ = function (numb) {
             if (numb == 1) {
@@ -196,7 +203,7 @@ var boci;
             // this.jz = new juzi.SanSanDanDingWeiJZ(1, this.scene);//三散弹定位
             // this.jz = new juzi.DanJiSanDanGenZongJZ(1, this.scene);//单机散弹 跟踪
             // this.jz = new juzi.JuZhanZiDanJiaXuanZhanJZ(1, this.scene);//矩阵子弹 旋转
-            this.jz = new juzi.SanMaZaiJZ(1, this.scene); //三马仔
+            // this.jz = new juzi.SanMaZaiJZ(1, this.scene);//三马仔
             // this.jz = new juzi.ChaoDaKuanTiJZ(1, this.scene);//超大宽体
             //30
             // this.jz = new juzi.ShuangJiRaoLuoXuanFeiJZ(1, this.scene);//双机绕螺旋飞

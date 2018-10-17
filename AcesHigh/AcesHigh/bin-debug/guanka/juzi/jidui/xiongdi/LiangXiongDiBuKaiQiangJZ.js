@@ -25,40 +25,40 @@ var juzi;
         };
         LiangXiongDiBuKaiQiangJZ.prototype.init1ZTJ = function () {
             //1 创建飞船
-            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info1, egret.Point.create(-5, 45));
+            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info1, egret.Point.create(-5, 45), this.nan_du);
             this.fc1.angle = (90 - 360) / 180 * Math.PI;
             //2 创建状态机
             var ztj = new fjztj.QuYuZTJ(this.fc1);
             //进场
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(0, 45), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 1, -1, "特殊处理1", true));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(0, 45), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
             //移动
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(1, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(1, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
             //休息
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(26, 6), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "32:52"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(26, 6), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "32:52"));
             //移动
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(26, 45), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(26, 45), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
             //休息
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(3, 45), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "32:52"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(3, 45), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "32:52"));
             ztj.nextStep(0);
             this.fc1.ztj = ztj;
         };
         LiangXiongDiBuKaiQiangJZ.prototype.init2ZTJ = function () {
             //1 创建飞船
-            this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info2, egret.Point.create(32, 8));
+            this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info2, egret.Point.create(32, 8), this.nan_du);
             this.fc2.angle = -(90 - 360) / 180 * Math.PI;
             //2 创建状态机
             var ztj = new fjztj.QuYuZTJ(this.fc2);
             //进场
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(27, 8), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 2, 1, null, 2, -1, "特殊处理2", true));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(27, 8), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "特殊处理2", true));
             //1
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(3, 8), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 2, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(3, 8), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 2, null, 2, -1, "13:15"));
             //2
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(26, 38), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 2, null, 2, -1, "32:52"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(26, 38), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 2, null, 2, -1, "32:52"));
             //3
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(8, 35), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(8, 35), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
             //4
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(33, -2), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "32:52"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, -2), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 2, -1, "32:52"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(33, -2), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "32:52"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, -2), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.YUN_DONG_DAO_HANG_ING, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "32:52"));
             ztj.nextStep(0);
             this.fc2.ztj = ztj;
         };

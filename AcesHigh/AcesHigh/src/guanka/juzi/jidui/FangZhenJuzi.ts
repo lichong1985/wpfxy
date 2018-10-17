@@ -35,7 +35,7 @@ module juzi {
                 for (let y = 0; y < h; y++) {
                     //1 创建飞船
                     let fc: feichuan.JuZhenJidui = new feichuan.JuZhenJidui(scene, this.fc_info,
-                        egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y));
+                        egret.Point.create(x * this.jg_w + this.zx_w, (-this.fc_info.height - 2) * y), this.nan_du);
 
                     //2 创建状态机
                     let ztj_info: zhuangtaiji.ZhuangTaiJiInfoBean = new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(x * this.jg_w + this.zx_w, (this.fc_info.height + 2) * (h - y)),

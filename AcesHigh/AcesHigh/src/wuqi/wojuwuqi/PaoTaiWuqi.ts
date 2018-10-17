@@ -23,6 +23,7 @@ module wjwq {
                         let angel = this.getAngel(zj);
                         let liliang = this.getLiliang(zj, angel);
                         //发射子弹
+                        super.fashe(angel, suke, now);
                         this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angel);
                     }
                     this.shu_liang--;

@@ -19,7 +19,7 @@ module juzi {
         public fc_list: Array<feichuan.FeiChuanBase> = new Array<feichuan.FeiChuanBase>();
         public fc_info_list: Array<feichuan.FeiChuanInfo> = new Array<feichuan.FeiChuanInfo>();
         //句子难度系数 1-5
-        public nan_du: number;
+        public nan_du: number = 1;
 
         //句子里当前的飞机数量
         public fc_num_now: number;

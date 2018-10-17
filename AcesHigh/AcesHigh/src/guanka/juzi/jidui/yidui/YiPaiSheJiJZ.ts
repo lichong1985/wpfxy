@@ -24,13 +24,13 @@ module juzi {
         public init1ZTJ() {
             //1 创建飞船
             this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(6, -2));
+                egret.Point.create(6, -2), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc1);
 
             //进场
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(6, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 1, -1, "特殊处理1", true));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
 
             //休息
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 8),
@@ -45,13 +45,13 @@ module juzi {
         public init2ZTJ() {
             //1 创建飞船
             this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(12, -2));
+                egret.Point.create(12, -2), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc2);
 
             //进场
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 1, -1, "特殊处理1", true));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
 
             //休息
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 8),
@@ -66,13 +66,13 @@ module juzi {
         public init3ZTJ() {
             //1 创建飞船
             this.fc3 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(18, -2));
+                egret.Point.create(18, -2), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc3);
 
             //进场
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(18, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 1, -1, "特殊处理1", true));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
 
             //休息
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 8),
@@ -87,13 +87,13 @@ module juzi {
         public init4ZTJ() {
             //1 创建飞船
             this.fc4 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(24, -2));
+                egret.Point.create(24, -2), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc4);
 
             //进场
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(24, 5),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 1, -1, "特殊处理1", true));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
 
             //休息
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 8),

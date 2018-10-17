@@ -28,6 +28,8 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 class Main extends eui.UILayer {
+    public static W: number = 0;
+    public static H: number = 0;
 
 
     protected createChildren(): void {
@@ -73,6 +75,9 @@ class Main extends eui.UILayer {
     public _distance: egret.Point = new egret.Point();
     //添加测试场景
     public addTestScene() {
+        Main.W = this.stage.stageWidth;
+        Main.H = this.stage.stageHeight;
+        egret.log("SSSSSSSSSSSWWWWWWWWWWWWWWWWW:" + this.stage.stageWidth + " -- " + this.stage.stageHeight);
         //初始化所有飞船
         let fc_list = RES.getRes("all_fc_json");
         for (let fc of fc_list) {
@@ -103,9 +108,11 @@ class Main extends eui.UILayer {
         }
         // this.testSen = new TestScene();
         this.testSen = TestScene.getInstance();
-        this.stage.addChild(this.testSen);
+        this.stage.addChild(this.testSen)
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
+
+
     }
 
 

@@ -28,12 +28,10 @@ module djwq {
                 angle = this.fc.angle + (90 - 360) / 180 * Math.PI;
             }
 
-
+            super.fashe(angel, suke, now);
             this.diu(this.wuqi_type, this.getLiLiang(angle), GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
-
-
             this.diu(this.wuqi_type, this.getLiLiang(this.A5 + angle), GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
-            this.diu(this.wuqi_type, this.getLiLiang(this.FA5 +angle), GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
+            this.diu(this.wuqi_type, this.getLiLiang(this.FA5 + angle), GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
             this.diu(this.wuqi_type, this.getLiLiang(this.A10 + angle), GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
             this.diu(this.wuqi_type, this.getLiLiang(this.FA10 + angle), GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
 

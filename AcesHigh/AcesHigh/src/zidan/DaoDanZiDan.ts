@@ -58,7 +58,7 @@ module zidan {
         public updata() {
             super.updata();
             // this.sudu += 0.1;
-            egret.log("SSSSSSSSSSSSSSSSS:"+this.sudu);
+            egret.log("SSSSSSSSSSSSSSSSS:" + this.sudu);
 
             if ((egret.getTimer() - this.mark_time) > this.gz_time) {
                 this.is_updata = false;

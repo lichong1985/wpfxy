@@ -19,6 +19,7 @@ var djwq;
         }
         //射击
         DJWQBase.prototype.fashe = function (angel, suke, now) {
+            _super.prototype.fashe.call(this, angel, suke, now);
         };
         return DJWQBase;
     }(wuqi.WuQiBase));

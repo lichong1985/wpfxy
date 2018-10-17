@@ -69,13 +69,16 @@ var Tools;
     //获取设备分辨率宽
     function getPhoneW() {
         // return document.documentElement.clientWidth;
-        return 640;
+        //egret.MainContext.instance.stage.stageWidth和egret.MainContext.instance.stage.stageHeight 
+        // egret.log("WWWWWWWWWWWWWWWWW:" + document.documentElement.clientWidth + " -- " + egret.MainContext.instance.stage.stageWidth + " -- " + Main.W);
+        return egret.MainContext.instance.stage.stageWidth;
     }
     Tools.getPhoneW = getPhoneW;
     //获取设备分辨率高
     function getPhoneH() {
         // return document.documentElement.clientHeight;
-        return 1136;
+        // egret.log("HHHHHHHHHHHHHHHHH:" + document.documentElement.clientHeight + " -- " + egret.MainContext.instance.stage.stageHeight + " -- " + Main.H);
+        return egret.MainContext.instance.stage.stageHeight;
     }
     Tools.getPhoneH = getPhoneH;
     //求两个点之间的向量

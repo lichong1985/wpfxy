@@ -33,6 +33,7 @@ var wjwq;
                         var angel_1 = this.getAngel(zj);
                         var liliang = this.getLiliang(zj, angel_1);
                         //发射子弹
+                        _super.prototype.fashe.call(this, angel_1, suke, now);
                         this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angel_1);
                     }
                     this.shu_liang--;

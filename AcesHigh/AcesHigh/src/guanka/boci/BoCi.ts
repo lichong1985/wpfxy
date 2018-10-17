@@ -26,10 +26,13 @@ module boci {
         public is_wei_bu: boolean;
         //句子管理
         public jz: juzi.JuZiGuanLi;
-        public scene: scene.SceneBase;
+        public scene: TestScene;
+
+        //当前波数
+        public now_bo: number = 0;
 
         public numberList: Array<number> = new Array<number>();
-        constructor(scene: scene.SceneBase) {
+        constructor(scene: TestScene) {
             this.scene = scene;
             this.init();
         }
@@ -46,7 +49,7 @@ module boci {
             let max = this.numberList.length;
             let min = 0;
             let numb: number = Tools.GetRandomNum(min, max);
-            numb = 51;
+            // numb = 2;
             this.jz = this.getJZ(numb);
             this.jz.initFcInfo();
             //移除指定节点
@@ -54,6 +57,13 @@ module boci {
             if (index > -1) {
                 this.numberList.splice(index, 1);
             }
+
+
+            this.now_bo++;
+            this.scene.hhBar.setNumber(this.now_bo);
+            this.scene.zzBar.setNumber(this.now_bo);
+            this.scene.timeBar.setMark(egret.getTimer() + 90 * 1000);
+            this.scene.setJiaSu();
 
         }
 
@@ -123,7 +133,7 @@ module boci {
             // this.jz = new juzi.SanSanDanDingWeiJZ(1, this.scene);//三散弹定位
             // this.jz = new juzi.DanJiSanDanGenZongJZ(1, this.scene);//单机散弹 跟踪
             // this.jz = new juzi.JuZhanZiDanJiaXuanZhanJZ(1, this.scene);//矩阵子弹 旋转
-            this.jz = new juzi.SanMaZaiJZ(1, this.scene);//三马仔
+            // this.jz = new juzi.SanMaZaiJZ(1, this.scene);//三马仔
             // this.jz = new juzi.ChaoDaKuanTiJZ(1, this.scene);//超大宽体
             //30
             // this.jz = new juzi.ShuangJiRaoLuoXuanFeiJZ(1, this.scene);//双机绕螺旋飞

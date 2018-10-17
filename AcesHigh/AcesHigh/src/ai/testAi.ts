@@ -76,7 +76,6 @@ module ai {
             let vt = (mb_s * 2) / (this.xs * 1.8) - this.fc.velocity[0];
             this.force_x = ((vt - this.fc.velocity[0]) * this.fc.cs_mass) / (1.8 * this.xs);
 
-            egret.log("XXXXX:" + mb_s + " -- " + this.fc.velocity[0] + " -- " + vt + " -- " + this.force_x + " -- " + this.xs);
 
         }
 
@@ -86,10 +85,8 @@ module ai {
                 mb_s = this.zong_ju_li_y * -1;
             }
 
-            let vt = (mb_s * 2) / (this.xs * 1.8) - (-5);
-            this.force_y = ((vt - (-5)) * this.fc.cs_mass) / (1.8 * this.xs);
-
-            egret.log("YYYYY:" + mb_s + " -- " + (-5) + " -- " + vt + " -- " + this.force_y + " -- " + this.xs);
+            let vt = (mb_s * 2) / (this.xs * 1.8) - this.fc.velocity[1];
+            this.force_y = ((vt - this.fc.velocity[1]) * this.fc.cs_mass) / (1.8 * this.xs);
         }
 
 

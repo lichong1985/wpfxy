@@ -18,9 +18,10 @@ module djwq {
             let xx = -(this.fc.position[0] - suke.position[0]);
             let xy = -(this.fc.position[1] - suke.position[1]);
             let liliang = egret.Point.create(sx, sy);
+            super.fashe(angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
 
-        
-            }
+
         }
     }
+}

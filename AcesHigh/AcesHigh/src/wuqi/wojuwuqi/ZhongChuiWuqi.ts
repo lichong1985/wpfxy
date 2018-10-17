@@ -10,6 +10,7 @@ module wjwq {
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
+             super.fashe(angel, suke, now);
             this.diu(this.wuqi_type, egret.Point.create(0, this.sudu), GameConstant.ZHEN_YING.WO_JUN_ZIDAN, this.fc.angle);
 
         }

@@ -32,16 +32,26 @@ var TestScene = (function (_super) {
     TestScene.prototype.initTest = function () {
         var wp = egret.Point.create(1200, 1200);
         //背景
-        var bg = new test.TestGrid();
+        var bg = new test.TestGrid(this);
         bg.x = 0;
         bg.y = 0;
         this.addChild(bg);
         var sk = new shuke.ShuKe(this);
         this.sk = sk;
+        this.initBars();
+    };
+    TestScene.prototype.initBars = function () {
+        this.dpBar = new bar.DunBar(this);
+        this.hhBar = new bar.HuiHeBar(this);
+        // this.gzBar = new bar.GuaZaiBar(this);
+        this.timeBar = new bar.TimeBar(this);
+        // this.djBar = new bar.DengJiBar(this);
+        this.zzBar = new bar.ZhongJianTiShiBar(this);
     };
     TestScene.prototype.upSomeThing = function () {
         // egret.log("LLLLLLLLLLLLLLLLL:"+suiji.GetRandomNum(0, 11))
         _super.prototype.upSomeThing.call(this);
+        this.timeBar.upup();
         if ((egret.getTimer() - this.up_mark) > this.up_jg) {
             if (this.bcgl.is_next) {
                 this.bcgl.nextBo();

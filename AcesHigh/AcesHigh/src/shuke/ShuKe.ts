@@ -3,7 +3,7 @@ module shuke {
 
         public yun_tu: number[][];
         constructor(battle_scene: scene.SceneBase) {
-            super(battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN,5)
+            super(battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN, 5, 1)
             this.fc_type = feichuan.FC_TYPE.SUKE;
             this.initSuKe();
 
@@ -155,7 +155,7 @@ module shuke {
             this.moKuaiList[y][x] = hx;
 
             hx.boxShape = box;
-            this.battle_scene.addChildAt(hx, 5);
+            this.battle_scene.addChild(hx);
             this.mokuai_size++;
         }
 

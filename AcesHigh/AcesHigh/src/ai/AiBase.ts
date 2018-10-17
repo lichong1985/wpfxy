@@ -85,16 +85,16 @@ module ai {
         //目标 相对 你的位置
         public js_wz(you: number, to: number): number {
             if (to > you) {
-                // if ((to - you) < 0.25) {
-                //     return 2;
-                // }
+                if ((to - you) < 0.25) {
+                    return 2;
+                }
                 return 3;
             }
 
             if (you > to) {
-                // if ((you - to) < 0.25) {
-                //     return 2;
-                // }
+                if ((you - to) < 0.25) {
+                    return 2;
+                }
                 return 1;
             }
             return 2;

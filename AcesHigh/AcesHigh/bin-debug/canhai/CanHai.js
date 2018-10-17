@@ -13,7 +13,7 @@ var canhai;
     var CanHai = (function (_super) {
         __extends(CanHai, _super);
         function CanHai(zhuji, yuntu) {
-            var _this = _super.call(this, zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI, 1) || this;
+            var _this = _super.call(this, zhuji.battle_scene, egret.Point.create(500, 500), GameConstant.ZHEN_YING.ZHONG_LI, 1, 1) || this;
             _this.fc_type = feichuan.FC_TYPE.CANHAI;
             _this.yuntu = yuntu;
             _this.zhuji = zhuji;
@@ -111,7 +111,7 @@ var canhai;
             this.addShape(box, [hpp.x, hpp.y]);
             this.moKuaiList[h][w] = hx;
             hx.boxShape = box;
-            this.battle_scene.addChild(hx);
+            this.battle_scene.addChildAt(hx, 1);
             this.mokuai_size++;
         };
         CanHai.prototype.updataSomeThing = function () {

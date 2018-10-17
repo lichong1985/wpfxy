@@ -12,10 +12,8 @@ var feichuan;
 (function (feichuan) {
     var JuZhenJidui = (function (_super) {
         __extends(JuZhenJidui, _super);
-        function JuZhenJidui(battle_scends, info, cs_pos) {
-            var _this = this;
-            egret.log("JJJJJJJJJJJJJJJJJJJJJJJDDDDDDDDDDDDDDDDDDDDDD:" + info.width * info.height);
-            _this = _super.call(this, battle_scends, cs_pos, GameConstant.ZHEN_YING.DI_JUN, info.height * info.width) || this;
+        function JuZhenJidui(battle_scends, info, cs_pos, nan_du) {
+            var _this = _super.call(this, battle_scends, cs_pos, GameConstant.ZHEN_YING.DI_JUN, info.ti_ji, nan_du) || this;
             _this.fc_type = feichuan.FC_TYPE.DIJI;
             _this.initJson(info);
             _this.initTestFchuan();

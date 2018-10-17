@@ -11,6 +11,7 @@ var GameConstant;
         ZHEN_YING[ZHEN_YING["DIAO_LUO"] = 5] = "DIAO_LUO";
     })(ZHEN_YING = GameConstant.ZHEN_YING || (GameConstant.ZHEN_YING = {}));
     //碰撞组
+    GameConstant.XING_XING = Math.pow(2, 0); //不与任何组碰撞˝
     GameConstant.WO_JUN = Math.pow(2, 1);
     GameConstant.DI_JUN = Math.pow(2, 2);
     GameConstant.ZHONG_LI = Math.pow(2, 3);

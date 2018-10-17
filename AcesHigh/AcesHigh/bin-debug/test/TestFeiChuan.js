@@ -19,7 +19,7 @@ var test;
     var TestFeiChuan = (function (_super) {
         __extends(TestFeiChuan, _super);
         function TestFeiChuan(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN, 1) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN, 1, 1) || this;
             _this.fc_type = feichuan.FC_TYPE.DIJI;
             // this.initJson("6_1_json");
             _this.initTestFchuan();

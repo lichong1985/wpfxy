@@ -67,7 +67,21 @@ module wuqi {
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
+            this.fasheTeXiao();
+        }
 
+        //发射特效
+        public fasheTeXiao() {
+            // let dong: egret.Bitmap = new egret.Bitmap(RES.getRes(this.name));
+            let tw = egret.Tween.get(this);
+            tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.1 }, 100).call(this.huizhi);
+
+        }
+        //特效回执
+        public huizhi() {
+            this.scaleX = 1;
+            this.scaleY = 1;
+            this.alpha = 1;
         }
 
         //送出子弹

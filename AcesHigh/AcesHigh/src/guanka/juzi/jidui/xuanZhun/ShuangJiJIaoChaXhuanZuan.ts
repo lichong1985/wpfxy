@@ -21,7 +21,7 @@ module juzi {
         public init1ZTJ() {
             //1 创建飞船
             this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(2, 2));
+                egret.Point.create(2, 2), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc1);
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 32),
@@ -47,7 +47,7 @@ module juzi {
         public init2ZTJ() {
             //1 创建飞船
             this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(32, -2));
+                egret.Point.create(32, -2), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc2);
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(2, 35),

@@ -19,8 +19,8 @@ module guanqia {
         //是否进行下一个关卡
         public is_next = true;
 
-        public scene: scene.SceneBase;
-        constructor(scene: scene.SceneBase) {
+        public scene:TestScene;
+        constructor(scene: TestScene) {
             this.scene = scene;
             this.bc_now = new boci.BoCi(this.scene);
         }

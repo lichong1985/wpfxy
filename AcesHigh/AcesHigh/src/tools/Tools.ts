@@ -83,13 +83,16 @@ module Tools {
     //获取设备分辨率宽
     export function getPhoneW(): number {
         // return document.documentElement.clientWidth;
-        return 640;
+        //egret.MainContext.instance.stage.stageWidth和egret.MainContext.instance.stage.stageHeight 
+        // egret.log("WWWWWWWWWWWWWWWWW:" + document.documentElement.clientWidth + " -- " + egret.MainContext.instance.stage.stageWidth + " -- " + Main.W);
+        return egret.MainContext.instance.stage.stageWidth;
     }
 
     //获取设备分辨率高
     export function getPhoneH(): number {
         // return document.documentElement.clientHeight;
-        return 1136;
+        // egret.log("HHHHHHHHHHHHHHHHH:" + document.documentElement.clientHeight + " -- " + egret.MainContext.instance.stage.stageHeight + " -- " + Main.H);
+        return egret.MainContext.instance.stage.stageHeight;
     }
 
     //求两个点之间的向量

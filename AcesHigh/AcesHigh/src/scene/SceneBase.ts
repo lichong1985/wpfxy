@@ -31,6 +31,8 @@ module scene {
         public removeZiDanBodyList: Array<p2.Body>;
         //只要出现就移除列表
         public ovzRemoveZiDanBodyList: Array<p2.Body>;
+        //循环外移除星星
+        public removeXXList: Array<p2.Body>;
         //受伤的飞船列表
         public shouShangFeiChuanList: Array<feichuan.FeiChuanBase>;
         //残骸列表
@@ -65,6 +67,18 @@ module scene {
         //
         public removeDLList: Array<diaoluo.DiaoLuo>;
 
+        // //---------------------bar----------------------
+        // //盾牌相关
+        // public dpBar: bar.DunBar;
+
+        //---------------------加速-------------------------
+        //加速有效时间
+        public jiasu_time; number = 0;
+        //是否加速
+        public is_jiasu: boolean = false;
+        public xxList: Array<bj.XingXing> = new Array<bj.XingXing>();
+
+
         constructor() {
             super()
 
@@ -87,6 +101,8 @@ module scene {
             this.canHais = new Array<canhai.CanHai>();
             this.zidanList = new Array<zidan.ZiDanBase>();
             this.removeDLList = new Array<diaoluo.DiaoLuo>();
+            this.removeXXList = new Array<bj.XingXing>();
+            // this.dpBar = new bar.DunBar(this);
         }
 
         //创建碰撞检测函数
@@ -173,8 +189,35 @@ module scene {
             this.upSomeThing();
             this.updataIsInWorld();
             this.updataWuQi();
+            this.jiasu();
+            // this.updataCH();
         }
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+        //xingxing加速相关
+        public updataXX() {
+            let s = this.xxList.length;
+
+            for (let i = 0; i < s; i++) {
+                if (this.is_jiasu) {
+                    this.xxList[i].jiasu();
+
+                } else {
+
+                    this.xxList[i].jiansu()
+                }
+            }
+
+        }
+
+        //残骸加速
+        // public updataCH() {
+        //     if (this.is_jiasu) {
+        //         for (let ch of this.canHais) {
+        //             ch.velocity = [0, -10];
+        //         }
+        //     }
+        // }
 
         //刷新子弹
         public updataZidan() {
@@ -330,9 +373,30 @@ module scene {
             }
         }
 
+        public setJiaSu() {
+            this.jiasu_time = egret.getTimer() + 5 * 1000;
+        }
+
+        //星空加速
+        public jiasu() {
+            if (this.jiasu_time > egret.getTimer()) {
+                if (!this.is_jiasu) {
+                    this.is_jiasu = true;
+                    //加速
+                    this.updataXX();
+                }
+            } else {
+                if (this.is_jiasu) {
+                    this.is_jiasu = false;
+                    this.updataXX()
+                }
+            }
+        }
+
         public p2Updata() {
             //进入 物理引擎前 计算偏移量
             this.updataSKNow();
+
 
             this.world.step(60 / 1000);
             var l: number = this.world.bodies.length;
@@ -357,6 +421,17 @@ module scene {
                     let dl = <diaoluo.DiaoLuo>boxBody;
                     dl.updata();
                     //todo删除
+                }
+
+                //移除星星
+                if (boxBody instanceof bj.XingXing) {
+                    let xx = <bj.XingXing>boxBody;
+                    if (xx.position[1] < (scene.battle_sceneH - (1000 + Tools.getPhoneH())) / Physics.factor) {
+                        xx.reTop();
+                    }
+
+
+
                 }
 
                 if (boxBody instanceof zidan.ZiDanBase) {
@@ -398,12 +473,17 @@ module scene {
                 }
 
                 if (boxBody instanceof canhai.CanHai) {
+
+                    let ch = <canhai.CanHai>boxBody;
+
+                    if (this.is_jiasu) {
+                        ch.velocity = [0, -5];
+                    }
                 }
                 if (boxBody instanceof shuke.ShuKe) {
                     boxBody.velocity = [0, 0];
                 }
-                if (boxBody instanceof feichuan.XiaoBing) {
-                }
+
 
                 if (boxBody instanceof feichuan.FeiChuanBase) {
                     let i = <feichuan.FeiChuanBase>boxBody;

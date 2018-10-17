@@ -12,7 +12,6 @@ var ai;
 (function (ai) {
     var TKZXSINGOAI = (function (_super) {
         __extends(TKZXSINGOAI, _super);
-        //减速距离
         function TKZXSINGOAI(fc, mt, xz, mz, run_time, time_, xs) {
             var _this = _super.call(this, fc, mt, xz, mz) || this;
             //减速次数上线
@@ -36,19 +35,71 @@ var ai;
             _this.start_pos = egret.Point.create(_this.fc.position[0], _this.fc.position[1]);
             _this.time_ = time_;
             _this.xs = xs;
-            //初始化 减速参数
-            _this.zong_ju_li_x = Math.abs(_this.fc.position[0] - _this.fc.toPoint.x);
-            _this.zong_ju_li_y = Math.abs(_this.fc.position[1] - _this.fc.toPoint.y);
-            // this.xs_x = (this.zong_ju_li_x / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs
-            // this.xs_y = (this.zong_ju_li_y / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs;
-            _this.xs_x = _this.xs;
-            _this.xs_y = _this.xs;
-            return _this;
+            _this.max_force = _this.fc.cs_mass;
             // egret.log(this.xs_x + " -- " + this.xs_y + " -- " + this.xs);
-            //s = v0·t + a·t²/2
-            //s=v0 * xs + f/m*xs*xs/2
-            //(s-v0*t)*2*m/tt=f
+            //f * 1.8=a * m;
+            //S/1.8=Vt^2+a(t^2)/2
+            //s/1.8=xs^2+(f*1.8)/m*(t^2)/2
+            _this.upType();
+            egret.log("TTTTTTTTTTTTT:" + _this.getMaxTimeX() + " -- " + _this.getMaxTimeY());
+            return _this;
         }
+        //获取 x 方向 末速度
+        TKZXSINGOAI.prototype.getVtX = function () {
+            var mb_s = 0;
+            if (this.mu_biao_wz_X == 1) {
+                mb_s = -this.xs;
+            }
+            if (this.mu_biao_wz_X == 2) {
+                mb_s = 0;
+            }
+            if (this.mu_biao_wz_X == 3) {
+                mb_s = this.xs;
+            }
+            return mb_s;
+        };
+        //获取 y 方向 末速度 
+        TKZXSINGOAI.prototype.getVtY = function () {
+            var mb_s = 0;
+            if (this.mu_biao_wz_Y == 1) {
+                mb_s = -this.xs;
+            }
+            if (this.mu_biao_wz_Y == 2) {
+                mb_s = 0;
+            }
+            if (this.mu_biao_wz_Y == 3) {
+                mb_s = this.xs;
+            }
+            return mb_s;
+        };
+        //获取 x方向 最大 行使时间
+        TKZXSINGOAI.prototype.getMaxTimeX = function () {
+            //f * 1.8=a * m;
+            //S/1.8=Vt^2+a(t^2)/2
+            //s/1.8=xs^2+(f*1.8)/m*(t^2)/2
+            //2*m*(s/1.8-this.xs*this.xs)/(f*1.8)=t*t
+            //math.sqrt(9)
+            var s = this.getZJLX();
+            egret.log("TTTXXXXXX:" + -1351.9998901649758 / 304.2);
+            var z = (2 * this.fc.cs_mass * (s / 1.8 - this.xs * this.xs)) / (this.max_force * 1.8);
+            var t = Math.sqrt(z);
+            return t;
+        };
+        // 获取 y 方向 最大  行使时间
+        TKZXSINGOAI.prototype.getMaxTimeY = function () {
+            var s = this.getZJLY();
+            var z = (2 * this.fc.cs_mass * (s / 1.8 - this.xs * this.xs)) / (this.max_force * 1.8);
+            var t = Math.sqrt(z);
+            return t;
+        };
+        //当前距离目标距离 x
+        TKZXSINGOAI.prototype.getZJLX = function () {
+            return Math.abs(this.fc.position[0] - this.fc.toPoint.x);
+        };
+        //当前距离目标距离 y
+        TKZXSINGOAI.prototype.getZJLY = function () {
+            return Math.abs(this.fc.position[1] - this.fc.toPoint.y);
+        };
         //更新状态
         TKZXSINGOAI.prototype.upType = function () {
             //位置达到
@@ -66,13 +117,6 @@ var ai;
             if (this.y_da_cheng) {
                 this.y_type = 1;
             }
-            //速度达到
-            // if (this.fc.velocity[0] >= this.xs) {
-            //     this.x_type = 2;
-            // }
-            // if (this.fc.velocity[1] >= this.xs) {
-            //     this.y_type = 2;
-            // }
         };
         //----------------------------减速---------------------------------------
         TKZXSINGOAI.prototype.x_jian_su = function () {
@@ -97,17 +141,10 @@ var ai;
         //----------------------------------------------------------------
         //------------------------加速------------------------------------
         TKZXSINGOAI.prototype.jia_su_x = function () {
-            //vt =v0 + fmt*1.8
-            var mb_s = 0;
-            if (this.mu_biao_wz_X == 1) {
-                mb_s = -this.xs_x;
-            }
-            if (this.mu_biao_wz_X == 2) {
-                mb_s = 0;
-            }
-            if (this.mu_biao_wz_X == 3) {
-                mb_s = this.xs_x;
-            }
+            //vt=at
+            //vt=f*1.8/m*t
+            //f=vt*m/(1.8*t)
+            var mb_s = this.getVtX();
             var vt = this.fc.velocity[0] + this.force_x * 1.8;
             if (mb_s > 0 && vt >= mb_s) {
                 this.force_x = 0;
@@ -120,17 +157,7 @@ var ai;
             this.force_x = (mb_s - this.fc.velocity[0]);
         };
         TKZXSINGOAI.prototype.jia_su_y = function () {
-            //vt =v0 + at*1.8
-            var mb_s = 0;
-            if (this.mu_biao_wz_Y == 1) {
-                mb_s = -this.xs_y;
-            }
-            if (this.mu_biao_wz_Y == 2) {
-                mb_s = 0;
-            }
-            if (this.mu_biao_wz_Y == 3) {
-                mb_s = this.xs_y;
-            }
+            var mb_s = this.getVtY();
             var vt = this.fc.velocity[1] + this.force_y * 1.8;
             if (mb_s > 0 && vt >= mb_s) {
                 this.force_y = 0;
@@ -168,9 +195,9 @@ var ai;
             }
             if (this.y_type == 3) {
                 this.jia_su_y();
+                //施加力
+                this.fc.force = [this.force_x, this.force_y];
             }
-            //施加力
-            this.fc.force = [this.force_x, this.force_y];
         };
         return TKZXSINGOAI;
     }(ai.AiBase));

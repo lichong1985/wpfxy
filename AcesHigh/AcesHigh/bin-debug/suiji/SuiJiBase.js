@@ -15,7 +15,7 @@ var suiji;
         SJ_YAN_SE[SJ_YAN_SE["RAN_LIAO"] = 2] = "RAN_LIAO";
     })(SJ_YAN_SE = suiji.SJ_YAN_SE || (suiji.SJ_YAN_SE = {}));
     suiji.HXS = [SJ_HE_XIN.HU_DUN, SJ_HE_XIN.ZI_YU, SJ_HE_XIN.JI_SU];
-    suiji.YSS = [SJ_YAN_SE.WU_QI, SJ_YAN_SE.ZHUANG_JIA, SJ_YAN_SE.RAN_LIAO];
+    suiji.YSS = [SJ_YAN_SE.WU_QI, SJ_YAN_SE.ZHUANG_JIA];
     suiji.LVS = [1, 2, 3, 4, 5];
     //掉落概率
     suiji.DIAO_LUO_GAI_LV = 20;
@@ -23,8 +23,8 @@ var suiji;
     suiji.HX_QUN_ZHONG = [30, 30, 30];
     suiji.HX_QUN_ZHONG_ALL = 90;
     //颜色权重
-    suiji.YS_QUN_ZHONG = [40, 80, 3];
-    suiji.YS_QUN_ZHONG_ALL = 123;
+    suiji.YS_QUN_ZHONG = [40, 80];
+    suiji.YS_QUN_ZHONG_ALL = 120;
     //等级权重、
     suiji.LV_QUN_ZHONG = [50, 30, 10, 5, 100];
     suiji.LV_QUN_ZHONG_ALL = 195;

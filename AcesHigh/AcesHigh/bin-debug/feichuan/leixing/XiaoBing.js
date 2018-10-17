@@ -13,9 +13,7 @@ var feichuan;
     var XiaoBing = (function (_super) {
         __extends(XiaoBing, _super);
         function XiaoBing(battle_scends, info) {
-            var _this = this;
-            egret.log("XXXXXXXXXXXBBBBBBBBBBBBBBBBBBB:" + info.width * info.height);
-            _this = _super.call(this, battle_scends, info.chu_sheng_pos, GameConstant.ZHEN_YING.DI_JUN, info.width * info.height) || this;
+            var _this = _super.call(this, battle_scends, info.chu_sheng_pos, GameConstant.ZHEN_YING.DI_JUN, info.ti_ji, 1) || this;
             _this.fc_type = feichuan.FC_TYPE.DIJI;
             _this.initJson(info);
             _this.initTestFchuan();

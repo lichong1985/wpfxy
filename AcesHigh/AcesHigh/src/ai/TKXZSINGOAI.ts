@@ -31,7 +31,10 @@ module ai {
         //总距离
         public zong_ju_li_x: number = 0;
         public zong_ju_li_y: number = 0;
-        //减速距离
+        // 最大力
+        public max_force: number;
+        //最大时间
+        public max_time: number;
 
 
 
@@ -40,21 +43,92 @@ module ai {
             this.start_pos = egret.Point.create(this.fc.position[0], this.fc.position[1]);
             this.time_ = time_;
             this.xs = xs;
-
-            //初始化 减速参数
-            this.zong_ju_li_x = Math.abs(this.fc.position[0] - this.fc.toPoint.x);
-            this.zong_ju_li_y = Math.abs(this.fc.position[1] - this.fc.toPoint.y);
-
-            // this.xs_x = (this.zong_ju_li_x / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs
-            // this.xs_y = (this.zong_ju_li_y / (this.zong_ju_li_x + this.zong_ju_li_y)) * this.xs;
-            this.xs_x = this.xs
-            this.xs_y = this.xs;
+            this.max_force = this.fc.cs_mass;
 
             // egret.log(this.xs_x + " -- " + this.xs_y + " -- " + this.xs);
+            //f * 1.8=a * m;
+            //S/1.8=Vt^2+a(t^2)/2
+            //s/1.8=xs^2+(f*1.8)/m*(t^2)/2
+            this.upType();
+            egret.log("TTTTTTTTTTTTT:" + this.getMaxTimeX() + " -- " + this.getMaxTimeY())
 
-            //s = v0·t + a·t²/2
-            //s=v0 * xs + f/m*xs*xs/2
-            //(s-v0*t)*2*m/tt=f
+
+
+        }
+
+        //获取 x 方向 末速度
+        public getVtX(): number {
+            let mb_s: number = 0;
+            if (this.mu_biao_wz_X == 1) {
+                mb_s = -this.xs;
+
+            }
+
+            if (this.mu_biao_wz_X == 2) {
+                mb_s = 0;
+
+            }
+            if (this.mu_biao_wz_X == 3) {
+                mb_s = this.xs;
+
+            }
+            return mb_s;
+        }
+
+        //获取 y 方向 末速度 
+        public getVtY(): number {
+
+            let mb_s: number = 0;
+            if (this.mu_biao_wz_Y == 1) {
+                mb_s = -this.xs;
+
+            }
+
+            if (this.mu_biao_wz_Y == 2) {
+                mb_s = 0;
+
+            }
+            if (this.mu_biao_wz_Y == 3) {
+                mb_s = this.xs;
+
+            }
+            return mb_s;
+        }
+
+        //获取 x方向 最大 行使时间
+        public getMaxTimeX(): number {
+            //f * 1.8=a * m;
+            //S/1.8=Vt^2+a(t^2)/2
+            //s/1.8=xs^2+(f*1.8)/m*(t^2)/2
+            //2*m*(s/1.8-this.xs*this.xs)/(f*1.8)=t*t
+            //math.sqrt(9)
+
+            let s = this.getZJLX();
+            egret.log("TTTXXXXXX:" + -1351.9998901649758/ 304.2 );
+            let z = (2 * this.fc.cs_mass * (s / 1.8 - this.xs * this.xs)) / (this.max_force * 1.8)
+            let t = Math.sqrt(z)
+
+            return t;
+
+
+        }
+        // 获取 y 方向 最大  行使时间
+        public getMaxTimeY(): number {
+            let s = this.getZJLY();
+            let z = (2 * this.fc.cs_mass * (s / 1.8 - this.xs * this.xs)) / (this.max_force * 1.8)
+            let t = Math.sqrt(z)
+
+            return t;
+        }
+
+        //当前距离目标距离 x
+        public getZJLX(): number {
+            return Math.abs(this.fc.position[0] - this.fc.toPoint.x);
+        }
+
+        //当前距离目标距离 y
+        public getZJLY(): number {
+            return Math.abs(this.fc.position[1] - this.fc.toPoint.y);
 
         }
 
@@ -78,17 +152,6 @@ module ai {
             if (this.y_da_cheng) {
                 this.y_type = 1;
             }
-
-
-            //速度达到
-            // if (this.fc.velocity[0] >= this.xs) {
-            //     this.x_type = 2;
-            // }
-
-            // if (this.fc.velocity[1] >= this.xs) {
-            //     this.y_type = 2;
-            // }
-
         }
 
 
@@ -121,21 +184,12 @@ module ai {
 
         //------------------------加速------------------------------------
         public jia_su_x() {
-            //vt =v0 + fmt*1.8
-            let mb_s: number = 0;
-            if (this.mu_biao_wz_X == 1) {
-                mb_s = -this.xs_x;
+            //vt=at
+            //vt=f*1.8/m*t
+            //f=vt*m/(1.8*t)
 
-            }
+            let mb_s: number = this.getVtX();
 
-            if (this.mu_biao_wz_X == 2) {
-                mb_s = 0;
-
-            }
-            if (this.mu_biao_wz_X == 3) {
-                mb_s = this.xs_x;
-
-            }
             let vt = this.fc.velocity[0] + this.force_x * 1.8;
             if (mb_s > 0 && vt >= mb_s) {
                 this.force_x = 0;
@@ -150,22 +204,9 @@ module ai {
         }
 
         public jia_su_y() {
-            //vt =v0 + at*1.8
-            let mb_s: number = 0;
-            if (this.mu_biao_wz_Y == 1) {
-                mb_s = -this.xs_y;
 
-            }
 
-            if (this.mu_biao_wz_Y == 2) {
-                mb_s = 0;
-
-            }
-            if (this.mu_biao_wz_Y == 3) {
-                mb_s = this.xs_y;
-
-            }
-
+            let mb_s: number = this.getVtY();
 
             let vt = this.fc.velocity[1] + this.force_y * 1.8;
 
@@ -179,8 +220,6 @@ module ai {
             }
 
             this.force_y = (mb_s - this.fc.velocity[1]);
-
-
         }
 
 
@@ -216,13 +255,13 @@ module ai {
 
             if (this.y_type == 3) {
                 this.jia_su_y();
+
+
+                //施加力
+                this.fc.force = [this.force_x, this.force_y];
             }
 
-            //施加力
-            this.fc.force = [this.force_x, this.force_y];
 
         }
-
-
     }
 }

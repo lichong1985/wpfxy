@@ -26,6 +26,7 @@ module djwq {
                     let angle: number = this.fc.angle
                     let liliang = egret.Point.create(0, this.sudu);
                     this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);
+                    super.fashe(angel, suke, now);
                     this.shu_liang--;
                 } else {
                     this.mark_small_time = now + this.small_cd;

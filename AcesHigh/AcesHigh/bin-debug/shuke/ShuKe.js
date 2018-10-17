@@ -13,7 +13,7 @@ var shuke;
     var ShuKe = (function (_super) {
         __extends(ShuKe, _super);
         function ShuKe(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN, 5) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN, 5, 1) || this;
             _this.fc_type = feichuan.FC_TYPE.SUKE;
             _this.initSuKe();
             return _this;
@@ -143,7 +143,7 @@ var shuke;
             this.addShape(box, [hpp.x, hpp.y]);
             this.moKuaiList[y][x] = hx;
             hx.boxShape = box;
-            this.battle_scene.addChildAt(hx, 5);
+            this.battle_scene.addChild(hx);
             this.mokuai_size++;
         };
         //初始化云图

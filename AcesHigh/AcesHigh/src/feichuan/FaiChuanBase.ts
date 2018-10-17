@@ -125,12 +125,17 @@ module feichuan {
         public fengshu: number;
         //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+        //难度 1 ~ 11  飞船难度 从1 到 11 级别
+        public nan_du: number = 1;
+
         //TODO: 通过配置文件来加载
-        constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING, mass_: number) {
+        constructor(battle_scene: scene.SceneBase, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING, mass_: number, nan_du: number) {
 
             // super()
             super({ mass: mass_ })
             this.cs_mass = mass_;
+
+            this.nan_du = nan_du;
             //核心列表
             this.heXinList = new Array<mokuai.DongLiHeXin>();
             //装甲列表
@@ -173,26 +178,12 @@ module feichuan {
                         this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
                         hx = this.hx;
                     }
-
-                    if (bitName == "op_zj_pt_level_5") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx.setMkLevel(5);
-                    }
-
-                    if (bitName == "op_zj_pt_level_4") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx.setMkLevel(4);
-                    }
-                    if (bitName == "op_zj_pt_level_3") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx.setMkLevel(3);
-                    }
                     if (bitName == "op_zj_pt_level_2") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(2), this);
                         hx.setMkLevel(2);
                     }
                     if (bitName == "op_zj_pt_level_1") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(1), this);
                         hx.setMkLevel(1);
                     }
 
@@ -369,6 +360,89 @@ module feichuan {
             this.battle_scene.world.addBody(this);
 
         }
+
+        //根据难度 返回装甲名称
+        public getZJname(level: number): string {
+            if (this.nan_du == 1) {
+                return "op_zj_pt_level_1";
+            }
+
+            if (this.nan_du == 2) {
+                if (level == 1) {
+                    return "op_zj_pt_level_1"
+                }
+
+                if (level == 2) {
+                    return "op_zj_pt_level_2"
+                }
+            }
+
+            if (this.nan_du == 3) {
+                return "op_zj_pt_level_2";
+            }
+
+            if (this.nan_du == 4) {
+                if (level == 1) {
+                    return "op_zj_pt_level_2"
+                }
+
+                if (level == 2) {
+                    return "op_zj_pt_level_3"
+                }
+            }
+
+            if (this.nan_du == 5) {
+                return "op_zj_pt_level_3";
+            }
+
+            if (this.nan_du == 6) {
+                if (level == 1) {
+                    return "op_zj_pt_level_3"
+                }
+
+                if (level == 2) {
+                    return "op_zj_pt_level_4"
+                }
+            }
+
+            if (this.nan_du == 7) {
+                return "op_zj_pt_level_4";
+            }
+
+            if (this.nan_du == 8) {
+                if (level == 1) {
+                    return "op_zj_pt_level_4"
+                }
+
+                if (level == 2) {
+                    return "op_zj_pt_level_5"
+                }
+            }
+
+            if (this.nan_du == 9) {
+                return "op_zj_pt_level_5";
+            }
+
+            if (this.nan_du == 10) {
+                if (level == 1) {
+                    return "op_zj_pt_level_5"
+                }
+
+                if (level == 2) {
+                    return "op_zj_pt_level_6"
+                }
+            }
+
+            if (this.nan_du == 11) {
+                return "op_zj_pt_level_6";
+            }
+
+
+
+
+
+            return null;
+        }
         //随机掉落
         public suiji_dl(hx: mokuai.MoKuaiBase) {
             let is: boolean = suiji.isDiaoLuoMoKuai();
@@ -381,6 +455,11 @@ module feichuan {
             hx.diao_luo_type = suiji.suiji_yanse();
             if (hx.diao_luo_type == suiji.SJ_YAN_SE.WU_QI) {
                 hx.dl_wq_type = suiji.suiji_wuqi();
+            }
+
+            if (hx.diao_luo_type == suiji.SJ_YAN_SE.ZHUANG_JIA) {
+                hx.dl_lv = 5;
+                return;
             }
             hx.dl_lv = suiji.suiji_level(hx.diao_luo_type);
         }
@@ -555,7 +634,7 @@ module feichuan {
         public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
             let hx: mokuai.MoKuaiBase;
             if (type == 3) {
-                hx = new wjwq.YuLeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 3);
+                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
                 let wq = <wuqi.WuQiBase>hx
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq)

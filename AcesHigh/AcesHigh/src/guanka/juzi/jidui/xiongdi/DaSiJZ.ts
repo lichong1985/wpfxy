@@ -18,14 +18,14 @@ module juzi {
         public init1ZTJ() {
             //1 创建飞船
             this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(15, -5));
+                egret.Point.create(15, -5), this.nan_du);
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc1);
             // this.fc1.angle = (45 - 360) / 180 * Math.PI;
 
             //进场
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(15, 15),
-                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 1, 1, null, 1, -1, "特殊处理1", true));
+                zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
 
             // //移动
             ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(15, 1),
