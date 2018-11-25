@@ -74,11 +74,20 @@ module mokuai {
         //标记当前位置
         public markPoint: egret.Point;
 
+        //-------------------------------------装甲等级相关------------------------------------------------
         //模块当前等级
         public mk_level: number = 1;
         //当前等级剩余耐打次数
         public dk_now: number = 1;
+        //总血量
+        public all_dk: number = 0;
 
+        //pi标记
+        public pi_mark: number = 1;
+
+        //武器号  渐变用的
+        public wq_numb: number = 0;
+        //-----------------------------------------------------------------------------------------
 
         //相对距离
         public relativeDistance: egret.Point = egret.Point.create(0, 0);
@@ -141,43 +150,53 @@ module mokuai {
 
         //模块碰撞检测
         public coll(hit: number): boolean {
+
+
+
             this.dk_now = this.dk_now - hit;
+
+
             if (this.dk_now <= 0) {
-                this.mk_level--;
-                //换皮
-                if (this.mk_level > 0) {
-                    if (this.mk_level == 4) {
-                        this.texture = RES.getRes("op_zj_pt_level_4");
-                        this.bitName = "op_zj_pt_level_4";
-                    }
-                    if (this.mk_level == 3) {
-                        this.texture = RES.getRes("op_zj_pt_level_3");
-                        this.bitName = "op_zj_pt_level_3";
-                    }
-                    if (this.mk_level == 2) {
-                        this.texture = RES.getRes("op_zj_pt_level_2");
-                        this.bitName = "op_zj_pt_level_2";
-                    }
-                    if (this.mk_level == 1) {
-                        this.texture = RES.getRes("op_zj_pt_level_1");
-                        this.bitName = "op_zj_pt_level_1";
-                    }
-                }
-                this.dk_now = this.mk_level;
-            }
-
-
-            if (this.mk_level <= 0 && this.dk_now <= 0) {
                 //已经被销毁
                 return true;
             }
+            let now_pi = this.dk_now / this.all_dk;
+
+            let rgb = { "r": 0, "g": 0, "b": 0 }
+
+            if (this.moKuaiType == MO_KUAI_TYPE.ZHUANG_JIA) {
+                rgb = mokuai.getRGB_PT(1 - now_pi, this.mk_level)
+            }
+
+            if (this.moKuaiType == MO_KUAI_TYPE.CAN_HAI) {
+                rgb = mokuai.getRGB_CH(1 - now_pi, this.mk_level)
+            }
+
+            if (this.moKuaiType == MO_KUAI_TYPE.WU_QI) {
+                rgb = mokuai.getRGB_WQ(1 - now_pi, this.wq_numb);
+            }
+
+
+            //变色
+            var colorMatrix = [
+                1, 0, 0, 0, rgb.r,
+                0, 1, 0, 0, rgb.g,
+                0, 0, 1, 0, rgb.b,
+                0, 0, 0, 1, 0
+            ];
+            var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
+            this.filters = [colorFlilter];
+
+
             return false;
         }
 
         //设置装甲等级
         public setMkLevel(level: number) {
             this.mk_level = level;
-            this.dk_now = level;
+            this.dk_now = level * 5;
+            this.all_dk = this.dk_now;
+
         }
 
         //移除缓动动画
@@ -190,41 +209,31 @@ module mokuai {
 
 
         public jihui_texiao() {
+            this.zjsp();
+            this.zjsp();
+            this.zjsp();
+        }
+
+        //装甲碎片粒子
+        public zjsp() {
             let b = new egret.Bitmap(RES.getRes(this.bitName))
             b.x = this.x;
             b.y = this.y;
             this.fc.battle_scene.addChild(b);
-            b.rotation = this.rotation;
             b.anchorOffsetX = b.width * 0.5;
             b.anchorOffsetY = b.height * 0.5;
-            let r = b.rotation + 361;
-            egret.Tween.get(b).to({ "alpha": 0.9, "rotation": r }, 800).call(this.dell, this, [b]);
 
-        }
-        //击中特效
-        public jiZhong_texiao() {
-            if (this.mk_level == 5) {
-                this.texture = RES.getRes("op_zj_pt_jz_level_5_jz");
-            }
-            if (this.mk_level == 4) {
-                this.texture = RES.getRes("op_zj_pt_jz_level_4_jz");
-            }
-            if (this.mk_level == 3) {
-                this.texture = RES.getRes("op_zj_pt_jz_level_3_jz");
-            }
-            if (this.mk_level == 2) {
-                this.texture = RES.getRes("op_zj_pt_jz_level_2_jz");
-            }
-            if (this.mk_level == 1) {
-                this.texture = RES.getRes("op_zj_pt_jz_level_1_jz");
-            }
-            this.alpha = 0.5
-            egret.Tween.get(this).to({ "alpha": 1 }, 250).to({ "alpha": 0.3 }, 250).call(this.shan_shuo, this);
-        }
-        //闪烁
-        public shan_shuo() {
-            this.alpha = 1;
-            this.texture = RES.getRes(this.bitName);
+            //缩放
+            let scale = Tools.GetRandomNum(1, 3) * 0.1;
+            b.scaleX = scale;
+            b.scaleY = scale;
+            let r = 100;
+            let x = Tools.GetRandomNum(-r, r);
+            let y = Tools.GetRandomNum(-r, r);
+            let t = Tools.GetRandomNum(100, 600);
+
+            egret.Tween.get(b).to({ "x": this.x + x, "y": this.y + y }, t).call(this.dell, this, [b]);
+
 
         }
 

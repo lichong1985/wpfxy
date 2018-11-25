@@ -43,20 +43,43 @@ module wuqi {
         //目标飞船
         public tiaget_fc: feichuan.FeiChuanBase;
 
+        //特效贴图
+        public tx: egret.Bitmap;
+
+        //螺旋角度
+        public lx: number = 0;
+
+
+        //连击次数
+        public lianji: number = 1;
+        public lianji_mark: number = 1;
+
+        //伤害相关
+        public hit: number = 5;
+
 
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, name: string, wuqii_type: WUQI_TYPE, fc: feichuan.FeiChuanBase) {
             super(mokaiPos, shType, name, fc);
             this.moKuaiType = mokuai.MO_KUAI_TYPE.WU_QI;
             this.wuqi_type = wuqii_type;
+
+            // this.tx = new egret.Bitmap(RES.getRes(name));
+            // this.tx.anchorOffsetX = this.width * 0.5;
+            // this.tx.anchorOffsetY = this.height * 0.5;
+            this.lianji_mark = this.lianji;
+
+
         }
+
+
 
 
         public updata_wq(angel: number, suke: shuke.ShuKe, now: number) {
             this.updata();
-
+            this.lx += 0.1;
             if ((now - this.mark_time) > this.cd && this.fc.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
-                this.mark_time = now;
+                // this.mark_time = now;
                 this.fashe(angel, suke, now);
                 return;
             }
@@ -68,13 +91,18 @@ module wuqi {
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
             this.fasheTeXiao();
+            this.mark_time += 200;
+            this.lianji_mark--;
+            if (this.lianji_mark <= 0) {
+                this.mark_time = now;
+                this.lianji_mark = this.lianji;
+            }
         }
 
         //发射特效
         public fasheTeXiao() {
-            // let dong: egret.Bitmap = new egret.Bitmap(RES.getRes(this.name));
             let tw = egret.Tween.get(this);
-            tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.1 }, 100).call(this.huizhi);
+            tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.8 }, 100).call(this.huizhi);
 
         }
         //特效回执
@@ -85,7 +113,7 @@ module wuqi {
         }
 
         //送出子弹
-        public diu(w_t: WUQI_TYPE, v: egret.Point, zy: GameConstant.ZHEN_YING, angle: number) {
+        public diu(w_t: WUQI_TYPE, v: egret.Point, zy: GameConstant.ZHEN_YING, angle: number): zidan.ZiDanBase {
 
             let zd: zidan.ZiDanBase;
             if (w_t == WUQI_TYPE.ZHI_SHE) {
@@ -144,8 +172,10 @@ module wuqi {
             zd.position[0] = p.x;
             zd.position[1] = p.y;
             zd.velocity = [v.x, v.y];
+            zd.hitNumber = this.hit;
 
             zd.yue_shu();
+            return zd;
         }
     }
 }

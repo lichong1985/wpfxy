@@ -1,6 +1,7 @@
 module zhuangjia {
     export class PuTongZhuangJia extends ZhuangJiaBase {
-        public markNumber; number = 3;
+        public markNumber: number = 3;
+        public hp: number = 0;//装甲血量
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
             super(moKuaiPost, shapeType, bitName, fc);
         }

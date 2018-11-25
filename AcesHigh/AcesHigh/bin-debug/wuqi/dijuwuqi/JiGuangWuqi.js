@@ -35,13 +35,27 @@ var djwq;
             _this.hit_mark = 0;
             _this.is_hit = false;
             _this.shp = new egret.Shape();
+            _this.dj = null;
+            _this.egP = null;
             _this.rayClosest.collisionGroup = GameConstant.DI_JUN_ZIDAN;
             _this.rayClosest.collisionMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
+            _this.wq_numb = 2;
             return _this;
         }
         JiGuangWuqi.prototype.updata = function () {
             //攻击
             if (this.hit_mark > 0 && this.kuan_mark <= 0) {
+                if (this.dj && !this.is_hit && this.egP) {
+                    if (this.dj instanceof shuke.ShuKe) {
+                        var sk = this.dj;
+                        sk.bei_da();
+                    }
+                    else {
+                        this.dj.checkCollision(this.egP.x, this.egP.y, this.hit);
+                    }
+                    this.dj = null;
+                    this.egP = null;
+                }
                 this.is_hit = true;
                 this.kuan_mark = 0;
                 this.huizhikd(5, 0xffff00, 0.5);
@@ -56,7 +70,7 @@ var djwq;
                 return;
             }
             var pi = this.kuan_mark / this.kuan_more;
-            this.huizhikd(this.kuan * pi, 0xffff00, 0.5);
+            this.huizhikd(this.kuan * pi, 0x4F9DFF, 0.5);
             this.kuan_mark--;
         };
         //射击
@@ -83,15 +97,14 @@ var djwq;
             this.fc.battle_scene.world.raycast(this.result, this.rayClosest);
             this.result.getHitPoint(this.hitPoint, this.rayClosest);
             // 2画线
-            var egP;
             if (this.result.hasHit) {
-                var dj = this.result.body;
-                if (dj) {
-                    egP = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
+                this.dj = this.result.body;
+                if (this.dj) {
+                    this.egP = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
                     this.hit_mark++;
                 }
                 else {
-                    egP = Tools.p2TOegretPoitn(pTo);
+                    this.egP = Tools.p2TOegretPoitn(pTo);
                     this.hit_mark = 0;
                 }
             }
@@ -100,15 +113,28 @@ var djwq;
             //重绘
             this.shp.graphics.lineStyle(kd, color);
             this.shp.graphics.moveTo(this.x, this.y);
-            this.shp.graphics.lineTo(egP.x, egP.y);
+            this.shp.graphics.lineTo(this.egP.x, this.egP.y);
             this.shp.graphics.endFill();
             this.shp.alpha = alpha;
         };
         JiGuangWuqi.prototype.clear = function () {
+            if (!this.shp) {
+                return;
+            }
             this.shp.graphics.clear();
             if (this.shp.parent)
                 this.fc.battle_scene.removeChild(this.shp);
             this.is_hit = false;
+        };
+        JiGuangWuqi.prototype.remove_ = function () {
+            if (!this.shp) {
+                return;
+            }
+            this.shp.graphics.clear();
+            if (this.shp.parent)
+                this.fc.battle_scene.removeChild(this.shp);
+            this.is_hit = false;
+            this.shp = null;
         };
         return JiGuangWuqi;
     }(djwq.DJWQBase));

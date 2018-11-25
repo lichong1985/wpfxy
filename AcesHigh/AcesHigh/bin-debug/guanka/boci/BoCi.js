@@ -35,9 +35,9 @@ var boci;
         //下一波
         BoCi.prototype.next = function () {
             var max = this.numberList.length;
-            var min = 0;
+            var min = 1;
             var numb = Tools.GetRandomNum(min, max);
-            // numb = 2;
+            numb = 51;
             this.jz = this.getJZ(numb);
             this.jz.initFcInfo();
             //移除指定节点

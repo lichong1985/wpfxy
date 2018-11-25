@@ -27,7 +27,7 @@ module juzi {
         }
 
         //添加飞机到 战场
-        public addFc(scene: scene.SceneBase) {
+        public addFc(scene: TestScene) {
             let w = this.kuan[this.nan_du];
             let h = this.hou[this.nan_du];
 

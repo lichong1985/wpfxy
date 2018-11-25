@@ -6,7 +6,7 @@ module juzi {
         public fc1: feichuan.JuZhenJidui;
         public fc2: feichuan.JuZhenJidui;
 
-        constructor(nd: number, scene: scene.SceneBase) {
+        constructor(nd: number, scene:TestScene) {
             super(nd);
             this.scene = scene;
         }

@@ -20,6 +20,7 @@ var djwq;
             _this.FA5 = -5 * Math.PI / 180;
             _this.FA10 = -10 * Math.PI / 180;
             _this.fx = fx;
+            _this.wq_numb = 5;
             return _this;
         }
         //射击

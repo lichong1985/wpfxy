@@ -40,38 +40,38 @@ module test {
             // }
             // this.graphics.endFill();
 
-            //画竖格子
+            //画星星
             this.init_random_xx();
 
         }
 
         //初始化随机星星
         public init_random_xx() {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 let dd = new bj.XingXing(1.1, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 let dd = new bj.XingXing(0.9, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 let dd = new bj.XingXing(0.7, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 let dd = new bj.XingXing(0.3, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 5; i++) {
                 let dd = new bj.XingXing(0.1, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);

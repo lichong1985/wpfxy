@@ -17,7 +17,7 @@ module juzi {
 
 
 
-        constructor(nd: number, scene: scene.SceneBase) {
+        constructor(nd: number, scene: TestScene) {
             super(nd);
             this.scene = scene;
         }

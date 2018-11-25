@@ -97,5 +97,19 @@ var Tools;
         return (Min + Math.round(Rand * Range));
     }
     Tools.GetRandomNum = GetRandomNum;
+    //合并RGB
+    function mergeColor(rgb) {
+        return Math.floor(((rgb.r * 256) + rgb.g) * 256 + rgb.b);
+    }
+    Tools.mergeColor = mergeColor;
+    //分解颜色
+    function spliceColor(color) {
+        var result = { r: -1, g: -1, b: -1 };
+        result.b = color % 256;
+        result.g = Math.floor((color / 256)) % 256;
+        result.r = Math.floor((color / 256) / 256);
+        return result;
+    }
+    Tools.spliceColor = spliceColor;
 })(Tools || (Tools = {}));
 //# sourceMappingURL=Tools.js.map

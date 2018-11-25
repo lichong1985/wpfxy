@@ -78,6 +78,22 @@ module scene {
         public is_jiasu: boolean = false;
         public xxList: Array<bj.XingXing> = new Array<bj.XingXing>();
 
+        public tick: number = 0;
+
+
+        //---------------位移锚点-----------------------
+        //左减 右加
+        public mao_x: number = 0;
+        //下减 上加
+        public mao_y: number = 0;
+
+
+        //是否与商店图标发生碰撞
+        public is_shop: boolean = false;
+        public is_jl: boolean = false;
+        //触控移动的坐标点
+        public move_point: egret.Point = null;
+
 
         constructor() {
             super()
@@ -143,6 +159,7 @@ module scene {
                     let oh: p2.Body = evt.bodyB instanceof feichuan.FeiChuanBase ? evt.bodyA : evt.bodyB
                     let ogzd = <zidan.ZiDanBase>oh;
                     let fc = <feichuan.FeiChuanBase>m;
+                    //敌机
                     if (fc.zhenying == GameConstant.ZHEN_YING.DI_JUN || fc.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                         if (oh instanceof zidan.ZiDanBase) {
                             //检测碰撞点 并且标记好在循环外删除
@@ -171,6 +188,16 @@ module scene {
                             }
                         }
                     }
+
+                    //苏克
+                    if (fc.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
+                        let sk = <shuke.ShuKe>fc;
+                        if (ogzd.is_first) {
+                            sk.bei_da();
+                            ogzd.is_first = false;
+                        }
+
+                    }
                     //只有当 碰撞参数等于0的时候才添加到 删除列表
                     if (ogzd.collNumber == 0) {
 
@@ -185,12 +212,17 @@ module scene {
         public onEnterFrame() {
             this.chackColl();
             this.chackFeiChuan();
+            let t = this.tick % 2;
+            // if (t == 1) {
             this.p2Updata();
+            //     this.tick = t;
+            // }
             this.upSomeThing();
             this.updataIsInWorld();
             this.updataWuQi();
             this.jiasu();
             // this.updataCH();
+            // this.tick++;
         }
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -281,7 +313,11 @@ module scene {
                             // this.removeChild(d);
                         }
                     }
+                    if (zd instanceof zidan.LuoXuanZiDan) {
+                        let lx = <zidan.LuoXuanZiDan>zd;
+                        lx.wu.removeZD(lx.hao_ma);
 
+                    }
                     //移除约束
                     zd.removeYueShu();
                     this.world.removeBody(zd);
@@ -305,6 +341,12 @@ module scene {
                     if (d.parent) {
                         this.removeChild(d);
                     }
+                }
+
+                if (zd instanceof zidan.LuoXuanZiDan) {
+                    let lx = <zidan.LuoXuanZiDan>zd;
+                    lx.wu.removeZD(lx.hao_ma);
+
                 }
                 //移除约束
                 zd.removeYueShu();
@@ -526,8 +568,8 @@ module scene {
             if (!this.sk_p2_now) {
                 this.sk_p2_now = egret.Point.create(0, 0);
             }
-            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.02
-            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.02
+            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.05
+            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.05
 
         }
 
@@ -545,7 +587,9 @@ module scene {
         public _distance: egret.Point = new egret.Point();
 
         public _skP: egret.Point = new egret.Point();
-        //添加测试场景
+
+
+        //---------------------------------触控相关-------------------------------------
         public addShuKeListener() {
             this.touchEnabled = true
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.mouseDown, this);
@@ -565,10 +609,17 @@ module scene {
         }
 
         private mouseMove(evt: egret.TouchEvent) {
+
+
             let pp = egret.Point.create((evt.stageX - this._distance.x) / Physics.factor, -(evt.stageY - this._distance.y) / Physics.factor)
-            this.sk.position[0] = this._skP.x + pp.x
-            this.sk.position[1] = this._skP.y + pp.y
+            this.move_point = Tools.p2TOegretPoitn(egret.Point.create(this._skP.x + pp.x, this._skP.y + pp.y));
+
+            if (!this.is_shop && !this.is_jl) {
+                this.sk.position[0] = this._skP.x + pp.x
+                this.sk.position[1] = this._skP.y + pp.y
+            }
         }
+
 
         //根据suke的位置 移动战斗场景
         private weiyi(pp: egret.Point) {
@@ -602,6 +653,7 @@ module scene {
 
             }
         }
+        //-----------------------------------------------------------------------
 
 
         //适用于已经被测底打光的 飞船
@@ -634,6 +686,9 @@ module scene {
 
             fc = null;
         }
+
+
+
 
     }
 }

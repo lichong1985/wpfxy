@@ -19,7 +19,7 @@ module guanqia {
         //是否进行下一个关卡
         public is_next = true;
 
-        public scene:TestScene;
+        public scene: TestScene;
         constructor(scene: TestScene) {
             this.scene = scene;
             this.bc_now = new boci.BoCi(this.scene);
@@ -35,7 +35,7 @@ module guanqia {
 
         }
 
-        public addFc(scene: scene.SceneBase) {
+        public addFc(scene: TestScene) {
             this.bc_now.jz.addFc(scene);
         }
 

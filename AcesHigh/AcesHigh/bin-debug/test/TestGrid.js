@@ -39,36 +39,36 @@ var test;
             //     this.graphics.lineTo(i * 100, scene.battle_sceneH);
             // }
             // this.graphics.endFill();
-            //画竖格子
+            //画星星
             this.init_random_xx();
         };
         //初始化随机星星
         TestGrid.prototype.init_random_xx = function () {
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(1.1, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.9, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.7, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.3, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.1, 1);
                 this.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);

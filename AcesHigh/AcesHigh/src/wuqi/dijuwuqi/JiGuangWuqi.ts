@@ -22,16 +22,33 @@ module djwq {
         public is_hit: boolean = false
         public shp: egret.Shape = new egret.Shape();
 
+        public dj: feichuan.FeiChuanBase = null;
+        public egP: egret.Point = null;
+
+
+
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase) {
             super(fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JI_GUANG);
             this.rayClosest.collisionGroup = GameConstant.DI_JUN_ZIDAN;
             this.rayClosest.collisionMask = GameConstant.WO_JUN | GameConstant.ZHONG_LI;
+            this.wq_numb = 2;
 
         }
 
         public updata() {
             //攻击
             if (this.hit_mark > 0 && this.kuan_mark <= 0) {
+
+                if (this.dj && !this.is_hit && this.egP) {
+                    if (this.dj instanceof shuke.ShuKe) {
+                        let sk = <shuke.ShuKe>this.dj;
+                        sk.bei_da();
+                    } else {
+                        this.dj.checkCollision(this.egP.x, this.egP.y, this.hit);
+                    }
+                    this.dj = null;
+                    this.egP = null;
+                }
                 this.is_hit = true;
                 this.kuan_mark = 0;
                 this.huizhikd(5, 0xffff00, 0.5);
@@ -50,7 +67,7 @@ module djwq {
 
             let pi = this.kuan_mark / this.kuan_more;
 
-            this.huizhikd(this.kuan * pi, 0xffff00, 0.5);
+            this.huizhikd(this.kuan * pi, 0x4F9DFF, 0.5);
 
             this.kuan_mark--;
 
@@ -86,14 +103,13 @@ module djwq {
 
             // 2画线
 
-            let egP: egret.Point;
             if (this.result.hasHit) {
-                let dj = <feichuan.FeiChuanBase>this.result.body;
-                if (dj) {
-                    egP = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
+                this.dj = <feichuan.FeiChuanBase>this.result.body;
+                if (this.dj) {
+                    this.egP = Tools.p2TOegretPoitn(egret.Point.create(this.hitPoint[0], this.hitPoint[1]));
                     this.hit_mark++;
                 } else {
-                    egP = Tools.p2TOegretPoitn(pTo)
+                    this.egP = Tools.p2TOegretPoitn(pTo)
                     this.hit_mark = 0;
                 }
             }
@@ -105,18 +121,33 @@ module djwq {
             this.shp.graphics.lineStyle(kd, color);
             this.shp.graphics.moveTo(this.x, this.y);
 
-            this.shp.graphics.lineTo(egP.x, egP.y);
+            this.shp.graphics.lineTo(this.egP.x, this.egP.y);
             this.shp.graphics.endFill();
             this.shp.alpha = alpha;
 
         }
 
         public clear() {
+            if (!this.shp) {
+                return;
+            }
             this.shp.graphics.clear();
             if (this.shp.parent)
                 this.fc.battle_scene.removeChild(this.shp);
 
             this.is_hit = false;
+        }
+
+        public remove_() {
+            if (!this.shp) {
+                return;
+            }
+            this.shp.graphics.clear();
+            if (this.shp.parent)
+                this.fc.battle_scene.removeChild(this.shp);
+
+            this.is_hit = false;
+            this.shp = null;
         }
 
 

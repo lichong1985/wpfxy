@@ -25,6 +25,7 @@ var djwq;
             _this.shu_liang = _this.shu_liang_mark;
             _this.sudu = 1.2;
             _this.fx = fx;
+            _this.wq_numb = 3;
             return _this;
         }
         // 1 前  2 后 3左 4右

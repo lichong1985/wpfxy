@@ -3,7 +3,7 @@ module zidan {
         //跟踪弹生效时间
         public gz_time: number = 10000;
         public fc: feichuan.FeiChuanBase;
-        public sudu: number = 5;
+        public sudu: number = 8;
         //导弹启动时间
         public qi_dong = 300;
         public is_go = false;
@@ -58,7 +58,6 @@ module zidan {
         public updata() {
             super.updata();
             // this.sudu += 0.1;
-            egret.log("SSSSSSSSSSSSSSSSS:" + this.sudu);
 
             if ((egret.getTimer() - this.mark_time) > this.gz_time) {
                 this.is_updata = false;
@@ -101,7 +100,8 @@ module zidan {
 
 
 
-            let angle: number = Math.atan2((this.fc.position[1] - this.position[1]), (this.fc.position[0] - this.position[0])) + this.yi_ban;
+            let angle: number = this.jisuan_jiaodu();
+
 
             let sx = Math.sin(angle) * this.sudu;
             let sy = Math.cos(angle) * this.sudu;
@@ -136,7 +136,14 @@ module zidan {
 
         //计算角度
         public jisuan_jiaodu(): number {
-            let angle = Math.atan2((this.fc.position[1] - this.position[1]), (this.fc.position[0] - this.position[0])) + this.yi_ban;
+            if (this.fc == null) {
+                return 0;
+            }
+            if (this.fc.hx == null) {
+                return 0;
+            }
+            let hx: egret.Point = Tools.egretTOp2(egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+            let angle = Math.atan2((hx.y - this.position[1]), (hx.x - this.position[0])) + this.yi_ban;
             if (angle < 0) {
                 return Math.PI * 2 + angle;
             }

@@ -94,26 +94,20 @@ module canhai {
             let hx: mokuai.MoKuaiBase;
 
 
-            if (level == 1) {
+            if (level < 5) {
                 hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_1_ch", this);
-
+                hx.setMkLevel(1);
             }
-            if (level == 2) {
+            if (level > 4 && level < 9) {
                 hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_2_ch", this);
-
+                hx.setMkLevel(2);
             }
-            if (level == 3) {
+            if (level > 8) {
                 hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_3_ch", this);
-
+                hx.setMkLevel(3);
             }
-            if (level == 4) {
-                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_4_ch", this);
 
-            }
-            if (level == 5) {
-                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_zj_pt_ch_level_5_ch", this);
-
-            }
+            hx.moKuaiType = mokuai.MO_KUAI_TYPE.CAN_HAI;
 
 
             if (level == 0) {
@@ -128,7 +122,7 @@ module canhai {
             this.moKuaiList[h][w] = hx;
 
             hx.boxShape = box;
-            this.battle_scene.addChildAt(hx,1);
+            this.battle_scene.addChildAt(hx, 1);
             this.mokuai_size++;
         }
 

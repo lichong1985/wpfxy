@@ -21,32 +21,35 @@ var wjwq;
             _this.shu_liang_mark = 5;
             _this.level = level;
             _this.shu_liang_mark = level;
-            _this.cd = 200;
+            _this.cd = 2000;
             _this.sudu = 9;
+            _this.lianji = level;
+            _this.lianji_mark = _this.lianji;
             return _this;
         }
         PaoTaiWuqi.prototype.fashe = function (angel, suke, now) {
-            if ((now - this.mark_small_time) > this.small_cd) {
-                if (this.shu_liang > 0) {
-                    var zj = this.mark_tiaget();
-                    if (zj) {
-                        var angel_1 = this.getAngel(zj);
-                        var liliang = this.getLiliang(zj, angel_1);
-                        //发射子弹
-                        _super.prototype.fashe.call(this, angel_1, suke, now);
-                        this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angel_1);
-                    }
-                    this.shu_liang--;
-                }
-                else {
-                    this.mark_small_time = now + this.small_cd;
-                    this.shu_liang = this.shu_liang_mark;
-                }
+            // if ((now - this.mark_small_time) > this.small_cd) {
+            //     if (this.shu_liang > 0) {
+            var zj = this.mark_tiaget();
+            if (zj && zj.hx) {
+                var angel_1 = this.getAngel(zj);
+                var liliang = this.getLiliang(zj, angel_1);
+                //发射子弹
+                _super.prototype.fashe.call(this, angel_1, suke, now);
+                this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angel_1);
             }
+            //     this.shu_liang--;
+            // } else {
+            //     this.mark_small_time = now + this.small_cd;
+            //     this.shu_liang = this.shu_liang_mark;
+            // }
+            // }
         };
         //计算角度
         PaoTaiWuqi.prototype.getAngel = function (zj) {
-            return Math.atan2((zj.position[1] - this.fc.position[1]), (zj.position[0] - this.fc.position[0])) + Math.PI * 0.5;
+            var hx = Tools.egretTOp2(egret.Point.create(zj.hx.x, zj.hx.y));
+            var wq = Tools.egretTOp2(egret.Point.create(this.x, this.y));
+            return Math.atan2((hx.y - wq.y), (hx.x - wq.x)) + Math.PI * 0.5;
         };
         //标记最近的飞船
         PaoTaiWuqi.prototype.mark_tiaget = function () {
@@ -60,6 +63,14 @@ var wjwq;
                         jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
                     }
                     continue;
+                }
+                if (!ff) {
+                    egret.log("FFFFFFFFFF");
+                    return;
+                }
+                if (!ff.hx) {
+                    egret.log("HHHHHHHHHH");
+                    return;
                 }
                 //根据 距离判断先打哪个飞机
                 var ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));

@@ -56,7 +56,7 @@ var bj;
         };
         XingXing.prototype.jiasu = function () {
             this.velocity = [0, -this.zl * 8];
-            egret.log("++++++++++++++++++++");
+            // egret.log("++++++++++++++++++++")
         };
         XingXing.prototype.jiansu = function () {
             this.velocity = [0, -this.zl];

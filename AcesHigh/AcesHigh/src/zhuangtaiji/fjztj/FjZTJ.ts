@@ -58,7 +58,7 @@ module fjztj {
                 this.info = this.zt_list[this.step_mark];
             }
 
-            egret.log(">>>>>>>>>>>>>>:" + this.info.mb + " -- " + this.info.is_loop + "||" + Tools.getPhoneW() + " -- " + Tools.getPhoneH());
+            // egret.log(">>>>>>>>>>>>>>:" + this.info.mb + " -- " + this.info.is_loop + "||" + Tools.getPhoneW() + " -- " + Tools.getPhoneH());
             this.mT = this.info.mT;
             this.mzT = this.info.mZ;
             this.gjT = this.info.gjT;

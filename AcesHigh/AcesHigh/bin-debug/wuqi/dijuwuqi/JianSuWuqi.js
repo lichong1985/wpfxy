@@ -16,6 +16,7 @@ var djwq;
         function JianSuWuqi(moKuaiPost, shapeType, bitName, fc) {
             var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.JIAN_SU) || this;
             _this.sudu = 25;
+            _this.wq_numb = 4;
             return _this;
         }
         //射击

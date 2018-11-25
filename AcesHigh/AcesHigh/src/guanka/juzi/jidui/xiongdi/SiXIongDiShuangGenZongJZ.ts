@@ -8,7 +8,7 @@ module juzi {
         public fc3: feichuan.JuZhenJidui;//右
         public fc4: feichuan.JuZhenJidui;//右
 
-        constructor(nd: number, scene: scene.SceneBase) {
+        constructor(nd: number, scene: TestScene) {
             super(nd);
             this.scene = scene;
         }

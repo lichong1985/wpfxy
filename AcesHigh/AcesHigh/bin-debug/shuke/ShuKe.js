@@ -13,7 +13,9 @@ var shuke;
     var ShuKe = (function (_super) {
         __extends(ShuKe, _super);
         function ShuKe(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN, 5, 1) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(15, 45), GameConstant.ZHEN_YING.WO_JUN, 5, 1) || this;
+            _this.wyCD = 15;
+            _this.wyMark = 0;
             _this.fc_type = feichuan.FC_TYPE.SUKE;
             _this.initSuKe();
             return _this;
@@ -187,13 +189,7 @@ var shuke;
         };
         ShuKe.prototype.updataPos = function () {
             _super.prototype.updataPos.call(this);
-            var p = Tools.p2TOegretPoitn(egret.Point.create(this.position[0], this.position[1]));
-            if (this.battle_scene.dijis[0]) {
-                var a = Math.atan2((this.battle_scene.dijis[0].position[1] - this.position[1]), (this.battle_scene.dijis[0].position[0] - this.position[0])) + Math.PI * 0.5;
-                // a = a % (Math.PI * 2);
-                // let angle = Math.atan2((this.fc.position[1] - this.position[1]), (this.fc.position[0] - this.position[0]))
-                // egret.log("aaa??:" + a);
-            }
+            this.jiasu_texiao();
         };
         //扩散
         ShuKe.prototype.kuosan = function (x, y) {
@@ -283,6 +279,60 @@ var shuke;
                 return false;
             }
             return true;
+        };
+        ShuKe.prototype.jiasu_texiao = function () {
+            if (!this.battle_scene.is_jiasu) {
+                return;
+            }
+            // if (egret.getTimer() - this.wyMark < this.wyCD) {
+            //     return;
+            // }
+            var p = Tools.p2TOegretPoitn(egret.Point.create(this.position[0], this.position[1]));
+            this.wyMark = egret.getTimer();
+            var b = new egret.Bitmap(RES.getRes("us_zd_9"));
+            b.anchorOffsetX = b.width * 0.5;
+            b.anchorOffsetY = b.height * 0.5;
+            // b.rotation = 360 - this.angle * 180 / Math.PI;
+            b.x = p.x;
+            b.y = p.y;
+            b.alpha = 0.5;
+            this.battle_scene.addChild(b);
+            egret.Tween.get(b).to({ "scaleX": 0.1, "scaleY": 0.1, "y": p.y + 100, "rotation": 720 }, 250).call(this.dell, this, [b]);
+        };
+        //移除缓动动画
+        ShuKe.prototype.dell = function (DD) {
+            if (DD) {
+                if (DD.parent) {
+                    egret.Tween.removeTweens(DD);
+                    this.battle_scene.removeChild(DD);
+                }
+            }
+            DD = null;
+        };
+        //被打
+        ShuKe.prototype.bei_da = function () {
+            //能量顿
+            var test_scene = this.battle_scene;
+            test_scene.dpBar.jian();
+            test_scene.hg.jizhong();
+            test_scene.dou_ping();
+        };
+        //碎裂
+        ShuKe.prototype.sui_lie = function () {
+            for (var i = 0; i < 50; i++) {
+                var sp = new shuke.SuiPian("us_zd_8", Tools.p2TOegretPoitn(egret.Point.create(this.position[0], this.position[1])));
+                this.battle_scene.addChild(sp);
+                sp.too();
+            }
+            this.fuhuo();
+        };
+        // 复活界面
+        ShuKe.prototype.fuhuo = function () {
+            var fh = new jiesuan.FuHuo();
+            this.battle_scene.addChild(fh);
+        };
+        //结算 界面 
+        ShuKe.prototype.jiesuan = function () {
         };
         return ShuKe;
     }(feichuan.FeiChuanBase));

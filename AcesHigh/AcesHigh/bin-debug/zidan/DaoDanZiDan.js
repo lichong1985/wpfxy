@@ -17,7 +17,7 @@ var zidan;
             var _this = _super.call(this, scene, zhenying, mass, wuqi.WUQI_TYPE.DAO_DAN) || this;
             //跟踪弹生效时间
             _this.gz_time = 10000;
-            _this.sudu = 5;
+            _this.sudu = 8;
             //导弹启动时间
             _this.qi_dong = 300;
             _this.is_go = false;
@@ -57,7 +57,6 @@ var zidan;
         DaoDanZiDan.prototype.updata = function () {
             _super.prototype.updata.call(this);
             // this.sudu += 0.1;
-            egret.log("SSSSSSSSSSSSSSSSS:" + this.sudu);
             if ((egret.getTimer() - this.mark_time) > this.gz_time) {
                 this.is_updata = false;
                 return;
@@ -92,7 +91,7 @@ var zidan;
                 this.weiyi(this.bit_name);
                 return;
             }
-            var angle = Math.atan2((this.fc.position[1] - this.position[1]), (this.fc.position[0] - this.position[0])) + this.yi_ban;
+            var angle = this.jisuan_jiaodu();
             var sx = Math.sin(angle) * this.sudu;
             var sy = Math.cos(angle) * this.sudu;
             sy = sy * -1;
@@ -120,7 +119,14 @@ var zidan;
         };
         //计算角度
         DaoDanZiDan.prototype.jisuan_jiaodu = function () {
-            var angle = Math.atan2((this.fc.position[1] - this.position[1]), (this.fc.position[0] - this.position[0])) + this.yi_ban;
+            if (this.fc == null) {
+                return 0;
+            }
+            if (this.fc.hx == null) {
+                return 0;
+            }
+            var hx = Tools.egretTOp2(egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+            var angle = Math.atan2((hx.y - this.position[1]), (hx.x - this.position[0])) + this.yi_ban;
             if (angle < 0) {
                 return Math.PI * 2 + angle;
             }

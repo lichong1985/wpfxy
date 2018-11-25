@@ -11,6 +11,7 @@ module djwq {
         constructor(moKuaiPost: egret.Point, shapeType: mokuai.BODY_SHAPE_TYPE, bitName: string, fc: feichuan.FeiChuanBase, fx: number) {
             super(fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.DJ_SAN_DAN);
             this.fx = fx;
+            this.wq_numb = 5;
         }
 
         //射击

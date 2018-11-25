@@ -7,38 +7,44 @@ module wjwq {
         public shu_liang_mark: number = 5;
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, fc: feichuan.FeiChuanBase, level: number) {
+
             super(mokaiPos, shType, "us_wq_5", wuqi.WUQI_TYPE.DING_XIANG, fc);
             this.level = level;
             this.shu_liang_mark = level;
-            this.cd = 200;
+            this.cd = 2000;
             this.sudu = 9;
+            this.lianji = level
+            this.lianji_mark = this.lianji;
         }
 
         public fashe(angel: number, suke: shuke.ShuKe, now: number) {
-            if ((now - this.mark_small_time) > this.small_cd) {
-                if (this.shu_liang > 0) {
-                    let zj = this.mark_tiaget();
+            // if ((now - this.mark_small_time) > this.small_cd) {
+            //     if (this.shu_liang > 0) {
+            let zj = this.mark_tiaget();
 
-                    if (zj) {
-                        let angel = this.getAngel(zj);
-                        let liliang = this.getLiliang(zj, angel);
-                        //发射子弹
-                        super.fashe(angel, suke, now);
-                        this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angel);
-                    }
-                    this.shu_liang--;
-                } else {
-                    this.mark_small_time = now + this.small_cd;
-                    this.shu_liang = this.shu_liang_mark;
-                }
+            if (zj && zj.hx) {
+                let angel = this.getAngel(zj);
+                let liliang = this.getLiliang(zj, angel);
+                //发射子弹
+                super.fashe(angel, suke, now);
+                this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.WO_JUN_ZIDAN, angel);
             }
+            //     this.shu_liang--;
+            // } else {
+            //     this.mark_small_time = now + this.small_cd;
+            //     this.shu_liang = this.shu_liang_mark;
+            // }
+            // }
         }
 
 
 
         //计算角度
         public getAngel(zj: feichuan.FeiChuanBase): number {
-            return Math.atan2((zj.position[1] - this.fc.position[1]), (zj.position[0] - this.fc.position[0])) + Math.PI * 0.5
+
+            let hx: egret.Point = Tools.egretTOp2(egret.Point.create(zj.hx.x, zj.hx.y));
+            let wq: egret.Point = Tools.egretTOp2(egret.Point.create(this.x, this.y));
+            return Math.atan2((hx.y - wq.y), (hx.x - wq.x)) + Math.PI * 0.5
         }
 
         //标记最近的飞船
@@ -54,6 +60,15 @@ module wjwq {
                     continue;
                 }
 
+                if (!ff) {
+                    egret.log("FFFFFFFFFF")
+                    return;
+                }
+
+                if (!ff.hx) {
+                    egret.log("HHHHHHHHHH")
+                    return;
+                }
                 //根据 距离判断先打哪个飞机
                 let ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
                 if (ju_li < jl) {

@@ -16,6 +16,7 @@ module djwq {
             this.shu_liang = this.shu_liang_mark;
             this.sudu = 1.2;
             this.fx = fx;
+            this.wq_numb = 3;
         }
         // 1 前  2 后 3左 4右
 

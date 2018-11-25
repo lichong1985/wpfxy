@@ -17,26 +17,28 @@ var djwq;
             var _this = _super.call(this, fc, moKuaiPost, shapeType, bitName, wuqi.WUQI_TYPE.DING_WEI) || this;
             _this.fx = 1;
             _this.fx = fx;
+            _this.wq_numb = 1;
             return _this;
         }
         // 1 前  2 后 3左 4右
         //射击
         DingWeiWuqi.prototype.fashe = function (angel, suke, now) {
             var angle;
-            if (this.fx == 1 || this.fx == 2) {
+            if (this.fx == 1) {
                 angle = this.fc.angle;
             }
+            if (this.fx == 2) {
+                angle = this.fc.angle + 180 / 180 * Math.PI;
+            }
             if (this.fx == 3) {
-                angle = this.fc.angle + (-90 - 360) / 180 * Math.PI;
+                angle = this.fc.angle - 90 / 180 * Math.PI;
             }
             if (this.fx == 4) {
-                angle = this.fc.angle + (90 - 360) / 180 * Math.PI;
+                angle = this.fc.angle + 90 / 180 * Math.PI;
             }
             var sx = Math.sin(angle) * this.sudu;
             var sy = Math.cos(angle) * this.sudu;
-            if (this.fx == 1) {
-                sy = sy * -1;
-            }
+            sy = sy * -1;
             var liliang = egret.Point.create(sx, sy);
             _super.prototype.fashe.call(this, angel, suke, now);
             this.diu(this.wuqi_type, liliang, GameConstant.ZHEN_YING.DI_JUN_ZIDAN, angle);

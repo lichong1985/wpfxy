@@ -6,7 +6,7 @@ module juzi {
 
 
 
-        constructor(nd: number, scene: scene.SceneBase) {
+        constructor(nd: number, scene: TestScene) {
             super(nd);
             this.scene = scene;
         }
@@ -41,7 +41,7 @@ module juzi {
                 ztj = new fjztj.QuYuZTJ(fc1);
                 //休息
                 ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 8),
-                    zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 2* jl, 1, null, 2, -1, "32:52"));
+                    zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 2 * jl, 1, null, 2, -1, "32:52"));
 
                 //进场
                 ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(to1,
@@ -63,7 +63,7 @@ module juzi {
                 //休息
                 //休息
                 ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(17, 8),
-                    zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 2*jl, 1, null, 2, -1, "32:52"));
+                    zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 2 * jl, 1, null, 2, -1, "32:52"));
 
 
                 //进场

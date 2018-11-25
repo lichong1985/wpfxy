@@ -45,14 +45,26 @@ var wuqi;
             _this.sudu = 5;
             //武器等级
             _this.level = 1;
+            //螺旋角度
+            _this.lx = 0;
+            //连击次数
+            _this.lianji = 1;
+            _this.lianji_mark = 1;
+            //伤害相关
+            _this.hit = 5;
             _this.moKuaiType = mokuai.MO_KUAI_TYPE.WU_QI;
             _this.wuqi_type = wuqii_type;
+            // this.tx = new egret.Bitmap(RES.getRes(name));
+            // this.tx.anchorOffsetX = this.width * 0.5;
+            // this.tx.anchorOffsetY = this.height * 0.5;
+            _this.lianji_mark = _this.lianji;
             return _this;
         }
         WuQiBase.prototype.updata_wq = function (angel, suke, now) {
             this.updata();
+            this.lx += 0.1;
             if ((now - this.mark_time) > this.cd && this.fc.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
-                this.mark_time = now;
+                // this.mark_time = now;
                 this.fashe(angel, suke, now);
                 return;
             }
@@ -61,12 +73,17 @@ var wuqi;
         };
         WuQiBase.prototype.fashe = function (angel, suke, now) {
             this.fasheTeXiao();
+            this.mark_time += 200;
+            this.lianji_mark--;
+            if (this.lianji_mark <= 0) {
+                this.mark_time = now;
+                this.lianji_mark = this.lianji;
+            }
         };
         //发射特效
         WuQiBase.prototype.fasheTeXiao = function () {
-            // let dong: egret.Bitmap = new egret.Bitmap(RES.getRes(this.name));
             var tw = egret.Tween.get(this);
-            tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.1 }, 100).call(this.huizhi);
+            tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.8 }, 100).call(this.huizhi);
         };
         //特效回执
         WuQiBase.prototype.huizhi = function () {
@@ -123,7 +140,9 @@ var wuqi;
             zd.position[0] = p.x;
             zd.position[1] = p.y;
             zd.velocity = [v.x, v.y];
+            zd.hitNumber = this.hit;
             zd.yue_shu();
+            return zd;
         };
         return WuQiBase;
     }(mokuai.MoKuaiBase));

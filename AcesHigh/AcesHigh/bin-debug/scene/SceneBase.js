@@ -48,6 +48,17 @@ var scene;
             //是否加速
             _this.is_jiasu = false;
             _this.xxList = new Array();
+            _this.tick = 0;
+            //---------------位移锚点-----------------------
+            //左减 右加
+            _this.mao_x = 0;
+            //下减 上加
+            _this.mao_y = 0;
+            //是否与商店图标发生碰撞
+            _this.is_shop = false;
+            _this.is_jl = false;
+            //触控移动的坐标点
+            _this.move_point = null;
             _this._distance = new egret.Point();
             _this._skP = new egret.Point();
             _this.init();
@@ -105,6 +116,7 @@ var scene;
                     var oh = evt.bodyB instanceof feichuan.FeiChuanBase ? evt.bodyA : evt.bodyB;
                     var ogzd = oh;
                     var fc = m;
+                    //敌机
                     if (fc.zhenying == GameConstant.ZHEN_YING.DI_JUN || fc.zhenying == GameConstant.ZHEN_YING.ZHONG_LI) {
                         if (oh instanceof zidan.ZiDanBase) {
                             //检测碰撞点 并且标记好在循环外删除
@@ -130,6 +142,14 @@ var scene;
                             }
                         }
                     }
+                    //苏克
+                    if (fc.zhenying == GameConstant.ZHEN_YING.WO_JUN) {
+                        var sk = fc;
+                        if (ogzd.is_first) {
+                            sk.bei_da();
+                            ogzd.is_first = false;
+                        }
+                    }
                     //只有当 碰撞参数等于0的时候才添加到 删除列表
                     if (ogzd.collNumber == 0) {
                         s.removeZiDanBodyList.push(ogzd);
@@ -142,12 +162,17 @@ var scene;
         SceneBase.prototype.onEnterFrame = function () {
             this.chackColl();
             this.chackFeiChuan();
+            var t = this.tick % 2;
+            // if (t == 1) {
             this.p2Updata();
+            //     this.tick = t;
+            // }
             this.upSomeThing();
             this.updataIsInWorld();
             this.updataWuQi();
             this.jiasu();
             // this.updataCH();
+            // this.tick++;
         };
         //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         //xingxing加速相关
@@ -229,6 +254,10 @@ var scene;
                             // this.removeChild(d);
                         }
                     }
+                    if (zd instanceof zidan.LuoXuanZiDan) {
+                        var lx = zd;
+                        lx.wu.removeZD(lx.hao_ma);
+                    }
                     //移除约束
                     zd.removeYueShu();
                     this.world.removeBody(zd);
@@ -249,6 +278,10 @@ var scene;
                     if (d.parent) {
                         this.removeChild(d);
                     }
+                }
+                if (zd instanceof zidan.LuoXuanZiDan) {
+                    var lx = zd;
+                    lx.wu.removeZD(lx.hao_ma);
                 }
                 //移除约束
                 zd.removeYueShu();
@@ -428,8 +461,8 @@ var scene;
             if (!this.sk_p2_now) {
                 this.sk_p2_now = egret.Point.create(0, 0);
             }
-            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.02;
-            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.02;
+            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.05;
+            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.05;
         };
         //掉落道具
         SceneBase.prototype.diao_luo_dao_ju = function (mk) {
@@ -438,7 +471,7 @@ var scene;
             this.addChild(dl.displays[0]);
             dl.loop();
         };
-        //添加测试场景
+        //---------------------------------触控相关-------------------------------------
         SceneBase.prototype.addShuKeListener = function () {
             this.touchEnabled = true;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.mouseDown, this);
@@ -456,8 +489,11 @@ var scene;
         };
         SceneBase.prototype.mouseMove = function (evt) {
             var pp = egret.Point.create((evt.stageX - this._distance.x) / Physics.factor, -(evt.stageY - this._distance.y) / Physics.factor);
-            this.sk.position[0] = this._skP.x + pp.x;
-            this.sk.position[1] = this._skP.y + pp.y;
+            this.move_point = Tools.p2TOegretPoitn(egret.Point.create(this._skP.x + pp.x, this._skP.y + pp.y));
+            if (!this.is_shop && !this.is_jl) {
+                this.sk.position[0] = this._skP.x + pp.x;
+                this.sk.position[1] = this._skP.y + pp.y;
+            }
         };
         //根据suke的位置 移动战斗场景
         SceneBase.prototype.weiyi = function (pp) {
@@ -483,6 +519,7 @@ var scene;
             if (pp.x > scene.scene_anch_x + pw) {
             }
         };
+        //-----------------------------------------------------------------------
         //适用于已经被测底打光的 飞船
         SceneBase.prototype.removeTheFcInTheGame = function (fc) {
             //从敌机列表中

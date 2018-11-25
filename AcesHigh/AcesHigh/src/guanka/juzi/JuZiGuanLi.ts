@@ -23,7 +23,7 @@ module juzi {
 
         //句子里当前的飞机数量
         public fc_num_now: number;
-        public scene: scene.SceneBase;
+        public scene: TestScene;
 
         //当前句子 是否通过
         public is_next: boolean = false;
@@ -61,7 +61,7 @@ module juzi {
         }
 
         //添加飞机到 战场
-        public addFc(scene: scene.SceneBase) {
+        public addFc(scene: TestScene) {
             for (let info of this.fc_info_list) {
                 info.reRandomPos();
                 let fc = new feichuan.XiaoBing(scene,

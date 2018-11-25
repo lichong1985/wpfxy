@@ -7,7 +7,7 @@ module bar {
         public dun_3: egret.Bitmap;
 
         //当前盾牌数量
-        public d_number: number = 3;
+        public d_number: number = 1;
 
         constructor(scene: scene.SceneBase) {
             this.scene = scene;
@@ -15,20 +15,20 @@ module bar {
         }
 
         public init() {
-            this.dun_1 = new egret.Bitmap(RES.getRes("dp"));
-            this.scene.addChildAt(this.dun_1, 100);
-            this.dun_1.x = Tools.getPhoneW() * 0.8 + 1000;
-            this.dun_1.y = 1010;
+            // this.dun_1 = new egret.Bitmap(RES.getRes("dp"));
+            // this.scene.addChildAt(this.dun_1, 100);
+            // this.dun_1.x = Tools.getPhoneW() * 0.8 + 1000;
+            // this.dun_1.y = 1010;
 
-            this.dun_2 = new egret.Bitmap(RES.getRes("dp"));
-            this.scene.addChildAt(this.dun_2, 100);
-            this.dun_2.x = Tools.getPhoneW() * 0.85 + 1000;
-            this.dun_2.y = 1010;
+            // this.dun_2 = new egret.Bitmap(RES.getRes("dp"));
+            // this.scene.addChildAt(this.dun_2, 100);
+            // this.dun_2.x = Tools.getPhoneW() * 0.85 + 1000;
+            // this.dun_2.y = 1010;
 
-            this.dun_3 = new egret.Bitmap(RES.getRes("dp"));
-            this.scene.addChildAt(this.dun_3, 100);
-            this.dun_3.x = Tools.getPhoneW() * 0.9 + 1000;
-            this.dun_3.y = 1010;
+            // this.dun_3 = new egret.Bitmap(RES.getRes("dp"));
+            // this.scene.addChildAt(this.dun_3, 100);
+            // this.dun_3.x = Tools.getPhoneW() * 0.9 + 1000;
+            // this.dun_3.y = 1010;
         }
 
 
@@ -36,20 +36,24 @@ module bar {
         public jian() {
             // egret.Tween.get(target,{loop:true}).to({ alpha: 0}, 200).to({ alpha: 1}, 200);
             this.d_number--;
+            if (this.d_number <= 0) {
+                this.d_number = 0;
+                this.scene.sk.sui_lie();
+            }
             //第一个盾牌变红闪烁
-            if (this.d_number == 2 && this.dun_1.alpha == 0) {
+            if (this.d_number == 2 && this.dun_1.alpha != 0) {
                 this.dun_1.texture = RES.getRes("dp_h");
                 egret.Tween.get(this.dun_1).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
                 return;
             }
 
-            if (this.d_number == 1 && this.dun_2.alpha == 0) {
+            if (this.d_number == 1 && this.dun_2.alpha != 0) {
                 this.dun_2.texture = RES.getRes("dp_h");
                 egret.Tween.get(this.dun_2).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
                 return;
             }
 
-            if (this.d_number == 0 && this.dun_3.alpha == 0) {
+            if (this.d_number == 0 && this.dun_3.alpha != 0) {
                 this.dun_3.texture = RES.getRes("dp_h");
                 egret.Tween.get(this.dun_3).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
                 return;
@@ -65,12 +69,14 @@ module bar {
             if (this.d_number == 2) {
                 this.dun_1.texture = RES.getRes("dp_b");
                 egret.Tween.get(this.dun_1).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).call(this.huan, this, [1]);
+                this.d_number++;
                 return;
             }
 
             if (this.d_number == 1) {
                 this.dun_2.texture = RES.getRes("dp_b");
                 egret.Tween.get(this.dun_2).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).call(this.huan, this, [2]);
+                this.d_number++;
                 return;
             }
         }

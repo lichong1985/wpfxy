@@ -1,0 +1,151 @@
+{
+	"groups": [
+		{
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,all_fc_json,sp_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"name": "all_fc_json",
+			"type": "json",
+			"url": "fc/all_fc.json"
+		},
+		{
+			"name": "sp_json",
+			"type": "sheet",
+			"url": "fc/sp.json",
+			"subkeys": "0,1,2,3,4,5,6,7,8,9,bo,ci,dao,deng,dh,dp_b,dp_h,dp,gua,he,hh,jb,ji,op_dl_wq_1_s,op_dl_wq_1,op_dl_wq_2_s,op_dl_wq_2,op_dl_wq_3_s,op_dl_wq_3,op_dl_wq_4_s,op_dl_wq_4,op_dl_wq_5_s,op_dl_wq_5,op_dl_wq_6_s,op_dl_wq_6,op_dl_wq_7_s,op_dl_wq_7,op_dl_wq_8_s,op_dl_wq_8,op_dl_wq_9_s,op_dl_wq_9,op_dl_zj_level_5_dl,op_dl_zj_level_5_s_dl,op_hx_hx,op_wq_1,op_wq_2,op_wq_3,op_wq_4,op_wq_5,op_zj_pt_ch_level_1_ch,op_zj_pt_ch_level_2_ch,op_zj_pt_ch_level_3_ch,op_zj_pt_level_1,op_zj_pt_level_2,op_zj_pt_level_3,op_zj_pt_level_4,op_zj_pt_level_5,op_zj_pt_level_6,pt_wy,sd,shi,sx,us_wq_1,us_wq_2,us_wq_3,us_wq_4,us_wq_5,us_wq_6,us_wq_7,us_wq_8,us_wq_9,us_zd_1,us_zd_2_wy,us_zd_2,us_zd_3,us_zd_4,us_zd_5_wy,us_zd_5,us_zd_6,us_zd_7,us_zd_8,us_zd_9,us_zj_level_5,xin,xx1,xx2,xx3,z,zai,zt"
+		}
+	]
+}

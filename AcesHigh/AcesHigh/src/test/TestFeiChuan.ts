@@ -11,7 +11,7 @@ module test {
         public bit2: egret.Bitmap;
         public box1: p2.Box;
         public box2: p2.Box;
-        constructor(battle_scene: scene.SceneBase) {
+        constructor(battle_scene: TestScene) {
             super(battle_scene, egret.Point.create(1200, 15), GameConstant.ZHEN_YING.DI_JUN, 1, 1);
 
             this.fc_type = feichuan.FC_TYPE.DIJI;

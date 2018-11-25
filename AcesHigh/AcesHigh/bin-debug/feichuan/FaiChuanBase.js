@@ -92,18 +92,6 @@ var feichuan;
                     }
                     var bitName = info.tiles[data[i] - 1];
                     var hx = void 0;
-                    if (bitName == "op_hx_hx" || bitName == "op_hx_ss" || bitName == "op_hx_zj") {
-                        this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
-                        hx = this.hx;
-                    }
-                    if (bitName == "op_zj_pt_level_2") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(2), this);
-                        hx.setMkLevel(2);
-                    }
-                    if (bitName == "op_zj_pt_level_1") {
-                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(1), this);
-                        hx.setMkLevel(1);
-                    }
                     //----------------------------------敌军直射武器-------------------------------------------
                     if (bitName == "op_wq_1") {
                         hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 1);
@@ -127,7 +115,7 @@ var feichuan;
                     }
                     //普通后射
                     if (bitName == "op_wq_1_h") {
-                        hx = new djwq.HouSheWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this);
+                        hx = new djwq.DingWeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "op_wq_1", this, 2);
                         this.wuqiList.push(hx);
                         this.pth_wuqiList.push(hx);
                     }
@@ -225,7 +213,23 @@ var feichuan;
                         this.wuqiList.push(hx);
                         this.sdy_wuqiList.push(hx);
                     }
-                    egret.log("??? --" + data[i] + ":" + bitName);
+                    if (hx) {
+                        hx.setMkLevel(this.nan_du);
+                    }
+                    //----------------装甲-------------------------------------------------------------------------
+                    if (bitName == "op_hx_hx" || bitName == "op_hx_ss" || bitName == "op_hx_zj") {
+                        this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, bitName, this);
+                        hx = this.hx;
+                    }
+                    if (bitName == "op_zj_pt_level_2") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(2), this);
+                        hx.setMkLevel(this.getZJLevel(2));
+                    }
+                    if (bitName == "op_zj_pt_level_1") {
+                        hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this.getZJname(1), this);
+                        hx.setMkLevel(this.getZJLevel(1));
+                    }
+                    // egret.log("??? --" + data[i] + ":" + bitName);
                     //掉落随机
                     this.suiji_dl(hx);
                     var hpp = Physics.getRelativeDistance(egret.Point.create(this.W, this.H), egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
@@ -306,6 +310,67 @@ var feichuan;
             }
             if (this.nan_du == 11) {
                 return "op_zj_pt_level_6";
+            }
+            return null;
+        };
+        FeiChuanBase.prototype.getZJLevel = function (level) {
+            if (this.nan_du == 1) {
+                return 1;
+            }
+            if (this.nan_du == 2) {
+                if (level == 1) {
+                    return 1;
+                }
+                if (level == 2) {
+                    return 2;
+                }
+            }
+            if (this.nan_du == 3) {
+                return 3;
+            }
+            if (this.nan_du == 4) {
+                if (level == 1) {
+                    return 3;
+                }
+                if (level == 2) {
+                    return 4;
+                }
+            }
+            if (this.nan_du == 5) {
+                return 5;
+            }
+            if (this.nan_du == 6) {
+                if (level == 1) {
+                    return 5;
+                }
+                if (level == 2) {
+                    return 6;
+                }
+            }
+            if (this.nan_du == 7) {
+                return 7;
+            }
+            if (this.nan_du == 8) {
+                if (level == 1) {
+                    return 7;
+                }
+                if (level == 2) {
+                    return 8;
+                }
+            }
+            if (this.nan_du == 9) {
+                return 9;
+            }
+            if (this.nan_du == 10) {
+                if (level == 1) {
+                    return 9;
+                }
+                if (level == 2) {
+                    return 10;
+                }
+            }
+            if (this.nan_du == 11) {
+                return 11;
             }
             return null;
         };
@@ -461,7 +526,7 @@ var feichuan;
         FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
             var hx;
             if (type == 3) {
-                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
                 var wq = hx;
                 hx.setMkLevel(5);
                 this.wuqiList.push(wq);
@@ -540,7 +605,6 @@ var feichuan;
                 }
                 zm.jihui_texiao();
             }
-            zm.jiZhong_texiao();
         };
         //删除模块
         FeiChuanBase.prototype.dellMokuai = function () {
@@ -577,8 +641,92 @@ var feichuan;
         };
         //移除武器
         FeiChuanBase.prototype.removeWuQi = function (wq) {
+            if (wq instanceof djwq.JiGuangWuqi) {
+                var jg = wq;
+                jg.remove_();
+            }
             var inx = this.wuqiList.indexOf(wq);
             this.wuqiList.splice(inx, 1);
+            inx = this.pt1_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.pt1_wuqiList.splice(inx, 1);
+            }
+            inx = this.pt2_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.pt2_wuqiList.splice(inx, 1);
+            }
+            inx = this.pt3_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.pt3_wuqiList.splice(inx, 1);
+            }
+            inx = this.pth_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.pth_wuqiList.splice(inx, 1);
+            }
+            inx = this.ptz_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.ptz_wuqiList.splice(inx, 1);
+            }
+            inx = this.pty_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.pty_wuqiList.splice(inx, 1);
+            }
+            inx = this.jg1_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.jg1_wuqiList.splice(inx, 1);
+            }
+            inx = this.jg2_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.jg2_wuqiList.splice(inx, 1);
+            }
+            inx = this.jg3_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.jg3_wuqiList.splice(inx, 1);
+            }
+            inx = this.jg4_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.jg4_wuqiList.splice(inx, 1);
+            }
+            inx = this.gz1_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.gz1_wuqiList.splice(inx, 1);
+            }
+            inx = this.gzz_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.gzz_wuqiList.splice(inx, 1);
+            }
+            inx = this.gzy_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.gzy_wuqiList.splice(inx, 1);
+            }
+            inx = this.gzh_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.gzh_wuqiList.splice(inx, 1);
+            }
+            inx = this.js1_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.js1_wuqiList.splice(inx, 1);
+            }
+            inx = this.sd1_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.sd1_wuqiList.splice(inx, 1);
+            }
+            inx = this.sd2_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.sd2_wuqiList.splice(inx, 1);
+            }
+            inx = this.sdh_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.sdh_wuqiList.splice(inx, 1);
+            }
+            inx = this.sdz_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.sdz_wuqiList.splice(inx, 1);
+            }
+            inx = this.sdy_wuqiList.indexOf(wq);
+            if (inx >= 0) {
+                this.sdy_wuqiList.splice(inx, 1);
+            }
         };
         FeiChuanBase.prototype.ji_guang_peng_zhuang = function (x, y) {
         };

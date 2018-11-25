@@ -62,7 +62,7 @@ module bj {
 
         public jiasu() {
             this.velocity = [0, -this.zl * 8];
-            egret.log("++++++++++++++++++++")
+            // egret.log("++++++++++++++++++++")
         }
 
         public jiansu() {

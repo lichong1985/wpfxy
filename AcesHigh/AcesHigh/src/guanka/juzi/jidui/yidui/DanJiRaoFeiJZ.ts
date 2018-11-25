@@ -11,7 +11,7 @@ module juzi {
         public fc5: feichuan.JuZhenJidui;
 
 
-        constructor(nd: number, scene: scene.SceneBase) {
+        constructor(nd: number, scene: TestScene) {
             super(nd);
             this.scene = scene;
         }

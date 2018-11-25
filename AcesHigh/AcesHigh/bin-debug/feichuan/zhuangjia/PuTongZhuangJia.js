@@ -14,7 +14,8 @@ var zhuangjia;
         __extends(PuTongZhuangJia, _super);
         function PuTongZhuangJia(moKuaiPost, shapeType, bitName, fc) {
             var _this = _super.call(this, moKuaiPost, shapeType, bitName, fc) || this;
-            _this.number = 3;
+            _this.markNumber = 3;
+            _this.hp = 0; //装甲血量
             return _this;
         }
         PuTongZhuangJia.prototype.Defense = function () {

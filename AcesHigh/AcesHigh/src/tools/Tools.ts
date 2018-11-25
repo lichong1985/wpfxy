@@ -112,4 +112,18 @@ module Tools {
         let Rand: number = Math.random();
         return (Min + Math.round(Rand * Range));
     }
+
+    //合并RGB
+    export function mergeColor(rgb: any): number {
+        return Math.floor(((rgb.r * 256) + rgb.g) * 256 + rgb.b);
+    }
+
+    //分解颜色
+    export function spliceColor(color): any {
+        let result = { r: -1, g: -1, b: -1 };
+        result.b = color % 256;
+        result.g = Math.floor((color / 256)) % 256;
+        result.r = Math.floor((color / 256) / 256);
+        return result;
+    }
 }
