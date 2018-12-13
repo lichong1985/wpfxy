@@ -104,23 +104,17 @@ class Main extends eui.UILayer {
 
 
         }
-        this.testSen = new TestScene();
         this.testSen = TestScene.getInstance();
         this.stage.addChild(this.testSen)
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
-        // this.addZhuYe();
-
+        // let a: egret.Bitmap = new egret.Bitmap(RES.getRes("shop"));
+        // a.x = 100;
+        // a.y = 100;
+        // this.stage.addChild(a);
     }
 
-    public addZhuYe() {
-        if (!this.zhuye) {
-            this.zhuye = new zy.ZhuYe(this);
-        }
-        this.stage.addChild(this.zhuye)
-        this.zhuye.x = 0;
-        this.zhuye.y = 0;
-    }
+
 
 
 

@@ -44,11 +44,11 @@ var bar;
                 egret.Tween.get(this.dun_2).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
                 return;
             }
-            if (this.d_number == 0 && this.dun_3.alpha != 0) {
-                this.dun_3.texture = RES.getRes("dp_h");
-                egret.Tween.get(this.dun_3).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
-                return;
-            }
+            // if (this.d_number == 0 && this.dun_3.alpha != 0) {
+            //     this.dun_3.texture = RES.getRes("dp_h");
+            //     egret.Tween.get(this.dun_3).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
+            //     return;
+            // }
         };
         //加血
         DunBar.prototype.jia = function () {

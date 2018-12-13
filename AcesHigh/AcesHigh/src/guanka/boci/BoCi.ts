@@ -49,7 +49,7 @@ module boci {
             let max = this.numberList.length;
             let min = 1;
             let numb: number = Tools.GetRandomNum(min, max);
-            numb = 51
+            // numb = 51
             this.jz = this.getJZ(numb);
             this.jz.initFcInfo();
             //移除指定节点

@@ -41,7 +41,7 @@ var zidan;
             _this.damping = 0;
             _this.fc = fc;
             _this.bit_name = "us_zd_3";
-            _this.sudu = 3;
+            _this.sudu = 5;
             _this.angularVelocity = 5;
             return _this;
         }
@@ -65,16 +65,18 @@ var zidan;
                 return;
             }
             if ((egret.getTimer() - this.mark_time) < this.qi_dong) {
+                egret.log("qi_dong:" + this.f + " -- " + this.velocity[1]);
                 _super.prototype.weiyi.call(this, this.bit_name);
                 this.force = [0, this.f];
                 return;
             }
             this.is_go = true;
-            if ((egret.getTimer() - (this.mark_time + this.qi_dong)) < this.qi_dong && this.is_go) {
-                _super.prototype.weiyi.call(this, this.bit_name);
-                this.force = [0, this.f];
-                return;
-            }
+            // if ((egret.getTimer() - (this.mark_time + this.qi_dong)) < this.qi_dong && this.is_go) {
+            //     super.weiyi(this.bit_name);
+            //     egret.log("is_go:" + this.f + " -- " + this.velocity[1])
+            //     this.force = [0, this.f];
+            //     return;
+            // }
             if (this.js) {
                 this.js = false;
                 if (this.fc.position[0] > this.position[0]) {

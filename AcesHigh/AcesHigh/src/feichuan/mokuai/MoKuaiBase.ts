@@ -184,6 +184,7 @@ module mokuai {
                 0, 0, 1, 0, rgb.b,
                 0, 0, 0, 1, 0
             ];
+
             var colorFlilter = new egret.ColorMatrixFilter(colorMatrix);
             this.filters = [colorFlilter];
 

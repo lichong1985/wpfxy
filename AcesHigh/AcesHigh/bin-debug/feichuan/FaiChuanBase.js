@@ -57,6 +57,7 @@ var feichuan;
             //++++++++++++++++++++++++++++++++++++++++++++++++++++
             //难度 1 ~ 11  飞船难度 从1 到 11 级别
             _this.nan_du = 1;
+            _this.wq_b = 1;
             _this.cs_mass = mass_;
             _this.nan_du = nan_du;
             //核心列表
@@ -512,44 +513,101 @@ var feichuan;
         /**
          * 初始化 配置文件
          */
-        FeiChuanBase.prototype.initPro = function (yun_tu) {
+        FeiChuanBase.prototype.initPro = function (yun_tu, wqs) {
             var s = egret.Point.create(yun_tu[0].length, yun_tu.length);
             this.initList(yun_tu.length, yun_tu[0].length);
             for (var h = 0; h < yun_tu.length; h++) {
                 for (var w = 0; w < yun_tu[0].length; w++) {
-                    this.initMokuai(yun_tu[h][w], h, w, s);
+                    this.initMokuai(yun_tu[h][w], h, w, s, wqs);
                 }
             }
             this.battle_scene.world.addBody(this);
         };
         //创建模块
-        FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
+        FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan, wqs) {
             var hx;
-            if (type == 3) {
-                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
-                var wq = hx;
-                hx.setMkLevel(5);
-                this.wuqiList.push(wq);
-            }
-            if (type == 2) {
-                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5", this);
-            }
-            if (type == 1) {
-                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_hx_hx", this);
-                hx = this.hx;
-            }
             if (type == 0) {
                 return;
+            }
+            if (wqs[this.wq_b] == 0) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5", this);
+                var hpp = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+                var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+                box.collisionGroup = this.collGroup;
+                box.collisionMask = this.collMask;
+                this.addShape(box, [hpp.x, hpp.y]);
+                hx.boxShape = box;
+                this.battle_scene.addChildAt(hx, 1);
+                this.moKuaiList[h][w] = hx;
+            }
+            else {
+                hx = this.initSKWuQi(this.wq_b, w, h, wqs[this.wq_b], chang_kuan);
+            }
+            if (this.wq_b == 5) {
+                this.zx = hx;
+            }
+            this.mokuai_size++;
+            this.wq_b++;
+        };
+        FeiChuanBase.prototype.initSKWuQi = function (wqb, w, h, level, chang_kuan) {
+            egret.log(w + " -- " + h);
+            var hx;
+            if (wqb == 1) {
+                hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 2) {
+                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 3) {
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 4) {
+                hx = new wjwq.LuoXuanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 5) {
+                hx = new wjwq.YuLeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 6) {
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+                this.dd = hx;
+            }
+            if (wqb == 7) {
+                hx = new wjwq.PaoTaiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+                this.pt = hx;
+            }
+            if (wqb == 8) {
+                hx = new wjwq.ChangDingWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 9) {
+                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
             }
             var hpp = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
             var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
             box.collisionGroup = this.collGroup;
             box.collisionMask = this.collMask;
             this.addShape(box, [hpp.x, hpp.y]);
-            this.moKuaiList[h][w] = hx;
             hx.boxShape = box;
-            this.battle_scene.addChild(hx);
-            this.mokuai_size++;
+            this.battle_scene.addChildAt(hx, 1);
+            this.moKuaiList[h][w] = hx;
+            return hx;
         };
         //碰撞点检测
         FeiChuanBase.prototype.jia_ce_peng_zhuang_dian = function (x, y) {

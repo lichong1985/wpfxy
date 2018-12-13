@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,all_fc_json,sp_json",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,all_fc_json,sp_json,bjh_png",
 			"name": "preload"
 		}
 	],
@@ -145,7 +145,12 @@
 			"name": "sp_json",
 			"type": "sheet",
 			"url": "fc/sp.json",
-			"subkeys": "0,1,2,3,4,5,6,7,8,9,bo,ci,dao,deng,dh,dp_b,dp_h,dp,gua,he,hh,jb,ji,op_dl_wq_1_s,op_dl_wq_1,op_dl_wq_2_s,op_dl_wq_2,op_dl_wq_3_s,op_dl_wq_3,op_dl_wq_4_s,op_dl_wq_4,op_dl_wq_5_s,op_dl_wq_5,op_dl_wq_6_s,op_dl_wq_6,op_dl_wq_7_s,op_dl_wq_7,op_dl_wq_8_s,op_dl_wq_8,op_dl_wq_9_s,op_dl_wq_9,op_dl_zj_level_5_dl,op_dl_zj_level_5_s_dl,op_hx_hx,op_wq_1,op_wq_2,op_wq_3,op_wq_4,op_wq_5,op_zj_pt_ch_level_1_ch,op_zj_pt_ch_level_2_ch,op_zj_pt_ch_level_3_ch,op_zj_pt_level_1,op_zj_pt_level_2,op_zj_pt_level_3,op_zj_pt_level_4,op_zj_pt_level_5,op_zj_pt_level_6,pt_wy,sd,shi,sx,us_wq_1,us_wq_2,us_wq_3,us_wq_4,us_wq_5,us_wq_6,us_wq_7,us_wq_8,us_wq_9,us_zd_1,us_zd_2_wy,us_zd_2,us_zd_3,us_zd_4,us_zd_5_wy,us_zd_5,us_zd_6,us_zd_7,us_zd_8,us_zd_9,us_zj_level_5,xin,xx1,xx2,xx3,z,zai,zt"
+			"subkeys": "0,1,2,3,4,5,6,7,8,9,bai_j,bo,cheng_j,ci,dao,deng,dh,dp_b,dp_h,dp,fx,gg,gua,he,hh,jb,ji,jiahao,jt,lan_j,lv_j,mrlb,op_dl_wq_1_s,op_dl_wq_1,op_dl_wq_2_s,op_dl_wq_2,op_dl_wq_3_s,op_dl_wq_3,op_dl_wq_4_s,op_dl_wq_4,op_dl_wq_5_s,op_dl_wq_5,op_dl_wq_6_s,op_dl_wq_6,op_dl_wq_7_s,op_dl_wq_7,op_dl_wq_8_s,op_dl_wq_8,op_dl_wq_9_s,op_dl_wq_9,op_dl_zj_level_5_dl,op_dl_zj_level_5_s_dl,op_hx_hx,op_wq_1,op_wq_2,op_wq_3,op_wq_4,op_wq_5,op_zj_pt_ch_level_1_ch,op_zj_pt_ch_level_2_ch,op_zj_pt_ch_level_3_ch,op_zj_pt_level_1,op_zj_pt_level_2,op_zj_pt_level_3,op_zj_pt_level_4,op_zj_pt_level_5,op_zj_pt_level_6,sd,shi,shop,sx,th,us_wq_1,us_wq_2,us_wq_3,us_wq_4,us_wq_5,us_wq_6,us_wq_7,us_wq_8,us_wq_9,us_zd_1,us_zd_2_wy,us_zd_2,us_zd_3,us_zd_4,us_zd_5_wy,us_zd_5,us_zd_6,us_zd_7,us_zd_8,us_zd_9,us_zj_level_5,xin,xx1,xx2,xx3,z,zai,zhanqu,zi_j,zt"
+		},
+		{
+			"name": "bjh_png",
+			"type": "image",
+			"url": "fc/bjh.png"
 		}
 	]
 }

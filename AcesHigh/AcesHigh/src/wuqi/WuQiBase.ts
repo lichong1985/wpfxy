@@ -57,6 +57,13 @@ module wuqi {
         //伤害相关
         public hit: number = 5;
 
+        //升级特效显示次数
+        public sj_number = 0;
+
+        public jia_hao: number = 100;
+
+
+
 
 
         constructor(mokaiPos: egret.Point, shType: mokuai.BODY_SHAPE_TYPE, name: string, wuqii_type: WUQI_TYPE, fc: feichuan.FeiChuanBase) {
@@ -86,6 +93,12 @@ module wuqi {
 
         }
         public updata() {
+            if (egret.getTimer() > this.jia_hao) {
+                this.jia_hao = egret.getTimer() + 100;
+                if (this.sj_number > 0) {
+                    this.shengjiTexiao();
+                }
+            }
 
         }
 
@@ -103,6 +116,44 @@ module wuqi {
         public fasheTeXiao() {
             let tw = egret.Tween.get(this);
             tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.8 }, 100).call(this.huizhi);
+
+        }
+        //升级特效
+        public shengjiTexiao() {
+
+            let name: string = "";
+            if (this.level == 1) {
+                name = "bai_j"
+            }
+            if (this.level == 2) {
+                name = "lv_j"
+            }
+            if (this.level == 3) {
+                name = "lan_j"
+            }
+            if (this.level == 4) {
+                name = "zi_j"
+            }
+            if (this.level >= 5) {
+                name = "cheng_j"
+            }
+
+            let jia = new egret.Bitmap(RES.getRes(name));
+            jia.anchorOffsetX = jia.width * 0.5;
+            jia.anchorOffsetY = jia.height * 0.5;
+            jia.x = this.x;
+            jia.y = this.y;
+            this.fc.battle_scene.addChild(jia);
+            jia.scaleX
+
+            egret.Tween.get(jia).to({ "alpha": 0, "scaleX": 3, "scaleY": 3 }, 1000).call(function (j: egret.Bitmap) {
+                if (j.parent) {
+                    j.parent.removeChild(j);
+                }
+            }, this, [jia])
+
+            this.sj_number--;
+
 
         }
         //特效回执
@@ -173,7 +224,6 @@ module wuqi {
             zd.position[1] = p.y;
             zd.velocity = [v.x, v.y];
             zd.hitNumber = this.hit;
-
             zd.yue_shu();
             return zd;
         }

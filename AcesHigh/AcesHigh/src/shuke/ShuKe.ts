@@ -32,7 +32,6 @@ module shuke {
                 return;
             }
 
-            // egret.log("****掉落数据***********:" + dl.dl_type + "_" + dl.wq_type + "_" + dl.lv);
 
 
             x = mk.moKuaiPost.x;
@@ -101,7 +100,7 @@ module shuke {
             if (dl.dl_type == suiji.SJ_YAN_SE.WU_QI) {
                 //普通
                 if (dl.wq_type == suiji.WQ_TYPE[0]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
                 //散弹
                 if (dl.wq_type == suiji.WQ_TYPE[1]) {
@@ -179,9 +178,9 @@ module shuke {
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -205,9 +204,78 @@ module shuke {
         }
 
 
+      
+
+        //更新飞船
+        public upsuke(n: number) {
+            //1 装甲 2 武器 
+            // egret.log("GGGGGGGGGG:"+this.yun_tu[10][8])
+            let indx = this.getindx(n);
+            let m = this.moKuaiList[indx[0]][indx[1]];
+            if (m.moKuaiType == 2) {
+                let w = <wuqi.WuQiBase>m;
+                w.level = user.UserInfo.wuqi_shengji_tianti[n];
+                w.sj_number = 30;
+            }
+
+            if (m.moKuaiType == 1) {
+                let r = this.moKuaiList[indx[0]][indx[1]];
+                if (r.parent) {
+                    r.parent.removeChild(r);
+                }
+
+                let hx = this.initSKWuQi(n, indx[1], indx[0], user.UserInfo.wuqi_shengji_tianti[n], egret.Point.create(this.yun_tu[0].length, this.yun_tu.length));
+                hx.sj_number = 30;
+            }
+
+
+        }
+
+        public getindx(n: number): number[] {
+            if (n < 4) {
+                if (n == 1) {
+                    return [10, 8]
+                }
+                if (n == 2) {
+                    return [10, 9]
+                }
+
+                if (n == 3) {
+                    return [10, 10]
+                }
+            }
+            if (n < 7) {
+                if (n == 4) {
+                    return [11, 8]
+                }
+                if (n == 5) {
+                    return [11, 9]
+                }
+
+                if (n == 6) {
+                    return [11, 10]
+                }
+            }
+
+            if (n < 10) {
+                if (n == 7) {
+                    return [12, 8]
+                }
+                if (n == 8) {
+                    return [12, 9]
+                }
+
+                if (n == 9) {
+                    return [12, 10]
+                }
+            }
+            return null;
+        }
+
+
         private initSuKe() {
             this.initYunTU();
-            this.initPro(this.yun_tu);
+            this.initPro(this.yun_tu, user.UserInfo.wuqi_shengji_tianti);
         }
 
         public updataPos() {

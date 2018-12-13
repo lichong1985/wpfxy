@@ -81,6 +81,11 @@ module feichuan {
 
         //飞船核心
         public hx: mokuai.DongLiHeXin;
+        public zx: mokuai.MoKuaiBase;
+
+
+        public dd: mokuai.MoKuaiBase; //导弹
+        public pt: mokuai.MoKuaiBase; //炮台
 
         //船体类型
         public fc_type: FC_TYPE;
@@ -127,6 +132,9 @@ module feichuan {
 
         //难度 1 ~ 11  飞船难度 从1 到 11 级别
         public nan_du: number = 1;
+
+
+        public wq_b: number = 1;
 
         //TODO: 通过配置文件来加载
         constructor(battle_scene: TestScene, egretWorldPoint: egret.Point, zhenying: GameConstant.ZHEN_YING, mass_: number, nan_du: number) {
@@ -706,12 +714,13 @@ module feichuan {
         /**
          * 初始化 配置文件
          */
-        public initPro(yun_tu: number[][]) {
+        public initPro(yun_tu: number[][], wqs: number[]) {
             let s: egret.Point = egret.Point.create(yun_tu[0].length, yun_tu.length);
             this.initList(yun_tu.length, yun_tu[0].length);
+
             for (let h = 0; h < yun_tu.length; h++) {
                 for (let w = 0; w < yun_tu[0].length; w++) {
-                    this.initMokuai(yun_tu[h][w], h, w, s);
+                    this.initMokuai(yun_tu[h][w], h, w, s, wqs);
                 }
             }
 
@@ -719,38 +728,107 @@ module feichuan {
         }
 
         //创建模块
-        public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point) {
+        public initMokuai(type: number, h: number, w: number, chang_kuan: egret.Point, wqs: number[]) {
             let hx: mokuai.MoKuaiBase;
-            if (type == 3) {
-                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
-                let wq = <wuqi.WuQiBase>hx
-                hx.setMkLevel(5);
-                this.wuqiList.push(wq)
-            }
-
-            if (type == 2) {
-                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5", this);
-            }
-
-            if (type == 1) {
-                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_hx_hx", this);
-                hx = this.hx;
-            }
-
             if (type == 0) {
                 return;
             }
+            if (wqs[this.wq_b] == 0) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5", this);
+                let hpp: egret.Point = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+                let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+                box.collisionGroup = this.collGroup;
+                box.collisionMask = this.collMask;
+
+                this.addShape(box, [hpp.x, hpp.y]);
+                hx.boxShape = box;
+                this.battle_scene.addChildAt(hx, 1);
+                this.moKuaiList[h][w] = hx;
+            } else {
+                hx = this.initSKWuQi(this.wq_b, w, h, wqs[this.wq_b], chang_kuan);
+            }
+
+            if (this.wq_b == 5) {
+                this.zx = hx;
+            }
+
+            this.mokuai_size++;
+            this.wq_b++;
+        }
+
+
+        public initSKWuQi(wqb: number, w: number, h: number, level: number, chang_kuan: egret.Point): wuqi.WuQiBase {
+            egret.log(w + " -- " + h)
+            let hx;
+            if (wqb == 1) {
+                hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+            }
+
+            if (wqb == 2) {
+                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+            }
+
+            if (wqb == 3) {
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+            }
+            if (wqb == 4) {
+                hx = new wjwq.LuoXuanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+            }
+
+            if (wqb == 5) {
+                hx = new wjwq.YuLeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq);
+
+
+            }
+
+            if (wqb == 6) {
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+                this.dd = hx;
+            }
+
+            if (wqb == 7) {
+                hx = new wjwq.PaoTaiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+                this.pt = hx;
+            }
+
+            if (wqb == 8) {
+                hx = new wjwq.ChangDingWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+            }
+
+            if (wqb == 9) {
+                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                let wq = <wuqi.WuQiBase>hx
+                this.wuqiList.push(wq)
+            }
+
             let hpp: egret.Point = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
             let box: p2.Box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
             box.collisionGroup = this.collGroup;
             box.collisionMask = this.collMask;
 
-            this.addShape(box, [hpp.x, hpp.y])
+            this.addShape(box, [hpp.x, hpp.y]);
+            hx.boxShape = box;
+            this.battle_scene.addChildAt(hx, 1);
             this.moKuaiList[h][w] = hx;
 
-            hx.boxShape = box;
-            this.battle_scene.addChild(hx);
-            this.mokuai_size++;
+            return hx;
+
         }
 
 

@@ -18,7 +18,7 @@ module juzi {
         public init1ZTJ() {
             //1 创建飞船
             this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info,
-                egret.Point.create(15, 5), 2);
+                egret.Point.create(15, 5), 9);
             this.fc1.angle = 70 / 180 * Math.PI;
             //2 创建状态机
             let ztj: fjztj.QuYuZTJ = new fjztj.QuYuZTJ(this.fc1);

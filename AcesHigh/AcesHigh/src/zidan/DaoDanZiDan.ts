@@ -30,6 +30,7 @@ module zidan {
         //到达指定角度 自动导航
         public zd: boolean = false;
 
+
         public cishu: number = 0;
         //----------------------
         constructor(scene: scene.SceneBase, zhenying: GameConstant.ZHEN_YING, mass: number, fc: feichuan.FeiChuanBase) {
@@ -39,7 +40,7 @@ module zidan {
             this.damping = 0;
             this.fc = fc;
             this.bit_name = "us_zd_3";
-            this.sudu = 3;
+            this.sudu = 5;
             this.angularVelocity = 5;
 
 
@@ -67,17 +68,19 @@ module zidan {
                 return;
             }
             if ((egret.getTimer() - this.mark_time) < this.qi_dong) {
+                egret.log("qi_dong:" + this.f + " -- " + this.velocity[1])
 
                 super.weiyi(this.bit_name);
                 this.force = [0, this.f];
                 return;
             }
             this.is_go = true;
-            if ((egret.getTimer() - (this.mark_time + this.qi_dong)) < this.qi_dong && this.is_go) {
-                super.weiyi(this.bit_name);
-                this.force = [0, this.f];
-                return;
-            }
+            // if ((egret.getTimer() - (this.mark_time + this.qi_dong)) < this.qi_dong && this.is_go) {
+            //     super.weiyi(this.bit_name);
+            //     egret.log("is_go:" + this.f + " -- " + this.velocity[1])
+            //     this.force = [0, this.f];
+            //     return;
+            // }
 
             if (this.js) {
                 this.js = false;

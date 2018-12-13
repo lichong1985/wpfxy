@@ -12,9 +12,10 @@ var wuqi;
 (function (wuqi) {
     var PuTongDan = (function (_super) {
         __extends(PuTongDan, _super);
-        function PuTongDan(mokaiPos, shType, wuqii_type, fc) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_1", wuqii_type, fc) || this;
+        function PuTongDan(mokaiPos, shType, fc, level) {
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_1", wuqi.WUQI_TYPE.PU_TONG, fc) || this;
             _this.sudu = 10;
+            _this.level = level;
             return _this;
         }
         PuTongDan.prototype.fashe = function (angel, suke, now) {

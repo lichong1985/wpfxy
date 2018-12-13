@@ -177,11 +177,11 @@ module zy {
         }
         //切换界面 
         public qie() {
-            let testSen: TestScene = new TestScene();
-            this.mian.stage.removeChild(this);
-            this.mian.stage.addChild(testSen)
-            testSen.x = -scene.scene_anch_x;
-            testSen.y = -scene.scene_anch_y;
+            // let testSen: TestScene = new TestScene();
+            // this.mian.stage.removeChild(this);
+            // this.mian.stage.addChild(testSen)
+            // testSen.x = -scene.scene_anch_x;
+            // testSen.y = -scene.scene_anch_y;
         }
 
         //移除子页面

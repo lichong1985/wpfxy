@@ -153,20 +153,14 @@ var Main = (function (_super) {
             }
             FC_Console.addFcInfo(info);
         }
-        this.testSen = new TestScene();
         this.testSen = TestScene.getInstance();
         this.stage.addChild(this.testSen);
         this.testSen.x = -scene.scene_anch_x;
         this.testSen.y = -scene.scene_anch_y;
-        // this.addZhuYe();
-    };
-    Main.prototype.addZhuYe = function () {
-        if (!this.zhuye) {
-            this.zhuye = new zy.ZhuYe(this);
-        }
-        this.stage.addChild(this.zhuye);
-        this.zhuye.x = 0;
-        this.zhuye.y = 0;
+        // let a: egret.Bitmap = new egret.Bitmap(RES.getRes("shop"));
+        // a.x = 100;
+        // a.y = 100;
+        // this.stage.addChild(a);
     };
     return Main;
 }(eui.UILayer));

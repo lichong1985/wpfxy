@@ -248,6 +248,9 @@ var wuqi;
             _this.lianji_mark = 1;
             //伤害相关
             _this.hit = 5;
+            //升级特效显示次数
+            _this.sj_number = 0;
+            _this.jia_hao = 100;
             _this.moKuaiType = mokuai.MO_KUAI_TYPE.WU_QI;
             _this.wuqi_type = wuqii_type;
             // this.tx = new egret.Bitmap(RES.getRes(name));
@@ -266,6 +269,12 @@ var wuqi;
             }
         };
         WuQiBase.prototype.updata = function () {
+            if (egret.getTimer() > this.jia_hao) {
+                this.jia_hao = egret.getTimer() + 100;
+                if (this.sj_number > 0) {
+                    this.shengjiTexiao();
+                }
+            }
         };
         WuQiBase.prototype.fashe = function (angel, suke, now) {
             this.fasheTeXiao();
@@ -280,6 +289,38 @@ var wuqi;
         WuQiBase.prototype.fasheTeXiao = function () {
             var tw = egret.Tween.get(this);
             tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.8 }, 100).call(this.huizhi);
+        };
+        //升级特效
+        WuQiBase.prototype.shengjiTexiao = function () {
+            var name = "";
+            if (this.level == 1) {
+                name = "bai_j";
+            }
+            if (this.level == 2) {
+                name = "lv_j";
+            }
+            if (this.level == 3) {
+                name = "lan_j";
+            }
+            if (this.level == 4) {
+                name = "zi_j";
+            }
+            if (this.level >= 5) {
+                name = "cheng_j";
+            }
+            var jia = new egret.Bitmap(RES.getRes(name));
+            jia.anchorOffsetX = jia.width * 0.5;
+            jia.anchorOffsetY = jia.height * 0.5;
+            jia.x = this.x;
+            jia.y = this.y;
+            this.fc.battle_scene.addChild(jia);
+            jia.scaleX;
+            egret.Tween.get(jia).to({ "alpha": 0, "scaleX": 3, "scaleY": 3 }, 1000).call(function (j) {
+                if (j.parent) {
+                    j.parent.removeChild(j);
+                }
+            }, this, [jia]);
+            this.sj_number--;
         };
         //特效回执
         WuQiBase.prototype.huizhi = function () {
@@ -397,227 +438,6 @@ var zhuangtaiji;
     zhuangtaiji.ZhuangTaiJiBase = ZhuangTaiJiBase;
     __reflect(ZhuangTaiJiBase.prototype, "zhuangtaiji.ZhuangTaiJiBase");
 })(zhuangtaiji || (zhuangtaiji = {}));
-var quyu;
-(function (quyu) {
-    var QuYu = (function () {
-        function QuYu() {
-            //飞船列表
-            this.fc_list = new Array();
-        }
-        //初始化飞船
-        QuYu.prototype.initFc = function () {
-        };
-        return QuYu;
-    }());
-    quyu.QuYu = QuYu;
-    __reflect(QuYu.prototype, "quyu.QuYu");
-})(quyu || (quyu = {}));
-var zhuangjia;
-(function (zhuangjia) {
-    /**
-     * 装甲 基类
-     */
-    var ZhuangJiaBase = (function (_super) {
-        __extends(ZhuangJiaBase, _super);
-        function ZhuangJiaBase(moKuaiPost, shapeType, bitName, fc) {
-            var _this = _super.call(this, moKuaiPost, shapeType, bitName, fc) || this;
-            _this.moKuaiType = mokuai.MO_KUAI_TYPE.ZHUANG_JIA;
-            return _this;
-        }
-        return ZhuangJiaBase;
-    }(mokuai.MoKuaiBase));
-    zhuangjia.ZhuangJiaBase = ZhuangJiaBase;
-    __reflect(ZhuangJiaBase.prototype, "zhuangjia.ZhuangJiaBase");
-})(zhuangjia || (zhuangjia = {}));
-var juzi;
-(function (juzi) {
-    var JU_ZI_TYPE;
-    (function (JU_ZI_TYPE) {
-        JU_ZI_TYPE[JU_ZI_TYPE["SZ"] = 0] = "SZ";
-        JU_ZI_TYPE[JU_ZI_TYPE["ZX"] = 1] = "ZX";
-        JU_ZI_TYPE[JU_ZI_TYPE["SX"] = 2] = "SX";
-        JU_ZI_TYPE[JU_ZI_TYPE["ZY"] = 3] = "ZY";
-        JU_ZI_TYPE[JU_ZI_TYPE["LX"] = 4] = "LX";
-        JU_ZI_TYPE[JU_ZI_TYPE["SB"] = 5] = "SB";
-        JU_ZI_TYPE[JU_ZI_TYPE["DJ"] = 6] = "DJ";
-        JU_ZI_TYPE[JU_ZI_TYPE["SJXL"] = 7] = "SJXL";
-        JU_ZI_TYPE[JU_ZI_TYPE["SXD"] = 8] = "SXD";
-        JU_ZI_TYPE[JU_ZI_TYPE["SEWZ"] = 9] = "SEWZ";
-        JU_ZI_TYPE[JU_ZI_TYPE["SJ"] = 10] = "SJ";
-    })(JU_ZI_TYPE = juzi.JU_ZI_TYPE || (juzi.JU_ZI_TYPE = {}));
-    juzi.JUZIList = [JU_ZI_TYPE.SZ, JU_ZI_TYPE.ZX, JU_ZI_TYPE.SX, JU_ZI_TYPE.ZY, JU_ZI_TYPE.LX, JU_ZI_TYPE.SB, JU_ZI_TYPE.DJ, JU_ZI_TYPE.SJXL, JU_ZI_TYPE.SXD, JU_ZI_TYPE.SEWZ, JU_ZI_TYPE.SJ];
-    var JuZiGuanLi = (function () {
-        function JuZiGuanLi(nan_du) {
-            //全地图可以放下  每个 格子大小约等于一个 飞机的方块 
-            this.MAX_NUMBER = 30 * 50;
-            this.fc_list = new Array();
-            this.fc_info_list = new Array();
-            //句子难度系数 1-5
-            this.nan_du = 1;
-            //当前句子 是否通过
-            this.is_next = false;
-            this.nan_du = nan_du;
-        }
-        //初始化飞机 数量
-        JuZiGuanLi.prototype.randomNum = function () {
-            return suiji.GetRandomNum(1, 5);
-        };
-        //获取随机飞船信息
-        JuZiGuanLi.prototype.getandomFc = function () {
-            var i = suiji.GetRandomNum(0, (FC_Console.all_list.length - 1));
-            return FC_Console.all_list[i];
-        };
-        // 初始化飞船信息
-        JuZiGuanLi.prototype.initFcInfo = function () {
-            var num = this.randomNum();
-            num += 1;
-            // num = 1;
-            for (var i = 0; i < num; i++) {
-                var info = this.getandomFc();
-                this.fc_info_list.push(this.getandomFc());
-            }
-        };
-        //刷新相关
-        JuZiGuanLi.prototype.upSomeThing = function () {
-        };
-        //添加飞机到 战场
-        JuZiGuanLi.prototype.addFc = function (scene) {
-            for (var _i = 0, _a = this.fc_info_list; _i < _a.length; _i++) {
-                var info = _a[_i];
-                info.reRandomPos();
-                var fc = new feichuan.XiaoBing(scene, info);
-                scene.dijis.push(fc);
-            }
-        };
-        return JuZiGuanLi;
-    }());
-    juzi.JuZiGuanLi = JuZiGuanLi;
-    __reflect(JuZiGuanLi.prototype, "juzi.JuZiGuanLi");
-})(juzi || (juzi = {}));
-var ai;
-(function (ai) {
-    var AI_TYPE;
-    (function (AI_TYPE) {
-        AI_TYPE[AI_TYPE["xuan_zhuan"] = 0] = "xuan_zhuan";
-        AI_TYPE[AI_TYPE["miao_zhun"] = 1] = "miao_zhun";
-    })(AI_TYPE = ai.AI_TYPE || (ai.AI_TYPE = {}));
-    //位置
-    var WEI_ZHI;
-    (function (WEI_ZHI) {
-        WEI_ZHI[WEI_ZHI["ZS"] = 0] = "ZS";
-        WEI_ZHI[WEI_ZHI["ZX"] = 1] = "ZX";
-        WEI_ZHI[WEI_ZHI["YS"] = 2] = "YS";
-        WEI_ZHI[WEI_ZHI["YX"] = 3] = "YX";
-        WEI_ZHI[WEI_ZHI["NN"] = 4] = "NN";
-    })(WEI_ZHI = ai.WEI_ZHI || (ai.WEI_ZHI = {}));
-    //转向
-    var ZHUAN_XIANG;
-    (function (ZHUAN_XIANG) {
-        ZHUAN_XIANG[ZHUAN_XIANG["Clockwise"] = 0] = "Clockwise";
-        ZHUAN_XIANG[ZHUAN_XIANG["Anti_clockwise"] = 1] = "Anti_clockwise";
-    })(ZHUAN_XIANG = ai.ZHUAN_XIANG || (ai.ZHUAN_XIANG = {}));
-    var AiBase = (function () {
-        function AiBase(fc, mT, mZ, gj) {
-            //是否停止ai
-            this.hang_up = false;
-            //单次状态 持续时间
-            this.jian_ge = 10 * 1000;
-            //误差
-            this.wu_cha = 0.2;
-            this.fc = fc;
-            this.sceneConsole = fc.battle_scene;
-            this.suke = this.sceneConsole.sk;
-            this.mT_over = mT;
-            this.gj_over = gj;
-            this.mZ_over = mZ;
-            this.time_mark = egret.getTimer();
-            this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
-            this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
-        }
-        AiBase.prototype.init = function () {
-        };
-        //目标 相对 你的位置
-        AiBase.prototype.js_wz = function (you, to) {
-            if (to > you) {
-                if ((to - you) < 0.25) {
-                    return 2;
-                }
-                return 3;
-            }
-            if (you > to) {
-                if ((you - to) < 0.25) {
-                    return 2;
-                }
-                return 1;
-            }
-            return 2;
-        };
-        AiBase.prototype.updata_ai = function (now) {
-            //到时没有达成任务 退出
-            if ((egret.getTimer() - this.time_mark) > this.jian_ge) {
-                // this.upOver();
-            }
-            this.doUpData(now);
-        };
-        //场景刷新器
-        AiBase.prototype.doUpData = function (time) {
-        };
-        AiBase.prototype.upOver = function () {
-            if (this.mT_over != zhuangtaiji.ZT_TYPE.NO_THING) {
-                this.fc.ztj.mT = this.mT_over;
-            }
-            if (this.gj_over != zhuangtaiji.ZT_TYPE.NO_THING) {
-                this.fc.ztj.gjT = this.gj_over;
-            }
-            if (this.mZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
-                this.fc.ztj.mzT = this.mZ_over;
-            }
-        };
-        //---------------判断是否到达目的地----------------
-        AiBase.prototype.is_x_over = function () {
-            //左边
-            // if (this.mu_biao_wz_X == 1 && Math.abs(this.fc.position[0] - this.fc.toPoint.x) < this.wu_cha) {
-            if (this.mu_biao_wz_X == 1 && this.fc.position[0] < this.fc.toPoint.x) {
-                return true;
-            }
-            //中
-            if (this.mu_biao_wz_X == 2) {
-                return true;
-            }
-            //右
-            if (this.mu_biao_wz_X == 3 && this.fc.position[0] > this.fc.toPoint.x) {
-                return true;
-            }
-            return false;
-        };
-        AiBase.prototype.is_y_over = function () {
-            //下边
-            if (this.mu_biao_wz_Y == 1 && this.fc.position[1] < this.fc.toPoint.y) {
-                return true;
-            }
-            //中
-            if (this.mu_biao_wz_Y == 2) {
-                return true;
-            }
-            //上
-            if (this.mu_biao_wz_Y == 3 && this.fc.position[1] > this.fc.toPoint.y) {
-                return true;
-            }
-            return false;
-        };
-        //返回  x方向 动力系数
-        AiBase.prototype.getXS_X = function () {
-            return 0;
-        };
-        //返回 Y  方向动力系数
-        AiBase.prototype.getXS_Y = function () {
-            return 0;
-        };
-        return AiBase;
-    }());
-    ai.AiBase = AiBase;
-    __reflect(AiBase.prototype, "ai.AiBase");
-})(ai || (ai = {}));
 var scene;
 (function (scene) {
     //战斗场景宽
@@ -659,6 +479,16 @@ var scene;
             _this.is_jiasu = false;
             _this.xxList = new Array();
             _this.tick = 0;
+            //---------------位移锚点-----------------------
+            //左减 右加
+            _this.mao_x = 0;
+            //下减 上加
+            _this.mao_y = 0;
+            //是否与商店图标发生碰撞
+            _this.is_shop = false;
+            _this.is_jl = false;
+            //触控移动的坐标点
+            _this.move_point = null;
             _this._distance = new egret.Point();
             _this._skP = new egret.Point();
             _this.init();
@@ -1061,8 +891,8 @@ var scene;
             if (!this.sk_p2_now) {
                 this.sk_p2_now = egret.Point.create(0, 0);
             }
-            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.02;
-            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.02;
+            this.sk_p2_now.x = (this.sk_p2_befor.x - this.sk.position[0]) * 0.05;
+            this.sk_p2_now.y = (this.sk_p2_befor.y - this.sk.position[1]) * 0.05;
         };
         //掉落道具
         SceneBase.prototype.diao_luo_dao_ju = function (mk) {
@@ -1071,7 +901,7 @@ var scene;
             this.addChild(dl.displays[0]);
             dl.loop();
         };
-        //添加测试场景
+        //---------------------------------触控相关-------------------------------------
         SceneBase.prototype.addShuKeListener = function () {
             this.touchEnabled = true;
             this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.mouseDown, this);
@@ -1089,8 +919,11 @@ var scene;
         };
         SceneBase.prototype.mouseMove = function (evt) {
             var pp = egret.Point.create((evt.stageX - this._distance.x) / Physics.factor, -(evt.stageY - this._distance.y) / Physics.factor);
-            this.sk.position[0] = this._skP.x + pp.x;
-            this.sk.position[1] = this._skP.y + pp.y;
+            this.move_point = Tools.p2TOegretPoitn(egret.Point.create(this._skP.x + pp.x, this._skP.y + pp.y));
+            if (!this.is_shop && !this.is_jl) {
+                this.sk.position[0] = this._skP.x + pp.x;
+                this.sk.position[1] = this._skP.y + pp.y;
+            }
         };
         //根据suke的位置 移动战斗场景
         SceneBase.prototype.weiyi = function (pp) {
@@ -1116,6 +949,7 @@ var scene;
             if (pp.x > scene.scene_anch_x + pw) {
             }
         };
+        //-----------------------------------------------------------------------
         //适用于已经被测底打光的 飞船
         SceneBase.prototype.removeTheFcInTheGame = function (fc) {
             //从敌机列表中
@@ -1148,6 +982,227 @@ var scene;
     scene.SceneBase = SceneBase;
     __reflect(SceneBase.prototype, "scene.SceneBase");
 })(scene || (scene = {}));
+var zhuangjia;
+(function (zhuangjia) {
+    /**
+     * 装甲 基类
+     */
+    var ZhuangJiaBase = (function (_super) {
+        __extends(ZhuangJiaBase, _super);
+        function ZhuangJiaBase(moKuaiPost, shapeType, bitName, fc) {
+            var _this = _super.call(this, moKuaiPost, shapeType, bitName, fc) || this;
+            _this.moKuaiType = mokuai.MO_KUAI_TYPE.ZHUANG_JIA;
+            return _this;
+        }
+        return ZhuangJiaBase;
+    }(mokuai.MoKuaiBase));
+    zhuangjia.ZhuangJiaBase = ZhuangJiaBase;
+    __reflect(ZhuangJiaBase.prototype, "zhuangjia.ZhuangJiaBase");
+})(zhuangjia || (zhuangjia = {}));
+var juzi;
+(function (juzi) {
+    var JU_ZI_TYPE;
+    (function (JU_ZI_TYPE) {
+        JU_ZI_TYPE[JU_ZI_TYPE["SZ"] = 0] = "SZ";
+        JU_ZI_TYPE[JU_ZI_TYPE["ZX"] = 1] = "ZX";
+        JU_ZI_TYPE[JU_ZI_TYPE["SX"] = 2] = "SX";
+        JU_ZI_TYPE[JU_ZI_TYPE["ZY"] = 3] = "ZY";
+        JU_ZI_TYPE[JU_ZI_TYPE["LX"] = 4] = "LX";
+        JU_ZI_TYPE[JU_ZI_TYPE["SB"] = 5] = "SB";
+        JU_ZI_TYPE[JU_ZI_TYPE["DJ"] = 6] = "DJ";
+        JU_ZI_TYPE[JU_ZI_TYPE["SJXL"] = 7] = "SJXL";
+        JU_ZI_TYPE[JU_ZI_TYPE["SXD"] = 8] = "SXD";
+        JU_ZI_TYPE[JU_ZI_TYPE["SEWZ"] = 9] = "SEWZ";
+        JU_ZI_TYPE[JU_ZI_TYPE["SJ"] = 10] = "SJ";
+    })(JU_ZI_TYPE = juzi.JU_ZI_TYPE || (juzi.JU_ZI_TYPE = {}));
+    juzi.JUZIList = [JU_ZI_TYPE.SZ, JU_ZI_TYPE.ZX, JU_ZI_TYPE.SX, JU_ZI_TYPE.ZY, JU_ZI_TYPE.LX, JU_ZI_TYPE.SB, JU_ZI_TYPE.DJ, JU_ZI_TYPE.SJXL, JU_ZI_TYPE.SXD, JU_ZI_TYPE.SEWZ, JU_ZI_TYPE.SJ];
+    var JuZiGuanLi = (function () {
+        function JuZiGuanLi(nan_du) {
+            //全地图可以放下  每个 格子大小约等于一个 飞机的方块 
+            this.MAX_NUMBER = 30 * 50;
+            this.fc_list = new Array();
+            this.fc_info_list = new Array();
+            //句子难度系数 1-5
+            this.nan_du = 1;
+            //当前句子 是否通过
+            this.is_next = false;
+            this.nan_du = nan_du;
+        }
+        //初始化飞机 数量
+        JuZiGuanLi.prototype.randomNum = function () {
+            return suiji.GetRandomNum(1, 5);
+        };
+        //获取随机飞船信息
+        JuZiGuanLi.prototype.getandomFc = function () {
+            var i = suiji.GetRandomNum(0, (FC_Console.all_list.length - 1));
+            return FC_Console.all_list[i];
+        };
+        // 初始化飞船信息
+        JuZiGuanLi.prototype.initFcInfo = function () {
+            var num = this.randomNum();
+            num += 1;
+            // num = 1;
+            for (var i = 0; i < num; i++) {
+                var info = this.getandomFc();
+                this.fc_info_list.push(this.getandomFc());
+            }
+        };
+        //刷新相关
+        JuZiGuanLi.prototype.upSomeThing = function () {
+        };
+        //添加飞机到 战场
+        JuZiGuanLi.prototype.addFc = function (scene) {
+            for (var _i = 0, _a = this.fc_info_list; _i < _a.length; _i++) {
+                var info = _a[_i];
+                info.reRandomPos();
+                var fc = new feichuan.XiaoBing(scene, info);
+                scene.dijis.push(fc);
+            }
+        };
+        return JuZiGuanLi;
+    }());
+    juzi.JuZiGuanLi = JuZiGuanLi;
+    __reflect(JuZiGuanLi.prototype, "juzi.JuZiGuanLi");
+})(juzi || (juzi = {}));
+var quyu;
+(function (quyu) {
+    var QuYu = (function () {
+        function QuYu() {
+            //飞船列表
+            this.fc_list = new Array();
+        }
+        //初始化飞船
+        QuYu.prototype.initFc = function () {
+        };
+        return QuYu;
+    }());
+    quyu.QuYu = QuYu;
+    __reflect(QuYu.prototype, "quyu.QuYu");
+})(quyu || (quyu = {}));
+var ai;
+(function (ai) {
+    var AI_TYPE;
+    (function (AI_TYPE) {
+        AI_TYPE[AI_TYPE["xuan_zhuan"] = 0] = "xuan_zhuan";
+        AI_TYPE[AI_TYPE["miao_zhun"] = 1] = "miao_zhun";
+    })(AI_TYPE = ai.AI_TYPE || (ai.AI_TYPE = {}));
+    //位置
+    var WEI_ZHI;
+    (function (WEI_ZHI) {
+        WEI_ZHI[WEI_ZHI["ZS"] = 0] = "ZS";
+        WEI_ZHI[WEI_ZHI["ZX"] = 1] = "ZX";
+        WEI_ZHI[WEI_ZHI["YS"] = 2] = "YS";
+        WEI_ZHI[WEI_ZHI["YX"] = 3] = "YX";
+        WEI_ZHI[WEI_ZHI["NN"] = 4] = "NN";
+    })(WEI_ZHI = ai.WEI_ZHI || (ai.WEI_ZHI = {}));
+    //转向
+    var ZHUAN_XIANG;
+    (function (ZHUAN_XIANG) {
+        ZHUAN_XIANG[ZHUAN_XIANG["Clockwise"] = 0] = "Clockwise";
+        ZHUAN_XIANG[ZHUAN_XIANG["Anti_clockwise"] = 1] = "Anti_clockwise";
+    })(ZHUAN_XIANG = ai.ZHUAN_XIANG || (ai.ZHUAN_XIANG = {}));
+    var AiBase = (function () {
+        function AiBase(fc, mT, mZ, gj) {
+            //是否停止ai
+            this.hang_up = false;
+            //单次状态 持续时间
+            this.jian_ge = 10 * 1000;
+            //误差
+            this.wu_cha = 0.2;
+            this.fc = fc;
+            this.sceneConsole = fc.battle_scene;
+            this.suke = this.sceneConsole.sk;
+            this.mT_over = mT;
+            this.gj_over = gj;
+            this.mZ_over = mZ;
+            this.time_mark = egret.getTimer();
+            this.mu_biao_wz_X = this.js_wz(this.fc.position[0], this.fc.toPoint.x);
+            this.mu_biao_wz_Y = this.js_wz(this.fc.position[1], this.fc.toPoint.y);
+        }
+        AiBase.prototype.init = function () {
+        };
+        //目标 相对 你的位置
+        AiBase.prototype.js_wz = function (you, to) {
+            if (to > you) {
+                if ((to - you) < 0.25) {
+                    return 2;
+                }
+                return 3;
+            }
+            if (you > to) {
+                if ((you - to) < 0.25) {
+                    return 2;
+                }
+                return 1;
+            }
+            return 2;
+        };
+        AiBase.prototype.updata_ai = function (now) {
+            //到时没有达成任务 退出
+            if ((egret.getTimer() - this.time_mark) > this.jian_ge) {
+                // this.upOver();
+            }
+            this.doUpData(now);
+        };
+        //场景刷新器
+        AiBase.prototype.doUpData = function (time) {
+        };
+        AiBase.prototype.upOver = function () {
+            if (this.mT_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.mT = this.mT_over;
+            }
+            if (this.gj_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.gjT = this.gj_over;
+            }
+            if (this.mZ_over != zhuangtaiji.ZT_TYPE.NO_THING) {
+                this.fc.ztj.mzT = this.mZ_over;
+            }
+        };
+        //---------------判断是否到达目的地----------------
+        AiBase.prototype.is_x_over = function () {
+            //左边
+            // if (this.mu_biao_wz_X == 1 && Math.abs(this.fc.position[0] - this.fc.toPoint.x) < this.wu_cha) {
+            if (this.mu_biao_wz_X == 1 && this.fc.position[0] < this.fc.toPoint.x) {
+                return true;
+            }
+            //中
+            if (this.mu_biao_wz_X == 2) {
+                return true;
+            }
+            //右
+            if (this.mu_biao_wz_X == 3 && this.fc.position[0] > this.fc.toPoint.x) {
+                return true;
+            }
+            return false;
+        };
+        AiBase.prototype.is_y_over = function () {
+            //下边
+            if (this.mu_biao_wz_Y == 1 && this.fc.position[1] < this.fc.toPoint.y) {
+                return true;
+            }
+            //中
+            if (this.mu_biao_wz_Y == 2) {
+                return true;
+            }
+            //上
+            if (this.mu_biao_wz_Y == 3 && this.fc.position[1] > this.fc.toPoint.y) {
+                return true;
+            }
+            return false;
+        };
+        //返回  x方向 动力系数
+        AiBase.prototype.getXS_X = function () {
+            return 0;
+        };
+        //返回 Y  方向动力系数
+        AiBase.prototype.getXS_Y = function () {
+            return 0;
+        };
+        return AiBase;
+    }());
+    ai.AiBase = AiBase;
+    __reflect(AiBase.prototype, "ai.AiBase");
+})(ai || (ai = {}));
 var texiao;
 (function (texiao) {
     var TeXiaoBase = (function () {
@@ -1211,6 +1266,7 @@ var feichuan;
             //++++++++++++++++++++++++++++++++++++++++++++++++++++
             //难度 1 ~ 11  飞船难度 从1 到 11 级别
             _this.nan_du = 1;
+            _this.wq_b = 1;
             _this.cs_mass = mass_;
             _this.nan_du = nan_du;
             //核心列表
@@ -1666,44 +1722,101 @@ var feichuan;
         /**
          * 初始化 配置文件
          */
-        FeiChuanBase.prototype.initPro = function (yun_tu) {
+        FeiChuanBase.prototype.initPro = function (yun_tu, wqs) {
             var s = egret.Point.create(yun_tu[0].length, yun_tu.length);
             this.initList(yun_tu.length, yun_tu[0].length);
             for (var h = 0; h < yun_tu.length; h++) {
                 for (var w = 0; w < yun_tu[0].length; w++) {
-                    this.initMokuai(yun_tu[h][w], h, w, s);
+                    this.initMokuai(yun_tu[h][w], h, w, s, wqs);
                 }
             }
             this.battle_scene.world.addBody(this);
         };
         //创建模块
-        FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan) {
+        FeiChuanBase.prototype.initMokuai = function (type, h, w, chang_kuan, wqs) {
             var hx;
-            if (type == 3) {
-                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, 5);
-                var wq = hx;
-                hx.setMkLevel(5);
-                this.wuqiList.push(wq);
-            }
-            if (type == 2) {
-                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5", this);
-            }
-            if (type == 1) {
-                this.hx = new mokuai.DongLiHeXin(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_hx_hx", this);
-                hx = this.hx;
-            }
             if (type == 0) {
                 return;
+            }
+            if (wqs[this.wq_b] == 0) {
+                hx = new zhuangjia.PuTongZhuangJia(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, "us_zj_level_5", this);
+                var hpp = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
+                var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
+                box.collisionGroup = this.collGroup;
+                box.collisionMask = this.collMask;
+                this.addShape(box, [hpp.x, hpp.y]);
+                hx.boxShape = box;
+                this.battle_scene.addChildAt(hx, 1);
+                this.moKuaiList[h][w] = hx;
+            }
+            else {
+                hx = this.initSKWuQi(this.wq_b, w, h, wqs[this.wq_b], chang_kuan);
+            }
+            if (this.wq_b == 5) {
+                this.zx = hx;
+            }
+            this.mokuai_size++;
+            this.wq_b++;
+        };
+        FeiChuanBase.prototype.initSKWuQi = function (wqb, w, h, level, chang_kuan) {
+            egret.log(w + " -- " + h);
+            var hx;
+            if (wqb == 1) {
+                hx = new wuqi.PuTongDan(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 2) {
+                hx = new wjwq.SanDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 3) {
+                hx = new wjwq.JiGuangWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 4) {
+                hx = new wjwq.LuoXuanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 5) {
+                hx = new wjwq.YuLeiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 6) {
+                hx = new wjwq.DaoDanWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+                this.dd = hx;
+            }
+            if (wqb == 7) {
+                hx = new wjwq.PaoTaiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+                this.pt = hx;
+            }
+            if (wqb == 8) {
+                hx = new wjwq.ChangDingWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
+            }
+            if (wqb == 9) {
+                hx = new wjwq.ZhongChuiWuqi(egret.Point.create(w, h), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, level);
+                var wq = hx;
+                this.wuqiList.push(wq);
             }
             var hpp = Physics.getRelativeDistance(chang_kuan, egret.Point.create(w, h), mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE]);
             var box = new p2.Box({ width: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE], height: mokuai.M_SIZE_PH[mokuai.BODY_SHAPE_TYPE.SIMPLE] });
             box.collisionGroup = this.collGroup;
             box.collisionMask = this.collMask;
             this.addShape(box, [hpp.x, hpp.y]);
-            this.moKuaiList[h][w] = hx;
             hx.boxShape = box;
-            this.battle_scene.addChild(hx);
-            this.mokuai_size++;
+            this.battle_scene.addChildAt(hx, 1);
+            this.moKuaiList[h][w] = hx;
+            return hx;
         };
         //碰撞点检测
         FeiChuanBase.prototype.jia_ce_peng_zhuang_dian = function (x, y) {
@@ -2112,28 +2225,24 @@ var fjztj;
     fjztj.FjZTJ = FjZTJ;
     __reflect(FjZTJ.prototype, "fjztj.FjZTJ");
 })(fjztj || (fjztj = {}));
-var ai;
-(function (ai) {
-    /**
-     * 实时瞄准 ai
-     */
-    var ShiShiMiaoZhunAi = (function (_super) {
-        __extends(ShiShiMiaoZhunAi, _super);
-        function ShiShiMiaoZhunAi(fc, mt, xz, mz) {
-            return _super.call(this, fc, mt, xz, mz) || this;
+var zy;
+(function (zy) {
+    var ziyeMi = (function (_super) {
+        __extends(ziyeMi, _super);
+        function ziyeMi(z) {
+            var _this = _super.call(this) || this;
+            _this.width = Tools.getPhoneW();
+            _this.height = Tools.getPhoneH();
+            _this.z = z;
+            _this.x = 0;
+            _this.y = 0;
+            return _this;
         }
-        ShiShiMiaoZhunAi.prototype.doUpData = function (time) {
-            if (!this.hang_up) {
-                _super.prototype.doUpData.call(this, time);
-                var angle = Math.atan2((this.suke.position[1] - this.fc.position[1]), (this.suke.position[0] - this.fc.position[0])) + Math.PI * 0.5;
-                this.fc.angle = angle;
-            }
-        };
-        return ShiShiMiaoZhunAi;
-    }(ai.AiBase));
-    ai.ShiShiMiaoZhunAi = ShiShiMiaoZhunAi;
-    __reflect(ShiShiMiaoZhunAi.prototype, "ai.ShiShiMiaoZhunAi");
-})(ai || (ai = {}));
+        return ziyeMi;
+    }(egret.DisplayObjectContainer));
+    zy.ziyeMi = ziyeMi;
+    __reflect(ziyeMi.prototype, "zy.ziyeMi");
+})(zy || (zy = {}));
 var ai;
 (function (ai) {
     var SingoMoveToAi = (function (_super) {
@@ -2952,23 +3061,23 @@ var bar;
     var DunBar = (function () {
         function DunBar(scene) {
             //当前盾牌数量
-            this.d_number = 3;
+            this.d_number = 1;
             this.scene = scene;
             this.init();
         }
         DunBar.prototype.init = function () {
-            this.dun_1 = new egret.Bitmap(RES.getRes("dp"));
-            this.scene.addChildAt(this.dun_1, 100);
-            this.dun_1.x = Tools.getPhoneW() * 0.8 + 1000;
-            this.dun_1.y = 1010;
-            this.dun_2 = new egret.Bitmap(RES.getRes("dp"));
-            this.scene.addChildAt(this.dun_2, 100);
-            this.dun_2.x = Tools.getPhoneW() * 0.85 + 1000;
-            this.dun_2.y = 1010;
-            this.dun_3 = new egret.Bitmap(RES.getRes("dp"));
-            this.scene.addChildAt(this.dun_3, 100);
-            this.dun_3.x = Tools.getPhoneW() * 0.9 + 1000;
-            this.dun_3.y = 1010;
+            // this.dun_1 = new egret.Bitmap(RES.getRes("dp"));
+            // this.scene.addChildAt(this.dun_1, 100);
+            // this.dun_1.x = Tools.getPhoneW() * 0.8 + 1000;
+            // this.dun_1.y = 1010;
+            // this.dun_2 = new egret.Bitmap(RES.getRes("dp"));
+            // this.scene.addChildAt(this.dun_2, 100);
+            // this.dun_2.x = Tools.getPhoneW() * 0.85 + 1000;
+            // this.dun_2.y = 1010;
+            // this.dun_3 = new egret.Bitmap(RES.getRes("dp"));
+            // this.scene.addChildAt(this.dun_3, 100);
+            // this.dun_3.x = Tools.getPhoneW() * 0.9 + 1000;
+            // this.dun_3.y = 1010;
         };
         //减血
         DunBar.prototype.jian = function () {
@@ -2989,11 +3098,11 @@ var bar;
                 egret.Tween.get(this.dun_2).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
                 return;
             }
-            if (this.d_number == 0 && this.dun_3.alpha != 0) {
-                this.dun_3.texture = RES.getRes("dp_h");
-                egret.Tween.get(this.dun_3).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
-                return;
-            }
+            // if (this.d_number == 0 && this.dun_3.alpha != 0) {
+            //     this.dun_3.texture = RES.getRes("dp_h");
+            //     egret.Tween.get(this.dun_3).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100).to({ alpha: 1 }, 100).to({ alpha: 0 }, 100);
+            //     return;
+            // }
         };
         //加血
         DunBar.prototype.jia = function () {
@@ -3137,6 +3246,212 @@ var bar;
     }());
     bar.HuiHeBar = HuiHeBar;
     __reflect(HuiHeBar.prototype, "bar.HuiHeBar");
+})(bar || (bar = {}));
+var bar;
+(function (bar) {
+    var JinBiBar = (function () {
+        function JinBiBar(scene, all) {
+            //当前所有的数
+            this.all_number = 17865;
+            //是否需要变更
+            this.is_chang = false;
+            //  红色RGB
+            this.hong = [251, 17, 57];
+            //白色RGB
+            this.white = [237, 255, 249];
+            //个个位置对应的数
+            this.ge_numb = 0;
+            this.shi_numb = 0;
+            this.bai_numb = 0;
+            this.qian_numb = 0;
+            this.wan_numb = 0;
+            this.ge_numb_old = 0;
+            this.shi_numb_old = 0;
+            this.bai_numb_old = 0;
+            this.qian_numb_old = 0;
+            this.wan_numb_old = 0;
+            this.ge_mark = 1;
+            this.shi_mark = 1;
+            this.bai_mark = 1;
+            this.qian_mark = 1;
+            this.wan_mark = 1;
+            this.is_ge = false;
+            this.is_shi = false;
+            this.is_bai = false;
+            this.is_qian = false;
+            this.is_wan = false;
+            this.scene = scene;
+            this.all_number = all;
+            this.renumber();
+            this.initNumber();
+        }
+        JinBiBar.prototype.initNumber = function () {
+            this.ge = new egret.Bitmap(RES.getRes(this.ge_numb + ""));
+            this.shi = new egret.Bitmap(RES.getRes(this.shi_numb + ""));
+            this.bai = new egret.Bitmap(RES.getRes(this.bai_numb + ""));
+            this.qian = new egret.Bitmap(RES.getRes(this.qian_numb + ""));
+            this.wan = new egret.Bitmap(RES.getRes(this.wan_numb + ""));
+            this.jing = new egret.Bitmap(RES.getRes("jt"));
+            this.ge.y = Tools.getPhoneH() * 0.02 + 1000;
+            this.shi.y = Tools.getPhoneH() * 0.02 + 1000;
+            this.bai.y = Tools.getPhoneH() * 0.02 + 1000;
+            this.qian.y = Tools.getPhoneH() * 0.02 + 1000;
+            this.wan.y = Tools.getPhoneH() * 0.02 + 1000;
+            this.jing.y = Tools.getPhoneH() * 0.02 + 1000;
+            this.wan.x = Tools.getPhoneW() * 0.4 + 1000;
+            this.qian.x = Tools.getPhoneW() * 0.43 + 1000;
+            this.bai.x = Tools.getPhoneW() * 0.46 + 1000;
+            this.shi.x = Tools.getPhoneW() * 0.49 + 1000;
+            this.ge.x = Tools.getPhoneW() * 0.52 + 1000;
+            this.jing.x = Tools.getPhoneW() * 0.55 + 1000;
+            this.scene.addChild(this.ge);
+            this.scene.addChild(this.shi);
+            this.scene.addChild(this.bai);
+            this.scene.addChild(this.qian);
+            this.scene.addChild(this.wan);
+            this.scene.addChild(this.jing);
+        };
+        //刷新数字
+        JinBiBar.prototype.renumber = function () {
+            this.wan_numb = Math.floor(this.all_number / 10000);
+            this.qian_numb = Math.floor(this.all_number % 10000 / 1000);
+            this.bai_numb = Math.floor(this.all_number % 1000 / 100);
+            this.shi_numb = Math.floor(this.all_number % 100 / 10);
+            this.ge_numb = Math.floor(this.all_number % 10);
+            this.is_chang = true;
+            this.is_ge = true;
+            this.is_shi = true;
+            this.is_bai = true;
+            this.is_qian = true;
+            this.is_wan = true;
+        };
+        //加钱
+        JinBiBar.prototype.addAllNumb = function (n) {
+            this.all_number += n;
+            user.UserInfo.saveJinBi(this.all_number);
+            this.renumber();
+        };
+        //减钱
+        JinBiBar.prototype.jianAllNumb = function (n) {
+            if (this.all_number < n) {
+                //TODO 特效 
+                this.texiao();
+                return false;
+            }
+            this.all_number -= n;
+            user.UserInfo.saveJinBi(this.all_number);
+            this.renumber();
+            return true;
+        };
+        //特效
+        JinBiBar.prototype.texiao = function () {
+            egret.Tween.get(this.ge).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50);
+            egret.Tween.get(this.shi).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50);
+            egret.Tween.get(this.bai).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50);
+            egret.Tween.get(this.qian).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50);
+            egret.Tween.get(this.wan).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50).to({ "scaleX": 2, "scaleY": 2 }, 50).to({ "scaleX": 1, "scaleY": 1 }, 50);
+        };
+        //刷新数字
+        JinBiBar.prototype.updata = function () {
+            // if (!this.is_chang) {
+            //     return;
+            // }
+            // this.is_chang = false;
+            if (this.is_ge)
+                this.upge();
+            if (this.is_shi)
+                this.upshi();
+            if (this.is_bai)
+                this.upbai();
+            if (this.is_qian)
+                this.upqian();
+            if (this.is_wan)
+                this.upwan();
+        };
+        //更新个位数
+        JinBiBar.prototype.upge = function () {
+            //不变 退出
+            if (this.ge_numb == this.ge_numb_old && this.ge_mark == 0) {
+                this.ge_mark = 1;
+                this.is_ge = false;
+                return;
+            }
+            if (this.ge_numb == this.ge_numb_old) {
+                this.ge_mark--;
+            }
+            this.ge_numb_old++;
+            this.ge_numb_old = this.ge_numb_old % 10;
+            this.ge.texture = RES.getRes(this.ge_numb_old + "");
+            egret.Tween.get(this.ge).to({ "scaleY": 1.5 }, 50).to({ "scaleY": 1 }, 50);
+        };
+        //更新十位数
+        JinBiBar.prototype.upshi = function () {
+            //不变 退出
+            if (this.shi_numb == this.shi_numb_old && this.shi_mark == 0) {
+                this.shi_mark = 1;
+                this.is_shi = false;
+                return;
+            }
+            if (this.shi_numb == this.shi_numb_old) {
+                this.shi_mark--;
+            }
+            this.shi_numb_old++;
+            this.shi_numb_old = this.shi_numb_old % 10;
+            this.shi.texture = RES.getRes(this.shi_numb_old + "");
+            egret.Tween.get(this.shi).to({ "scaleY": 1.5 }, 50).to({ "scaleY": 1 }, 50);
+        };
+        //更新白位数
+        JinBiBar.prototype.upbai = function () {
+            //不变 退出
+            if (this.bai_numb == this.bai_numb_old && this.bai_mark == 0) {
+                this.bai_mark = 1;
+                this.is_bai = false;
+                return;
+            }
+            if (this.bai_numb == this.bai_numb_old) {
+                this.bai_mark--;
+            }
+            this.bai_numb_old++;
+            this.bai_numb_old = this.bai_numb_old % 10;
+            this.bai.texture = RES.getRes(this.bai_numb_old + "");
+            egret.Tween.get(this.bai).to({ "scaleY": 1.5 }, 50).to({ "scaleY": 1 }, 50);
+        };
+        //更新白位数
+        JinBiBar.prototype.upqian = function () {
+            //不变 退出
+            if (this.qian_numb == this.qian_numb_old && this.qian_mark == 0) {
+                this.qian_mark = 1;
+                this.is_qian = false;
+                return;
+            }
+            if (this.qian_numb == this.qian_numb_old) {
+                this.qian_mark--;
+            }
+            this.qian_numb_old++;
+            this.qian_numb_old = this.qian_numb_old % 10;
+            this.qian.texture = RES.getRes(this.qian_numb_old + "");
+            egret.Tween.get(this.qian).to({ "scaleY": 1.5 }, 50).to({ "scaleY": 1 }, 50);
+        };
+        //更新白位数
+        JinBiBar.prototype.upwan = function () {
+            //不变 退出
+            if (this.wan_numb == this.wan_numb_old && this.wan_mark == 0) {
+                this.wan_mark = 1;
+                this.is_wan = false;
+                return;
+            }
+            if (this.wan_numb == this.wan_numb_old) {
+                this.wan_mark--;
+            }
+            this.wan_numb_old++;
+            this.wan_numb_old = this.wan_numb_old % 10;
+            this.wan.texture = RES.getRes(this.wan_numb_old + "");
+            egret.Tween.get(this.wan).to({ "scaleY": 1.5 }, 50).to({ "scaleY": 1 }, 50);
+        };
+        return JinBiBar;
+    }());
+    bar.JinBiBar = JinBiBar;
+    __reflect(JinBiBar.prototype, "bar.JinBiBar");
 })(bar || (bar = {}));
 var bar;
 (function (bar) {
@@ -3955,20 +4270,14 @@ var Main = (function (_super) {
             }
             FC_Console.addFcInfo(info);
         }
-        // this.testSen = new TestScene();
-        // this.testSen = TestScene.getInstance();
-        // this.stage.addChild(this.testSen)
-        // this.testSen.x = -scene.scene_anch_x;
-        // this.testSen.y = -scene.scene_anch_y;
-        this.addZhuYe();
-    };
-    Main.prototype.addZhuYe = function () {
-        if (!this.zhuye) {
-            this.zhuye = new zy.ZhuYe();
-        }
-        this.stage.addChild(this.zhuye);
-        this.zhuye.x = 0;
-        this.zhuye.y = 0;
+        this.testSen = TestScene.getInstance();
+        this.stage.addChild(this.testSen);
+        this.testSen.x = -scene.scene_anch_x;
+        this.testSen.y = -scene.scene_anch_y;
+        // let a: egret.Bitmap = new egret.Bitmap(RES.getRes("shop"));
+        // a.x = 100;
+        // a.y = 100;
+        // this.stage.addChild(a);
     };
     return Main;
 }(eui.UILayer));
@@ -4534,7 +4843,7 @@ var boci;
             var max = this.numberList.length;
             var min = 1;
             var numb = Tools.GetRandomNum(min, max);
-            numb = 51;
+            // numb = 51
             this.jz = this.getJZ(numb);
             this.jz.initFcInfo();
             //移除指定节点
@@ -4892,7 +5201,7 @@ var juzi;
         };
         Test1.prototype.init1ZTJ = function () {
             //1 创建飞船
-            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(15, 5), 2);
+            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(15, 5), 9);
             this.fc1.angle = 70 / 180 * Math.PI;
             //2 创建状态机
             var ztj = new fjztj.QuYuZTJ(this.fc1);
@@ -6365,6 +6674,75 @@ var juzi;
     juzi.Xiao62XunLuoGonJiJZ = Xiao62XunLuoGonJiJZ;
     __reflect(Xiao62XunLuoGonJiJZ.prototype, "juzi.Xiao62XunLuoGonJiJZ");
 })(juzi || (juzi = {}));
+var juzi;
+(function (juzi) {
+    var BoSiMaoJiaXuanZhuanJZ = (function (_super) {
+        __extends(BoSiMaoJiaXuanZhuanJZ, _super);
+        function BoSiMaoJiaXuanZhuanJZ(nd, scene) {
+            var _this = _super.call(this, nd) || this;
+            _this.scene = scene;
+            return _this;
+        }
+        BoSiMaoJiaXuanZhuanJZ.prototype.initFcInfo = function () {
+            this.fc_info = FC_Console.getInfoByName(3, "zhong_10");
+            this.init1ZTJ();
+            this.fc_info2 = FC_Console.getInfoByName(3, "zhong_11");
+            this.init2ZTJ();
+        };
+        BoSiMaoJiaXuanZhuanJZ.prototype.init1ZTJ = function () {
+            //1 创建飞船
+            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(35, 5), this.nan_du);
+            //2 创建状态机
+            var ztj = new fjztj.QuYuZTJ(this.fc1);
+            //进场
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.DAO_HANG, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 3, 1, null, 2, -1, "13:15"));
+            // //移动
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(15, 1), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 10, 2, [new zhuangtaiji.WuQiAiInfo(2, 5000, 12, 300, 3, 1, 3),
+                new zhuangtaiji.WuQiAiInfo(3, 3000, 3, 100, 3, 5, 1),
+                new zhuangtaiji.WuQiAiInfo(2, 5000, 1, 100, 3, 2, 1)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.DAO_HANG, zhuangtaiji.ZT_TYPE.NULL_T, 2, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 3, 1, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(15, 1), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 10, 2, [new zhuangtaiji.WuQiAiInfo(2, 5000, 12, 300, 3, 1, 3),
+                new zhuangtaiji.WuQiAiInfo(3, 3000, 3, 100, 3, 5, 1),
+                new zhuangtaiji.WuQiAiInfo(2, 5000, 1, 100, 3, 2, 1)], 2, -1, "13:15"));
+            ztj.nextStep(0);
+            this.fc1.ztj = ztj;
+        };
+        BoSiMaoJiaXuanZhuanJZ.prototype.init2ZTJ = function () {
+            //1 创建飞船
+            this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info2, egret.Point.create(-5, 25), this.nan_du);
+            //2 创建状态机
+            var ztj = new fjztj.QuYuZTJ(this.fc2);
+            //进场
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 25), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
+            // //移动
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(25, 25), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 2, [new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 1, 3),
+                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 16, 1),
+                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 17, 1),
+                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 18, 1)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_JIAN_ING, zhuangtaiji.ZT_TYPE.NULL_T, 5, 0.3, null, 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 25), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 2, [new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 1, 3),
+                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 16, 1),
+                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 17, 1),
+                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 18, 1)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_JIAN_ING, zhuangtaiji.ZT_TYPE.NULL_T, 5, 0.3, null, 2, -1, "13:15"));
+            ztj.nextStep(0);
+            this.fc2.ztj = ztj;
+        };
+        //添加飞机到 战场
+        BoSiMaoJiaXuanZhuanJZ.prototype.addFc = function (scene) {
+            scene.dijis.push(this.fc1);
+            scene.dijis.push(this.fc2);
+        };
+        return BoSiMaoJiaXuanZhuanJZ;
+    }(juzi.JuZiGuanLi));
+    juzi.BoSiMaoJiaXuanZhuanJZ = BoSiMaoJiaXuanZhuanJZ;
+    __reflect(BoSiMaoJiaXuanZhuanJZ.prototype, "juzi.BoSiMaoJiaXuanZhuanJZ");
+})(juzi || (juzi = {}));
 //////////////////////////////////////////////////////////////////////////////////////
 //
 //  Copyright (c) 2014-present, Egret Technology.
@@ -6414,47 +6792,6 @@ var LoadingUI = (function (_super) {
     return LoadingUI;
 }(egret.Sprite));
 __reflect(LoadingUI.prototype, "LoadingUI", ["RES.PromiseTaskReporter"]);
-var juzi;
-(function (juzi) {
-    var ChaoDaSanXuanZhanJZ = (function (_super) {
-        __extends(ChaoDaSanXuanZhanJZ, _super);
-        function ChaoDaSanXuanZhanJZ(nd, scene) {
-            var _this = _super.call(this, nd) || this;
-            _this.scene = scene;
-            return _this;
-        }
-        ChaoDaSanXuanZhanJZ.prototype.initFcInfo = function () {
-            this.fc_info = FC_Console.getInfoByName(5, "chaoda_3");
-            this.init1ZTJ();
-        };
-        ChaoDaSanXuanZhanJZ.prototype.init1ZTJ = function () {
-            //1 创建飞船
-            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(-5, 10), this.nan_du);
-            //2 创建状态机
-            var ztj = new fjztj.QuYuZTJ(this.fc1);
-            //进场
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(8, 10), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(10, 11), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 1)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(11, 11), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 16)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(11, 12), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 17)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 12), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 18)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 20), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 5, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 18)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 21), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 1)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 22), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 16)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 23), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 17)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 24), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 18)], 2, -1, "13:15"));
-            ztj.nextStep(0);
-            this.fc1.ztj = ztj;
-        };
-        //添加飞机到 战场
-        ChaoDaSanXuanZhanJZ.prototype.addFc = function (scene) {
-            scene.dijis.push(this.fc1);
-        };
-        return ChaoDaSanXuanZhanJZ;
-    }(juzi.JuZiGuanLi));
-    juzi.ChaoDaSanXuanZhanJZ = ChaoDaSanXuanZhanJZ;
-    __reflect(ChaoDaSanXuanZhanJZ.prototype, "juzi.ChaoDaSanXuanZhanJZ");
-})(juzi || (juzi = {}));
 var juzi;
 (function (juzi) {
     var JuZhanZiDanJiaXuanZhanJZ = (function (_super) {
@@ -7956,7 +8293,7 @@ var shuke;
     var ShuKe = (function (_super) {
         __extends(ShuKe, _super);
         function ShuKe(battle_scene) {
-            var _this = _super.call(this, battle_scene, egret.Point.create(5, 45), GameConstant.ZHEN_YING.WO_JUN, 5, 1) || this;
+            var _this = _super.call(this, battle_scene, egret.Point.create(15, 45), GameConstant.ZHEN_YING.WO_JUN, 5, 1) || this;
             _this.wyCD = 15;
             _this.wyMark = 0;
             _this.fc_type = feichuan.FC_TYPE.SUKE;
@@ -7980,7 +8317,6 @@ var shuke;
             if (dl.dl_type == suiji.SJ_YAN_SE.RAN_LIAO) {
                 return;
             }
-            // egret.log("****掉落数据***********:" + dl.dl_type + "_" + dl.wq_type + "_" + dl.lv);
             x = mk.moKuaiPost.x;
             y = mk.moKuaiPost.y;
             // //添加模块
@@ -8042,7 +8378,7 @@ var shuke;
             if (dl.dl_type == suiji.SJ_YAN_SE.WU_QI) {
                 //普通
                 if (dl.wq_type == suiji.WQ_TYPE[0]) {
-                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, wuqi.WUQI_TYPE.PU_TONG, this);
+                    hx = new wuqi.PuTongDan(egret.Point.create(x, y), mokuai.BODY_SHAPE_TYPE.SIMPLE, this, dl.lv);
                 }
                 //散弹
                 if (dl.wq_type == suiji.WQ_TYPE[1]) {
@@ -8105,9 +8441,9 @@ var shuke;
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -8126,9 +8462,65 @@ var shuke;
             //     [1, 2, 2, 2, 3]
             // ]
         };
+        //更新飞船
+        ShuKe.prototype.upsuke = function (n) {
+            //1 装甲 2 武器 
+            // egret.log("GGGGGGGGGG:"+this.yun_tu[10][8])
+            var indx = this.getindx(n);
+            var m = this.moKuaiList[indx[0]][indx[1]];
+            if (m.moKuaiType == 2) {
+                var w = m;
+                w.level = user.UserInfo.wuqi_shengji_tianti[n];
+                w.sj_number = 30;
+            }
+            if (m.moKuaiType == 1) {
+                var r = this.moKuaiList[indx[0]][indx[1]];
+                if (r.parent) {
+                    r.parent.removeChild(r);
+                }
+                var hx = this.initSKWuQi(n, indx[1], indx[0], user.UserInfo.wuqi_shengji_tianti[n], egret.Point.create(this.yun_tu[0].length, this.yun_tu.length));
+                hx.sj_number = 30;
+            }
+        };
+        ShuKe.prototype.getindx = function (n) {
+            if (n < 4) {
+                if (n == 1) {
+                    return [10, 8];
+                }
+                if (n == 2) {
+                    return [10, 9];
+                }
+                if (n == 3) {
+                    return [10, 10];
+                }
+            }
+            if (n < 7) {
+                if (n == 4) {
+                    return [11, 8];
+                }
+                if (n == 5) {
+                    return [11, 9];
+                }
+                if (n == 6) {
+                    return [11, 10];
+                }
+            }
+            if (n < 10) {
+                if (n == 7) {
+                    return [12, 8];
+                }
+                if (n == 8) {
+                    return [12, 9];
+                }
+                if (n == 9) {
+                    return [12, 10];
+                }
+            }
+            return null;
+        };
         ShuKe.prototype.initSuKe = function () {
             this.initYunTU();
-            this.initPro(this.yun_tu);
+            this.initPro(this.yun_tu, user.UserInfo.wuqi_shengji_tianti);
         };
         ShuKe.prototype.updataPos = function () {
             _super.prototype.updataPos.call(this);
@@ -8518,25 +8910,17 @@ var test;
         }
         //画格子
         TestGrid.prototype.drawGrid = function () {
-            this.w = Tools.getPhoneW();
-            this.h = Tools.getPhoneH();
-            this.graphics.beginFill(0x000000);
-            this.graphics.drawRect(0, 0, scene.battle_sceneW, scene.battle_sceneH);
-            this.graphics.endFill();
-            // //画横格子
-            // this.graphics.lineStyle(0.2, 0xffffff);
-            // for (let i: number = 0; i < scene.battle_sceneH / 100; i++) {
-            //     this.graphics.moveTo(0, i * 100);                          // 起始点的x,y坐标
-            //     this.graphics.lineTo(scene.battle_sceneW, i * 100);
-            // }
+            // this.w = Tools.getPhoneW();
+            // this.h = Tools.getPhoneH();
+            // this.graphics.beginFill(0x000000);
+            // this.graphics.drawRect(900, 900, this.w + 1100, this.h + 1100);
             // this.graphics.endFill();
-            // //画竖格子
-            // this.graphics.lineStyle(0.2, 0xffffff);
-            // for (let i: number = 0; i < scene.battle_sceneW / 100; i++) {
-            //     this.graphics.moveTo(i * 100, 0);                          // 起始点的x,y坐标
-            //     this.graphics.lineTo(i * 100, scene.battle_sceneH);
-            // }
-            // this.graphics.endFill();
+            this.bgh = new egret.Bitmap(RES.getRes("bjh_png"));
+            this.bgh.x = 1000;
+            this.bgh.y = 1000;
+            this.bgh.scaleX = 6.5;
+            this.bgh.scaleY = 6;
+            this.sc.addChildAt(this.bgh, 0);
             //画星星
             this.init_random_xx();
         };
@@ -8544,31 +8928,31 @@ var test;
         TestGrid.prototype.init_random_xx = function () {
             for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(1.1, 1);
-                this.addChild(dd.displays[0]);
+                this.sc.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
             for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.9, 1);
-                this.addChild(dd.displays[0]);
+                this.sc.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
             for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.7, 1);
-                this.addChild(dd.displays[0]);
+                this.sc.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
             for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.3, 1);
-                this.addChild(dd.displays[0]);
+                this.sc.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
             for (var i = 0; i < 5; i++) {
                 var dd = new bj.XingXing(0.1, 1);
-                this.addChild(dd.displays[0]);
+                this.sc.addChild(dd.displays[0]);
                 this.sc.world.addBody(dd);
                 this.sc.xxList.push(dd);
             }
@@ -8586,10 +8970,49 @@ var TestScene = (function (_super) {
         //场景更新相关
         _this.up_jg = 1000;
         _this.up_mark = 0;
+        //广告
+        _this.gg = null;
+        //分享
+        _this.fx = null;
+        //商店
+        _this.shop = null;
+        //媒体奖励
+        _this.mrlb = null;
+        //奖励类型  1 广告  2 分享  3新手礼包
+        _this.jl_type = 0;
+        //碰撞间隔
+        _this.jg = 100;
+        //碰撞标记
+        _this.pzMark = 0;
+        _this.mrNumber = 50;
+        _this.meici = 111;
+        _this.is_jia = true;
+        _this.add = 0;
+        //商店触发cd
+        _this.shop_cd = 2000;
+        //随机技能权重
+        _this.jnqz = [0, 5, 9, 13, 16, 19, 21, 23, 25, 26];
+        //上品价格
+        _this.jiage = 1000;
+        //是否处于选购商品状态
+        _this.is_select = false;
+        //等级文字提示
+        _this.dji_1 = new egret.TextField();
+        _this.dji_2 = new egret.TextField();
+        _this.dji_3 = new egret.TextField();
+        //ui碰撞判断
+        _this.is_ui = false;
+        _this.zhanqu_zi = new egret.TextField();
+        _this.is_zhanqu = true; //是否可以进入战区
+        _this.is_chuji = false;
         _this.initTest();
-        _this.initGuanka();
+        // this.initGuanka();
+        _this.sjjl();
+        _this.initShop();
+        _this.initzhanqu();
         return _this;
     }
+    ;
     TestScene.getInstance = function () {
         if (TestScene.instance == null) {
             TestScene.instance = new TestScene();
@@ -8600,16 +9023,43 @@ var TestScene = (function (_super) {
         this.bcgl = new guanqia.BoCiGuanLi(this);
     };
     TestScene.prototype.initTest = function () {
-        var wp = egret.Point.create(1200, 1200);
         //背景
         var bg = new test.TestGrid(this);
         bg.x = 0;
         bg.y = 0;
-        this.addChild(bg);
+        // this.addChild(bg);
         var sk = new shuke.ShuKe(this);
         this.sk = sk;
         this.initBars();
         this.initBJG();
+        this.gg = new egret.Bitmap(RES.getRes("gg"));
+        this.fx = new egret.Bitmap(RES.getRes("fx"));
+        this.shop = new egret.Bitmap(RES.getRes("shop"));
+        this.mrlb = new egret.Bitmap(RES.getRes("mrlb"));
+        // this.mrlb.anchorOffsetX = this.mrlb.width * 0.5;
+        // this.mrlb.anchorOffsetY = this.mrlb.height * 0.5;
+    };
+    TestScene.prototype.initShop = function () {
+        if (this.jl_type == 3) {
+            this.mrlb.x = Tools.getPhoneW() * 0.15 + 1000;
+            this.mrlb.y = Tools.getPhoneH() * 0.7 + 1000;
+            this.addChild(this.mrlb);
+        }
+        if (this.jl_type == 2) {
+            this.fx.x = Tools.getPhoneW() * 0.15 + 1000;
+            this.fx.y = Tools.getPhoneH() * 0.7 + 1000;
+            this.addChild(this.fx);
+        }
+        if (this.jl_type == 1) {
+            this.gg.x = Tools.getPhoneW() * 0.15 + 1000;
+            this.gg.y = Tools.getPhoneH() * 0.7 + 1000;
+            this.addChild(this.gg);
+        }
+        this.jia_ge = new egret.TextField(); //故事背景
+        this.jia_ge.textFlow = new Array({ text: "-1000", style: { "textColor": 0xFFFF6F, "size": 30 } });
+        this.shop.x = Tools.getPhoneW() * 0.75 + 1000;
+        this.shop.y = Tools.getPhoneH() * 0.71 + 1000;
+        this.addChild(this.shop);
     };
     TestScene.prototype.initBars = function () {
         this.dpBar = new bar.DunBar(this);
@@ -8618,28 +9068,498 @@ var TestScene = (function (_super) {
         this.timeBar = new bar.TimeBar(this);
         // this.djBar = new bar.DengJiBar(this);
         this.zzBar = new bar.ZhongJianTiShiBar(this);
+        this.jinBar = new bar.JinBiBar(this, user.UserInfo.all_number);
     };
     TestScene.prototype.initBJG = function () {
         this.hg = new bj.HongGuang(this);
     };
+    //初始化战区线
+    TestScene.prototype.initzhanqu = function () {
+        this.zhanqu_xian = new egret.Shape();
+        this.zhanqu_xian.graphics.lineStyle(1, 0x16FF69);
+        this.zhanqu_xian.graphics.moveTo(1000, 1000 + Tools.getPhoneH() * 0.5);
+        this.zhanqu_xian.graphics.lineTo(1000 + Tools.getPhoneW(), 1000 + Tools.getPhoneH() * 0.5);
+        this.zhanqu_xian.graphics.endFill();
+        this.addChild(this.zhanqu_xian);
+        this.zhanqu_zi.textFlow = new Array({ text: "前往战区", style: { "textColor": 0x16FF69, "size": 20 } });
+        this.zhanqu_zi.x = 1000 + Tools.getPhoneW() * 0.628;
+        this.zhanqu_zi.y = 1000 + Tools.getPhoneH() * 0.47;
+        this.addChild(this.zhanqu_zi);
+        this.zhuanqu_tu = new egret.Bitmap(RES.getRes("zhanqu"));
+        this.zhuanqu_tu.x = 1000 + Tools.getPhoneW() * 0.6;
+        this.zhuanqu_tu.y = 1000 + Tools.getPhoneH() * 0.47;
+        this.addChild(this.zhuanqu_tu);
+    };
     TestScene.prototype.upSomeThing = function () {
-        // egret.log("LLLLLLLLLLLLLLLLL:"+suiji.GetRandomNum(0, 11))
         _super.prototype.upSomeThing.call(this);
         this.timeBar.upup();
-        if ((egret.getTimer() - this.up_mark) > this.up_jg) {
-            if (this.bcgl.is_next) {
-                this.bcgl.nextBo();
-                this.bcgl.addFc(this);
+        this.jinBar.updata();
+        //开始游戏
+        if (this.is_chuji) {
+            if ((egret.getTimer() - this.up_mark) > this.up_jg) {
+                if (this.bcgl.is_next) {
+                    this.bcgl.nextBo();
+                    this.bcgl.addFc(this);
+                }
+                this.bcgl.upSomeThing();
+                this.up_mark = egret.getTimer();
             }
-            this.bcgl.upSomeThing();
-            this.up_mark = egret.getTimer();
         }
+        this.upShop();
+        if (this.jl_type == 3) {
+            this.upMR();
+        }
+        if (this.jl_type == 1) {
+            this.upsp();
+        }
+        if (this.jl_type == 2) {
+            this.upfx();
+        }
+        //更新武器ui碰撞检测
+        if (!this.is_ui) {
+            this.upUI();
+        }
+        //---------判断是否可以进入战区---------------
+        if (this.is_zhanqu) {
+            if (this.sk.zx.y < (1000 + Tools.getPhoneH() * 0.5)) {
+                this.is_zhanqu = false;
+                this.initGuanka();
+                this.is_chuji = true;
+                //各种ui往下划出
+                if (this.shop.parent) {
+                    egret.Tween.get(this.shop).to({ "y": 1050 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.shop]);
+                }
+                if (this.fx.parent) {
+                    egret.Tween.get(this.fx).to({ "y": 1050 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.fx]);
+                }
+                if (this.mrlb.parent) {
+                    egret.Tween.get(this.mrlb).to({ "y": 1050 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.mrlb]);
+                }
+                if (this.gg.parent) {
+                    egret.Tween.get(this.gg).to({ "y": 1050 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.gg]);
+                }
+                if (this.zhanqu_xian.parent) {
+                    egret.Tween.get(this.zhanqu_xian).to({ "y": 1050 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.zhanqu_xian]);
+                }
+                if (this.zhanqu_zi.parent) {
+                    egret.Tween.get(this.zhanqu_zi).to({ "y": 1050 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.zhanqu_zi]);
+                }
+                if (this.zhuanqu_tu.parent) {
+                    egret.Tween.get(this.zhuanqu_tu).to({ "y": 800 + Tools.getPhoneH() }, 1000).call(this.remUI, this, [this.zhuanqu_tu]);
+                }
+            }
+        }
+    };
+    TestScene.prototype.remUI = function (a) {
+        if (a.parent) {
+            this.removeChild(a);
+        }
+    };
+    TestScene.prototype.upUI = function () {
+        if (this.jia1) {
+            if (this.jia1.parent) {
+                var rect1_ = this.sk.zx.getBounds();
+                rect1_.width = this.sk.zx.width * 3;
+                rect1_.height = this.sk.zx.height * 3;
+                var rect2 = this.jia1.getBounds();
+                rect1_.x = this.move_point.x - this.sk.zx.width * 1.5;
+                rect1_.y = this.move_point.y - this.sk.zx.height * 1.5;
+                rect2.x = this.jia1.x;
+                rect2.y = this.jia1.y;
+                var sspp = rect1_.intersects(rect2);
+                //碰撞检测
+                if (sspp) {
+                    this.dou_ping();
+                    this.is_ui = true;
+                    user.UserInfo.saveTianTi(this.zz[0]);
+                    this.sk.upsuke(this.zz[0]);
+                    this.moveLeve();
+                    // this.jia1.alpha
+                    egret.Tween.get(this.jia1).to({ "scaleX": 5, "scaleY": 5 }, 500).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia1]);
+                    egret.Tween.get(this.jia2).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia2]);
+                    egret.Tween.get(this.jia3).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia3]);
+                    this.is_zhanqu = true;
+                    return;
+                }
+            }
+        }
+        if (this.jia2) {
+            if (this.jia2.parent) {
+                var rect1_ = this.sk.zx.getBounds();
+                rect1_.width = this.sk.zx.width * 3;
+                rect1_.height = this.sk.zx.height * 3;
+                var rect2 = this.jia2.getBounds();
+                rect1_.x = this.move_point.x - this.sk.zx.width * 1.5;
+                rect1_.y = this.move_point.y - this.sk.zx.height * 1.5;
+                rect2.x = this.jia2.x;
+                rect2.y = this.jia2.y;
+                var sspp = rect1_.intersects(rect2);
+                //碰撞检测
+                if (sspp) {
+                    this.dou_ping();
+                    this.is_ui = true;
+                    user.UserInfo.saveTianTi(this.zz[1]);
+                    this.sk.upsuke(this.zz[1]);
+                    this.moveLeve();
+                    egret.Tween.get(this.jia2).to({ "scaleX": 5, "scaleY": 5, "alpha": 0 }, 500).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia2]);
+                    egret.Tween.get(this.jia1).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia1]);
+                    egret.Tween.get(this.jia3).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia3]);
+                    this.is_zhanqu = true;
+                    return;
+                }
+            }
+        }
+        if (this.jia3) {
+            if (this.jia3.parent) {
+                var rect1_ = this.sk.zx.getBounds();
+                rect1_.width = this.sk.zx.width * 3;
+                rect1_.height = this.sk.zx.height * 3;
+                var rect2 = this.jia3.getBounds();
+                rect1_.x = this.move_point.x - this.sk.zx.width * 1.5;
+                rect1_.y = this.move_point.y - this.sk.zx.height * 1.5;
+                rect2.x = this.jia3.x;
+                rect2.y = this.jia3.y;
+                var sspp = rect1_.intersects(rect2);
+                //碰撞检测
+                if (sspp) {
+                    this.dou_ping();
+                    this.is_ui = true;
+                    user.UserInfo.saveTianTi(this.zz[2]);
+                    this.sk.upsuke(this.zz[2]);
+                    this.moveLeve();
+                    egret.Tween.get(this.jia3).to({ "scaleX": 5, "scaleY": 5 }, 500).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia3]);
+                    egret.Tween.get(this.jia2).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia2]);
+                    egret.Tween.get(this.jia1).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).call(function (a) {
+                        if (a.parent) {
+                            a.parent.removeChild(a);
+                        }
+                    }, this, [this.jia1]);
+                    this.is_zhanqu = true;
+                    return;
+                }
+            }
+        }
+    };
+    //移除等级图标
+    TestScene.prototype.moveLeve = function () {
+        if (this.dji_1.parent) {
+            this.removeChild(this.dji_1);
+        }
+        if (this.dji_2.parent) {
+            this.removeChild(this.dji_2);
+        }
+        if (this.dji_3.parent) {
+            this.removeChild(this.dji_3);
+        }
+    };
+    //--------------------------------------商店相关----------------------------------------------
+    //商店碰撞检测
+    TestScene.prototype.upShop = function () {
+        if (!this.move_point || this.is_select) {
+            return;
+        }
+        var rect1_ = this.sk.zx.getBounds();
+        rect1_.width = this.sk.zx.width * 3;
+        rect1_.height = this.sk.zx.height * 3;
+        var rect2 = this.shop.getBounds();
+        rect1_.x = this.move_point.x - this.sk.zx.width * 1.5;
+        rect1_.y = this.move_point.y - this.sk.zx.height * 1.5;
+        rect2.x = this.shop.x;
+        rect2.y = this.shop.y;
+        var sspp = rect1_.intersects(rect2);
+        if (sspp) {
+            this.is_shop = true;
+            //逻辑出发cd 
+            if (egret.getTimer() > this.shop_cd) {
+                this.shop_cd = egret.getTimer() + 1000;
+                //如果钱够的话
+                if (!this.is_select) {
+                    if (this.jinBar.jianAllNumb(this.jiage)) {
+                        this.zz = this.randomJN();
+                        //生成ui
+                        this.addUI(this.zz);
+                        this.dou_ping();
+                        this.is_select = true;
+                        this.is_shop = false;
+                        //飘钱
+                        this.jia_ge.x = Tools.getPhoneW() * 0.75 + 1000;
+                        this.jia_ge.y = Tools.getPhoneH() * 0.66 + 1000;
+                        this.addChild(this.jia_ge);
+                        egret.Tween.get(this.jia_ge).to({ "y": Tools.getPhoneH() * 0.65 + 1000, "alpha": 0 }, 1000).call(function (jia_ge) {
+                            if (jia_ge.parent) {
+                                jia_ge.parent.removeChild(jia_ge);
+                            }
+                        }, this, [this.jia_ge]);
+                        //闪烁移除购物车
+                        egret.Tween.get(this.shop).to({ "alpha": 0 }, 200).to({ "alpha": 1 }, 200).to({ "alpha": 0 }, 200).to({ "alpha": 1 }, 200).call(function (jia_ge) {
+                            if (jia_ge.parent) {
+                                jia_ge.parent.removeChild(jia_ge);
+                            }
+                        }, this, [this.shop]);
+                        //战区锁
+                        this.is_zhanqu = false;
+                    }
+                    else {
+                        //飘钱
+                        this.jia_ge.x = Tools.getPhoneW() * 0.75 + 1000;
+                        this.jia_ge.y = Tools.getPhoneH() * 0.66 + 1000;
+                        this.addChild(this.jia_ge);
+                        egret.Tween.get(this.jia_ge).to({ "alpha": 0 }, 150).to({ "alpha": 1 }, 150).to({ "alpha": 0 }, 50).to({ "alpha": 1 }, 50).call(function (a) {
+                            if (a.parent) {
+                                a.parent.removeChild(a);
+                            }
+                        }, this, [this.jia_ge]);
+                    }
+                }
+            }
+            //商店事件
+        }
+        else {
+            this.is_shop = false;
+        }
+    };
+    TestScene.prototype.setUI = function (one, x, y) {
+        one.anchorOffsetX = one.width * 0.5;
+        one.anchorOffsetY = one.height * 0.5;
+        one.x = x;
+        one.y = y;
+        one.scaleX = 2;
+        one.scaleY = 2;
+        this.addChild(one);
+    };
+    TestScene.prototype.getSE = function (n) {
+        if (n == 1) {
+            return 0xEDFFF9;
+        }
+        if (n == 2) {
+            return 0x16FF69;
+        }
+        if (n == 3) {
+            return 0x4F9DFF;
+        }
+        if (n == 4) {
+            return 0x8223CC;
+        }
+        if (n >= 5) {
+            return 0xFFFF6F;
+        }
+        return null;
+    };
+    //添加 武器选择ui
+    TestScene.prototype.addUI = function (zz) {
+        // 1:us_wq_1 | 2:us_wq_2 | 3:us_wq_4 | 4:us_wq_7 | 5:us_wq_6 | 6:us_wq_3 | 7:us_wq_5 | 8:us_wq_8 | 9:us_wq_9
+        var lv1 = user.UserInfo.wuqi_shengji_tianti[zz[0]] + 1;
+        var se = this.getSE(lv1);
+        this.dji_1.textFlow = new Array({ text: "LV." + lv1, style: { "textColor": se, "size": 10 } });
+        this.setUI(this.dji_1, (Tools.getPhoneW() * 0.25 + 1000), Tools.getPhoneH() * 0.52 + 1000);
+        this.jia1 = new egret.Bitmap(RES.getRes(this.getuiName(zz[0])));
+        this.setUI(this.jia1, (Tools.getPhoneW() * 0.25 + 1000), Tools.getPhoneH() * 0.55 + 1000);
+        var lv2 = user.UserInfo.wuqi_shengji_tianti[zz[1]] + 1;
+        se = this.getSE(lv2);
+        this.dji_2.textFlow = new Array({ text: "LV." + lv2, style: { "textColor": se, "size": 10 } });
+        this.setUI(this.dji_2, (Tools.getPhoneW() * 0.5 + 1000), Tools.getPhoneH() * 0.52 + 1000);
+        this.jia2 = new egret.Bitmap(RES.getRes(this.getuiName(zz[1])));
+        this.setUI(this.jia2, (Tools.getPhoneW() * 0.5 + 1000), Tools.getPhoneH() * 0.55 + 1000);
+        var lv3 = user.UserInfo.wuqi_shengji_tianti[zz[2]] + 1;
+        se = this.getSE(lv3);
+        this.dji_3.textFlow = new Array({ text: "LV." + lv3, style: { "textColor": se, "size": 10 } });
+        this.setUI(this.dji_3, (Tools.getPhoneW() * 0.75 + 1000), Tools.getPhoneH() * 0.52 + 1000);
+        this.jia3 = new egret.Bitmap(RES.getRes(this.getuiName(zz[2])));
+        this.setUI(this.jia3, (Tools.getPhoneW() * 0.75 + 1000), Tools.getPhoneH() * 0.55 + 1000);
+    };
+    //返回UI图标名称
+    TestScene.prototype.getuiName = function (n) {
+        if (n == 1) {
+            return "us_wq_1";
+        }
+        if (n == 2) {
+            return "us_wq_2";
+        }
+        if (n == 3) {
+            return "us_wq_4";
+        }
+        if (n == 4) {
+            return "us_wq_7";
+        }
+        if (n == 5) {
+            return "us_wq_6";
+        }
+        if (n == 6) {
+            return "us_wq_3";
+        }
+        if (n == 7) {
+            return "us_wq_5";
+        }
+        if (n == 8) {
+            return "us_wq_8";
+        }
+        if (n == 9) {
+            return "us_wq_9";
+        }
+        return '';
+    };
+    //-------------------------------商店够买相关-----------------------------------------
+    //随机升级技能
+    TestScene.prototype.randomJN = function () {
+        var zs = [0, 0, 0];
+        for (var i = 0; i < 3; i++) {
+            for (;;) {
+                var zz = Tools.GetRandomNum(1, user.UserInfo.getmax());
+                if (zs[0] != zz && zs[1] != zz && zs[2] != zz) {
+                    zs[i] = zz;
+                    break;
+                }
+            }
+        }
+        return zs;
+    };
+    //---------------------------------------------------------------------------------
+    //幸运礼包
+    TestScene.prototype.upMR = function () {
+        if (!this.move_point) {
+            return;
+        }
+        if (this.mrNumber <= 0) {
+            this.is_jl = false;
+            if (this.mrlb.parent) {
+                this.mrlb.parent.removeChild(this.mrlb);
+            }
+            return;
+        }
+        var rect1 = this.sk.zx.getBounds();
+        var rect2 = this.mrlb.getBounds();
+        rect1.x = this.move_point.x;
+        rect1.y = this.move_point.y;
+        rect2.x = this.mrlb.x;
+        rect2.y = this.mrlb.y;
+        var sspp = rect1.intersects(rect2);
+        if (sspp) {
+            this.is_jl = true;
+            if (this.is_jia) {
+                this.jiawu();
+            }
+            else {
+                this.jianwu();
+            }
+            // if (this.add % 1 == 0) {
+            this.mrNumber--;
+            // egret.log("GGGGGGGGG:" + this.mrNumber);
+            this.addjibi(this.mrlb.x + this.mrlb.width * 0.5, this.mrlb.y + this.mrlb.height * 0.5);
+            // }
+            // this.add++;
+        }
+        else {
+            this.is_jl = false;
+            this.x = -1000;
+            this.y = -1000;
+        }
+    };
+    //观看视频 碰撞
+    TestScene.prototype.upsp = function () {
+        if (!this.move_point) {
+            return;
+        }
+        var rect1 = this.sk.zx.getBounds();
+        var rect2 = this.gg.getBounds();
+        rect1.x = this.move_point.x;
+        rect1.y = this.move_point.y;
+        rect2.x = this.gg.x;
+        rect2.y = this.gg.y;
+        var sspp = rect1.intersects(rect2);
+        if (sspp) {
+            this.is_jl = true;
+            //观看广告事件
+        }
+        else {
+            this.is_jl = false;
+        }
+    };
+    //分享 碰撞
+    TestScene.prototype.upfx = function () {
+        if (!this.move_point) {
+            return;
+        }
+        var rect1 = this.sk.zx.getBounds();
+        var rect2 = this.fx.getBounds();
+        rect1.x = this.move_point.x;
+        rect1.y = this.move_point.y;
+        rect2.x = this.fx.x;
+        rect2.y = this.fx.y;
+        var sspp = rect1.intersects(rect2);
+        if (sspp) {
+            this.is_jl = true;
+            //分享事件
+        }
+        else {
+            this.is_jl = false;
+        }
+    };
+    //胖短是否可以出发碰撞
+    TestScene.prototype.isPZ = function () {
+        return (egret.getTimer() - this.pzMark) > this.jg;
+    };
+    //-------------------------------------------------------------------------------------
+    //-----------------随机奖励----------------------------------------
+    //随机奖励
+    TestScene.prototype.sjjl = function () {
+        var r = Tools.GetRandomNum(1, 25);
+        if (r <= 10) {
+            this.jl_type = 1;
+            return;
+        }
+        if (r > 10 && r <= 20) {
+            this.jl_type = 2;
+            return;
+        }
+        this.jl_type = 3;
+    };
+    TestScene.prototype.jiawu = function () {
+        this.x += 5;
+        this.y -= 5;
+        this.is_jia = false;
+    };
+    TestScene.prototype.jianwu = function () {
+        this.x -= 5;
+        this.y += 5;
+        this.is_jia = true;
     };
     //抖屏
     TestScene.prototype.dou_ping = function () {
-        var x = this.x;
-        var y = this.y;
-        egret.Tween.get(this).to({ "x": x + 5, "y": y - 5 }, 50).to({ "x": x - 5, "y": y + 5 }, 50).to({ "x": x + 5, "y": y - 5 }, 50).to({ "x": x - 5, "y": y + 5 }, 50).call(this.gui_wei, this, [x, y]);
+        var x = -1000;
+        var y = -1000;
+        egret.Tween.get(this).to({ "x": x + 5, "y": y - 5 }, 50).to({ "x": x - 5, "y": y + 5 }, 50).to({ "x": x + 5, "y": y - 5 }, 50).to({ "x": x - 5, "y": y + 5 }, 50).to({ "x": x + 5, "y": y - 5 }, 50).call(this.gui_wei, this, [x, y]);
     };
     //归位
     TestScene.prototype.gui_wei = function (x, y) {
@@ -8651,6 +9571,26 @@ var TestScene = (function (_super) {
         if (shp.parent) {
             this.removeChild(shp);
         }
+    };
+    //添加金币图标
+    TestScene.prototype.addjibi = function (x, y) {
+        var xx = Tools.GetRandomNum(-50, 50);
+        var yy = Tools.GetRandomNum(-50, 50);
+        var jinbi = new egret.Bitmap(RES.getRes("jt"));
+        jinbi.x = x + xx;
+        jinbi.y = yy + y;
+        jinbi.anchorOffsetX = jinbi.width * 0.5;
+        jinbi.anchorOffsetY = jinbi.height * 0.5;
+        jinbi.scaleX = 2;
+        jinbi.scaleY = 2;
+        this.addChild(jinbi);
+        egret.Tween.get(jinbi).to({ "x": x + xx, "y": y + yy }, 500).to({ "x": Tools.getPhoneW() * 0.99 + 1000, "y": Tools.getPhoneH() * 0.02 + 1000, "scaleX": 0.8, "scaleY": 0.8 }, 700).call(this.dell, this, [jinbi]);
+    };
+    TestScene.prototype.dell = function (d) {
+        if (d.parent) {
+            d.parent.removeChild(d);
+        }
+        this.jinBar.addAllNumb(this.meici);
     };
     TestScene.instance = null;
     return TestScene;
@@ -8816,13 +9756,50 @@ var Tools;
     }
     Tools.spliceColor = spliceColor;
 })(Tools || (Tools = {}));
+var user;
+(function (user) {
+    // let d = new Date().getTime();
+    // this.bitmap.texture = RES.getRes(name);
+    var UserInfo = (function () {
+        function UserInfo() {
+        }
+        //获取最大随机数
+        UserInfo.getmax = function () {
+            for (var i = 0; i < UserInfo.indx_number.length; i++) {
+                if (UserInfo.add_number < UserInfo.indx_number[i]) {
+                    return i - 1;
+                }
+            }
+            return 9;
+        };
+        //保存金币
+        UserInfo.saveJinBi = function (n) {
+            UserInfo.all_number = n;
+        };
+        //保存天梯图
+        UserInfo.saveTianTi = function (n) {
+            UserInfo.wuqi_shengji_tianti[n] += 1;
+        };
+        UserInfo.add_number = 18; //拢共够买了几次
+        UserInfo.indx_number = [-1, -1, -1, -1, 2, 4, 6, 8, 10, 12]; //够买次数对应开放的武器数量
+        UserInfo.mei_ri_jiangli_time = 0; //每日奖励领取时间
+        UserInfo.mei_ri_jiangli_time_cd = 1000 * 60 * 5; //奖励领取间隔 目前是 5个小时一次
+        UserInfo.wuqi_shengji_tianti = [0, 1, 2, 0, 5, 0, 6, 0, 0, 0]; //武器升级天梯图
+        //当前的总金币数量
+        UserInfo.all_number = 1000;
+        return UserInfo;
+    }());
+    user.UserInfo = UserInfo;
+    __reflect(UserInfo.prototype, "user.UserInfo");
+})(user || (user = {}));
 var wuqi;
 (function (wuqi) {
     var PuTongDan = (function (_super) {
         __extends(PuTongDan, _super);
-        function PuTongDan(mokaiPos, shType, wuqii_type, fc) {
-            var _this = _super.call(this, mokaiPos, shType, "us_wq_1", wuqii_type, fc) || this;
+        function PuTongDan(mokaiPos, shType, fc, level) {
+            var _this = _super.call(this, mokaiPos, shType, "us_wq_1", wuqi.WUQI_TYPE.PU_TONG, fc) || this;
             _this.sudu = 10;
+            _this.level = level;
             return _this;
         }
         PuTongDan.prototype.fashe = function (angel, suke, now) {
@@ -9459,16 +10436,12 @@ var wjwq;
                 if (!zj) {
                     zj = ff;
                     if (ff.hx) {
-                        jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+                        jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.dd.x, this.fc.dd.y));
                     }
                     continue;
                 }
-                if (!ff.hx) {
-                }
-                if (!ff.hx.x) {
-                }
                 //根据 距离判断先打哪个飞机
-                var ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+                var ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.dd.x, this.fc.dd.y));
                 if (ju_li < jl) {
                     zj = ff;
                 }
@@ -9761,23 +10734,21 @@ var wjwq;
             var jl = -1;
             for (var _i = 0, _a = this.fc.battle_scene.dijis; _i < _a.length; _i++) {
                 var ff = _a[_i];
-                if (!zj) {
-                    zj = ff;
-                    if (ff.hx) {
-                        jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
-                    }
-                    continue;
-                }
                 if (!ff) {
-                    egret.log("FFFFFFFFFF");
                     return;
                 }
                 if (!ff.hx) {
-                    egret.log("HHHHHHHHHH");
                     return;
                 }
+                if (!zj) {
+                    zj = ff;
+                    if (ff.hx) {
+                        jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.pt.x, this.fc.pt.y));
+                    }
+                    continue;
+                }
                 //根据 距离判断先打哪个飞机
-                var ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+                var ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.pt.x, this.fc.pt.y));
                 if (ju_li < jl) {
                     zj = ff;
                 }
@@ -10528,46 +11499,49 @@ var zy;
 (function (zy) {
     var ZhuYe = (function (_super) {
         __extends(ZhuYe, _super);
-        function ZhuYe() {
+        function ZhuYe(mian) {
             var _this = _super.call(this) || this;
-            _this.fen_xiang = new egret.TextField(); //分享
+            // public fen_xiang: egret.TextField = new egret.TextField();//分享
             _this.gu_shi_bei_jing = new egret.TextField(); //故事背景
             _this.ren_wu = new egret.TextField(); //任务
             _this.kai_shi = new egret.TextField(); //开始
             _this.wu_qi = new egret.TextField(); //武器
             _this.chou_jiang = new egret.TextField(); //抽奖
             _this.da_shang = new egret.TextField(); //打赏
-            _this.vio = new egret.TextField(); //vip
+            // public vio: egret.TextField = new egret.TextField();//vip
             _this.pai_hang = new egret.TextField(); //排行
+            //子页面
+            _this.zym = null;
             _this.init();
+            _this.mian = mian;
             return _this;
         }
         ZhuYe.prototype.init = function () {
-            egret.log("KKKKKKKKKKKKKK");
             this.width = Tools.getPhoneW();
             this.height = Tools.getPhoneH();
             var bg = new zy.BeiJing();
             bg.x = 0;
             bg.y = 0;
             this.addChild(bg);
-            this.initFenXiang();
+            // this.initFenXiang();
             this.initYouXiBeiJing();
             this.iniRenWu();
             this.initKaiShi();
             this.initWuQi();
             this.initChouJiang();
             this.initdashang();
-            this.initVIP();
+            // this.initVIP();
             this.initPaiHang();
         };
         //初始化分享
-        ZhuYe.prototype.initFenXiang = function () {
-            this.fen_xiang.textFlow = new Array({ text: "分享", style: { underline: true, "textColor": 0xEDFFF9 } });
-            this.fen_xiang.lineSpacing = 20;
-            this.addChild(this.fen_xiang);
-            this.fen_xiang.x = Tools.getPhoneW() * 0.01;
-            this.fen_xiang.y = Tools.getPhoneH() * 0.1;
-        };
+        // public initFenXiang() {
+        //     this.fen_xiang.textFlow = new Array<egret.ITextElement>(
+        //         { text: "分享", style: { underline: true, "textColor": 0xEDFFF9 } })
+        //     this.fen_xiang.lineSpacing = 20;
+        //     this.addChild(this.fen_xiang);
+        //     this.fen_xiang.x = Tools.getPhoneW() * 0.01
+        //     this.fen_xiang.y = Tools.getPhoneH() * 0.1;
+        // }
         //简介
         ZhuYe.prototype.initYouXiBeiJing = function () {
             this.gu_shi_bei_jing.textFlow = new Array({ text: "简介", style: { underline: true, "textColor": 0xEDFFF9 } });
@@ -10575,6 +11549,15 @@ var zy;
             this.addChild(this.gu_shi_bei_jing);
             this.gu_shi_bei_jing.x = Tools.getPhoneW() * 0.01;
             this.gu_shi_bei_jing.y = Tools.getPhoneH() * 0.15;
+            //添加点击事件
+            this.gu_shi_bei_jing.touchEnabled = true;
+            this.gu_shi_bei_jing.addEventListener(egret.TouchEvent.TOUCH_TAP, this.jianjieOnT, this);
+        };
+        ZhuYe.prototype.jianjieOnT = function () {
+            egret.Tween.get(this.gu_shi_bei_jing).to({ "scaleX": 1.1, "scaleY": 1.1 }, 100).to({ "scaleX": 1, "scaleY": 1 }, 100);
+            this.rem_zi();
+            this.zym = new zy.JianJieMi(this);
+            this.addChild(this.zym);
         };
         //任务
         ZhuYe.prototype.iniRenWu = function () {
@@ -10591,6 +11574,15 @@ var zy;
             this.addChild(this.kai_shi);
             this.kai_shi.x = Tools.getPhoneW() * 0.01;
             this.kai_shi.y = Tools.getPhoneH() * 0.25;
+            //添加点击事件
+            this.kai_shi.touchEnabled = true;
+            this.kai_shi.addEventListener(egret.TouchEvent.TOUCH_TAP, this.kaishiOnT, this);
+        };
+        ZhuYe.prototype.kaishiOnT = function () {
+            egret.Tween.get(this.kai_shi).to({ "scaleX": 1.1, "scaleY": 1.1 }, 100).to({ "scaleX": 1, "scaleY": 1 }, 100);
+            this.rem_zi();
+            this.zym = new zy.kaishiMi(this);
+            this.addChild(this.zym);
         };
         //武器
         ZhuYe.prototype.initWuQi = function () {
@@ -10617,13 +11609,14 @@ var zy;
             this.da_shang.y = Tools.getPhoneH() * 0.4;
         };
         //vip
-        ZhuYe.prototype.initVIP = function () {
-            this.vio.textFlow = new Array({ text: "终身VIP", style: { underline: true, "textColor": 0xEDFFF9 } });
-            this.vio.lineSpacing = 20;
-            this.addChild(this.vio);
-            this.vio.x = Tools.getPhoneW() * 0.01;
-            this.vio.y = Tools.getPhoneH() * 0.45;
-        };
+        // public initVIP() {
+        //     this.vio.textFlow = new Array<egret.ITextElement>(
+        //         { text: "终身VIP", style: { underline: true, "textColor": 0xEDFFF9 } })
+        //     this.vio.lineSpacing = 20;
+        //     this.addChild(this.vio);
+        //     this.vio.x = Tools.getPhoneW() * 0.01
+        //     this.vio.y = Tools.getPhoneH() * 0.45;
+        // }
         //排行
         ZhuYe.prototype.initPaiHang = function () {
             this.pai_hang.textFlow = new Array({ text: "排行", style: { underline: true, "textColor": 0xEDFFF9 } });
@@ -10632,11 +11625,122 @@ var zy;
             this.pai_hang.x = Tools.getPhoneW() * 0.01;
             this.pai_hang.y = Tools.getPhoneH() * 0.5;
         };
+        //结束界面 移除相关绑定
+        ZhuYe.prototype.end = function () {
+        };
+        //切换界面 
+        ZhuYe.prototype.qie = function () {
+            // let testSen: TestScene = new TestScene();
+            // this.mian.stage.removeChild(this);
+            // this.mian.stage.addChild(testSen)
+            // testSen.x = -scene.scene_anch_x;
+            // testSen.y = -scene.scene_anch_y;
+        };
+        //移除子页面
+        ZhuYe.prototype.rem_zi = function () {
+            if (!this.zym) {
+                return;
+            }
+            if (!this.zym.parent) {
+                this.zym = null;
+                return;
+            }
+            this.zym.parent.removeChild(this.zym);
+            this.zym = null;
+        };
         return ZhuYe;
     }(egret.DisplayObjectContainer));
     zy.ZhuYe = ZhuYe;
     __reflect(ZhuYe.prototype, "zy.ZhuYe");
 })(zy || (zy = {}));
+var zy;
+(function (zy) {
+    var JianJieMi = (function (_super) {
+        __extends(JianJieMi, _super);
+        function JianJieMi(z) {
+            var _this = _super.call(this, z) || this;
+            _this.kai_shi = new egret.TextField(); //开始
+            _this.init();
+            return _this;
+        }
+        JianJieMi.prototype.init = function () {
+            this.initKaiShi();
+        };
+        JianJieMi.prototype.initKaiShi = function () {
+            this.kai_shi.textFlow = new Array(
+            // { text: "简介 ", style: { "textColor": 0xEDFFF9 } },
+            { text: "\n" }, { text: "这是一款，策略射击类游戏。游戏的终极目标只有一个 ,", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "收集太阳能晶体（通过击毁外星生物获得）强化飞船武器系统，", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "从而在战斗中获得更多分数霸榜好友圈。是不是很刺激！！！（咳咳）", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "故事发生在2048年冬天，太阳系闯入了大量未知生物。", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "它们漂浮在太空中以吸食太阳能为生，", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "随着它们不间断的吸食,太阳逐渐暗淡下去，", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "地球终日笼罩在黄昏色的阳光下。", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "要不了多久太阳便会熄灭，于是人类为了守卫太阳系，", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "决定发起一次总攻彻底赶走这些外星生物，", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "这次总攻代号叫做“黎明”。", style: { "textColor": 0xEDFFF9, "size": 15 } }, { text: "\n" }, { text: "对了观看广告以及分享可以加快游戏进程记得试一试呦", style: { "textColor": 0xEDFFF9, "size": 15 } });
+            this.kai_shi.lineSpacing = 10;
+            this.addChild(this.kai_shi);
+            this.kai_shi.x = Tools.getPhoneW() * 0.2;
+            this.kai_shi.y = Tools.getPhoneH() * 0.01;
+            // this.kai_shi.x = this.kai_shi.y = 150;
+            this.kai_shi.border = true;
+            this.kai_shi.wordWrap = true;
+            this.kai_shi.multiline = true;
+            this.addChild(this.kai_shi);
+        };
+        return JianJieMi;
+    }(zy.ziyeMi));
+    zy.JianJieMi = JianJieMi;
+    __reflect(JianJieMi.prototype, "zy.JianJieMi");
+})(zy || (zy = {}));
+var zy;
+(function (zy) {
+    var kaishiMi = (function (_super) {
+        __extends(kaishiMi, _super);
+        function kaishiMi(z) {
+            var _this = _super.call(this, z) || this;
+            _this.kai_shi = new egret.TextField(); //开始
+            _this.init();
+            return _this;
+        }
+        kaishiMi.prototype.init = function () {
+            this.initKaiShi();
+        };
+        kaishiMi.prototype.initKaiShi = function () {
+            this.kai_shi.textFlow = new Array({ text: "出击", style: { underline: true, "textColor": 0xEDFFF9 } });
+            this.kai_shi.lineSpacing = 20;
+            this.addChild(this.kai_shi);
+            this.kai_shi.x = Tools.getPhoneW() * 0.5;
+            this.kai_shi.y = Tools.getPhoneH() * 0.5;
+            //添加点击事件
+            this.kai_shi.touchEnabled = true;
+            this.kai_shi.addEventListener(egret.TouchEvent.TOUCH_TAP, this.kaishiOnT, this);
+        };
+        kaishiMi.prototype.kaishiOnT = function () {
+            egret.Tween.get(this.kai_shi).to({ "scaleX": 1.1, "scaleY": 1.1 }, 100).to({ "scaleX": 1, "scaleY": 1 }, 100);
+            this.z.end();
+            this.z.qie();
+            this.z = null;
+        };
+        return kaishiMi;
+    }(zy.ziyeMi));
+    zy.kaishiMi = kaishiMi;
+    __reflect(kaishiMi.prototype, "zy.kaishiMi");
+})(zy || (zy = {}));
+var ai;
+(function (ai) {
+    /**
+     * 实时瞄准 ai
+     */
+    var ShiShiMiaoZhunAi = (function (_super) {
+        __extends(ShiShiMiaoZhunAi, _super);
+        function ShiShiMiaoZhunAi(fc, mt, xz, mz) {
+            return _super.call(this, fc, mt, xz, mz) || this;
+        }
+        ShiShiMiaoZhunAi.prototype.doUpData = function (time) {
+            if (!this.hang_up) {
+                _super.prototype.doUpData.call(this, time);
+                var angle = Math.atan2((this.suke.position[1] - this.fc.position[1]), (this.suke.position[0] - this.fc.position[0])) + Math.PI * 0.5;
+                this.fc.angle = angle;
+            }
+        };
+        return ShiShiMiaoZhunAi;
+    }(ai.AiBase));
+    ai.ShiShiMiaoZhunAi = ShiShiMiaoZhunAi;
+    __reflect(ShiShiMiaoZhunAi.prototype, "ai.ShiShiMiaoZhunAi");
+})(ai || (ai = {}));
 var zidan;
 (function (zidan) {
     var ChangDingZiDan = (function (_super) {
@@ -10764,7 +11868,7 @@ var zidan;
             _this.damping = 0;
             _this.fc = fc;
             _this.bit_name = "us_zd_3";
-            _this.sudu = 3;
+            _this.sudu = 5;
             _this.angularVelocity = 5;
             return _this;
         }
@@ -10788,16 +11892,18 @@ var zidan;
                 return;
             }
             if ((egret.getTimer() - this.mark_time) < this.qi_dong) {
+                egret.log("qi_dong:" + this.f + " -- " + this.velocity[1]);
                 _super.prototype.weiyi.call(this, this.bit_name);
                 this.force = [0, this.f];
                 return;
             }
             this.is_go = true;
-            if ((egret.getTimer() - (this.mark_time + this.qi_dong)) < this.qi_dong && this.is_go) {
-                _super.prototype.weiyi.call(this, this.bit_name);
-                this.force = [0, this.f];
-                return;
-            }
+            // if ((egret.getTimer() - (this.mark_time + this.qi_dong)) < this.qi_dong && this.is_go) {
+            //     super.weiyi(this.bit_name);
+            //     egret.log("is_go:" + this.f + " -- " + this.velocity[1])
+            //     this.force = [0, this.f];
+            //     return;
+            // }
             if (this.js) {
                 this.js = false;
                 if (this.fc.position[0] > this.position[0]) {
@@ -11472,71 +12578,43 @@ var zidan;
 })(zidan || (zidan = {}));
 var juzi;
 (function (juzi) {
-    var BoSiMaoJiaXuanZhuanJZ = (function (_super) {
-        __extends(BoSiMaoJiaXuanZhuanJZ, _super);
-        function BoSiMaoJiaXuanZhuanJZ(nd, scene) {
+    var ChaoDaSanXuanZhanJZ = (function (_super) {
+        __extends(ChaoDaSanXuanZhanJZ, _super);
+        function ChaoDaSanXuanZhanJZ(nd, scene) {
             var _this = _super.call(this, nd) || this;
             _this.scene = scene;
             return _this;
         }
-        BoSiMaoJiaXuanZhuanJZ.prototype.initFcInfo = function () {
-            this.fc_info = FC_Console.getInfoByName(3, "zhong_10");
+        ChaoDaSanXuanZhanJZ.prototype.initFcInfo = function () {
+            this.fc_info = FC_Console.getInfoByName(5, "chaoda_3");
             this.init1ZTJ();
-            this.fc_info2 = FC_Console.getInfoByName(3, "zhong_11");
-            this.init2ZTJ();
         };
-        BoSiMaoJiaXuanZhuanJZ.prototype.init1ZTJ = function () {
+        ChaoDaSanXuanZhanJZ.prototype.init1ZTJ = function () {
             //1 创建飞船
-            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(35, 5), this.nan_du);
+            this.fc1 = new feichuan.JuZhenJidui(this.scene, this.fc_info, egret.Point.create(-5, 10), this.nan_du);
             //2 创建状态机
             var ztj = new fjztj.QuYuZTJ(this.fc1);
             //进场
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.DAO_HANG, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 3, 1, null, 2, -1, "13:15"));
-            // //移动
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(15, 1), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 10, 2, [new zhuangtaiji.WuQiAiInfo(2, 5000, 12, 300, 3, 1, 3),
-                new zhuangtaiji.WuQiAiInfo(3, 3000, 3, 100, 3, 5, 1),
-                new zhuangtaiji.WuQiAiInfo(2, 5000, 1, 100, 3, 2, 1)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.DAO_HANG, zhuangtaiji.ZT_TYPE.NULL_T, 2, 1, null, 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.NULL_T, 3, 1, null, 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(15, 1), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.MIAO_ZHUN_SK, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 10, 2, [new zhuangtaiji.WuQiAiInfo(2, 5000, 12, 300, 3, 1, 3),
-                new zhuangtaiji.WuQiAiInfo(3, 3000, 3, 100, 3, 5, 1),
-                new zhuangtaiji.WuQiAiInfo(2, 5000, 1, 100, 3, 2, 1)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(8, 10), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(10, 11), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 1)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(11, 11), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 16)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(11, 12), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 17)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 12), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 18)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 20), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.NULL_T, 5, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 18)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(12, 21), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 1)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 22), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 16)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 23), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 17)], 2, -1, "13:15"));
+            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(13, 24), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 1, [new zhuangtaiji.WuQiAiInfo(100, 3000, 1, 100, 3, 18)], 2, -1, "13:15"));
             ztj.nextStep(0);
             this.fc1.ztj = ztj;
         };
-        BoSiMaoJiaXuanZhuanJZ.prototype.init2ZTJ = function () {
-            //1 创建飞船
-            this.fc2 = new feichuan.JuZhenJidui(this.scene, this.fc_info2, egret.Point.create(-5, 25), this.nan_du);
-            //2 创建状态机
-            var ztj = new fjztj.QuYuZTJ(this.fc2);
-            //进场
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 25), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.NULL_T, zhuangtaiji.ZT_TYPE.NULL_T, 8, 1, null, 1, -1, "特殊处理1", true));
-            // //移动
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(25, 25), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 2, [new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 1, 3),
-                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 16, 1),
-                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 17, 1),
-                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 18, 1)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_JIAN_ING, zhuangtaiji.ZT_TYPE.NULL_T, 5, 0.3, null, 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(5, 25), zhuangtaiji.ZT_TYPE.JIAN_SI_MOVE_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN, zhuangtaiji.ZT_TYPE.PU_TONG_WU_QI_ING, 8, 2, [new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 1, 3),
-                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 16, 1),
-                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 17, 1),
-                new zhuangtaiji.WuQiAiInfo(2, 3000, 3, 100, 3, 18, 1)], 2, -1, "13:15"));
-            ztj.addInfo(new zhuangtaiji.ZhuangTaiJiInfoBean(egret.Point.create(28, 5), zhuangtaiji.ZT_TYPE.YUAN_TI_DENG_DAI_ING, zhuangtaiji.ZT_TYPE.XUAN_ZHUAN_JIAN_ING, zhuangtaiji.ZT_TYPE.NULL_T, 5, 0.3, null, 2, -1, "13:15"));
-            ztj.nextStep(0);
-            this.fc2.ztj = ztj;
-        };
         //添加飞机到 战场
-        BoSiMaoJiaXuanZhuanJZ.prototype.addFc = function (scene) {
+        ChaoDaSanXuanZhanJZ.prototype.addFc = function (scene) {
             scene.dijis.push(this.fc1);
-            scene.dijis.push(this.fc2);
         };
-        return BoSiMaoJiaXuanZhuanJZ;
+        return ChaoDaSanXuanZhanJZ;
     }(juzi.JuZiGuanLi));
-    juzi.BoSiMaoJiaXuanZhuanJZ = BoSiMaoJiaXuanZhuanJZ;
-    __reflect(BoSiMaoJiaXuanZhuanJZ.prototype, "juzi.BoSiMaoJiaXuanZhuanJZ");
+    juzi.ChaoDaSanXuanZhanJZ = ChaoDaSanXuanZhanJZ;
+    __reflect(ChaoDaSanXuanZhanJZ.prototype, "juzi.ChaoDaSanXuanZhanJZ");
 })(juzi || (juzi = {}));
 ;window.Main = Main;

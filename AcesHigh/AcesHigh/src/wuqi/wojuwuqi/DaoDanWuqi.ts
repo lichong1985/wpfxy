@@ -40,19 +40,13 @@ module wjwq {
                 if (!zj) {
                     zj = ff;
                     if (ff.hx) {
-                        jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+                        jl = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.dd.x, this.fc.dd.y));
                     }
                     continue;
                 }
 
-                if (!ff.hx) {
-
-                }
-                if (!ff.hx.x) {
-
-                }
                 //根据 距离判断先打哪个飞机
-                let ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.hx.x, this.fc.hx.y));
+                let ju_li = egret.Point.distance(egret.Point.create(ff.hx.x, ff.hx.y), egret.Point.create(this.fc.dd.x, this.fc.dd.y));
                 if (ju_li < jl) {
                     zj = ff;
                 }

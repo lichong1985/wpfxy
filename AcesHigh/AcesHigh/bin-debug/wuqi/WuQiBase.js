@@ -52,6 +52,9 @@ var wuqi;
             _this.lianji_mark = 1;
             //伤害相关
             _this.hit = 5;
+            //升级特效显示次数
+            _this.sj_number = 0;
+            _this.jia_hao = 100;
             _this.moKuaiType = mokuai.MO_KUAI_TYPE.WU_QI;
             _this.wuqi_type = wuqii_type;
             // this.tx = new egret.Bitmap(RES.getRes(name));
@@ -70,6 +73,12 @@ var wuqi;
             }
         };
         WuQiBase.prototype.updata = function () {
+            if (egret.getTimer() > this.jia_hao) {
+                this.jia_hao = egret.getTimer() + 100;
+                if (this.sj_number > 0) {
+                    this.shengjiTexiao();
+                }
+            }
         };
         WuQiBase.prototype.fashe = function (angel, suke, now) {
             this.fasheTeXiao();
@@ -84,6 +93,38 @@ var wuqi;
         WuQiBase.prototype.fasheTeXiao = function () {
             var tw = egret.Tween.get(this);
             tw.to({ "scaleX": 2.2, "scaleY": 2.2, "alpha": 0.8 }, 100).call(this.huizhi);
+        };
+        //升级特效
+        WuQiBase.prototype.shengjiTexiao = function () {
+            var name = "";
+            if (this.level == 1) {
+                name = "bai_j";
+            }
+            if (this.level == 2) {
+                name = "lv_j";
+            }
+            if (this.level == 3) {
+                name = "lan_j";
+            }
+            if (this.level == 4) {
+                name = "zi_j";
+            }
+            if (this.level >= 5) {
+                name = "cheng_j";
+            }
+            var jia = new egret.Bitmap(RES.getRes(name));
+            jia.anchorOffsetX = jia.width * 0.5;
+            jia.anchorOffsetY = jia.height * 0.5;
+            jia.x = this.x;
+            jia.y = this.y;
+            this.fc.battle_scene.addChild(jia);
+            jia.scaleX;
+            egret.Tween.get(jia).to({ "alpha": 0, "scaleX": 3, "scaleY": 3 }, 1000).call(function (j) {
+                if (j.parent) {
+                    j.parent.removeChild(j);
+                }
+            }, this, [jia]);
+            this.sj_number--;
         };
         //特效回执
         WuQiBase.prototype.huizhi = function () {
